@@ -43,7 +43,7 @@ import org.springframework.util.Assert;
  * @since 1.0.0
  */
 public abstract class AbstractFunctionExecutionAutoConfigurationExtension
-		extends FunctionExecutionBeanDefinitionRegistrar implements BeanFactoryAware {
+extends FunctionExecutionBeanDefinitionRegistrar implements BeanFactoryAware {
 
 	private BeanFactory beanFactory;
 
@@ -64,7 +64,7 @@ public abstract class AbstractFunctionExecutionAutoConfigurationExtension
 	@SuppressWarnings("unused")
 	@Override
 	protected AbstractFunctionExecutionConfigurationSource newAnnotationBasedFunctionExecutionConfigurationSource(
-			AnnotationMetadata annotationMetadata) {
+	AnnotationMetadata annotationMetadata) {
 
 		AnnotationMetadata metadata = AnnotationMetadata.introspect(getConfiguration());
 

@@ -43,9 +43,9 @@ import org.springframework.geode.config.annotation.EnableSecurityManager;
 @SpringBootConfiguration
 @ConditionalOnBean(org.apache.geode.security.SecurityManager.class)
 @ConditionalOnMissingBean({
-	ClientCacheFactoryBean.class,
-	ApacheShiroSecurityConfiguration.class,
-	GeodeIntegratedSecurityConfiguration.class
+ClientCacheFactoryBean.class,
+ApacheShiroSecurityConfiguration.class,
+GeodeIntegratedSecurityConfiguration.class
 })
 @EnableSecurityManager
 //@Import(HttpBasicAuthenticationSecurityConfiguration.class)

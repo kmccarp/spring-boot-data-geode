@@ -46,7 +46,7 @@ import org.springframework.geode.function.config.GemFireFunctionExecutionAutoCon
 @SpringBootConfiguration
 @AutoConfigureAfter(ClientCacheAutoConfiguration.class)
 @ConditionalOnBean(GemFireCache.class)
-@ConditionalOnClass({ GemfireFunctionOperations.class, GemFireCache.class })
+@ConditionalOnClass({GemfireFunctionOperations.class, GemFireCache.class})
 @EnableGemfireFunctions
 @Import(GemFireFunctionExecutionAutoConfigurationRegistrar.class)
 @SuppressWarnings("unused")

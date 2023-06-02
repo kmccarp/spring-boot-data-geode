@@ -50,7 +50,8 @@ import org.springframework.util.StringUtils;
  */
 public abstract class ObjectAwareUtils {
 
-	public static final Consumer<Object> NO_OP = target -> { };
+	public static final Consumer<Object> NO_OP = target -> {
+	};
 
 	/**
 	 * Returns a {@link Consumer} capable of initializing an {@link ApplicationContextAware} {@link Object}
@@ -68,7 +69,7 @@ public abstract class ObjectAwareUtils {
 	 * @see java.util.function.Consumer
 	 */
 	public static @NonNull Consumer<Object> applicationContextAwareObjectInitializer(
-			@Nullable ApplicationContext applicationContext) {
+	@Nullable ApplicationContext applicationContext) {
 
 		return applicationContext == null ? NO_OP : target -> {
 			if (target instanceof ApplicationContextAware) {
@@ -94,7 +95,7 @@ public abstract class ObjectAwareUtils {
 	 * @see java.util.function.Consumer
 	 */
 	public static @NonNull Consumer<Object> applicationEventPublisherAwareObjectInitializer(
-			@Nullable ApplicationEventPublisher applicationEventPublisher) {
+	@Nullable ApplicationEventPublisher applicationEventPublisher) {
 
 		return applicationEventPublisher == null ? NO_OP : target -> {
 			if (target instanceof ApplicationEventPublisherAware) {

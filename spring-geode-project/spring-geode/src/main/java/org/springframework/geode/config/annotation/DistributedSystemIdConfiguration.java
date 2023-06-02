@@ -76,24 +76,24 @@ public class DistributedSystemIdConfiguration extends AbstractAnnotationConfigSu
 			AnnotationAttributes distributedSystemIdAttributes = getAnnotationAttributes(importMetadata);
 
 			setDistributedSystemId(distributedSystemIdAttributes.containsKey("value")
-				? distributedSystemIdAttributes.getNumber("value") : null);
+			? distributedSystemIdAttributes.getNumber("value") : null);
 
 			setDistributedSystemId(distributedSystemIdAttributes.containsKey("id")
-				? distributedSystemIdAttributes.getNumber("id") : null);
+			? distributedSystemIdAttributes.getNumber("id") : null);
 		}
 	}
 
 	protected void setDistributedSystemId(Integer distributedSystemId) {
 
 		this.distributedSystemId = Optional.ofNullable(distributedSystemId)
-			.filter(id -> id > -1)
-			.orElse(this.distributedSystemId);
+		.filter(id -> id > -1)
+		.orElse(this.distributedSystemId);
 	}
 
 	protected Optional<Integer> getDistributedSystemId() {
 
 		return Optional.ofNullable(this.distributedSystemId)
-			.filter(id -> id > -1);
+		.filter(id -> id > -1);
 	}
 
 	protected Logger getLogger() {
@@ -103,7 +103,7 @@ public class DistributedSystemIdConfiguration extends AbstractAnnotationConfigSu
 	private int validateDistributedSystemId(int distributedSystemId) {
 
 		Assert.isTrue(distributedSystemId >= -1 && distributedSystemId < 256,
-			String.format("Distributed System ID [%d] must be between -1 and 255", distributedSystemId));
+		String.format("Distributed System ID [%d] must be between -1 and 255", distributedSystemId));
 
 		return distributedSystemId;
 	}
@@ -117,7 +117,7 @@ public class DistributedSystemIdConfiguration extends AbstractAnnotationConfigSu
 
 			if (logger.isWarnEnabled()) {
 				logger.warn("Distributed System Id [{}] was set on the ClientCache instance, which will not have any effect",
-					distributedSystemId);
+				distributedSystemId);
 			}
 		});
 	}
@@ -126,8 +126,8 @@ public class DistributedSystemIdConfiguration extends AbstractAnnotationConfigSu
 	PeerCacheConfigurer peerCacheDistributedSystemIdConfigurer() {
 
 		return (beanName, cacheFactoryBean) ->
-			getDistributedSystemId().ifPresent(id -> cacheFactoryBean.getProperties()
-				.setProperty(GEMFIRE_DISTRIBUTED_SYSTEM_ID_PROPERTY,
-					String.valueOf(validateDistributedSystemId(id))));
+		getDistributedSystemId().ifPresent(id -> cacheFactoryBean.getProperties()
+	.setProperty(GEMFIRE_DISTRIBUTED_SYSTEM_ID_PROPERTY,
+	String.valueOf(validateDistributedSystemId(id))));
 	}
 }

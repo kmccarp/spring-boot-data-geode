@@ -65,7 +65,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		CacheDataImporterExporter mockImporterExporter = mock(CacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(importerExporter).isNotNull();
 		assertThat(importerExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
@@ -95,10 +95,10 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		ApplicationContext mockApplicationContext = mock(ApplicationContext.class);
 
 		ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter mockImporterExporter =
-			mock(ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter.class);
+		mock(ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -119,7 +119,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		CacheDataImporterExporter mockImporterExporter = mock(CacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -134,12 +134,12 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setAndGetEnvironment() {
 
 		ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter mockImporterExporter =
-			mock(ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter.class);
+		mock(ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter.class);
 
 		Environment mockEnvironment = mock(Environment.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 		assertThat(lifecycleImporterExporter.getEnvironment().orElse(null)).isNull();
@@ -166,7 +166,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		Environment mockEnvironment = mock(Environment.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 		assertThat(lifecycleImporterExporter.getEnvironment().orElse(null)).isNull();
@@ -184,12 +184,12 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setExportResourceResolverConfiguresWrappedResourceCapableCacheDataImporterExporter() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		ExportResourceResolver mockExportResourceResolver = mock(ExportResourceResolver.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -198,7 +198,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 
 		verify(lifecycleImporterExporter, times(1)).getCacheDataImporterExporter();
 		verify(mockImporterExporter, times(1))
-			.setExportResourceResolver(eq(mockExportResourceResolver));
+		.setExportResourceResolver(eq(mockExportResourceResolver));
 		verifyNoMoreInteractions(mockImporterExporter);
 		verifyNoInteractions(mockExportResourceResolver);
 	}
@@ -211,7 +211,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		ExportResourceResolver mockExportResourceResolver = mock(ExportResourceResolver.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -226,10 +226,10 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setExportResourceResolverWithNull() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -244,12 +244,12 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setImportResourceResolverConfiguresWrappedResourceCapableCacheDataImporterExporter() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		ImportResourceResolver mockImportResourceResolver = mock(ImportResourceResolver.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -258,7 +258,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 
 		verify(lifecycleImporterExporter, times(1)).getCacheDataImporterExporter();
 		verify(mockImporterExporter, times(1))
-			.setImportResourceResolver(eq(mockImportResourceResolver));
+		.setImportResourceResolver(eq(mockImportResourceResolver));
 		verifyNoMoreInteractions(mockImporterExporter);
 		verifyNoInteractions(mockImportResourceResolver);
 	}
@@ -271,7 +271,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		ImportResourceResolver mockImportResourceResolver = mock(ImportResourceResolver.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -286,10 +286,10 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setImportResourceResolverWithNull() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -304,12 +304,12 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setResourceLoaderConfiguresWrappedResourceLoaderAwareCacheDataImporterExporter() {
 
 		ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter mockImporterExporter =
-			mock(ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter.class);
+		mock(ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter.class);
 
 		ResourceLoader mockResourceLoader = mock(ResourceLoader.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -330,7 +330,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		ResourceLoader mockResourceLoader = mock(ResourceLoader.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -345,10 +345,10 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setResourceLoaderWithNull() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -363,12 +363,12 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setResourceReaderConfiguresWrappedResourceCapableCacheDataImporterExporter() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		ResourceReader mockResourceReader = mock(ResourceReader.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -389,7 +389,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		ResourceReader mockResourceReader = mock(ResourceReader.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -404,10 +404,10 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setResourceReaderWithNull() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -422,12 +422,12 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setResourceWriterConfiguresWrappedResourceCapableCacheDataImporterExporter() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		ResourceWriter mockResourceWriter = mock(ResourceWriter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -448,7 +448,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		ResourceWriter mockResourceWriter = mock(ResourceWriter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -463,10 +463,10 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void setResourceWriterWithNull() {
 
 		TestResourceCapableCacheDataImporterExporter mockImporterExporter =
-			mock(TestResourceCapableCacheDataImporterExporter.class);
+		mock(TestResourceCapableCacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter lifecycleImporterExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(lifecycleImporterExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -485,7 +485,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		CacheDataImporterExporter mockImporterExporter = mock(CacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		assertThat(importerExporter.getCacheDataImporterExporter()).isEqualTo(mockImporterExporter);
 
@@ -504,7 +504,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		CacheDataImporterExporter mockImporterExporter = mock(CacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			spy(new LifecycleAwareCacheDataImporterExporter(mockImporterExporter));
+		spy(new LifecycleAwareCacheDataImporterExporter(mockImporterExporter));
 
 		doReturn(ImportLifecycle.EAGER).when(importerExporter).resolveImportLifecycle();
 
@@ -530,7 +530,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		CacheDataImporterExporter mockImporterExporter = mock(CacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			spy(new LifecycleAwareCacheDataImporterExporter(mockImporterExporter));
+		spy(new LifecycleAwareCacheDataImporterExporter(mockImporterExporter));
 
 		doReturn(ImportLifecycle.LAZY).when(importerExporter).resolveImportLifecycle();
 
@@ -555,11 +555,11 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		Environment mockEnvironment = mock(Environment.class);
 
 		doReturn(ImportLifecycle.EAGER.name()).when(mockEnvironment)
-			.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME),
-				eq(String.class), eq(ImportLifecycle.getDefault().name()));
+		.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME),
+	eq(String.class), eq(ImportLifecycle.getDefault().name()));
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		importerExporter.setEnvironment(mockEnvironment);
 
@@ -568,8 +568,8 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		assertThat(importerExporter.resolveImportLifecycle()).isEqualTo(ImportLifecycle.EAGER);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME),
-				eq(String.class), eq(ImportLifecycle.getDefault().name()));
+		.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME),
+	eq(String.class), eq(ImportLifecycle.getDefault().name()));
 		verifyNoInteractions(mockImporterExporter);
 	}
 
@@ -581,11 +581,11 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		Environment mockEnvironment = mock(Environment.class);
 
 		doReturn("INVALID").when(mockEnvironment)
-			.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME),
-				eq(String.class), eq(ImportLifecycle.getDefault().name()));
+		.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME),
+	eq(String.class), eq(ImportLifecycle.getDefault().name()));
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		importerExporter.setEnvironment(mockEnvironment);
 
@@ -594,8 +594,8 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		assertThat(importerExporter.resolveImportLifecycle()).isEqualTo(ImportLifecycle.LAZY);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME),
-				eq(String.class), eq(ImportLifecycle.getDefault().name()));
+		.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME),
+	eq(String.class), eq(ImportLifecycle.getDefault().name()));
 		verifyNoInteractions(mockImporterExporter);
 	}
 
@@ -607,11 +607,11 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		Environment mockEnvironment = mock(Environment.class);
 
 		doReturn(42).when(mockEnvironment)
-			.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME),
-				eq(Integer.class), eq(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE));
+		.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME),
+	eq(Integer.class), eq(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE));
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		importerExporter.setEnvironment(mockEnvironment);
 
@@ -620,8 +620,8 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		assertThat(importerExporter.resolveImportPhase()).isEqualTo(42);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME),
-				eq(Integer.class), eq(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE));
+		.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME),
+	eq(Integer.class), eq(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE));
 		verifyNoInteractions(mockImporterExporter);
 	}
 
@@ -633,11 +633,11 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		Environment mockEnvironment = mock(Environment.class);
 
 		doReturn(null).when(mockEnvironment)
-			.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME),
-				eq(Integer.class), eq(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE));
+		.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME),
+	eq(Integer.class), eq(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE));
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
+		new LifecycleAwareCacheDataImporterExporter(mockImporterExporter);
 
 		importerExporter.setEnvironment(mockEnvironment);
 
@@ -646,8 +646,8 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		assertThat(importerExporter.resolveImportPhase()).isEqualTo(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME),
-				eq(Integer.class), eq(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE));
+		.getProperty(eq(LifecycleAwareCacheDataImporterExporter.CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME),
+	eq(Integer.class), eq(LifecycleAwareCacheDataImporterExporter.DEFAULT_IMPORT_PHASE));
 		verifyNoInteractions(mockImporterExporter);
 	}
 
@@ -660,7 +660,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		CacheDataImporterExporter mockImporterExporter = mock(CacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			spy(new LifecycleAwareCacheDataImporterExporter(mockImporterExporter));
+		spy(new LifecycleAwareCacheDataImporterExporter(mockImporterExporter));
 
 		doReturn(ImportLifecycle.LAZY).when(importerExporter).resolveImportLifecycle();
 
@@ -686,7 +686,7 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 		CacheDataImporterExporter mockImporterExporter = mock(CacheDataImporterExporter.class);
 
 		LifecycleAwareCacheDataImporterExporter importerExporter =
-			spy(new LifecycleAwareCacheDataImporterExporter(mockImporterExporter));
+		spy(new LifecycleAwareCacheDataImporterExporter(mockImporterExporter));
 
 		doReturn(ImportLifecycle.EAGER).when(importerExporter).resolveImportLifecycle();
 
@@ -744,16 +744,18 @@ public class LifecycleAwareCacheDataImporterExporterUnitTests {
 	public void importLifecycleToStringIsDescriptive() {
 
 		assertThat(ImportLifecycle.EAGER.toString())
-			.isEqualTo("Imports cache data during Region bean post processing, after initialization");
+		.isEqualTo("Imports cache data during Region bean post processing, after initialization");
 
 		assertThat(ImportLifecycle.LAZY.toString())
-			.isEqualTo("Imports cache data during the appropriate phase on Lifecycle start");
+		.isEqualTo("Imports cache data during the appropriate phase on Lifecycle start");
 	}
 
 	interface ApplicationContextEnvironmentAndResourceLoaderAwareCacheDataImporterExporter
-		extends ApplicationContextAware, CacheDataImporterExporter, EnvironmentAware, ResourceLoaderAware { }
+	extends ApplicationContextAware, CacheDataImporterExporter, EnvironmentAware, ResourceLoaderAware {
+	}
 
 	abstract static class TestResourceCapableCacheDataImporterExporter
-		extends ResourceCapableCacheDataImporterExporter { }
+	extends ResourceCapableCacheDataImporterExporter {
+	}
 
 }

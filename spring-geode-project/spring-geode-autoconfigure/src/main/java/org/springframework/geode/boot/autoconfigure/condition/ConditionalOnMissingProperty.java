@@ -33,7 +33,7 @@ import org.springframework.core.annotation.AliasFor;
  * @see org.springframework.context.annotation.Conditional
  * @since 1.0.0
  */
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Conditional(OnMissingPropertyCondition.class)

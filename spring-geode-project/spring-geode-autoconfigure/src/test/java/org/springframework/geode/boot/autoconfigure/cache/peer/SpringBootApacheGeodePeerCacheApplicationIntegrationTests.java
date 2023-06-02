@@ -67,8 +67,8 @@ public class SpringBootApacheGeodePeerCacheApplicationIntegrationTests extends I
 	public void peerCacheWithPeerLocalRegionAreAvailable() {
 
 		Optional.ofNullable(this.peerCache)
-			.map(it -> assertThat(GemfireUtils.isPeer(it)).isTrue())
-			.orElseThrow(() -> newIllegalStateException("Peer cache was null"));
+		.map(it -> assertThat(GemfireUtils.isPeer(it)).isTrue())
+		.orElseThrow(() -> newIllegalStateException("Peer cache was null"));
 
 		Region<Object, Object> example = this.peerCache.getRegion("/Example");
 

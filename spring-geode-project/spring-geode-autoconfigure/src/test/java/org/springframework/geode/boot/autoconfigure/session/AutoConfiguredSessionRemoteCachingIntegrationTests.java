@@ -88,12 +88,10 @@ import org.springframework.web.client.RestTemplate;
 @ActiveProfiles("session-remote")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes =  {
-		AutoConfiguredSessionRemoteCachingIntegrationTests.SessionGemFireClientConfiguration.class,
-		AutoConfiguredSessionRemoteCachingIntegrationTests.TestWebApplication.class
-	},
-	properties = "spring.session.data.gemfire.cache.client.region.shortcut=PROXY",
-	webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+classes = {AutoConfiguredSessionRemoteCachingIntegrationTests.SessionGemFireClientConfiguration.class,AutoConfiguredSessionRemoteCachingIntegrationTests.TestWebApplication.class
+},
+properties = "spring.session.data.gemfire.cache.client.region.shortcut=PROXY",
+webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @SuppressWarnings("unused")
 public class AutoConfiguredSessionRemoteCachingIntegrationTests extends ForkingClientServerIntegrationTestsSupport {
@@ -131,7 +129,7 @@ public class AutoConfiguredSessionRemoteCachingIntegrationTests extends ForkingC
 
 		assertThat(this.sessionsRegion).isNotNull();
 		assertThat(this.sessionsRegion.getName())
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME);
 		assertThat(this.sessionsRegion.getAttributes()).isNotNull();
 		assertThat(this.sessionsRegion.getAttributes().getDataPolicy()).isEqualTo(DataPolicy.EMPTY);
 	}
@@ -147,22 +145,22 @@ public class AutoConfiguredSessionRemoteCachingIntegrationTests extends ForkingC
 		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<String> response =
-			restTemplate.getForEntity(url.concat("/setter?name=MyKey&value=TEST"), String.class);
+		restTemplate.getForEntity(url.concat("/setter?name=MyKey&value=TEST"), String.class);
 
 		assertThat(response.getBody()).isEqualTo("SUCCESS");
 
 		//System.err.printf("HTTP RESPONSE HEADERS [%s]%n", response.getHeaders());
 
 		String httpHeaderWithSessionId =
-			StringUtils.collectionToCommaDelimitedString(response.getHeaders().get(HTTP_HEADER_AUTHENTICATION_INFO));
+		StringUtils.collectionToCommaDelimitedString(response.getHeaders().get(HTTP_HEADER_AUTHENTICATION_INFO));
 
 		assertThat(httpHeaderWithSessionId).contains(sessionId.get());
 		assertThat(this.sessionsRegion.keySetOnServer()).containsExactlyInAnyOrder(sessionId.get());
 
 		RequestEntity<Void> request = RequestEntity
-			.get(URI.create(url.concat("/getter?name=MyKey")))
-			.header(HTTP_HEADER_AUTHENTICATION_INFO, httpHeaderWithSessionId)
-			.build();
+		.get(URI.create(url.concat("/getter?name=MyKey")))
+		.header(HTTP_HEADER_AUTHENTICATION_INFO, httpHeaderWithSessionId)
+		.build();
 
 		response = restTemplate.exchange(request, String.class);
 
@@ -184,7 +182,7 @@ public class AutoConfiguredSessionRemoteCachingIntegrationTests extends ForkingC
 
 		@GetMapping("/attribute/setter")
 		public String setSessionAttribute(HttpSession session,
-				@RequestParam("name") String name, @RequestParam("value") String value) {
+		@RequestParam("name") String name, @RequestParam("value") String value) {
 
 			assertThat(session).isNotNull();
 			assertThat(session.getClass().getPackage().getName()).startsWith("org.springframework.session");
@@ -219,9 +217,9 @@ public class AutoConfiguredSessionRemoteCachingIntegrationTests extends ForkingC
 		public static void main(String[] args) {
 
 			new SpringApplicationBuilder(SessionGemFireServerConfiguration.class)
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 	}
 }

@@ -63,8 +63,8 @@ import example.app.crm.service.CustomerService;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = ClusterNotAvailableConfigurationIntegrationTests.GeodeClientApplication.class,
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = ClusterNotAvailableConfigurationIntegrationTests.GeodeClientApplication.class,
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class ClusterNotAvailableConfigurationIntegrationTests extends IntegrationTestsSupport {

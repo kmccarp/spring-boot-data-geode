@@ -69,8 +69,8 @@ import example.app.crm.model.Customer;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = "spring.main.cloud-platform=CLOUD_FOUNDRY",
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = "spring.main.cloud-platform=CLOUD_FOUNDRY",
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class CloudFoundryClusterNotAvailableConfigurationIntegrationTests extends IntegrationTestsSupport {
@@ -124,6 +124,7 @@ public class CloudFoundryClusterNotAvailableConfigurationIntegrationTests extend
 	@Profile("cloudfoundry-cluster-test")
 	@EnableEntityDefinedRegions(basePackageClasses = Customer.class)
 	@ClientCacheApplication(name = "CloudFoundryClusterNotAvailableConfigurationIntegrationTests")
-	static class TestGeodeConfiguration { }
+	static class TestGeodeConfiguration {
+	}
 
 }

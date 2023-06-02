@@ -44,14 +44,14 @@ public class BigDecimalSerializer extends NumberSerializers.Base<BigDecimal> {
 
 	@Override
 	public void serialize(BigDecimal value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
-			throws IOException {
+	throws IOException {
 
 		jsonGenerator.writeNumber(value);
 	}
 
 	@Override
 	public void serializeWithType(BigDecimal value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider,
-			TypeSerializer typeSerializer) throws IOException {
+	TypeSerializer typeSerializer) throws IOException {
 
 		serialize(value, jsonGenerator, serializerProvider);
 	}

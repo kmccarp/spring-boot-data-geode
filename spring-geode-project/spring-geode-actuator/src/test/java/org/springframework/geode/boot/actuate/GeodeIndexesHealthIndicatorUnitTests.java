@@ -80,12 +80,12 @@ public class GeodeIndexesHealthIndicatorUnitTests {
 		Region mockRegion = CacheMockObjects.mockRegion("MockRegion", DataPolicy.PARTITION);
 
 		IndexStatistics mockIndexStatistics = IndexMockObjects.mockIndexStatistics(226,
-			100000, 6000, 1024000L, 51515L,
-			512, 2048L, 4096L);
+		100000, 6000, 1024000L, 51515L,
+		512, 2048L, 4096L);
 
 		Index mockIndex = IndexMockObjects.mockIndex("MockIndex", "/Example",
-			"id", "one, two", mockRegion, mockIndexStatistics,
-			IndexType.PRIMARY_KEY.getGemfireIndexType());
+		"id", "one, two", mockRegion, mockIndexStatistics,
+		IndexType.PRIMARY_KEY.getGemfireIndexType());
 
 		Map<String, Index> mockIndexes = Collections.singletonMap("MockIndex", mockIndex);
 
@@ -110,7 +110,7 @@ public class GeodeIndexesHealthIndicatorUnitTests {
 		assertThat(healthDetails).containsEntry("geode.index.MockIndex.projection-attributes", "one, two");
 		assertThat(healthDetails).containsEntry("geode.index.MockIndex.region", "/MockRegion");
 		assertThat(healthDetails).containsEntry("geode.index.MockIndex.type",
-			IndexType.PRIMARY_KEY.getGemfireIndexType().toString());
+		IndexType.PRIMARY_KEY.getGemfireIndexType().toString());
 		assertThat(healthDetails).containsEntry("geode.index.MockIndex.statistics.number-of-bucket-indexes", 226);
 		assertThat(healthDetails).containsEntry("geode.index.MockIndex.statistics.number-of-keys", 100000L);
 		assertThat(healthDetails).containsEntry("geode.index.MockIndex.statistics.number-of-map-index-keys", 6000L);

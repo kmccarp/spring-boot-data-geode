@@ -52,11 +52,11 @@ public abstract class ResourceUtils {
 	public static @NonNull WritableResource asStrictlyWritableResource(@Nullable Resource resource) {
 
 		return Optional.ofNullable(resource)
-			.filter(WritableResource.class::isInstance)
-			.map(WritableResource.class::cast)
-			.filter(WritableResource::isWritable)
-			.orElseThrow(() -> newIllegalStateException("Resource [%s] is not writable",
-				ResourceUtils.nullSafeGetDescription(resource)));
+		.filter(WritableResource.class::isInstance)
+		.map(WritableResource.class::cast)
+		.filter(WritableResource::isWritable)
+		.orElseThrow(() -> newIllegalStateException("Resource [%s] is not writable",
+	ResourceUtils.nullSafeGetDescription(resource)));
 	}
 
 	/**
@@ -74,8 +74,8 @@ public abstract class ResourceUtils {
 	public static Optional<WritableResource> asWritableResource(@Nullable Resource resource) {
 
 		return Optional.ofNullable(resource)
-			.filter(WritableResource.class::isInstance)
-			.map(WritableResource.class::cast);
+		.filter(WritableResource.class::isInstance)
+		.map(WritableResource.class::cast);
 	}
 
 	/**

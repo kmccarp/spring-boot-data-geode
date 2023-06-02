@@ -73,7 +73,7 @@ public class ExistingRegionTemplateByRegionAutoConfigurationIntegrationTests ext
 	private void printBeanDefinitionMetadata(String beanName) {
 
 		System.err.printf("BEAN DEFINITION METADATA [%s]%n",
-			SpringExtensions.getBeanDefinitionMetadata("exampleTemplate", this.applicationContext));
+		SpringExtensions.getBeanDefinitionMetadata("exampleTemplate", this.applicationContext));
 	}
 
 	@Test

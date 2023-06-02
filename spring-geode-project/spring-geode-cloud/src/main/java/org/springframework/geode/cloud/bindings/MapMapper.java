@@ -60,9 +60,9 @@ public class MapMapper {
 	public Source from(@NonNull String... keys) {
 
 		String[] resolvedKeys = Arrays.stream(ArrayUtils.nullSafeArray(keys, String.class))
-			.filter(StringUtils::hasText)
-			.collect(Collectors.toList())
-			.toArray(new String[0]);
+		.filter(StringUtils::hasText)
+		.collect(Collectors.toList())
+		.toArray(new String[0]);
 
 		return new Source(resolvedKeys);
 	}
@@ -91,7 +91,7 @@ public class MapMapper {
 			String[] keys = this.keys;
 
 			Assert.state(keys.length == 1,
-				String.format("Source size [%d] cannot be transformed as one argument", keys.length));
+			String.format("Source size [%d] cannot be transformed as one argument", keys.length));
 
 			Map<String, String> source = getSource();
 
@@ -105,7 +105,7 @@ public class MapMapper {
 			String[] keys = this.keys;
 
 			Assert.state(keys.length == 3,
-				String.format("Source size [%d] cannot be consumed as three arguments", keys.length));
+			String.format("Source size [%d] cannot be consumed as three arguments", keys.length));
 
 			Map<String, String> source = getSource();
 

@@ -92,9 +92,9 @@ import lombok.ToString;
  * @since 1.4.0
  */
 @RunWith(SpringRunner.class)
-@SuppressWarnings({ "unused" })
+@SuppressWarnings({"unused"})
 public class AsyncInlineCachingRegionConfigurerWithUserDefinedAsyncEventOperationRepositoryFunctionAndCustomAsyncEventErrorHandlerIntegrationTests
-		extends IntegrationTestsSupport {
+extends IntegrationTestsSupport {
 
 	private final AtomicReference<AsyncEventError> asyncEventErrorReference = new AtomicReference<>(null);
 
@@ -143,9 +143,9 @@ public class AsyncInlineCachingRegionConfigurerWithUserDefinedAsyncEventOperatio
 
 		assertThat(listener).isInstanceOf(RepositoryAsyncEventListener.class);
 		assertThat(((RepositoryAsyncEventListener<Process, Long>) listener).getAsyncEventErrorHandler())
-			.isEqualTo(this.errorHandler);
+		.isEqualTo(this.errorHandler);
 		assertThat(((RepositoryAsyncEventListener<Process, Long>) listener).getRepository())
-			.isEqualTo(this.processRepository);
+		.isEqualTo(this.processRepository);
 
 		doAnswer(invocation -> {
 
@@ -192,7 +192,7 @@ public class AsyncInlineCachingRegionConfigurerWithUserDefinedAsyncEventOperatio
 		assertThat(this.asyncEventErrorReference.get()).isNotNull();
 
 		verify(this.errorHandler, times(1))
-			.apply(eq(this.asyncEventErrorReference.getAndUpdate(value -> null)));
+		.apply(eq(this.asyncEventErrorReference.getAndUpdate(value -> null)));
 		verifyNoInteractions(this.processRepository);
 
 		assertThat(this.processes.put(process.getId(), process)).isNull();
@@ -216,36 +216,36 @@ public class AsyncInlineCachingRegionConfigurerWithUserDefinedAsyncEventOperatio
 		@Bean
 		@SuppressWarnings("unchecked")
 		AsyncInlineCachingRegionConfigurer<Process, Long> asyncInlineCachingProcessesRegionConfigurer(
-				AsyncEventErrorHandler asyncEventErrorHandler,
-				@Qualifier("processRepository") CrudRepository<Process, Long> processRepository
-		) {
+		AsyncEventErrorHandler asyncEventErrorHandler,
+		@Qualifier("processRepository") CrudRepository<Process, Long> processRepository
+) {
 
 			return AsyncInlineCachingRegionConfigurer.create(processRepository, "Processes")
-				.withAsyncEventErrorHandler(asyncEventErrorHandler)
-				.applyToListener(listener -> {
+			.withAsyncEventErrorHandler(asyncEventErrorHandler)
+			.applyToListener(listener -> {
 
-					if (listener instanceof RepositoryAsyncEventListener) {
+				if (listener instanceof RepositoryAsyncEventListener) {
 
-						RepositoryAsyncEventListener<Process, Long> repositoryListener =
-							(RepositoryAsyncEventListener<Process, Long>) listener;
+					RepositoryAsyncEventListener<Process, Long> repositoryListener =
+				(RepositoryAsyncEventListener<Process, Long>) listener;
 
-						repositoryListener.register(
-							new AbstractAsyncEventOperationRepositoryFunction<Process, Long>(repositoryListener) {
+					repositoryListener.register(
+				new AbstractAsyncEventOperationRepositoryFunction<Process, Long>(repositoryListener) {
 
-								@Override
-								public boolean canProcess(@Nullable AsyncEvent<Long, Process> event) {
-									return event != null && Operation.CONTAINS_KEY.equals(event.getOperation());
-								}
-
-								@Override
-								protected Object doRepositoryOp(@NonNull Process process) {
-									return getRepository().existsById(process.getId());
-								}
-							});
+					@Override
+					public boolean canProcess(@Nullable AsyncEvent<Long, Process> event) {
+						return event != null && Operation.CONTAINS_KEY.equals(event.getOperation());
 					}
 
-					return listener;
+					@Override
+					protected Object doRepositoryOp(@NonNull Process process) {
+						return getRepository().existsById(process.getId());
+					}
 				});
+				}
+
+				return listener;
+			});
 		}
 
 		@Bean

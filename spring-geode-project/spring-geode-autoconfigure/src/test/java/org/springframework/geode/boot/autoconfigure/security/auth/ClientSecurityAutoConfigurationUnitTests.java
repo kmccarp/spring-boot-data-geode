@@ -64,7 +64,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 	public void clientSecurityIsEnabledWhenEnablePropertyIsTrueAndCloudFoundryIsActive() {
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
+		spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
 
 		doNothing().when(environmentPostProcessor).configureSecurityContext(any(ConfigurableEnvironment.class));
 
@@ -73,27 +73,27 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		when(mockEnvironment.containsProperty(eq("VCAP_APPLICATION"))).thenReturn(true);
 
 		when(mockEnvironment.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-			eq(Boolean.class), eq(true))).thenReturn(true);
+		eq(Boolean.class), eq(true))).thenReturn(true);
 
 		environmentPostProcessor.postProcessEnvironment(mockEnvironment, null);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-				eq(Boolean.class), eq(true));
+		.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
+	eq(Boolean.class), eq(true));
 
 		verify(mockEnvironment, times(1)).containsProperty(eq("VCAP_APPLICATION"));
 
 		verify(mockEnvironment, never()).containsProperty(eq("VCAP_SERVICES"));
 
 		verify(environmentPostProcessor, times(1))
-			.configureSecurityContext(eq(mockEnvironment));
+		.configureSecurityContext(eq(mockEnvironment));
 	}
 
 	@Test
 	public void clientSecurityIsEnabledWhenEnablePropertyIsUnsetAndCloudFoundryIsActive() {
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
+		spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
 
 		doNothing().when(environmentPostProcessor).configureSecurityContext(any(ConfigurableEnvironment.class));
 
@@ -104,8 +104,8 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		environmentPostProcessor.postProcessEnvironment(mockEnvironment, null);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-				eq(Boolean.class), eq(true));
+		.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
+	eq(Boolean.class), eq(true));
 
 		verify(mockEnvironment, times(1)).containsProperty(eq("VCAP_APPLICATION"));
 		verify(mockEnvironment, times(1)).containsProperty(eq("VCAP_SERVICES"));
@@ -117,7 +117,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 	public void clientSecurityIsDisabledWhenEnablePropertyIsFalseAndCloudFoundryIsActive() {
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
+		spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
 
 		doNothing().when(environmentPostProcessor).configureSecurityContext(any(ConfigurableEnvironment.class));
 
@@ -127,13 +127,13 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		when(mockEnvironment.containsProperty(eq("VCAP_SERVICES"))).thenReturn(true);
 
 		when(mockEnvironment.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-			eq(Boolean.class), eq(true))).thenReturn(false);
+		eq(Boolean.class), eq(true))).thenReturn(false);
 
 		environmentPostProcessor.postProcessEnvironment(mockEnvironment, null);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-				eq(Boolean.class), eq(true));
+		.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
+	eq(Boolean.class), eq(true));
 
 		verify(mockEnvironment, never()).containsProperty(eq("VCAP_APPLICATION"));
 		verify(mockEnvironment, never()).containsProperty(eq("VCAP_SERVICES"));
@@ -144,7 +144,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 	public void clientSecurityIsDisabledWhenEnablePropertyIsTrueAndCloudFoundryIsNotActive() {
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
+		spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
 
 		doNothing().when(environmentPostProcessor).configureSecurityContext(any(ConfigurableEnvironment.class));
 
@@ -154,13 +154,13 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		when(mockEnvironment.containsProperty(eq("VCAP_SERVICES"))).thenReturn(false);
 
 		when(mockEnvironment.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-			eq(Boolean.class), eq(true))).thenReturn(true);
+		eq(Boolean.class), eq(true))).thenReturn(true);
 
 		environmentPostProcessor.postProcessEnvironment(mockEnvironment, null);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-				eq(Boolean.class), eq(true));
+		.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
+	eq(Boolean.class), eq(true));
 
 		verify(mockEnvironment, times(1)).containsProperty(eq("VCAP_APPLICATION"));
 		verify(mockEnvironment, times(1)).containsProperty(eq("VCAP_SERVICES"));
@@ -171,7 +171,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 	public void clientSecurityIsDisabledWhenEnablePropertyIsUnsetAndCloudFoundryIsNotActive() {
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
+		spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
 
 		doNothing().when(environmentPostProcessor).configureSecurityContext(any(ConfigurableEnvironment.class));
 
@@ -183,8 +183,8 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		environmentPostProcessor.postProcessEnvironment(mockEnvironment, null);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-				eq(Boolean.class), eq(true));
+		.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
+	eq(Boolean.class), eq(true));
 
 		verify(mockEnvironment, times(1)).containsProperty(eq("VCAP_APPLICATION"));
 		verify(mockEnvironment, times(1)).containsProperty(eq("VCAP_SERVICES"));
@@ -221,7 +221,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		when(mockEnvironment.getPropertySources()).thenReturn(propertySources);
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
+		spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
 
 		environmentPostProcessor.configureSecurityContext(mockEnvironment);
 
@@ -237,7 +237,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		assertThat(propertySource.getProperty("spring.data.gemfire.security.password")).isEqualTo("p@$$w0rd");
 		assertThat(propertySource.containsProperty("spring.data.gemfire.security.ssl.use-default-context")).isFalse();
 		assertThat(propertySource.getProperty("spring.data.gemfire.pool.locators"))
-			.isEqualTo("boombox[10334],skullbox[10334]");
+		.isEqualTo("boombox[10334],skullbox[10334]");
 		assertThat(propertySource.getProperty("spring.data.gemfire.management.use-http")).isEqualTo("true");
 		assertThat(propertySource.getProperty("spring.data.gemfire.management.require-https")).isEqualTo("true");
 		assertThat(propertySource.getProperty("spring.data.gemfire.management.http.host")).isEqualTo("cloud.skullbox.com");
@@ -275,7 +275,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		when(mockEnvironment.getPropertySources()).thenReturn(propertySources);
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
+		spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
 
 		environmentPostProcessor.configureSecurityContext(mockEnvironment);
 
@@ -291,7 +291,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		assertThat(propertySource.containsProperty("spring.data.gemfire.security.password")).isFalse();
 		assertThat(propertySource.containsProperty("spring.data.gemfire.security.ssl.use-default-context")).isFalse();
 		assertThat(propertySource.getProperty("spring.data.gemfire.pool.locators"))
-			.isEqualTo("boombox[10334],skullbox[10334]");
+		.isEqualTo("boombox[10334],skullbox[10334]");
 		assertThat(propertySource.containsProperty("spring.data.gemfire.management.use-http")).isFalse();
 		assertThat(propertySource.containsProperty("spring.data.gemfire.management.require-https")).isFalse();
 		assertThat(propertySource.containsProperty("spring.data.gemfire.management.http.host")).isFalse();
@@ -319,7 +319,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		when(mockEnvironment.getPropertySources()).thenReturn(propertySources);
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
+		spy(new AutoConfiguredCloudSecurityEnvironmentPostProcessor());
 
 		environmentPostProcessor.configureSecurityContext(mockEnvironment);
 
@@ -332,7 +332,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		assertThat(propertySource).isNotNull();
 		assertThat(propertySource.getName()).isEqualTo("boot.data.gemfire.cloudcache");
 		assertThat(Boolean.parseBoolean(String.valueOf(propertySource
-			.getProperty("spring.data.gemfire.security.ssl.use-default-context")))).isTrue();
+		.getProperty("spring.data.gemfire.security.ssl.use-default-context")))).isTrue();
 	}
 
 	@Test
@@ -355,7 +355,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		when(mockEnvironment.getProperty(anyString())).thenReturn(null);
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
+		new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
 
 		try {
 
@@ -369,7 +369,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		finally {
 
 			verify(mockEnvironment, times(1))
-				.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_CACHE_SERVICE_INSTANCE_NAME_PROPERTY));
+			.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_CACHE_SERVICE_INSTANCE_NAME_PROPERTY));
 			verify(mockEnvironment, times(1)).getPropertySources();
 			verify(propertySources, never()).addLast(any(PropertySource.class));
 		}
@@ -393,10 +393,10 @@ public class ClientSecurityAutoConfigurationUnitTests {
 
 		when(mockEnvironment.getPropertySources()).thenReturn(propertySources);
 		when(mockEnvironment.getProperty(ClientSecurityAutoConfiguration.CLOUD_CACHE_SERVICE_INSTANCE_NAME_PROPERTY))
-			.thenReturn("test-pcc");
+		.thenReturn("test-pcc");
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
+		new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
 
 		try {
 			environmentPostProcessor.configureSecurityContext(mockEnvironment);
@@ -411,7 +411,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		finally {
 
 			verify(mockEnvironment, times(1))
-				.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_CACHE_SERVICE_INSTANCE_NAME_PROPERTY));
+			.getProperty(eq(ClientSecurityAutoConfiguration.CLOUD_CACHE_SERVICE_INSTANCE_NAME_PROPERTY));
 			verify(mockEnvironment, times(1)).getPropertySources();
 			verify(propertySources, never()).addLast(any(PropertySource.class));
 		}
@@ -441,7 +441,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		environment.getPropertySources().addLast(vcapPropertySource);
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
+		new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
 
 		environmentPostProcessor.configureSecurityContext(environment);
 
@@ -449,10 +449,10 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		assertThat(environment.getProperty("spring.data.gemfire.security.password")).isEqualTo("p9@$$w0rd");
 
 		verify(environment, times(2))
-			.containsProperty(eq("spring.data.gemfire.security.username"));
+		.containsProperty(eq("spring.data.gemfire.security.username"));
 
 		verify(environment, never())
-			.containsProperty(eq("spring.data.gemfire.security.password"));
+		.containsProperty(eq("spring.data.gemfire.security.password"));
 	}
 
 	@Test
@@ -481,13 +481,13 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		PropertiesPropertySource vcapPropertySource = new PropertiesPropertySource("vcap", vcap);
 
 		PropertiesPropertySource springDataGemFirePropertySource =
-			new PropertiesPropertySource("spring.data.gemfire", springDataGemFire);
+		new PropertiesPropertySource("spring.data.gemfire", springDataGemFire);
 
 		environment.getPropertySources().addLast(vcapPropertySource);
 		environment.getPropertySources().addLast(springDataGemFirePropertySource);
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
+		new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
 
 		environmentPostProcessor.configureSecurityContext(environment);
 
@@ -495,10 +495,10 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		assertThat(environment.getProperty("spring.data.gemfire.security.password")).isEqualTo("p@55w0rd");
 
 		verify(environment, times(2))
-			.containsProperty(eq("spring.data.gemfire.security.username"));
+		.containsProperty(eq("spring.data.gemfire.security.username"));
 
 		verify(environment, times(1))
-			.containsProperty(eq("spring.data.gemfire.security.password"));
+		.containsProperty(eq("spring.data.gemfire.security.password"));
 	}
 
 	@Test(expected = IllegalStateException.class)
@@ -527,13 +527,13 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		PropertiesPropertySource vcapPropertySource = new PropertiesPropertySource("vcap", vcap);
 
 		PropertiesPropertySource springDataGemFirePropertySource =
-			new PropertiesPropertySource("spring.data.gemfire", springDataGemFire);
+		new PropertiesPropertySource("spring.data.gemfire", springDataGemFire);
 
 		environment.getPropertySources().addLast(vcapPropertySource);
 		environment.getPropertySources().addLast(springDataGemFirePropertySource);
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
+		new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
 
 		try {
 			environmentPostProcessor.configureSecurityContext(environment);
@@ -541,7 +541,7 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		catch (IllegalStateException expected) {
 
 			assertThat(expected)
-				.hasMessage("No User with name [NonExistingUser] was configured for Cloud Cache service [test-pcc]");
+			.hasMessage("No User with name [NonExistingUser] was configured for Cloud Cache service [test-pcc]");
 
 			assertThat(expected).hasNoCause();
 
@@ -549,10 +549,10 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		}
 		finally {
 			verify(environment, times(2))
-				.containsProperty(eq("spring.data.gemfire.security.username"));
+			.containsProperty(eq("spring.data.gemfire.security.username"));
 
 			verify(environment, times(1))
-				.containsProperty(eq("spring.data.gemfire.security.password"));
+			.containsProperty(eq("spring.data.gemfire.security.password"));
 		}
 	}
 
@@ -583,13 +583,13 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		PropertiesPropertySource vcapPropertySource = new PropertiesPropertySource("vcap", vcap);
 
 		PropertiesPropertySource springDataGemFirePropertySource =
-			new PropertiesPropertySource("spring.data.gemfire", springDataGemFire);
+		new PropertiesPropertySource("spring.data.gemfire", springDataGemFire);
 
 		environment.getPropertySources().addLast(vcapPropertySource);
 		environment.getPropertySources().addLast(springDataGemFirePropertySource);
 
 		AutoConfiguredCloudSecurityEnvironmentPostProcessor environmentPostProcessor =
-			new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
+		new AutoConfiguredCloudSecurityEnvironmentPostProcessor();
 
 		environmentPostProcessor.configureSecurityContext(environment);
 
@@ -597,9 +597,9 @@ public class ClientSecurityAutoConfigurationUnitTests {
 		assertThat(environment.getProperty("spring.data.gemfire.security.password")).isEqualTo("s3cUr3");
 
 		verify(environment, times(1))
-			.containsProperty(eq("spring.data.gemfire.security.username"));
+		.containsProperty(eq("spring.data.gemfire.security.username"));
 
 		verify(environment, times(1))
-			.containsProperty(eq("spring.data.gemfire.security.password"));
+		.containsProperty(eq("spring.data.gemfire.security.password"));
 	}
 }

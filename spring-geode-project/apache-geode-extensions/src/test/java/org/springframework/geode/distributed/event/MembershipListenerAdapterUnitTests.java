@@ -150,7 +150,7 @@ public class MembershipListenerAdapterUnitTests {
 		}).when(listener).handleMemberSuspect(any(MemberSuspectEvent.class));
 
 		listener.memberSuspect(this.mockDistributionManager, this.mockDistributedMember, suspectMember,
-			"The system sucks!");
+		"The system sucks!");
 
 		verify(listener, times(1)).handleMemberSuspect(isA(MemberSuspectEvent.class));
 	}
@@ -179,7 +179,7 @@ public class MembershipListenerAdapterUnitTests {
 		}).when(listener).handleQuorumLost(any(QuorumLostEvent.class));
 
 		listener.quorumLost(this.mockDistributionManager, asSet(mockMemberOne, mockMemberTwo),
-			Collections.singletonList(this.mockDistributedMember));
+		Collections.singletonList(this.mockDistributedMember));
 
 		verify(listener, times(1)).handleQuorumLost(isA(QuorumLostEvent.class));
 	}
@@ -199,7 +199,7 @@ public class MembershipListenerAdapterUnitTests {
 		verify(mockCache, times(1)).getDistributedSystem();
 		verify(this.mockDistributedSystem, times(1)).getDistributionManager();
 		verify(this.mockDistributionManager, times(1))
-			.addMembershipListener(eq(listener));
+		.addMembershipListener(eq(listener));
 	}
 
 	@Test
@@ -254,6 +254,7 @@ public class MembershipListenerAdapterUnitTests {
 		verify(this.mockDistributedSystem, times(1)).getDistributionManager();
 	}
 
-	static class TestMembershipListener extends MembershipListenerAdapter<TestMembershipListener> { }
+	static class TestMembershipListener extends MembershipListenerAdapter<TestMembershipListener> {
+	}
 
 }

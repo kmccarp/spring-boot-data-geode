@@ -71,18 +71,19 @@ import org.springframework.util.Assert;
 @SuppressWarnings("unused")
 public class LocatorsConfigurationIntegrationTests extends SpringApplicationContextIntegrationTestsSupport {
 
-	@Before @After
+	@Before
+	@After
 	public void cleanup() {
 
 		FileSystemUtils.deleteRecursive(FileSystemUtils.WORKING_DIRECTORY, file ->
-			file != null && (file.getName().contains("locator") || file.getName().contains("ConfigDiskDir")));
+		file != null && (file.getName().contains("locator") || file.getName().contains("ConfigDiskDir")));
 	}
 
 	@Test
 	public void clientCacheLocatorPropertiesAreNotPresent() {
 
 		ClientCache clientCache =
-			newApplicationContext(ClientCacheTestConfiguration.class).getBean("gemfireCache", ClientCache.class);
+		newApplicationContext(ClientCacheTestConfiguration.class).getBean("gemfireCache", ClientCache.class);
 
 		assertThat(clientCache).isNotNull();
 		assertThat(clientCache.getDistributedSystem()).isNotNull();
@@ -113,7 +114,7 @@ public class LocatorsConfigurationIntegrationTests extends SpringApplicationCont
 	public void peerCacheLocatorPropertiesArePresent() {
 
 		Cache peerCache =
-			newApplicationContext(PeerCacheTestConfiguration.class).getBean("gemfireCache", Cache.class);
+		newApplicationContext(PeerCacheTestConfiguration.class).getBean("gemfireCache", Cache.class);
 
 		assertThat(peerCache).isNotNull();
 		assertThat(peerCache.getDistributedSystem()).isNotNull();
@@ -129,7 +130,8 @@ public class LocatorsConfigurationIntegrationTests extends SpringApplicationCont
 	@EnableGemFireMockObjects
 	@ClientCacheApplication(logLevel = "error")
 	@UseLocators(remoteLocators = "remotehost[10334]")
-	static class ClientCacheTestConfiguration { }
+	static class ClientCacheTestConfiguration {
+	}
 
 	@EnableGemFireMockObjects
 	@LocatorApplication(logLevel = "error")
@@ -141,7 +143,8 @@ public class LocatorsConfigurationIntegrationTests extends SpringApplicationCont
 
 			return new BeanPostProcessor() {
 
-				@Nullable @Override
+				@Nullable
+				@Override
 				public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 
 					if (bean instanceof LocatorFactoryBean) {
@@ -157,7 +160,7 @@ public class LocatorsConfigurationIntegrationTests extends SpringApplicationCont
 		LocatorConfigurer locatorUseClusterConfigurationConfigurer() {
 
 			return (beanName, locatorFactoryBean) -> locatorFactoryBean.getGemFireProperties()
-				.setProperty("use-cluster-configuration", Boolean.FALSE.toString());
+			.setProperty("use-cluster-configuration", Boolean.FALSE.toString());
 		}
 	}
 
@@ -166,7 +169,8 @@ public class LocatorsConfigurationIntegrationTests extends SpringApplicationCont
 	@EnableGemFireMockObjects
 	@PeerCacheApplication(logLevel = "error")
 	@UseLocators(locators = "mailbox[11235],skullbox[12480]", remoteLocators = "remotehost[10334]")
-	static class PeerCacheTestConfiguration { }
+	static class PeerCacheTestConfiguration {
+	}
 
 	static class TestLocatorFactoryBean extends LocatorFactoryBean {
 
@@ -195,7 +199,7 @@ public class LocatorsConfigurationIntegrationTests extends SpringApplicationCont
 			doReturn(mockDistributedSystem).when(this.mockLocator).getDistributedSystem();
 
 			doReturn(getHostnameForClients().orElse("localhost"))
-				.when(this.mockLocator).getHostnameForClients();
+			.when(this.mockLocator).getHostnameForClients();
 
 			doReturn(getPort()).when(this.mockLocator).getPort();
 

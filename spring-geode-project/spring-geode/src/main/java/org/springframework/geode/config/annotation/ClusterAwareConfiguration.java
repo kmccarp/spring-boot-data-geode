@@ -114,7 +114,7 @@ import org.slf4j.LoggerFactory;
  * @since 1.2.0
  */
 @Configuration
-@Import({ ClusterAvailableConfiguration.class, ClusterNotAvailableConfiguration.class })
+@Import({ClusterAvailableConfiguration.class, ClusterNotAvailableConfiguration.class})
 public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport implements ImportAware {
 
 	static final boolean DEFAULT_CLUSTER_AWARE_CONDITION_MATCH = false;
@@ -131,26 +131,26 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 	static final String STRICT_MATCH_ATTRIBUTE_NAME = "strictMatch";
 
 	static final String CLUSTER_AWARE_CONFIGURATION_PROPERTY_SOURCE_NAME =
-		ClusterAwareConfiguration.class.getSimpleName().concat("PropertySource");
+	ClusterAwareConfiguration.class.getSimpleName().concat("PropertySource");
 
 	static final String SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_PROPERTY =
-		"spring.boot.data.gemfire.cluster.condition.match";
+	"spring.boot.data.gemfire.cluster.condition.match";
 
 	static final String SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_STRICT_PROPERTY =
-		"spring.boot.data.gemfire.cluster.condition.match.strict";
+	"spring.boot.data.gemfire.cluster.condition.match.strict";
 
 	static final String SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY =
-		"spring.data.gemfire.cache.client.region.shortcut";
+	"spring.data.gemfire.cache.client.region.shortcut";
 
 	private static final AtomicBoolean strictMatchConfiguration =
-		new AtomicBoolean(DEFAULT_CLUSTER_AWARE_CONDITION_STRICT_MATCH);
+	new AtomicBoolean(DEFAULT_CLUSTER_AWARE_CONDITION_STRICT_MATCH);
 
 	private static final Function<ConditionContext, Boolean> configuredMatchFunction = conditionContext ->
-		Optional.ofNullable(conditionContext)
-			.map(ConditionContext::getEnvironment)
-			.map(environment -> environment.getProperty(SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_PROPERTY,
-				Boolean.class, DEFAULT_CLUSTER_AWARE_CONDITION_MATCH))
-			.orElse(DEFAULT_CLUSTER_AWARE_CONDITION_MATCH);
+	Optional.ofNullable(conditionContext)
+.map(ConditionContext::getEnvironment)
+.map(environment -> environment.getProperty(SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_PROPERTY,
+Boolean.class, DEFAULT_CLUSTER_AWARE_CONDITION_MATCH))
+.orElse(DEFAULT_CLUSTER_AWARE_CONDITION_MATCH);
 
 	private static final Logger logger = LoggerFactory.getLogger(ClusterAwareConfiguration.class);
 
@@ -164,7 +164,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 
 	protected boolean isStrictMatchConfigured(@NonNull AnnotationAttributes enableClusterAwareAttributes) {
 		return enableClusterAwareAttributes != null
-			&& Boolean.TRUE.equals(enableClusterAwareAttributes.getBoolean(STRICT_MATCH_ATTRIBUTE_NAME));
+		&& Boolean.TRUE.equals(enableClusterAwareAttributes.getBoolean(STRICT_MATCH_ATTRIBUTE_NAME));
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 		protected static final String RUNTIME_ENVIRONMENT_NAME = "Apache Geode-based Cluster on Bare Metal";
 
 		private static @NonNull ApplicationListener<ContextClosedEvent> clusterAwareConditionResetOnContextClosedApplicationListener() {
-			return contextClosedEvent-> reset();
+			return contextClosedEvent -> reset();
 		}
 
 		/**
@@ -249,7 +249,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 		 */
 		@Override
 		public synchronized boolean matches(@NonNull ConditionContext conditionContext,
-				@NonNull AnnotatedTypeMetadata typeMetadata) {
+		@NonNull AnnotatedTypeMetadata typeMetadata) {
 
 			boolean matches = isMatch(conditionContext) || doCachedMatch(conditionContext);
 			boolean strictMatch = isStrictMatch(conditionContext, typeMetadata);
@@ -264,7 +264,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 		}
 
 		protected boolean isStrictMatch(@NonNull ConditionContext conditionContext,
-				@NonNull AnnotatedTypeMetadata typeMetadata) {
+		@NonNull AnnotatedTypeMetadata typeMetadata) {
 
 			Environment environment = conditionContext.getEnvironment();
 
@@ -277,24 +277,24 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 					String annotationName = EnableClusterAware.class.getName();
 
 					strictMatchEnabled = beanFactory != null
-						&& Arrays.stream(ArrayUtils.nullSafeArray(beanFactory.getBeanDefinitionNames(), String.class))
-							.map(beanFactory::getBeanDefinition)
-							.filter(AnnotatedBeanDefinition.class::isInstance)
-							.map(AnnotatedBeanDefinition.class::cast)
-							.map(AnnotatedBeanDefinition::getMetadata)
-							.filter(annotationMetadata -> annotationMetadata.hasAnnotation(annotationName))
-							.findFirst()
-							.map(annotationMetadata -> annotationMetadata.getAnnotationAttributes(annotationName))
-							.map(AnnotationAttributes::fromMap)
-							.map(annotationAttributes -> annotationAttributes.getBoolean(STRICT_MATCH_ATTRIBUTE_NAME))
-							.orElse(DEFAULT_CLUSTER_AWARE_CONDITION_STRICT_MATCH);
+					&& Arrays.stream(ArrayUtils.nullSafeArray(beanFactory.getBeanDefinitionNames(), String.class))
+					.map(beanFactory::getBeanDefinition)
+					.filter(AnnotatedBeanDefinition.class::isInstance)
+					.map(AnnotatedBeanDefinition.class::cast)
+					.map(AnnotatedBeanDefinition::getMetadata)
+					.filter(annotationMetadata -> annotationMetadata.hasAnnotation(annotationName))
+					.findFirst()
+					.map(annotationMetadata -> annotationMetadata.getAnnotationAttributes(annotationName))
+					.map(AnnotationAttributes::fromMap)
+					.map(annotationAttributes -> annotationAttributes.getBoolean(STRICT_MATCH_ATTRIBUTE_NAME))
+					.orElse(DEFAULT_CLUSTER_AWARE_CONDITION_STRICT_MATCH);
 				}
 
 				return strictMatchEnabled;
 			};
 
 			return environment.getProperty(SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_STRICT_PROPERTY,
-				Boolean.class, isStrictMatchEnabledFunction.apply(conditionContext.getBeanFactory()));
+			Boolean.class, isStrictMatchEnabledFunction.apply(conditionContext.getBeanFactory()));
 		}
 
 		protected boolean isStrictMatchAndNoMatches(boolean strictMatch, boolean matches) {
@@ -306,8 +306,8 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 			if (isStrictMatchAndNoMatches(strictMatch, matches)) {
 
 				String message =
-					String.format("Failed to find available cluster in [%1$s] when strictMatch was [%2$s]",
-						getRuntimeEnvironmentName(), strictMatch);
+				String.format("Failed to find available cluster in [%1$s] when strictMatch was [%2$s]",
+			getRuntimeEnvironmentName(), strictMatch);
 
 				throw new ClusterNotAvailableException(message);
 			}
@@ -334,7 +334,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 			};
 
 			UnaryOperator<Boolean> clusterAvailableUpdateFunction = currentClusterAvailable ->
-				ObjectUtils.initialize(currentClusterAvailable, evaluateConditionMatches);
+			ObjectUtils.initialize(currentClusterAvailable, evaluateConditionMatches);
 
 			return clusterAvailable.updateAndGet(clusterAvailableUpdateFunction);
 		}
@@ -342,11 +342,11 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 		protected @NonNull ConditionContext registerApplicationListener(@NonNull ConditionContext conditionContext) {
 
 			Optional.ofNullable(conditionContext)
-				.map(ConditionContext::getResourceLoader)
-				.filter(ConfigurableApplicationContext.class::isInstance)
-				.map(ConfigurableApplicationContext.class::cast)
-				.ifPresent(applicationContext -> applicationContext
-					.addApplicationListener(clusterAwareConditionResetOnContextClosedApplicationListener()));
+			.map(ConditionContext::getResourceLoader)
+			.filter(ConfigurableApplicationContext.class::isInstance)
+			.map(ConfigurableApplicationContext.class::cast)
+			.ifPresent(applicationContext -> applicationContext
+		.addApplicationListener(clusterAwareConditionResetOnContextClosedApplicationListener()));
 
 			return conditionContext;
 		}
@@ -391,15 +391,15 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 		protected ConnectionEndpointList getConnectionEndpoints(@NonNull Environment environment) {
 
 			return new ConnectionEndpointList(getDefaultConnectionEndpoints(environment))
-				.add(getConfiguredConnectionEndpoints(environment))
-				.add(getPooledConnectionEndpoints(environment));
+			.add(getConfiguredConnectionEndpoints(environment))
+			.add(getPooledConnectionEndpoints(environment));
 		}
 
 		protected List<ConnectionEndpoint> getDefaultConnectionEndpoints(@NonNull Environment environment) {
 
 			return Arrays.asList(
-				new ConnectionEndpoint(LOCALHOST, DEFAULT_CACHE_SERVER_PORT),
-				new ConnectionEndpoint(LOCALHOST, DEFAULT_LOCATOR_PORT)
+			new ConnectionEndpoint(LOCALHOST, DEFAULT_CACHE_SERVER_PORT),
+			new ConnectionEndpoint(LOCALHOST, DEFAULT_LOCATOR_PORT)
 			);
 		}
 
@@ -421,31 +421,31 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 						if (propertySource instanceof EnumerablePropertySource) {
 
 							EnumerablePropertySource<?> enumerablePropertySource =
-								(EnumerablePropertySource<?>) propertySource;
+							(EnumerablePropertySource<?>) propertySource;
 
 							String[] propertyNames = enumerablePropertySource.getPropertyNames();
 
 							Arrays.stream(ArrayUtils.nullSafeArray(propertyNames, String.class))
-								.filter(StringUtils::hasText)
-								.filter(propertyName-> pattern.matcher(propertyName).find())
-								.forEach(propertyName -> {
+							.filter(StringUtils::hasText)
+							.filter(propertyName -> pattern.matcher(propertyName).find())
+							.forEach(propertyName -> {
 
-									String propertyValue = environment.getProperty(propertyName);
+								String propertyValue = environment.getProperty(propertyName);
 
-									if (StringUtils.hasText(propertyValue)) {
+								if (StringUtils.hasText(propertyValue)) {
 
-										int defaultPort = propertyName.toLowerCase().contains("servers")
-											? DEFAULT_CACHE_SERVER_PORT
-											: DEFAULT_LOCATOR_PORT;
+									int defaultPort = propertyName.toLowerCase().contains("servers")
+								? DEFAULT_CACHE_SERVER_PORT
+								: DEFAULT_LOCATOR_PORT;
 
-										String[] propertyValueArray = propertyValue.split(",");
+									String[] propertyValueArray = propertyValue.split(",");
 
-										ConnectionEndpointList list =
-											ConnectionEndpointList.parse(defaultPort, propertyValueArray);
+									ConnectionEndpointList list =
+								ConnectionEndpointList.parse(defaultPort, propertyValueArray);
 
-										connectionEndpoints.addAll(list);
-									}
-								});
+									connectionEndpoints.addAll(list);
+								}
+							});
 						}
 					}
 				}
@@ -459,9 +459,9 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 			List<ConnectionEndpoint> pooledConnectionEndpoints = new ArrayList<>();
 
 			getPoolsFromApacheGeode().stream()
-				.filter(Objects::nonNull)
-				.map(ConnectionEndpointListBuilder::from)
-				.forEach(pooledConnectionEndpoints::addAll);
+			.filter(Objects::nonNull)
+			.map(ConnectionEndpointListBuilder::from)
+			.forEach(pooledConnectionEndpoints::addAll);
 
 			return pooledConnectionEndpoints;
 		}
@@ -480,9 +480,9 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 		Collection<Pool> getPoolsFromClientCache() {
 
 			return SimpleCacheResolver.getInstance().resolveClientCache()
-				.map(ClientCache::getDefaultPool)
-				.map(Collections::singleton)
-				.orElseGet(Collections::emptySet);
+			.map(ClientCache::getDefaultPool)
+			.map(Collections::singleton)
+			.orElseGet(Collections::emptySet);
 		}
 
 		Collection<Pool> getPoolsFromPoolManager() {
@@ -490,8 +490,8 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 			Map<String, Pool> namedPools = PoolManager.getAll();
 
 			return CollectionUtils.nullSafeMap(namedPools).values().stream()
-				.filter(Objects::nonNull)
-				.collect(Collectors.toSet());
+			.filter(Objects::nonNull)
+			.collect(Collectors.toSet());
 		}
 
 		protected int countConnections(@NonNull ConnectionEndpointList connectionEndpoints) {
@@ -500,7 +500,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 
 			for (ConnectionEndpoint connectionEndpoint : connectionEndpoints) {
 
-				try (Socket socket = connect(connectionEndpoint)){
+				try (Socket socket = connect(connectionEndpoint)) {
 
 					count += isConnected(socket) ? 1 : 0;
 
@@ -532,8 +532,8 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 			SocketAddress socketAddress = connectionEndpoint.toInetSocketAddress();
 
 			Socket socket = connectionEndpoint instanceof PoolConnectionEndpoint
-				? newSocket((PoolConnectionEndpoint) connectionEndpoint)
-				: newSocket(connectionEndpoint);
+			? newSocket((PoolConnectionEndpoint) connectionEndpoint)
+			: newSocket(connectionEndpoint);
 
 			socket.connect(socketAddress, DEFAULT_TIMEOUT_IN_MILLISECONDS);
 
@@ -556,17 +556,17 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 			Function<Throwable, Socket> ioExceptionHandlingFunction = cause -> {
 
 				String message = String.format("Failed to create Socket from PoolConnectionEndpoint [%s]",
-					poolConnectionEndpoint);
+				poolConnectionEndpoint);
 
 				throw new SocketCreationException(message, cause);
 			};
 
 			return poolConnectionEndpoint.getPool()
-				.map(Pool::getSocketFactory)
-				.map(socketFactory -> ObjectUtils.<Socket>doOperationSafely(socketFactory::createSocket,
-					ioExceptionHandlingFunction))
-				.orElseGet(() -> ObjectUtils.<Socket>doOperationSafely(() ->
-					newSocket((ConnectionEndpoint) poolConnectionEndpoint), ioExceptionHandlingFunction));
+			.map(Pool::getSocketFactory)
+			.map(socketFactory -> ObjectUtils.<Socket>doOperationSafely(socketFactory::createSocket,
+		ioExceptionHandlingFunction))
+			.orElseGet(() -> ObjectUtils.<Socket>doOperationSafely(() ->
+		newSocket((ConnectionEndpoint) poolConnectionEndpoint), ioExceptionHandlingFunction));
 		}
 
 		protected boolean close(@Nullable Socket socket) {
@@ -600,19 +600,19 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 						MutablePropertySources propertySources = ((ConfigurableEnvironment) environment).getPropertySources();
 
 						propertySources.addFirst(new MapPropertySource(CLUSTER_AWARE_CONFIGURATION_PROPERTY_SOURCE_NAME,
-							Collections.singletonMap(SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY,
-								LOCAL_CLIENT_REGION_SHORTCUT.name())));
+						Collections.singletonMap(SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY,
+					LOCAL_CLIENT_REGION_SHORTCUT.name())));
 					}
 					else {
 						System.setProperty(SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY,
-							LOCAL_CLIENT_REGION_SHORTCUT.name());
+						LOCAL_CLIENT_REGION_SHORTCUT.name());
 					}
 				}
 			}
 		}
 
 		protected void configureTopology(@NonNull Environment environment,
-				@NonNull ConnectionEndpointList connectionEndpoints, int connectionCount) {
+		@NonNull ConnectionEndpointList connectionEndpoints, int connectionCount) {
 
 			if (isNotConnected(connectionCount)) {
 				configureEnvironment(environment);
@@ -623,7 +623,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 
 			if (logger.isInfoEnabled()) {
 				logger.info("Spring Boot application is running in a client/server topology"
-					+ " using a standalone Apache Geode-based cluster");
+				+ " using a standalone Apache Geode-based cluster");
 			}
 		}
 
@@ -631,7 +631,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 
 			if (logger.isInfoEnabled()) {
 				logger.info("Cluster was found; Auto-configuration made [{}] successful connection(s)",
-					connectionCount);
+				connectionCount);
 			}
 
 			logConnectedRuntimeEnvironment(logger);
@@ -651,7 +651,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 
 			if (logger.isInfoEnabled()) {
 				logger.info("No cluster was found; Spring Boot application will run in standalone [LOCAL] mode"
-					+ " unless strictMode is false and the application is running in a Cloud-managed Environment");
+				+ " unless strictMode is false and the application is running in a Cloud-managed Environment");
 			}
 		}
 	}
@@ -671,21 +671,21 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 				collect(poolSocketAddresses, pool.getServers());
 
 				poolSocketAddresses.stream()
-					.map(ConnectionEndpoint::from)
-					.map(PoolConnectionEndpoint::from)
-					.map(it -> it.with(pool))
-					.forEach(list::add);
+				.map(ConnectionEndpoint::from)
+				.map(PoolConnectionEndpoint::from)
+				.map(it -> it.with(pool))
+				.forEach(list::add);
 			}
 
 			return list;
 		}
 
 		private static <T extends Collection<InetSocketAddress>> T collect(@NonNull T collection,
-				@NonNull Collection<InetSocketAddress> socketAddressesToCollect) {
+		@NonNull Collection<InetSocketAddress> socketAddressesToCollect) {
 
 			CollectionUtils.nullSafeCollection(socketAddressesToCollect).stream()
-				.filter(Objects::nonNull)
-				.forEach(collection::add);
+			.filter(Objects::nonNull)
+			.forEach(collection::add);
 
 			return collection;
 		}
@@ -729,7 +729,7 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 			PoolConnectionEndpoint that = (PoolConnectionEndpoint) obj;
 
 			return super.equals(that)
-				&& this.getPool().equals(that.getPool());
+			&& this.getPool().equals(that.getPool());
 		}
 
 		/**
@@ -751,14 +751,15 @@ public class ClusterAwareConfiguration extends AbstractAnnotationConfigSupport i
 		@Override
 		public String toString() {
 			return String.format("ConnectionEndpoint [%1$s] from Pool [%2$s]",
-				super.toString(), getPool().map(Pool::getName).orElse(""));
+			super.toString(), getPool().map(Pool::getName).orElse(""));
 		}
 	}
 
 	@SuppressWarnings("unused")
 	protected static class SocketCreationException extends RuntimeException {
 
-		protected SocketCreationException() { }
+		protected SocketCreationException() {
+		}
 
 		protected SocketCreationException(String message) {
 			super(message);

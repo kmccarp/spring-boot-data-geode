@@ -43,7 +43,7 @@ import org.springframework.data.gemfire.tests.mock.annotation.EnableGemFireMockO
  * @since 1.4.1
  */
 public class StrictMatchingClusterNotAvailableConfigurationIntegrationTests
-		extends SpringBootApplicationIntegrationTestsSupport {
+extends SpringBootApplicationIntegrationTestsSupport {
 
 	@AfterClass
 	public static void tearDown() {
@@ -63,7 +63,7 @@ public class StrictMatchingClusterNotAvailableConfigurationIntegrationTests
 			assertThat(expected).isInstanceOf(ClusterNotAvailableException.class);
 
 			assertThat(expected).hasMessage("Failed to find available cluster in [%s] when strictMatch was [true]",
-				ClusterAwareConfiguration.ClusterAwareCondition.RUNTIME_ENVIRONMENT_NAME);
+			ClusterAwareConfiguration.ClusterAwareCondition.RUNTIME_ENVIRONMENT_NAME);
 
 			assertThat(expected).hasNoCause();
 
@@ -71,13 +71,14 @@ public class StrictMatchingClusterNotAvailableConfigurationIntegrationTests
 		}
 		finally {
 			assertThat(System.getProperties())
-				.doesNotContainKeys(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
+			.doesNotContainKeys(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
 		}
 	}
 
 	@ClientCacheApplication
 	@EnableGemFireMockObjects
 	@EnableClusterAware(strictMatch = true)
-	static class TestGeodeClientConfiguration { }
+	static class TestGeodeClientConfiguration {
+	}
 
 }

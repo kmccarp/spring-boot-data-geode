@@ -67,8 +67,8 @@ public abstract class CacheUtils {
 		assertThat(region).isNotNull();
 
 		return isClientRegion(region)
-			? clientRegionValues(region)
-			: localRegionValues(region);
+		? clientRegionValues(region)
+		: localRegionValues(region);
 	}
 
 	/**
@@ -85,8 +85,8 @@ public abstract class CacheUtils {
 	private static <T> Collection<T> clientRegionValues(Region<?, T> region) {
 
 		return isProxyRegion(region)
-			? clientRegionValuesFromServer(region)
-			: localRegionValues(region);
+		? clientRegionValuesFromServer(region)
+		: localRegionValues(region);
 	}
 
 	/**
@@ -137,7 +137,7 @@ public abstract class CacheUtils {
 	}
 
 	private static <K, V> Map<K, V> nullSafeMap(Map<K, V> map) {
-		return map != null ? map :Collections.emptyMap();
+		return map != null ? map : Collections.emptyMap();
 	}
 
 	private static <T> Set<T> nullSafeSet(Set<T> set) {
@@ -178,7 +178,7 @@ public abstract class CacheUtils {
 	public static boolean isClientRegion(Region<?, ?> region) {
 
 		return region != null
-			&& (isClientCache(region.getRegionService()) || isRegionWithPool(region));
+		&& (isClientCache(region.getRegionService()) || isRegionWithPool(region));
 	}
 
 	/**
@@ -232,9 +232,9 @@ public abstract class CacheUtils {
 	public static boolean isProxyRegion(Region<?, ?> region) {
 
 		return region != null
-			&& region.getAttributes() != null
-			&& (DataPolicy.EMPTY.equals(region.getAttributes().getDataPolicy())
-			|| isRegionWithPool(region));
+		&& region.getAttributes() != null
+		&& (DataPolicy.EMPTY.equals(region.getAttributes().getDataPolicy())
+		|| isRegionWithPool(region));
 	}
 
 	/**
@@ -251,9 +251,9 @@ public abstract class CacheUtils {
 	public static boolean isRegionWithPool(Region<?, ?> region) {
 
 		return Optional.ofNullable(region)
-			.map(Region::getAttributes)
-			.map(RegionAttributes::getPoolName)
-			.filter(CacheUtils::hasText)
-			.isPresent();
+		.map(Region::getAttributes)
+		.map(RegionAttributes::getPoolName)
+		.filter(CacheUtils::hasText)
+		.isPresent();
 	}
 }

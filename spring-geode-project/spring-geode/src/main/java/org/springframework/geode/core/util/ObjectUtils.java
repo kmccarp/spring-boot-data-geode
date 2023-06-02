@@ -75,15 +75,15 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 		Assert.notNull(type, "Class type must not be null");
 
 		Object target = source instanceof PdxInstance
-			? ((PdxInstance) source).getObject()
-			: source;
+		? ((PdxInstance) source).getObject()
+		: source;
 
 		return target == null ? null
-			: Optional.of(target)
-				.filter(type::isInstance)
-				.map(type::cast)
-				.orElseThrow(() -> newIllegalArgumentException("Object [%s] is not an instance of type [%s]",
-					nullSafeClassName(target), type.getName()));
+		: Optional.of(target)
+		.filter(type::isInstance)
+		.map(type::cast)
+		.orElseThrow(() -> newIllegalArgumentException("Object [%s] is not an instance of type [%s]",
+	nullSafeClassName(target), type.getName()));
 	}
 
 	/**
@@ -150,10 +150,10 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 	 * @see java.util.function.Supplier
 	 */
 	public static <T> T doOperationSafely(@NonNull ExceptionThrowingOperation<T> operation,
-			@NonNull Supplier<T> valueSupplier) {
+	@NonNull Supplier<T> valueSupplier) {
 
 		Function<Throwable, T> exceptionHandlingFunction = cause ->
-			returnValueThrowOnNull(valueSupplier.get(), newIllegalStateException(cause, "Failed to execute operation"));
+		returnValueThrowOnNull(valueSupplier.get(), newIllegalStateException(cause, "Failed to execute operation"));
 
 		return doOperationSafely(operation, exceptionHandlingFunction);
 	}
@@ -173,7 +173,7 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 	 * @see java.lang.Throwable
 	 */
 	public static <T> T doOperationSafely(@NonNull ExceptionThrowingOperation<T> operation,
-			@NonNull Function<Throwable, T> exceptionHandlingFunction) {
+	@NonNull Function<Throwable, T> exceptionHandlingFunction) {
 
 		try {
 			return operation.run();
@@ -204,9 +204,9 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 	public static Optional<Method> findMethod(@NonNull Class<?> type, @NonNull String methodName, Object... args) {
 
 		return Arrays.stream(nullSafeArray(type.getDeclaredMethods(), Method.class))
-			.filter(methodNameMatchesPredicate(methodName))
-			.filter(argumentsMatchParameterTypesPredicate(args))
-			.findFirst();
+		.filter(methodNameMatchesPredicate(methodName))
+		.filter(argumentsMatchParameterTypesPredicate(args))
+		.findFirst();
 	}
 
 	private static Predicate<Method> argumentsMatchParameterTypesPredicate(Object... args) {
@@ -265,7 +265,7 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 		}
 
 		throw newIllegalArgumentException("No field with name [%s] exists on object of type [%s]",
-			fieldName, ObjectUtils.nullSafeClassName(obj));
+		fieldName, ObjectUtils.nullSafeClassName(obj));
 	}
 
 	/**
@@ -330,12 +330,12 @@ public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 	public static <T> T invoke(Object obj, String methodName) {
 
 		return (T) Optional.ofNullable(obj)
-			.map(Object::getClass)
-			.map(type -> ReflectionUtils.findMethod(type, methodName))
-			.map(ObjectUtils::makeAccessible)
-			.map(method -> ReflectionUtils.invokeMethod(method, obj))
-			.orElseThrow(() -> newIllegalArgumentException("Method [%1$s] on Object of type [%2$s] not found",
-				methodName, org.springframework.util.ObjectUtils.nullSafeClassName(obj)));
+		.map(Object::getClass)
+		.map(type -> ReflectionUtils.findMethod(type, methodName))
+		.map(ObjectUtils::makeAccessible)
+		.map(method -> ReflectionUtils.invokeMethod(method, obj))
+		.orElseThrow(() -> newIllegalArgumentException("Method [%1$s] on Object of type [%2$s] not found",
+	methodName, org.springframework.util.ObjectUtils.nullSafeClassName(obj)));
 	}
 
 	/**

@@ -138,7 +138,7 @@ public class EnvironmentMapAdapter extends AbstractMap<String, String> {
 		}
 
 		throw newUnsupportedOperationException("Unable to determine the entrySet from the Environment [%s]",
-			getEnvironment().getClass().getName());
+		getEnvironment().getClass().getName());
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class EnvironmentMapAdapter extends AbstractMap<String, String> {
 		@Override
 		public String setValue(String value) {
 			throw newUnsupportedOperationException("Setting the value of Environment property [%s] is not supported",
-				getKey());
+			getKey());
 		}
 	}
 }

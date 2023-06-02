@@ -56,8 +56,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("MAPPING_PDX_SERIALIZER")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = "spring.application.name=MappingPdxSerializerPdxSerializationAutoConfigurationIntegrationTests",
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = "spring.application.name=MappingPdxSerializerPdxSerializationAutoConfigurationIntegrationTests",
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class MappingPdxSerializerPdxSerializationAutoConfigurationIntegrationTests extends IntegrationTestsSupport {
@@ -70,13 +70,14 @@ public class MappingPdxSerializerPdxSerializationAutoConfigurationIntegrationTes
 
 		assertThat(this.cache).isNotNull();
 		assertThat(this.cache.getName())
-			.isEqualTo(MappingPdxSerializerPdxSerializationAutoConfigurationIntegrationTests.class.getSimpleName());
+		.isEqualTo(MappingPdxSerializerPdxSerializationAutoConfigurationIntegrationTests.class.getSimpleName());
 		assertThat(this.cache.getPdxSerializer()).isInstanceOf(MappingPdxSerializer.class);
 	}
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
 	@Profile("MAPPING_PDX_SERIALIZER")
-	static class TestGeodeConfiguration { }
+	static class TestGeodeConfiguration {
+	}
 
 }

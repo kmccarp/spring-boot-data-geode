@@ -59,7 +59,7 @@ public abstract class AbstractTlsEnabledAutoConfigurationIntegrationTests extend
 	public void environmentContainsSpringDataGeodeSecuritySslUseDefaultContextProperty() {
 
 		assertThat(this.environment.getProperty("spring.data.gemfire.security.ssl.use-default-context",
-			Boolean.class, false)).isTrue();
+		Boolean.class, false)).isTrue();
 	}
 
 	@Test
@@ -70,6 +70,6 @@ public abstract class AbstractTlsEnabledAutoConfigurationIntegrationTests extend
 		assertThat(distributedSystem).isNotNull();
 		assertThat(distributedSystem.getProperties()).isNotNull();
 		assertThat(distributedSystem.getProperties().getProperty(ConfigurationProperties.SSL_USE_DEFAULT_CONTEXT, "false"))
-			.isEqualTo("true");
+		.isEqualTo("true");
 	}
 }

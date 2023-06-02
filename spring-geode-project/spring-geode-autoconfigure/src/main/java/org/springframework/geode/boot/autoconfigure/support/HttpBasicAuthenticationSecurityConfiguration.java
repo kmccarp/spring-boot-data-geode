@@ -69,10 +69,10 @@ public class HttpBasicAuthenticationSecurityConfiguration {
 	private static final String DEFAULT_PASSWORD = DEFAULT_USERNAME;
 
 	private static final String SPRING_DATA_GEMFIRE_SECURITY_USERNAME_PROPERTY =
-		"spring.data.gemfire.security.username";
+	"spring.data.gemfire.security.username";
 
 	private static final String SPRING_DATA_GEMFIRE_SECURITY_PASSWORD_PROPERTY =
-		"spring.data.gemfire.security.password";
+	"spring.data.gemfire.security.password";
 
 	@Bean
 	public Authenticator authenticator(Environment environment) {
@@ -83,10 +83,10 @@ public class HttpBasicAuthenticationSecurityConfiguration {
 			protected PasswordAuthentication getPasswordAuthentication() {
 
 				String username =
-					environment.getProperty(SPRING_DATA_GEMFIRE_SECURITY_USERNAME_PROPERTY, DEFAULT_USERNAME);
+				environment.getProperty(SPRING_DATA_GEMFIRE_SECURITY_USERNAME_PROPERTY, DEFAULT_USERNAME);
 
 				String password =
-					environment.getProperty(SPRING_DATA_GEMFIRE_SECURITY_PASSWORD_PROPERTY, DEFAULT_PASSWORD);
+				environment.getProperty(SPRING_DATA_GEMFIRE_SECURITY_PASSWORD_PROPERTY, DEFAULT_PASSWORD);
 
 				return new PasswordAuthentication(username, password.toCharArray());
 			}
@@ -102,21 +102,22 @@ public class HttpBasicAuthenticationSecurityConfiguration {
 
 		return new BeanPostProcessor() {
 
-			@Nullable @Override
+			@Nullable
+			@Override
 			public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 
 				if (bean instanceof ClusterConfigurationConfiguration.ClusterSchemaObjectInitializer) {
 
 					Optional.of(bean)
-						.map(schemaObjectInitializer -> invokeMethod(schemaObjectInitializer, "getSchemaObjectContext"))
-						.filter(ClusterConfigurationConfiguration.SchemaObjectContext.class::isInstance)
-						.map(schemaObjectContext -> invokeMethod(schemaObjectContext, "getGemfireAdminOperations"))
-						.filter(RestHttpGemfireAdminTemplate.class::isInstance)
-						.map(gemfireAdminTemplate -> invokeMethod(gemfireAdminTemplate, "getRestOperations"))
-						.filter(RestTemplate.class::isInstance)
-						.map(RestTemplate.class::cast)
-						.ifPresent(restTemplate -> registerInterceptor(restTemplate,
-							new SecurityAwareClientHttpRequestInterceptor(environment)));
+					.map(schemaObjectInitializer -> invokeMethod(schemaObjectInitializer, "getSchemaObjectContext"))
+					.filter(ClusterConfigurationConfiguration.SchemaObjectContext.class::isInstance)
+					.map(schemaObjectContext -> invokeMethod(schemaObjectContext, "getGemfireAdminOperations"))
+					.filter(RestHttpGemfireAdminTemplate.class::isInstance)
+					.map(gemfireAdminTemplate -> invokeMethod(gemfireAdminTemplate, "getRestOperations"))
+					.filter(RestTemplate.class::isInstance)
+					.map(RestTemplate.class::cast)
+					.ifPresent(restTemplate -> registerInterceptor(restTemplate,
+				new SecurityAwareClientHttpRequestInterceptor(environment)));
 				}
 
 				return bean;
@@ -129,11 +130,11 @@ public class HttpBasicAuthenticationSecurityConfiguration {
 
 		ExceptionThrowingOperation<T> operation = () ->
 
-			ObjectUtils.findMethod(target.getClass(), methodName, args)
-				.map(ObjectUtils::makeAccessible)
-				.map(method -> (T) ReflectionUtils.invokeMethod(method,
-					ObjectUtils.resolveInvocationTarget(target, method), args))
-				.orElse(null);
+		ObjectUtils.findMethod(target.getClass(), methodName, args)
+	.map(ObjectUtils::makeAccessible)
+	.map(method -> (T) ReflectionUtils.invokeMethod(method,
+	ObjectUtils.resolveInvocationTarget(target, method), args))
+	.orElse(null);
 
 		Function<Throwable, T> exceptionHandlingFunction = cause -> null;
 
@@ -141,7 +142,7 @@ public class HttpBasicAuthenticationSecurityConfiguration {
 	}
 
 	protected RestTemplate registerInterceptor(RestTemplate restTemplate,
-			ClientHttpRequestInterceptor clientHttpRequestInterceptor) {
+	ClientHttpRequestInterceptor clientHttpRequestInterceptor) {
 
 		restTemplate.getInterceptors().add(clientHttpRequestInterceptor);
 
@@ -173,7 +174,7 @@ public class HttpBasicAuthenticationSecurityConfiguration {
 
 		@Override
 		public ClientHttpResponse intercept(HttpRequest request, byte[] body,
-				ClientHttpRequestExecution execution) throws IOException {
+		ClientHttpRequestExecution execution) throws IOException {
 
 			if (isAuthenticationEnabled()) {
 

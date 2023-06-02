@@ -38,26 +38,26 @@ import org.springframework.geode.cache.support.RepositoryCacheLoaderWriterSuppor
 @SuppressWarnings("unused")
 public class RepositoryCacheLoader<T, ID> extends RepositoryCacheLoaderWriterSupport<T, ID> {
 
-  protected static final String CACHE_LOAD_EXCEPTION_MESSAGE = "Error while loading Entity [%s] with Repository [%s]";
+	protected static final String CACHE_LOAD_EXCEPTION_MESSAGE = "Error while loading Entity [%s] with Repository [%s]";
 
-  public RepositoryCacheLoader(CrudRepository<T, ID> repository) {
-    super(repository);
-  }
+	public RepositoryCacheLoader(CrudRepository<T, ID> repository) {
+		super(repository);
+	}
 
-  @Override
-  public T load(LoaderHelper<ID, T> helper) throws CacheLoaderException {
+	@Override
+	public T load(LoaderHelper<ID, T> helper) throws CacheLoaderException {
 
-    try {
-      return getRepository().findById(helper.getKey()).orElse(null);
-    }
-    catch (Exception cause) {
-      throw newCacheRuntimeException(() -> String.format(CACHE_LOAD_EXCEPTION_MESSAGE,
-          helper.getKey(), getRepository().getClass().getName()), cause);
-    }
-  }
+		try {
+			return getRepository().findById(helper.getKey()).orElse(null);
+		}
+		catch (Exception cause) {
+			throw newCacheRuntimeException(() -> String.format(CACHE_LOAD_EXCEPTION_MESSAGE,
+			helper.getKey(), getRepository().getClass().getName()), cause);
+		}
+	}
 
-  @Override
-  protected CacheRuntimeException newCacheRuntimeException(Supplier<String> messageSupplier, Throwable cause) {
-    return new CacheLoaderException(messageSupplier.get(), cause);
-  }
+	@Override
+	protected CacheRuntimeException newCacheRuntimeException(Supplier<String> messageSupplier, Throwable cause) {
+		return new CacheLoaderException(messageSupplier.get(), cause);
+	}
 }

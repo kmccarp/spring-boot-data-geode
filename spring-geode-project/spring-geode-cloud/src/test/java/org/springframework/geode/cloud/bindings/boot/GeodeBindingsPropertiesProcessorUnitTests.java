@@ -51,23 +51,23 @@ public class GeodeBindingsPropertiesProcessorUnitTests {
 	public void processMapsCloudPropertiesToFrameworkPropertiesCorrectly() {
 
 		String propertyName = String.format(Guards.SPRING_CLOUD_BOOT_BINDINGS_TYPE_ENABLED_PROPERTY,
-			GeodeBindingsPropertiesProcessor.TYPE);
+		GeodeBindingsPropertiesProcessor.TYPE);
 
 		Environment mockEnvironment = mock(Environment.class);
 
 		doReturn(true)
-			.when(mockEnvironment).getProperty(eq(propertyName), eq(Boolean.class), eq(true));
+		.when(mockEnvironment).getProperty(eq(propertyName), eq(Boolean.class), eq(true));
 
-		Path mockPath= mock(Path.class);
+		Path mockPath = mock(Path.class);
 
 		Map<String, String> secret = MapBuilder.<String, String>newMapBuilder()
-			.put(Binding.TYPE, GeodeBindingsPropertiesProcessor.TYPE)
-			.put("gemfire.security-username", "DarthVader")
-			.put("gemfire.security-password", "s5!thL0rd")
-			.put("gemfire.locators", "mustafar[61616]")
-			.put("gemfire.http-service-bind-address", "10.100.101.69")
-			.put("gemfire.http-service-port", "7070")
-			.build();
+		.put(Binding.TYPE, GeodeBindingsPropertiesProcessor.TYPE)
+		.put("gemfire.security-username", "DarthVader")
+		.put("gemfire.security-password", "s5!thL0rd")
+		.put("gemfire.locators", "mustafar[61616]")
+		.put("gemfire.http-service-bind-address", "10.100.101.69")
+		.put("gemfire.http-service-port", "7070")
+		.build();
 
 		Binding testBinding = new Binding("gemfire-test-binding-name", mockPath, secret);
 
@@ -80,18 +80,18 @@ public class GeodeBindingsPropertiesProcessorUnitTests {
 		bindingsPropertiesProcessor.process(mockEnvironment, testBindings, properties);
 
 		assertThat(properties)
-			.containsEntry("spring.data.gemfire.security.username", secret.get("gemfire.security-username"))
-			.containsEntry("spring.data.gemfire.security.password", secret.get("gemfire.security-password"))
-			.containsEntry("spring.data.gemfire.pool.locators", secret.get("gemfire.locators"))
-			.containsEntry("spring.data.gemfire.management.http.host", secret.get("gemfire.http-service-bind-address"))
-			.containsEntry("spring.data.gemfire.management.http.port", secret.get("gemfire.http-service-port"));
+		.containsEntry("spring.data.gemfire.security.username", secret.get("gemfire.security-username"))
+		.containsEntry("spring.data.gemfire.security.password", secret.get("gemfire.security-password"))
+		.containsEntry("spring.data.gemfire.pool.locators", secret.get("gemfire.locators"))
+		.containsEntry("spring.data.gemfire.management.http.host", secret.get("gemfire.http-service-bind-address"))
+		.containsEntry("spring.data.gemfire.management.http.port", secret.get("gemfire.http-service-port"));
 
 		assertThat(Boolean.TRUE.equals(properties.get("spring.data.gemfire.management.require-https"))).isTrue();
 		assertThat(Boolean.TRUE.equals(properties.get("spring.data.gemfire.management.use-http"))).isTrue();
 		assertThat(Boolean.TRUE.equals(properties.get("spring.data.gemfire.security.ssl.use-default-context"))).isTrue();
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(propertyName), eq(Boolean.class), eq(true));
+		.getProperty(eq(propertyName), eq(Boolean.class), eq(true));
 
 		verifyNoMoreInteractions(mockEnvironment);
 	}
@@ -100,17 +100,17 @@ public class GeodeBindingsPropertiesProcessorUnitTests {
 	public void processDoesNotMapPropertiesWhenGemFireTypeIsDisabled() {
 
 		String propertyName = String.format(Guards.SPRING_CLOUD_BOOT_BINDINGS_TYPE_ENABLED_PROPERTY,
-			GeodeBindingsPropertiesProcessor.TYPE);
+		GeodeBindingsPropertiesProcessor.TYPE);
 
 		Environment mockEnvironment = mock(Environment.class);
 
 		doReturn(false)
-			.when(mockEnvironment).getProperty(eq(propertyName), eq(Boolean.class), eq(true));
+		.when(mockEnvironment).getProperty(eq(propertyName), eq(Boolean.class), eq(true));
 
-		Path mockPath= mock(Path.class);
+		Path mockPath = mock(Path.class);
 
 		Binding testBinding = new Binding("gemfire-test-binding-name", mockPath,
-			Collections.singletonMap(Binding.TYPE, GeodeBindingsPropertiesProcessor.TYPE));
+		Collections.singletonMap(Binding.TYPE, GeodeBindingsPropertiesProcessor.TYPE));
 
 		Bindings testBindings = new Bindings(testBinding);
 
@@ -123,7 +123,7 @@ public class GeodeBindingsPropertiesProcessorUnitTests {
 		assertThat(properties).isEmpty();
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(propertyName), eq(Boolean.class), eq(true));
+		.getProperty(eq(propertyName), eq(Boolean.class), eq(true));
 
 		verifyNoMoreInteractions(mockEnvironment);
 	}
@@ -132,17 +132,17 @@ public class GeodeBindingsPropertiesProcessorUnitTests {
 	public void processDoesNotMapPropertiesWhenGemFireTypeIsNotPresent() {
 
 		String propertyName = String.format(Guards.SPRING_CLOUD_BOOT_BINDINGS_TYPE_ENABLED_PROPERTY,
-			GeodeBindingsPropertiesProcessor.TYPE);
+		GeodeBindingsPropertiesProcessor.TYPE);
 
 		Environment mockEnvironment = mock(Environment.class);
 
 		doReturn(true)
-			.when(mockEnvironment).getProperty(eq(propertyName), eq(Boolean.class), eq(true));
+		.when(mockEnvironment).getProperty(eq(propertyName), eq(Boolean.class), eq(true));
 
-		Path mockPath= mock(Path.class);
+		Path mockPath = mock(Path.class);
 
 		Binding testBinding = new Binding("mock-test-binding-name", mockPath,
-			Collections.singletonMap(Binding.TYPE, "mock"));
+		Collections.singletonMap(Binding.TYPE, "mock"));
 
 		Bindings testBindings = new Bindings(testBinding);
 
@@ -155,7 +155,7 @@ public class GeodeBindingsPropertiesProcessorUnitTests {
 		assertThat(properties).isEmpty();
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(propertyName), eq(Boolean.class), eq(true));
+		.getProperty(eq(propertyName), eq(Boolean.class), eq(true));
 
 		verifyNoMoreInteractions(mockEnvironment);
 	}

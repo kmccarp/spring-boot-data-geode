@@ -42,20 +42,21 @@ public class TestAuthInitialize implements AuthInitialize {
 
 	@Override
 	public Properties getCredentials(Properties securityProperties, DistributedMember server, boolean isPeer)
-			throws AuthenticationFailedException {
+	throws AuthenticationFailedException {
 
 		Properties credentials = new Properties();
 
 		credentials.setProperty(GeodeConstants.USERNAME,
-			securityProperties.getProperty(GeodeConstants.USERNAME, DEFAULT_USERNAME));
+		securityProperties.getProperty(GeodeConstants.USERNAME, DEFAULT_USERNAME));
 
 		credentials.setProperty(GeodeConstants.PASSWORD,
-			securityProperties.getProperty(GeodeConstants.PASSWORD, DEFAULT_PASSWORD));
+		securityProperties.getProperty(GeodeConstants.PASSWORD, DEFAULT_PASSWORD));
 
 		return credentials;
 	}
 
 	@Override
-	public void close() { }
+	public void close() {
+	}
 
 }

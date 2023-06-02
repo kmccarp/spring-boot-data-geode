@@ -90,13 +90,13 @@ import org.slf4j.LoggerFactory;
 @SpringBootConfiguration
 @AutoConfigureBefore(ClientCacheAutoConfiguration.class)
 @Conditional(SslAutoConfiguration.EnableSslCondition.class)
-@ConditionalOnClass({ CacheFactoryBean.class, GemFireCache.class })
+@ConditionalOnClass({CacheFactoryBean.class, GemFireCache.class})
 @EnableSsl
 @SuppressWarnings("unused")
 public class SslAutoConfiguration {
 
 	public static final String SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY =
-		"spring.boot.data.gemfire.security.ssl.environment.post-processor.enabled";
+	"spring.boot.data.gemfire.security.ssl.environment.post-processor.enabled";
 
 	private static final String CURRENT_WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final String GEMFIRE_SSL_KEYSTORE_PROPERTY = "gemfire.ssl-keystore";
@@ -115,9 +115,9 @@ public class SslAutoConfiguration {
 	private static boolean isSslConfigured(Environment environment) {
 
 		return (environment.containsProperty(SECURITY_SSL_KEYSTORE_PROPERTY)
-			&& environment.containsProperty(SECURITY_SSL_TRUSTSTORE_PROPERTY))
-			|| (environment.containsProperty(GEMFIRE_SSL_KEYSTORE_PROPERTY)
-			&& environment.containsProperty(GEMFIRE_SSL_TRUSTSTORE_PROPERTY));
+		&& environment.containsProperty(SECURITY_SSL_TRUSTSTORE_PROPERTY))
+		|| (environment.containsProperty(GEMFIRE_SSL_KEYSTORE_PROPERTY)
+		&& environment.containsProperty(GEMFIRE_SSL_TRUSTSTORE_PROPERTY));
 	}
 
 	private static boolean isSslNotConfigured(Environment environment) {
@@ -127,62 +127,62 @@ public class SslAutoConfiguration {
 	private static String resolveTrustedKeyStore(Environment environment) {
 
 		return locateKeyStoreInFileSystem(environment)
-			.map(File::getAbsolutePath)
-			.orElseGet(() -> locateKeyStoreInUserHome(environment)
-				.map(File::getAbsolutePath)
-				.orElseGet(() -> resolveKeyStoreFromClassPathAsPathname(environment)
-					.orElse(null)));
+		.map(File::getAbsolutePath)
+		.orElseGet(() -> locateKeyStoreInUserHome(environment)
+	.map(File::getAbsolutePath)
+	.orElseGet(() -> resolveKeyStoreFromClassPathAsPathname(environment)
+	.orElse(null)));
 	}
 
 	private static String resolveTrustedKeystoreName(Environment environment) {
 
 		return environment != null && environment.containsProperty(TRUSTED_KEYSTORE_FILENAME_PROPERTY)
-			? environment.getProperty(TRUSTED_KEYSTORE_FILENAME_PROPERTY)
-			: TRUSTED_KEYSTORE_FILENAME;
+		? environment.getProperty(TRUSTED_KEYSTORE_FILENAME_PROPERTY)
+		: TRUSTED_KEYSTORE_FILENAME;
 	}
 
 	private static Optional<String> resolveKeyStoreFromClassPathAsPathname(Environment environment) {
 
 		return resolveKeyStoreFromClassPath(environment)
-			.filter(File::isFile)
-			.map(File::getAbsolutePath)
-			.filter(StringUtils::hasText);
+		.filter(File::isFile)
+		.map(File::getAbsolutePath)
+		.filter(StringUtils::hasText);
 	}
 
 	private static Optional<File> resolveKeyStoreFromClassPath(Environment environment) {
 
 		return locateKeyStoreInClassPath(environment)
-			.map(resource -> {
+		.map(resource -> {
 
-				File trustedKeyStore = null;
+			File trustedKeyStore = null;
 
-				try {
+			try {
 
-					URL url = resource.getURL();
+				URL url = resource.getURL();
 
-					if (ResourceUtils.isFileURL(url)) {
-						trustedKeyStore = new File(url.toURI());
-					}
-					else if (ResourceUtils.isJarURL(url)) {
-						trustedKeyStore = new File(CURRENT_WORKING_DIRECTORY, resolveTrustedKeystoreName(environment));
-						FileCopyUtils.copy(url.openStream(), new FileOutputStream(trustedKeyStore));
+				if (ResourceUtils.isFileURL(url)) {
+					trustedKeyStore = new File(url.toURI());
+				}
+				else if (ResourceUtils.isJarURL(url)) {
+					trustedKeyStore = new File(CURRENT_WORKING_DIRECTORY, resolveTrustedKeystoreName(environment));
+					FileCopyUtils.copy(url.openStream(), new FileOutputStream(trustedKeyStore));
+				}
+			}
+			catch (IOException | URISyntaxException cause) {
+
+				if (logger.isWarnEnabled()) {
+
+					logger.warn("Trusted KeyStore {} found in Class Path but is not resolvable as a File: {}",
+				resource, cause.getMessage());
+
+					if (logger.isTraceEnabled()) {
+						logger.trace("Caused by:", cause);
 					}
 				}
-				catch (IOException | URISyntaxException cause) {
+			}
 
-					if (logger.isWarnEnabled()) {
-
-						logger.warn("Trusted KeyStore {} found in Class Path but is not resolvable as a File: {}",
-							resource, cause.getMessage());
-
-						if (logger.isTraceEnabled()) {
-							logger.trace("Caused by:", cause);
-						}
-					}
-				}
-
-				return trustedKeyStore;
-			});
+			return trustedKeyStore;
+		});
 	}
 
 	private static Optional<ClassPathResource> locateKeyStoreInClassPath(Environment environment) {
@@ -192,7 +192,7 @@ public class SslAutoConfiguration {
 	private static Optional<ClassPathResource> locateKeyStoreInClassPath(String keystoreName) {
 
 		return Optional.of(new ClassPathResource(keystoreName))
-			.filter(Resource::exists);
+		.filter(Resource::exists);
 	}
 
 	private static Optional<File> locateKeyStoreInFileSystem(Environment environment) {
@@ -241,7 +241,7 @@ public class SslAutoConfiguration {
 	private static Optional<File> locateKeyStoreInUserHome(String keystoreFilename) {
 
 		return Optional.of(new File(USER_HOME_DIRECTORY, keystoreFilename))
-			.filter(File::isFile);
+		.filter(File::isFile);
 	}
 
 	private static void assertDirectory(File path) {
@@ -262,11 +262,11 @@ public class SslAutoConfiguration {
 		public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
 
 			Optional.of(environment)
-				.filter(this::isEnabled)
-				.filter(SslAutoConfiguration::isSslNotConfigured)
-				.map(SslAutoConfiguration::resolveTrustedKeyStore)
-				.filter(StringUtils::hasText)
-				.ifPresent(trustedKeyStore -> configureSsl(environment, trustedKeyStore));
+			.filter(this::isEnabled)
+			.filter(SslAutoConfiguration::isSslNotConfigured)
+			.map(SslAutoConfiguration::resolveTrustedKeyStore)
+			.filter(StringUtils::hasText)
+			.ifPresent(trustedKeyStore -> configureSsl(environment, trustedKeyStore));
 		}
 
 		private PropertySource<?> newPropertySource(String name, Properties properties) {
@@ -275,7 +275,7 @@ public class SslAutoConfiguration {
 
 		private boolean isEnabled(Environment environment) {
 			return environment.getProperty(SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY,
-				Boolean.class, true);
+			Boolean.class, true);
 		}
 
 		private void configureSsl(ConfigurableEnvironment environment, String trustedKeyStore) {
@@ -286,7 +286,7 @@ public class SslAutoConfiguration {
 			gemfireSslProperties.setProperty(SECURITY_SSL_TRUSTSTORE_PROPERTY, trustedKeyStore);
 
 			environment.getPropertySources()
-				.addFirst(newPropertySource(GEMFIRE_SSL_PROPERTY_SOURCE_NAME, gemfireSslProperties));
+			.addFirst(newPropertySource(GEMFIRE_SSL_PROPERTY_SOURCE_NAME, gemfireSslProperties));
 		}
 	}
 
@@ -297,11 +297,13 @@ public class SslAutoConfiguration {
 		}
 
 		@ConditionalOnProperty(name = SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY,
-			havingValue = "true", matchIfMissing = true)
-		static class SpringBootDataGemFireSecuritySslEnvironmentPostProcessorEnabled { }
+		havingValue = "true", matchIfMissing = true)
+		static class SpringBootDataGemFireSecuritySslEnvironmentPostProcessorEnabled {
+		}
 
 		@Conditional(SslTriggersCondition.class)
-		static class AnySslTriggerCondition { }
+		static class AnySslTriggerCondition {
+		}
 
 	}
 
@@ -312,16 +314,20 @@ public class SslAutoConfiguration {
 		}
 
 		@Conditional(TrustedKeyStoreIsPresentCondition.class)
-		static class TrustedKeyStoreCondition { }
+		static class TrustedKeyStoreCondition {
+		}
 
-		@ConditionalOnProperty(prefix = SECURITY_SSL_PROPERTY_PREFIX, name = { "keystore", "truststore" })
-		static class SpringDataGemFireSecuritySslKeyStoreAndTruststorePropertiesSet { }
+		@ConditionalOnProperty(prefix = SECURITY_SSL_PROPERTY_PREFIX, name = {"keystore", "truststore"})
+		static class SpringDataGemFireSecuritySslKeyStoreAndTruststorePropertiesSet {
+		}
 
 		@ConditionalOnProperty(SECURITY_SSL_USE_DEFAULT_CONTEXT)
-		static class SpringDataGeodeSslUseDefaultContextPropertySet { }
+		static class SpringDataGeodeSslUseDefaultContextPropertySet {
+		}
 
-		@ConditionalOnProperty({ GEMFIRE_SSL_KEYSTORE_PROPERTY, GEMFIRE_SSL_TRUSTSTORE_PROPERTY })
-		static class ApacheGeodeSslKeyStoreAndTruststorePropertiesSet { }
+		@ConditionalOnProperty({GEMFIRE_SSL_KEYSTORE_PROPERTY, GEMFIRE_SSL_TRUSTSTORE_PROPERTY})
+		static class ApacheGeodeSslKeyStoreAndTruststorePropertiesSet {
+		}
 
 	}
 
@@ -333,8 +339,8 @@ public class SslAutoConfiguration {
 			Environment environment = context.getEnvironment();
 
 			return locateKeyStoreInClassPath(environment).isPresent()
-				|| locateKeyStoreInFileSystem(environment).isPresent()
-				|| locateKeyStoreInUserHome(environment).isPresent();
+			|| locateKeyStoreInFileSystem(environment).isPresent()
+			|| locateKeyStoreInUserHome(environment).isPresent();
 		}
 	}
 }

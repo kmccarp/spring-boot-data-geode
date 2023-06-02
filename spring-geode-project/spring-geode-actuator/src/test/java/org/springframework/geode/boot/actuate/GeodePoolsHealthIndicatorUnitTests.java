@@ -101,16 +101,16 @@ public class GeodePoolsHealthIndicatorUnitTests {
 	public void healthCheckCapturesDetails() {
 
 		List<InetSocketAddress> mockLocators =
-			Arrays.asList(testSocketAddress("mailbox", 1234),
-				testSocketAddress("skullbox", 6789));
+		Arrays.asList(testSocketAddress("mailbox", 1234),
+	testSocketAddress("skullbox", 6789));
 
 		Pool mockPool = PoolMockObjects.mockPool("MockPool", false, 5000,
-			60000L, 1000, mockLocators, 500, 50,
-			true, mockLocators.subList(0, 1), 75, 15000L,
-			true, null, 10000, 2, "TestGroup",
-			Collections.emptyList(), 65536, 30000, 5000,
-			10000, true, 5000,
-			2, 8, false);
+		60000L, 1000, mockLocators, 500, 50,
+		true, mockLocators.subList(0, 1), 75, 15000L,
+		true, null, 10000, 2, "TestGroup",
+		Collections.emptyList(), 65536, 30000, 5000,
+		10000, true, 5000,
+		2, 8, false);
 
 		when(this.poolsHealthIndicator.findAllPools()).thenReturn(Collections.singletonMap("MockPool", mockPool));
 
@@ -158,8 +158,8 @@ public class GeodePoolsHealthIndicatorUnitTests {
 	public void testHealthCheckFailsWhenGemFireCacheIsInvalid(GemFireCache gemfireCache) {
 
 		GeodePoolsHealthIndicator healthIndicator = gemfireCache != null
-			? new GeodePoolsHealthIndicator(gemfireCache)
-			: new GeodePoolsHealthIndicator();
+		? new GeodePoolsHealthIndicator(gemfireCache)
+		: new GeodePoolsHealthIndicator();
 
 		Health.Builder builder = new Health.Builder();
 

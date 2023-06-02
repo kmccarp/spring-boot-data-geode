@@ -34,9 +34,9 @@ import org.springframework.geode.boot.autoconfigure.topology.clientserver.Spring
 @Ignore
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	AutoConfiguredSslIntegrationTests.class,
-	SecureClusterAwareConfigurationIntegrationTests.class,
-	SpringBootApacheGeodeClientServerIntegrationTests.class
+AutoConfiguredSslIntegrationTests.class,
+SecureClusterAwareConfigurationIntegrationTests.class,
+SpringBootApacheGeodeClientServerIntegrationTests.class
 })
 public class SslToNonSslTestSuite {
 

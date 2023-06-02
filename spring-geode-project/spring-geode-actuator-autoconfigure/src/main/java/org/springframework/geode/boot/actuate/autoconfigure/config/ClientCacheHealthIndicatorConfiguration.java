@@ -53,7 +53,7 @@ public class ClientCacheHealthIndicatorConfiguration {
 
 	@Bean("GeodeContinuousQueryHealthIndicator")
 	GeodeContinuousQueriesHealthIndicator continuousQueriesHealthIndicator(
-			@Autowired(required = false) ContinuousQueryListenerContainer continuousQueryListenerContainer) {
+	@Autowired(required = false) ContinuousQueryListenerContainer continuousQueryListenerContainer) {
 
 		return new GeodeContinuousQueriesHealthIndicator(continuousQueryListenerContainer);
 	}

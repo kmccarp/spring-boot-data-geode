@@ -46,7 +46,7 @@ public class SecurityManagerProxyUnitTests {
 	public void setAndGetSecurityManager() {
 
 		org.apache.geode.security.SecurityManager mockSecurityManager =
-			mock(org.apache.geode.security.SecurityManager.class);
+		mock(org.apache.geode.security.SecurityManager.class);
 
 		SecurityManagerProxy securityManagerProxy = new SecurityManagerProxy();
 
@@ -91,7 +91,7 @@ public class SecurityManagerProxyUnitTests {
 		Properties securityProperties = new Properties();
 
 		org.apache.geode.security.SecurityManager mockSecurityManager =
-			mock(org.apache.geode.security.SecurityManager.class);
+		mock(org.apache.geode.security.SecurityManager.class);
 
 		when(mockSecurityManager.authenticate(any(Properties.class))).thenReturn("TestUser");
 
@@ -111,10 +111,10 @@ public class SecurityManagerProxyUnitTests {
 		Principal mockPrincipal = mock(Principal.class);
 
 		ResourcePermission resourcePermission =
-			new ResourcePermission(ResourcePermission.Resource.DATA, ResourcePermission.Operation.READ);
+		new ResourcePermission(ResourcePermission.Resource.DATA, ResourcePermission.Operation.READ);
 
 		org.apache.geode.security.SecurityManager mockSecurityManager =
-			mock(org.apache.geode.security.SecurityManager.class);
+		mock(org.apache.geode.security.SecurityManager.class);
 
 		when(mockSecurityManager.authorize(any(Object.class), any(ResourcePermission.class))).thenReturn(true);
 
@@ -126,14 +126,14 @@ public class SecurityManagerProxyUnitTests {
 		assertThat(securityManagerProxy.authorize(mockPrincipal, resourcePermission)).isTrue();
 
 		verify(mockSecurityManager, times(1))
-			.authorize(eq(mockPrincipal), eq(resourcePermission));
+		.authorize(eq(mockPrincipal), eq(resourcePermission));
 	}
 
 	@Test
 	public void closeDelegatesToConfiguredSecurityManager() {
 
 		org.apache.geode.security.SecurityManager mockSecurityManager =
-			mock(org.apache.geode.security.SecurityManager.class);
+		mock(org.apache.geode.security.SecurityManager.class);
 
 		when(mockSecurityManager.authorize(any(Object.class), any(ResourcePermission.class))).thenReturn(true);
 

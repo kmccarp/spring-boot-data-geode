@@ -52,13 +52,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("application-gemfire-properties")
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {
-	"gemfire.distributed-system-id=123",
-	"gemfire.enable-time-statistics=true",
-	"gemfire.invalid-property=TEST",
-	"gemfire.name=TestName",
-	"geode.remote-locators=hellbox[10666]",
-	"locators=skullbox[12345]",
-	"spring.application.name=TestApp",
+"gemfire.distributed-system-id=123",
+"gemfire.enable-time-statistics=true",
+"gemfire.invalid-property=TEST",
+"gemfire.name=TestName",
+"geode.remote-locators=hellbox[10666]",
+"locators=skullbox[12345]",
+"spring.application.name=TestApp",
 })
 @SuppressWarnings("unused")
 public class GemFirePropertiesFromEnvironmentAutoConfigurationIntegrationTests extends IntegrationTestsSupport {
@@ -80,7 +80,7 @@ public class GemFirePropertiesFromEnvironmentAutoConfigurationIntegrationTests e
 
 		assertThat(gemfireProperties).isNotNull();
 		assertThat(gemfireProperties)
-			.containsKeys("distributed-system-id", "enable-time-statistics", "locators", "name", "remote-locators");
+		.containsKeys("distributed-system-id", "enable-time-statistics", "locators", "name", "remote-locators");
 		assertThat(gemfireProperties).doesNotContainKeys("invalid-property", "spring.application.name");
 		assertThat(gemfireProperties.getProperty("distributed-system-id")).isEqualTo("123");
 		assertThat(gemfireProperties.getProperty("enable-time-statistics")).isEqualTo("true");
@@ -103,6 +103,7 @@ public class GemFirePropertiesFromEnvironmentAutoConfigurationIntegrationTests e
 
 	@SpringBootApplication
 	@Profile("application-gemfire-properties")
-	static class GeodeConfiguration { }
+	static class GeodeConfiguration {
+	}
 
 }

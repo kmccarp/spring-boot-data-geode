@@ -65,8 +65,8 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = "spring.session.data.gemfire.cache.client.region.shortcut=",
-	webEnvironment = SpringBootTest.WebEnvironment.MOCK
+properties = "spring.session.data.gemfire.cache.client.region.shortcut=",
+webEnvironment = SpringBootTest.WebEnvironment.MOCK
 )
 @SuppressWarnings("unused")
 public class AutoConfiguredSessionCachingIntegrationTests extends IntegrationTestsSupport {
@@ -85,26 +85,26 @@ public class AutoConfiguredSessionCachingIntegrationTests extends IntegrationTes
 	public void sessionConfigurationIsCorrect() {
 
 		GemFireHttpSessionConfiguration sessionConfiguration =
-			this.applicationContext.getBean(GemFireHttpSessionConfiguration.class);
+		this.applicationContext.getBean(GemFireHttpSessionConfiguration.class);
 
 		assertThat(sessionConfiguration).isNotNull();
 		assertThat(sessionConfiguration.getClientRegionShortcut())
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_CLIENT_REGION_SHORTCUT);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_CLIENT_REGION_SHORTCUT);
 		assertThat(sessionConfiguration.isExposeConfigurationAsProperties())
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_EXPOSE_CONFIGURATION_AS_PROPERTIES);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_EXPOSE_CONFIGURATION_AS_PROPERTIES);
 		assertThat(sessionConfiguration.getIndexableSessionAttributes())
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_INDEXABLE_SESSION_ATTRIBUTES);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_INDEXABLE_SESSION_ATTRIBUTES);
 		assertThat(sessionConfiguration.getMaxInactiveIntervalInSeconds())
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_MAX_INACTIVE_INTERVAL_IN_SECONDS);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_MAX_INACTIVE_INTERVAL_IN_SECONDS);
 		assertThat(sessionConfiguration.getPoolName()).isEqualTo("DEFAULT");
 		assertThat(sessionConfiguration.getServerRegionShortcut())
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SERVER_REGION_SHORTCUT);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SERVER_REGION_SHORTCUT);
 		assertThat(sessionConfiguration.getSessionExpirationPolicyBeanName().orElse(""))
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_EXPIRATION_POLICY_BEAN_NAME);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_EXPIRATION_POLICY_BEAN_NAME);
 		assertThat(sessionConfiguration.getSessionRegionName())
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME);
 		assertThat(sessionConfiguration.getSessionSerializerBeanName())
-			.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_SERIALIZER_BEAN_NAME);
+		.isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_SERIALIZER_BEAN_NAME);
 	}
 
 	@Test
@@ -112,15 +112,15 @@ public class AutoConfiguredSessionCachingIntegrationTests extends IntegrationTes
 	public void sessionRegionExists() {
 
 		assertThat(this.applicationContext.containsBean(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME))
-			.isTrue();
+		.isTrue();
 
 		Region<Object, Session> sessionRegion =
-			this.applicationContext.getBean(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME, Region.class);
+		this.applicationContext.getBean(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME, Region.class);
 
 		assertThat(sessionRegion).isNotNull();
 		assertThat(sessionRegion.getName()).isEqualTo(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME);
 		assertThat(sessionRegion.getFullPath())
-			.isEqualTo(RegionUtils.toRegionPath(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME));
+		.isEqualTo(RegionUtils.toRegionPath(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME));
 		assertThat(sessionRegion.getAttributes()).isNotNull();
 		assertThat(sessionRegion.getAttributes().getPoolName()).isNotEqualTo("gemfirePool");
 
@@ -136,18 +136,18 @@ public class AutoConfiguredSessionCachingIntegrationTests extends IntegrationTes
 		assertThat(this.applicationContext.containsBean("sessionRepository")).isTrue();
 
 		SessionRepository<?> sessionRepository =
-			this.applicationContext.getBean("sessionRepository", SessionRepository.class);
+		this.applicationContext.getBean("sessionRepository", SessionRepository.class);
 
 		assertThat(sessionRepository).isInstanceOf(GemFireOperationsSessionRepository.class);
 
 		GemfireOperations gemfireOperations =
-			((GemFireOperationsSessionRepository) sessionRepository).getSessionsTemplate();
+		((GemFireOperationsSessionRepository) sessionRepository).getSessionsTemplate();
 
 		Region<?, ?> sessionRegion =
-			this.applicationContext.getBean(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME, Region.class);
+		this.applicationContext.getBean(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME, Region.class);
 
 		GemfireTemplate sessionRegionTemplate =
-			this.applicationContext.getBean("sessionRegionTemplate", GemfireTemplate.class);
+		this.applicationContext.getBean("sessionRegionTemplate", GemfireTemplate.class);
 
 		assertThat(gemfireOperations).isInstanceOf(GemfireAccessor.class);
 		assertThat(gemfireOperations).isSameAs(sessionRegionTemplate);
@@ -156,6 +156,7 @@ public class AutoConfiguredSessionCachingIntegrationTests extends IntegrationTes
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

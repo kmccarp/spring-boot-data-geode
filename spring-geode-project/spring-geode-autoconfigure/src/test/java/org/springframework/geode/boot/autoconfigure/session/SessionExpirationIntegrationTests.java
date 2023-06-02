@@ -63,12 +63,10 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = SessionExpirationIntegrationTests.TestConfiguration.class,
-	properties = {
-		"spring.session.data.gemfire.cache.client.region.shortcut=LOCAL",
-		"spring.session.timeout=1s",
-	},
-	webEnvironment = SpringBootTest.WebEnvironment.MOCK
+classes = SessionExpirationIntegrationTests.TestConfiguration.class,
+properties = {"spring.session.data.gemfire.cache.client.region.shortcut=LOCAL","spring.session.timeout=1s",
+},
+webEnvironment = SpringBootTest.WebEnvironment.MOCK
 )
 @SuppressWarnings("unused")
 public class SessionExpirationIntegrationTests extends IntegrationTestsSupport {
@@ -112,7 +110,7 @@ public class SessionExpirationIntegrationTests extends IntegrationTestsSupport {
 		this.sessionEventListener.getSessionEvent();
 
 		AbstractSessionEvent sessionEvent =
-			this.sessionEventListener.waitForSessionEvent(TimeUnit.SECONDS.toMillis(2));
+		this.sessionEventListener.waitForSessionEvent(TimeUnit.SECONDS.toMillis(2));
 
 		assertThat(sessionEvent).isNotNull();
 		assertThat(sessionEvent.getSessionId()).isEqualTo(savedSession.getId());

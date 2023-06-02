@@ -69,7 +69,8 @@ public class ClusterNotAvailableConfiguration {
 
 		return new BeanPostProcessor() {
 
-			@Nullable @Override
+			@Nullable
+			@Override
 			public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 
 				if (isClientRegion(bean)) {
@@ -99,19 +100,19 @@ public class ClusterNotAvailableConfiguration {
 	}
 
 	protected @NonNull Object configureAsLocalClientRegion(@NonNull Environment environment,
-			@NonNull Object clientRegion) {
+	@NonNull Object clientRegion) {
 
 		return clientRegion instanceof ClientRegionFactoryBean
-			? configureAsLocalClientRegion(environment, (ClientRegionFactoryBean<?, ?>) clientRegion)
-			: configureAsLocalClientRegion(environment, (CacheTypeAwareRegionFactoryBean<?, ?>) clientRegion);
+		? configureAsLocalClientRegion(environment, (ClientRegionFactoryBean<?, ?>) clientRegion)
+		: configureAsLocalClientRegion(environment, (CacheTypeAwareRegionFactoryBean<?, ?>) clientRegion);
 	}
 
 	protected @NonNull <K, V> CacheTypeAwareRegionFactoryBean<K, V> configureAsLocalClientRegion(
-			@NonNull Environment environment, @NonNull CacheTypeAwareRegionFactoryBean<K, V> clientRegion) {
+	@NonNull Environment environment, @NonNull CacheTypeAwareRegionFactoryBean<K, V> clientRegion) {
 
 		ClientRegionShortcut shortcut =
-			environment.getProperty(SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY,
-				ClientRegionShortcut.class, LOCAL_CLIENT_REGION_SHORTCUT);
+		environment.getProperty(SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY,
+	ClientRegionShortcut.class, LOCAL_CLIENT_REGION_SHORTCUT);
 
 		clientRegion.setClientRegionShortcut(shortcut);
 		clientRegion.setPoolName(GemfireUtils.DEFAULT_POOL_NAME);
@@ -120,11 +121,11 @@ public class ClusterNotAvailableConfiguration {
 	}
 
 	protected @NonNull <K, V> ClientRegionFactoryBean<K, V> configureAsLocalClientRegion(
-			@NonNull Environment environment, @NonNull ClientRegionFactoryBean<K, V> clientRegion) {
+	@NonNull Environment environment, @NonNull ClientRegionFactoryBean<K, V> clientRegion) {
 
 		ClientRegionShortcut shortcut =
-			environment.getProperty(SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY,
-				ClientRegionShortcut.class, LOCAL_CLIENT_REGION_SHORTCUT);
+		environment.getProperty(SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY,
+	ClientRegionShortcut.class, LOCAL_CLIENT_REGION_SHORTCUT);
 
 		clientRegion.setPoolName(null);
 		clientRegion.setShortcut(shortcut);
@@ -139,13 +140,16 @@ public class ClusterNotAvailableConfiguration {
 		}
 
 		@Conditional(ClusterNotAvailableCondition.class)
-		static class IsClusterNotAvailableCondition { }
+		static class IsClusterNotAvailableCondition {
+		}
 
 		@Conditional(NotCloudFoundryEnvironmentCondition.class)
-		static class IsNotCloudFoundryEnvironmentCondition { }
+		static class IsNotCloudFoundryEnvironmentCondition {
+		}
 
 		@Conditional(NotKubernetesEnvironmentCondition.class)
-		static class IsNotKubernetesEnvironmentCondition { }
+		static class IsNotKubernetesEnvironmentCondition {
+		}
 
 	}
 
@@ -153,7 +157,7 @@ public class ClusterNotAvailableConfiguration {
 
 		@Override
 		public synchronized boolean matches(@NonNull ConditionContext conditionContext,
-				@NonNull AnnotatedTypeMetadata typeMetadata) {
+		@NonNull AnnotatedTypeMetadata typeMetadata) {
 
 			return !super.matches(conditionContext, typeMetadata);
 		}

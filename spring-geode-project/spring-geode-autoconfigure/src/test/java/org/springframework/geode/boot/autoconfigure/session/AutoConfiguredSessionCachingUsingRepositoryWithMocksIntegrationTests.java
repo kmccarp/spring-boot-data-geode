@@ -98,7 +98,8 @@ public class AutoConfiguredSessionCachingUsingRepositoryWithMocksIntegrationTest
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 	@Getter
 	@ToString(of = "name")

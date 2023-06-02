@@ -80,9 +80,9 @@ public class ComplexConditionalConfigurationIntegrationTests extends Integration
 	public static void tearDown() {
 
 		System.getProperties().stringPropertyNames().stream()
-			.filter(StringUtils::hasText)
-			.filter(propertyName -> propertyName.startsWith("example."))
-			.forEach(System::clearProperty);
+		.filter(StringUtils::hasText)
+		.filter(propertyName -> propertyName.startsWith("example."))
+		.forEach(System::clearProperty);
 	}
 
 	@Test
@@ -93,7 +93,8 @@ public class ComplexConditionalConfigurationIntegrationTests extends Integration
 	@Configuration
 	@EnableMockConfiguration
 	@Conditional(TestConditions.class)
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 	static final class TestConditions extends AllNestedConditions {
 
@@ -101,11 +102,13 @@ public class ComplexConditionalConfigurationIntegrationTests extends Integration
 			super(ConfigurationPhase.PARSE_CONFIGURATION);
 		}
 
-		@ConditionalOnProperty(prefix = "example.test.condition.properties", name = { "one", "two" })
-		static class PropertiesCondition { }
+		@ConditionalOnProperty(prefix = "example.test.condition.properties", name = {"one", "two"})
+		static class PropertiesCondition {
+		}
 
 		@Conditional(MockConditions.class)
-		static class UsingMockConditions { }
+		static class UsingMockConditions {
+		}
 
 	}
 
@@ -116,10 +119,12 @@ public class ComplexConditionalConfigurationIntegrationTests extends Integration
 		}
 
 		@Conditional(MockConditionOne.class)
-		static class WithMockConditionOne{ }
+		static class WithMockConditionOne {
+		}
 
 		@Conditional(MockConditionTwo.class)
-		static class WithMockConditionTwo{ }
+		static class WithMockConditionTwo {
+		}
 
 	}
 
@@ -144,13 +149,14 @@ public class ComplexConditionalConfigurationIntegrationTests extends Integration
 	@Inherited
 	@Documented
 	@Import(MockConfiguration.class)
-	@interface EnableMockConfiguration { }
+	@interface EnableMockConfiguration {
+	}
 
 	static final class MockConfiguration implements ImportBeanDefinitionRegistrar {
 
 		@Override
 		public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
-				BeanDefinitionRegistry registry) {
+		BeanDefinitionRegistry registry) {
 
 			importBeanDefinitionRegistrarCalled.set(true);
 		}

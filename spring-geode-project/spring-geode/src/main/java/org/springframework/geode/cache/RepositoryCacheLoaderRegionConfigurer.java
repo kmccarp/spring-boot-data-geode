@@ -64,7 +64,7 @@ public class RepositoryCacheLoaderRegionConfigurer<T, ID> implements RegionConfi
 	 * @see #RepositoryCacheLoaderRegionConfigurer(CrudRepository, Predicate)
 	 */
 	public static <T, ID> RepositoryCacheLoaderRegionConfigurer<T, ID> create(@NonNull CrudRepository<T, ID> repository,
-			@Nullable Predicate<String> regionBeanName) {
+	@Nullable Predicate<String> regionBeanName) {
 
 		return new RepositoryCacheLoaderRegionConfigurer<>(repository, regionBeanName);
 	}
@@ -87,7 +87,7 @@ public class RepositoryCacheLoaderRegionConfigurer<T, ID> implements RegionConfi
 	 * @see #create(CrudRepository, Predicate)
 	 */
 	public static <T, ID> RepositoryCacheLoaderRegionConfigurer<T, ID> create(@NonNull CrudRepository<T, ID> repository,
-			@Nullable String regionBeanName) {
+	@Nullable String regionBeanName) {
 
 		return create(repository, Predicate.isEqual(regionBeanName));
 	}
@@ -110,7 +110,7 @@ public class RepositoryCacheLoaderRegionConfigurer<T, ID> implements RegionConfi
 	 * @see java.util.function.Predicate
 	 */
 	public RepositoryCacheLoaderRegionConfigurer(@NonNull CrudRepository<T, ID> repository,
-			@Nullable Predicate<String> regionBeanName) {
+	@Nullable Predicate<String> regionBeanName) {
 
 		Assert.notNull(repository, "CrudRepository is required");
 

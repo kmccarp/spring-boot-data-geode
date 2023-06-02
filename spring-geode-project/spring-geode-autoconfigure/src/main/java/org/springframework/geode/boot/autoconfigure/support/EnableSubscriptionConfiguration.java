@@ -57,7 +57,7 @@ public class EnableSubscriptionConfiguration {
 	public PoolConfigurer enableSubscriptionPoolConfigurer() {
 
 		return (beanName, poolFactoryBean) -> Optional.ofNullable(beanName)
-			.filter(POOL_NAMES::contains)
-			.ifPresent(poolName -> poolFactoryBean.setSubscriptionEnabled(true));
+		.filter(POOL_NAMES::contains)
+		.ifPresent(poolName -> poolFactoryBean.setSubscriptionEnabled(true));
 	}
 }

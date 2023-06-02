@@ -101,9 +101,9 @@ public class CachingDefinedRegionTemplateAutoConfigurationIntegrationTests exten
 		assertThat(this.gemfireCache).isNotNull();
 
 		assertThat(this.gemfireCache.rootRegions().stream()
-			.map(Region::getName)
-			.sorted()
-			.collect(Collectors.toList())).containsExactly("BooksByAuthor", "BooksByYear", "CachedBooks");
+		.map(Region::getName)
+		.sorted()
+		.collect(Collectors.toList())).containsExactly("BooksByAuthor", "BooksByYear", "CachedBooks");
 
 		assertThat(this.booksByAuthor).isNotNull();
 		assertThat(this.booksByAuthor.getName()).isEqualTo("BooksByAuthor");
@@ -134,7 +134,7 @@ public class CachingDefinedRegionTemplateAutoConfigurationIntegrationTests exten
 		assertThat(this.booksByYearTemplate.getRegion()).isEqualTo(this.booksByYear);
 	}
 
-	@SpringBootApplication(scanBasePackageClasses = { NonBeanType.class, LibraryService.class })
+	@SpringBootApplication(scanBasePackageClasses = {NonBeanType.class, LibraryService.class})
 	@EnableCachingDefinedRegions(clientRegionShortcut = ClientRegionShortcut.LOCAL)
 	@EnableGemFireMockObjects
 	static class TestConfiguration {

@@ -53,14 +53,14 @@ public class SslAutoConfigurationUnitTests {
 		ConfigurableEnvironment mockEnvironment = mock(ConfigurableEnvironment.class);
 
 		when(mockEnvironment.getProperty(eq(SslAutoConfiguration.SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-			eq(Boolean.class), eq(true)))
-				.thenReturn(false);
+		eq(Boolean.class), eq(true)))
+		.thenReturn(false);
 
 		environmentPostProcessor.postProcessEnvironment(mockEnvironment, null);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(SslAutoConfiguration.SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-				eq(Boolean.class), eq(true));
+		.getProperty(eq(SslAutoConfiguration.SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
+	eq(Boolean.class), eq(true));
 
 		verify(mockEnvironment, never()).containsProperty(eq("spring.data.gemfire.security.ssl.keystore"));
 	}
@@ -71,37 +71,37 @@ public class SslAutoConfigurationUnitTests {
 		SslEnvironmentPostProcessor environmentPostProcessor = spy(new SslEnvironmentPostProcessor());
 
 		doNothing().when(environmentPostProcessor)
-			.postProcessEnvironment(any(ConfigurableEnvironment.class), any(SpringApplication.class));
+		.postProcessEnvironment(any(ConfigurableEnvironment.class), any(SpringApplication.class));
 
 		ConfigurableEnvironment mockEnvironment = mock(ConfigurableEnvironment.class);
 
 		when(mockEnvironment.containsProperty(eq("spring.boot.data.gemfire.security.ssl.keystore.name")))
-			.thenReturn(true);
+		.thenReturn(true);
 
 		when(mockEnvironment.getProperty("spring.boot.data.gemfire.security.ssl.keystore.name"))
-			.thenReturn("non-existing-trusted.keystore");
+		.thenReturn("non-existing-trusted.keystore");
 
 		when(mockEnvironment.getProperty(eq(SslAutoConfiguration.SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-			eq(Boolean.class), eq(true)))
-				.thenReturn(true);
+		eq(Boolean.class), eq(true)))
+		.thenReturn(true);
 
 		environmentPostProcessor.postProcessEnvironment(mockEnvironment, null);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(SslAutoConfiguration.SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-				eq(Boolean.class), eq(true));
+		.getProperty(eq(SslAutoConfiguration.SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
+	eq(Boolean.class), eq(true));
 
 		verify(mockEnvironment, times(1))
-			.containsProperty(eq("spring.data.gemfire.security.ssl.keystore"));
+		.containsProperty(eq("spring.data.gemfire.security.ssl.keystore"));
 
 		verify(mockEnvironment, times(3))
-			.containsProperty(eq("spring.boot.data.gemfire.security.ssl.keystore.name"));
+		.containsProperty(eq("spring.boot.data.gemfire.security.ssl.keystore.name"));
 
 		verify(mockEnvironment, times(3))
-			.getProperty(eq("spring.boot.data.gemfire.security.ssl.keystore.name"));
+		.getProperty(eq("spring.boot.data.gemfire.security.ssl.keystore.name"));
 
 		verify(environmentPostProcessor, never())
-			.postProcessEnvironment(eq(mockEnvironment), any(SpringApplication.class));
+		.postProcessEnvironment(eq(mockEnvironment), any(SpringApplication.class));
 	}
 
 	@Test
@@ -114,10 +114,10 @@ public class SslAutoConfigurationUnitTests {
 		environmentPostProcessor.postProcessEnvironment(mockEnvironment, null);
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(SslAutoConfiguration.SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
-				eq(Boolean.class), eq(true));
+		.getProperty(eq(SslAutoConfiguration.SECURITY_SSL_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY),
+	eq(Boolean.class), eq(true));
 
 		verify(mockEnvironment, times(1))
-			.containsProperty(eq("spring.data.gemfire.security.ssl.keystore"));
+		.containsProperty(eq("spring.data.gemfire.security.ssl.keystore"));
 	}
 }

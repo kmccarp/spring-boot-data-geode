@@ -81,8 +81,8 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	public static Object from(Object target) {
 
 		return target instanceof PdxInstance
-			? from((PdxInstance) target)
-			: target;
+		? from((PdxInstance) target)
+		: target;
 	}
 
 	/**
@@ -98,8 +98,8 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	public static PdxInstanceWrapper from(PdxInstance pdxInstance) {
 
 		return pdxInstance instanceof PdxInstanceWrapper
-			? (PdxInstanceWrapper) pdxInstance
-			: new PdxInstanceWrapper(pdxInstance);
+		? (PdxInstanceWrapper) pdxInstance
+		: new PdxInstanceWrapper(pdxInstance);
 	}
 
 	/**
@@ -117,8 +117,8 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	public static PdxInstance unwrap(PdxInstance pdxInstance) {
 
 		return pdxInstance instanceof PdxInstanceWrapper
-			? ((PdxInstanceWrapper) pdxInstance).getDelegate()
-			: pdxInstance;
+		? ((PdxInstanceWrapper) pdxInstance).getDelegate()
+		: pdxInstance;
 	}
 
 	private final PdxInstance delegate;
@@ -162,11 +162,11 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	protected Optional<ObjectMapper> getObjectMapper() {
 
 		ObjectMapper objectMapper = newJsonMapperBuilder()
-			.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
-			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-			.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
-			.build()
-			.findAndRegisterModules();
+		.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
+		.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+		.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
+		.build()
+		.findAndRegisterModules();
 
 		return Optional.of(objectMapper);
 	}
@@ -235,13 +235,13 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	public Object getIdentifier() {
 
 		Optional<String> identityFieldName = nullSafeList(getFieldNames()).stream()
-			.filter(this::hasText)
-			.filter(this::isIdentityField)
-			.findFirst();
+		.filter(this::hasText)
+		.filter(this::isIdentityField)
+		.findFirst();
 
 		return identityFieldName
-			.map(this::getField)
-			.orElseGet(this::getId);
+		.map(this::getField)
+		.orElseGet(this::getId);
 	}
 
 	/**
@@ -258,8 +258,8 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	protected Object getId() {
 
 		return hasField(ID_FIELD_NAME)
-			? getField(ID_FIELD_NAME)
-			: getAtIdentifier();
+		? getField(ID_FIELD_NAME)
+		: getAtIdentifier();
 	}
 
 	/**
@@ -276,13 +276,13 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	protected Object getAtIdentifier() {
 
 		return Optional.of(AT_IDENTIFIER_FIELD_NAME)
-			.filter(this::hasField)
-			.map(this::getField)
-			.map(String::valueOf)
-			.filter(this::hasField)
-			.map(this::getField)
-			.orElseThrow(() -> new IllegalStateException(String.format("PdxInstance for type [%1$s] has no %2$s",
-				getClassName(), resolveMessageForIdentifierError(this))));
+		.filter(this::hasField)
+		.map(this::getField)
+		.map(String::valueOf)
+		.filter(this::hasField)
+		.map(this::getField)
+		.orElseThrow(() -> new IllegalStateException(String.format("PdxInstance for type [%1$s] has no %2$s",
+	getClassName(), resolveMessageForIdentifierError(this))));
 	}
 
 	private String resolveMessageForIdentifierError(PdxInstance pdxInstance) {
@@ -297,21 +297,21 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 			Object atIdentifierFieldValue = pdxInstance.getField(AT_IDENTIFIER_FIELD_NAME);
 
 			String resolvedIdentifierFieldName = Objects.nonNull(atIdentifierFieldValue)
-				? atIdentifierFieldValue.toString().trim()
-				: NO_FIELD_NAME;
+			? atIdentifierFieldValue.toString().trim()
+			: NO_FIELD_NAME;
 
 			boolean identifierFieldNameWasDeclaredAndIsValid = pdxInstance.hasField(resolvedIdentifierFieldName);
 
 			Object identifier = identifierFieldNameWasDeclaredAndIsValid
-				? pdxInstance.getField(resolvedIdentifierFieldName)
-				: null;
+			? pdxInstance.getField(resolvedIdentifierFieldName)
+			: null;
 
 			String ifMessage = "value [%s] for field [%s] declared in [%s]";
 			String elseMessage = "field [%s] declared in [%s]";
 
 			message = identifierFieldNameWasDeclaredAndIsValid
-				? String.format(ifMessage, identifier, resolvedIdentifierFieldName, AT_IDENTIFIER_FIELD_NAME)
-				: String.format(elseMessage, resolvedIdentifierFieldName, AT_IDENTIFIER_FIELD_NAME);
+			? String.format(ifMessage, identifier, resolvedIdentifierFieldName, AT_IDENTIFIER_FIELD_NAME)
+			: String.format(elseMessage, resolvedIdentifierFieldName, AT_IDENTIFIER_FIELD_NAME);
 		}
 
 		return message;
@@ -341,25 +341,25 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	public Object getObject() {
 
 		return getObjectMapper()
-			.filter(objectMapper -> JSONFormatter.JSON_CLASSNAME.equals(getClassName()))
-			.filter(objectMapper -> hasField(AT_TYPE_FIELD_NAME))
-			.<Object>map(objectMapper ->  {
-				try {
+		.filter(objectMapper -> JSONFormatter.JSON_CLASSNAME.equals(getClassName()))
+		.filter(objectMapper -> hasField(AT_TYPE_FIELD_NAME))
+		.<Object>map(objectMapper -> {
+			try {
 
-					String typeName = String.valueOf(getField(AT_TYPE_FIELD_NAME));
+				String typeName = String.valueOf(getField(AT_TYPE_FIELD_NAME));
 
-					Class<?> type = Class.forName(typeName);
+				Class<?> type = Class.forName(typeName);
 
-					String json = jsonFormatterToJson(getDelegate());
+				String json = jsonFormatterToJson(getDelegate());
 
-					return objectMapper.readValue(json, type);
-				}
-				catch (Throwable ignore) {
-					// TODO Log Throwable?
-					return null;
-				}
-			})
-			.orElseGet(() -> getDelegate().getObject());
+				return objectMapper.readValue(json, type);
+			}
+			catch (Throwable ignore) {
+				// TODO Log Throwable?
+				return null;
+			}
+		})
+		.orElseGet(() -> getDelegate().getObject());
 	}
 
 	/**
@@ -470,8 +470,8 @@ public class PdxInstanceWrapper implements PdxInstance, Sendable {
 	private String toStringObject(Object value, String indent) {
 
 		return isPdxInstance(value) ? toString((PdxInstance) value, indent)
-			: isArray(value) ? toStringArray(value, indent)
-			: String.valueOf(value);
+		: isArray(value) ? toStringArray(value, indent)
+		: String.valueOf(value);
 	}
 
 	private String formatFieldValue(String fieldName, Object fieldValue) {

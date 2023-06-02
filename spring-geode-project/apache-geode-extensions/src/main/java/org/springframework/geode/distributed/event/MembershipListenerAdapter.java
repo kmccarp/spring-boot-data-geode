@@ -48,7 +48,7 @@ import org.springframework.geode.distributed.event.support.QuorumLostEvent;
  */
 @SuppressWarnings("unused")
 public abstract class MembershipListenerAdapter<T extends MembershipListenerAdapter<T>>
-		implements EventListener, MembershipListener {
+implements EventListener, MembershipListener {
 
 	/**
 	 * @inheritDoc
@@ -57,13 +57,14 @@ public abstract class MembershipListenerAdapter<T extends MembershipListenerAdap
 	public final void memberDeparted(DistributionManager manager, InternalDistributedMember member, boolean crashed) {
 
 		MemberDepartedEvent event = new MemberDepartedEvent(manager)
-			.withMember(member)
-			.crashed(crashed);
+		.withMember(member)
+		.crashed(crashed);
 
 		handleMemberDeparted(event);
 	}
 
-	public void handleMemberDeparted(MemberDepartedEvent event) { }
+	public void handleMemberDeparted(MemberDepartedEvent event) {
+	}
 
 	/**
 	 * @inheritDoc
@@ -72,45 +73,48 @@ public abstract class MembershipListenerAdapter<T extends MembershipListenerAdap
 	public final void memberJoined(DistributionManager manager, InternalDistributedMember member) {
 
 		MemberJoinedEvent event = new MemberJoinedEvent(manager)
-			.withMember(member);
+		.withMember(member);
 
 		handleMemberJoined(event);
 	}
 
-	public void handleMemberJoined(MemberJoinedEvent event) { }
+	public void handleMemberJoined(MemberJoinedEvent event) {
+	}
 
 	/**
 	 * @inheritDoc
 	 */
 	@Override
 	public final void memberSuspect(DistributionManager manager, InternalDistributedMember member,
-			InternalDistributedMember suspectMember, String reason) {
+	InternalDistributedMember suspectMember, String reason) {
 
 		MemberSuspectEvent event = new MemberSuspectEvent(manager)
-			.withMember(member)
-			.withReason(reason)
-			.withSuspect(suspectMember);
+		.withMember(member)
+		.withReason(reason)
+		.withSuspect(suspectMember);
 
 		handleMemberSuspect(event);
 	}
 
-	public void handleMemberSuspect(MemberSuspectEvent event) { }
+	public void handleMemberSuspect(MemberSuspectEvent event) {
+	}
 
 	/**
 	 * @inheritDoc
 	 */
 	@Override
 	public final void quorumLost(DistributionManager manager, Set<InternalDistributedMember> failedMembers,
-			List<InternalDistributedMember> remainingMembers) {
+	List<InternalDistributedMember> remainingMembers) {
 
 		QuorumLostEvent event = new QuorumLostEvent(manager)
-			.withFailedMembers(failedMembers)
-			.withRemainingMembers(remainingMembers);
+		.withFailedMembers(failedMembers)
+		.withRemainingMembers(remainingMembers);
 
 		handleQuorumLost(event);
 	}
 
-	public void handleQuorumLost(QuorumLostEvent event) { }
+	public void handleQuorumLost(QuorumLostEvent event) {
+	}
 
 	/**
 	 * Registers this {@link MembershipListener} with the given {@literal peer} {@link Cache}.
@@ -123,12 +127,12 @@ public abstract class MembershipListenerAdapter<T extends MembershipListenerAdap
 	public T register(Cache peerCache) {
 
 		Optional.ofNullable(peerCache)
-			.map(Cache::getDistributedSystem)
-			.filter(InternalDistributedSystem.class::isInstance)
-			.map(InternalDistributedSystem.class::cast)
-			.map(InternalDistributedSystem::getDistributionManager)
-			.ifPresent(distributionManager -> distributionManager
-				.addMembershipListener(this));
+		.map(Cache::getDistributedSystem)
+		.filter(InternalDistributedSystem.class::isInstance)
+		.map(InternalDistributedSystem.class::cast)
+		.map(InternalDistributedSystem::getDistributionManager)
+		.ifPresent(distributionManager -> distributionManager
+	.addMembershipListener(this));
 
 		return (T) this;
 	}

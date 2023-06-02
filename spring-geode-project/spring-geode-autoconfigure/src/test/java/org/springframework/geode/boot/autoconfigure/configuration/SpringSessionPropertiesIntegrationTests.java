@@ -88,23 +88,23 @@ public class SpringSessionPropertiesIntegrationTests extends IntegrationTestsSup
 		assertThat(this.springSessionProperties.getCache().getClient().getPool().getName()).isEqualTo("DEAD");
 		assertThat(this.springSessionProperties.getCache().getClient().getRegion()).isNotNull();
 		assertThat(this.springSessionProperties.getCache().getClient().getRegion().getShortcut())
-			.isEqualTo(ClientRegionShortcut.LOCAL);
+		.isEqualTo(ClientRegionShortcut.LOCAL);
 		assertThat(this.springSessionProperties.getCache().getServer()).isNotNull();
 		assertThat(this.springSessionProperties.getCache().getServer().getRegion()).isNotNull();
 		assertThat(this.springSessionProperties.getCache().getServer().getRegion().getShortcut())
-			.isEqualTo(RegionShortcut.REPLICATE);
+		.isEqualTo(RegionShortcut.REPLICATE);
 		assertThat(this.springSessionProperties.getSession()).isNotNull();
 		assertThat(this.springSessionProperties.getSession().getAttributes()).isNotNull();
 		assertThat(this.springSessionProperties.getSession().getAttributes().getIndexable())
-			.containsExactly("firstName", "lastName");
+		.containsExactly("firstName", "lastName");
 		assertThat(this.springSessionProperties.getSession().getExpiration()).isNotNull();
 		assertThat(this.springSessionProperties.getSession().getExpiration().getMaxInactiveIntervalSeconds())
-			.isEqualTo(300);
+		.isEqualTo(300);
 		assertThat(this.springSessionProperties.getSession().getRegion()).isNotNull();
 		assertThat(this.springSessionProperties.getSession().getRegion().getName()).isEqualTo("TestSessions");
 		assertThat(this.springSessionProperties.getSession().getSerializer()).isNotNull();
 		assertThat(this.springSessionProperties.getSession().getSerializer().getBeanName())
-			.isEqualTo("MockSessionSerializer");
+		.isEqualTo("MockSessionSerializer");
 	}
 
 	@Test
@@ -114,7 +114,7 @@ public class SpringSessionPropertiesIntegrationTests extends IntegrationTestsSup
 
 		assertThat(pdxSerializer).isInstanceOf(PdxSerializerSessionSerializerAdapter.class);
 		assertThat(((PdxSerializerSessionSerializerAdapter<?>) pdxSerializer).getSessionSerializer())
-			.isEqualTo(mockSessionSerializer);
+		.isEqualTo(mockSessionSerializer);
 	}
 
 	@Test
@@ -133,8 +133,8 @@ public class SpringSessionPropertiesIntegrationTests extends IntegrationTestsSup
 
 	@EnableGemFireMockObjects
 	@SpringBootApplication(exclude = {
-		PdxSerializationAutoConfiguration.class,
-		ContinuousQueryAutoConfiguration.class
+	PdxSerializationAutoConfiguration.class,
+	ContinuousQueryAutoConfiguration.class
 	})
 	static class TestConfiguration {
 

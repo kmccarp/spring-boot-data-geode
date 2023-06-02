@@ -74,7 +74,7 @@ import lombok.ToString;
  */
 @SuppressWarnings("unused")
 public abstract class AbstractAutoConfiguredSecurityContextIntegrationTests
-		extends ForkingClientServerIntegrationTestsSupport {
+extends ForkingClientServerIntegrationTestsSupport {
 
 	private static final String SECURITY_CONTEXT_USERNAME_PROPERTY = "test.security.context.username";
 	private static final String SECURITY_CONTEXT_PASSWORD_PROPERTY = "test.security.context.password";
@@ -92,7 +92,8 @@ public abstract class AbstractAutoConfiguredSecurityContextIntegrationTests
 
 	@Configuration
 	@Import(EchoClientConfiguration.class)
-	protected static abstract class BaseGemFireClientConfiguration { }
+	protected static abstract class BaseGemFireClientConfiguration {
+	}
 
 	@Configuration
 	@Import(EchoServerConfiguration.class)
@@ -112,12 +113,12 @@ public abstract class AbstractAutoConfiguredSecurityContextIntegrationTests
 		public TestSecurityManager(Environment environment) {
 
 			this.username = Optional.ofNullable(environment.getProperty(SECURITY_CONTEXT_USERNAME_PROPERTY))
-				.filter(StringUtils::hasText)
-				.orElseThrow(() -> newIllegalArgumentException("Username is required"));
+			.filter(StringUtils::hasText)
+			.orElseThrow(() -> newIllegalArgumentException("Username is required"));
 
 			this.password = Optional.ofNullable(environment.getProperty(SECURITY_CONTEXT_PASSWORD_PROPERTY))
-				.filter(StringUtils::hasText)
-				.orElseThrow(() -> newIllegalArgumentException("Password is required"));
+			.filter(StringUtils::hasText)
+			.orElseThrow(() -> newIllegalArgumentException("Password is required"));
 		}
 
 		private ClassPathResource resolveApplicationProperties(Environment environment) {
@@ -125,15 +126,15 @@ public abstract class AbstractAutoConfiguredSecurityContextIntegrationTests
 			Assert.notNull(environment, "Environment must not be null");
 
 			return Arrays.stream(nullSafeArray(environment.getActiveProfiles(), String.class))
-				.filter(StringUtils::hasText)
-				.filter(it -> !"default".equalsIgnoreCase(it))
-				.map(it -> String.format("application-%s.properties", it))
-				.map(ClassPathResource::new)
-				.filter(ClassPathResource::exists)
-				.findFirst()
-				.orElseThrow(() ->
-					newIllegalStateException("Unable to resolve application.properties from Environment [%s]",
-						environment));
+			.filter(StringUtils::hasText)
+			.filter(it -> !"default".equalsIgnoreCase(it))
+			.map(it -> String.format("application-%s.properties", it))
+			.map(ClassPathResource::new)
+			.filter(ClassPathResource::exists)
+			.findFirst()
+			.orElseThrow(() ->
+		newIllegalStateException("Unable to resolve application.properties from Environment [%s]",
+		environment));
 
 		}
 

@@ -59,12 +59,13 @@ public class DistributedSystemIdConfigurationIntegrationTests extends Integratio
 		assertThat(this.gemfireCache.getDistributedSystem()).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getProperties()).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getProperties().getProperty("distributed-system-id"))
-			.isEqualTo("42");
+		.isEqualTo("42");
 	}
 
 	@PeerCacheApplication
 	@EnableGemFireMockObjects
 	@UseDistributedSystemId(42)
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

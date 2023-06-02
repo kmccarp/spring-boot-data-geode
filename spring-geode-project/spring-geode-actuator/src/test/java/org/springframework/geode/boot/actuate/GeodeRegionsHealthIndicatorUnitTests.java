@@ -80,8 +80,8 @@ public class GeodeRegionsHealthIndicatorUnitTests {
 	}
 
 	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void healthCheckCapturesDetails()  {
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public void healthCheckCapturesDetails() {
 
 		Region<?, ?> mockRegionOne = CacheMockObjects.mockRegion("MockRegionOne", DataPolicy.PARTITION);
 
@@ -124,14 +124,14 @@ public class GeodeRegionsHealthIndicatorUnitTests {
 		when(mockRegionTwo.getAttributes().getValueConstraint()).thenReturn((Class) String.class);
 
 		ExpirationAttributes mockIdleTimeoutEntryExpirationAttributes =
-			mock(ExpirationAttributes.class, "Entry-TTI");
+		mock(ExpirationAttributes.class, "Entry-TTI");
 
 		when(mockIdleTimeoutEntryExpirationAttributes.getAction()).thenReturn(ExpirationAction.INVALIDATE);
 		when(mockIdleTimeoutEntryExpirationAttributes.getTimeout()).thenReturn(600);
 		when(mockRegionTwo.getAttributes().getEntryIdleTimeout()).thenReturn(mockIdleTimeoutEntryExpirationAttributes);
 
 		ExpirationAttributes mockTimeToLiveEntryExpirationAttributes =
-			mock(ExpirationAttributes.class, "Entry-TTL");
+		mock(ExpirationAttributes.class, "Entry-TTL");
 
 		when(mockTimeToLiveEntryExpirationAttributes.getAction()).thenReturn(ExpirationAction.DESTROY);
 		when(mockTimeToLiveEntryExpirationAttributes.getTimeout()).thenReturn(900);

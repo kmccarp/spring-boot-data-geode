@@ -45,7 +45,8 @@ public interface CacheDataImporter extends BeanPostProcessor {
 	 * @see org.apache.geode.cache.Region
 	 * @see #importInto(Region)
 	 */
-	@Nullable @Override
+	@Nullable
+	@Override
 	default Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 
 		if (bean instanceof Region) {
@@ -62,6 +63,7 @@ public interface CacheDataImporter extends BeanPostProcessor {
 	 * @return the given {@link Region}.
 	 * @see org.apache.geode.cache.Region
 	 */
-	@NonNull Region importInto(@NonNull Region region);
+	@NonNull
+	Region importInto(@NonNull Region region);
 
 }

@@ -34,7 +34,8 @@ public class ResourceWriteException extends ResourceDataAccessException {
 	 * Constructs a new instance of {@link ResourceWriteException} with no {@link String message}
 	 * or known {@link Throwable cause}.
 	 */
-	public ResourceWriteException() { }
+	public ResourceWriteException() {
+	}
 
 	/**
 	 * Constructs a new instance of {@link ResourceWriteException} initialized with the given {@link String message}

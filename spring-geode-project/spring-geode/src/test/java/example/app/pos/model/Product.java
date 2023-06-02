@@ -45,7 +45,8 @@ import lombok.ToString;
 @SuppressWarnings("unused")
 public class Product {
 
-	@Id @NonNull
+	@Id
+	@NonNull
 	private String name;
 
 	// TODO Introduce a Price type, perhaps (?), encapsulating amount and currency (e.g. USD)

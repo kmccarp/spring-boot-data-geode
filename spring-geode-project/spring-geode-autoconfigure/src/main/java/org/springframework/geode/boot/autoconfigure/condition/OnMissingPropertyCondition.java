@@ -57,7 +57,7 @@ public class OnMissingPropertyCondition extends SpringBootCondition {
 		String annotationName = ConditionalOnMissingProperty.class.getName();
 
 		Collection<AnnotationAttributes> annotationAttributesCollection =
-			toAnnotationAttributesFromMultiValueMap(metadata.getAllAnnotationAttributes(annotationName));
+		toAnnotationAttributesFromMultiValueMap(metadata.getAllAnnotationAttributes(annotationName));
 
 		PropertyResolver propertyResolver = getPropertyResolver(context);
 
@@ -75,7 +75,7 @@ public class OnMissingPropertyCondition extends SpringBootCondition {
 
 	@SuppressWarnings("unchecked")
 	private <T extends Collection<AnnotationAttributes>> T toAnnotationAttributesFromMultiValueMap(
-			MultiValueMap<String, Object> map) {
+	MultiValueMap<String, Object> map) {
 
 		List<AnnotationAttributes> annotationAttributesList = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class OnMissingPropertyCondition extends SpringBootCondition {
 			for (int index = 0, size = value.size(); index < size; index++) {
 
 				AnnotationAttributes annotationAttributes =
-					resolveAnnotationAttributes(annotationAttributesList, index);
+				resolveAnnotationAttributes(annotationAttributesList, index);
 
 				annotationAttributes.put(key, value.get(index));
 			}
@@ -93,7 +93,7 @@ public class OnMissingPropertyCondition extends SpringBootCondition {
 	}
 
 	private AnnotationAttributes resolveAnnotationAttributes(List<AnnotationAttributes> annotationAttributesList,
-			int index) {
+	int index) {
 
 		if (index < annotationAttributesList.size()) {
 			return annotationAttributesList.get(index);
@@ -124,8 +124,8 @@ public class OnMissingPropertyCondition extends SpringBootCondition {
 		String[] values = annotationAttributes.getStringArray("value");
 
 		Assert.isTrue(names.length > 0 || values.length > 0,
-			String.format("The name or value attribute of @%s is required",
-				ConditionalOnMissingProperty.class.getSimpleName()));
+		String.format("The name or value attribute of @%s is required",
+	ConditionalOnMissingProperty.class.getSimpleName()));
 
 		// TODO remove; not needed when using @AliasFor.
 		/*
@@ -153,8 +153,8 @@ public class OnMissingPropertyCondition extends SpringBootCondition {
 		if (!matchingProperties.isEmpty()) {
 
 			return ConditionOutcome.noMatch(ConditionMessage.forCondition(ConditionalOnMissingProperty.class)
-				.found("property already defined", "properties already defined")
-				.items(matchingProperties));
+			.found("property already defined", "properties already defined")
+			.items(matchingProperties));
 		}
 
 		return ConditionOutcome.match();

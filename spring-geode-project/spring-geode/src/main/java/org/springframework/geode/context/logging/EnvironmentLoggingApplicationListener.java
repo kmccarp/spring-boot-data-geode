@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
 public class EnvironmentLoggingApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
 	protected static final String SYSTEM_ERR_ENABLED_PROPERTY =
-		"spring.context.environment.logging.system-err.enabled";
+	"spring.context.environment.logging.system-err.enabled";
 
 	static final ThreadLocal<Environment> threadLocalEnvironmentReference = new ThreadLocal<>();
 
@@ -169,15 +169,15 @@ public class EnvironmentLoggingApplicationListener implements ApplicationListene
 	private boolean isSystemErrLoggingEnabled() {
 
 		return Optional.ofNullable(threadLocalEnvironmentReference.get())
-			.map(environment -> environment.getProperty(SYSTEM_ERR_ENABLED_PROPERTY, Boolean.class, false))
-			.orElseGet(() -> Boolean.getBoolean(SYSTEM_ERR_ENABLED_PROPERTY));
+		.map(environment -> environment.getProperty(SYSTEM_ERR_ENABLED_PROPERTY, Boolean.class, false))
+		.orElseGet(() -> Boolean.getBoolean(SYSTEM_ERR_ENABLED_PROPERTY));
 	}
 
 	protected abstract class AbstractPropertySourceLoggingFunction
-			implements Function<PropertySource<?>, PropertySource<?>> {
+	implements Function<PropertySource<?>, PropertySource<?>> {
 
 		protected void logProperties(@NonNull Iterable<String> propertyNames,
-				@NonNull Function<String, Object> propertyValueFunction) {
+		@NonNull Function<String, Object> propertyValueFunction) {
 
 			log("Properties [");
 
@@ -197,7 +197,7 @@ public class EnvironmentLoggingApplicationListener implements ApplicationListene
 			if (propertySource instanceof EnumerablePropertySource) {
 
 				EnumerablePropertySource<?> enumerablePropertySource =
-					(EnumerablePropertySource<?>) propertySource;
+				(EnumerablePropertySource<?>) propertySource;
 
 				String[] propertyNames = enumerablePropertySource.getPropertyNames();
 
@@ -220,8 +220,8 @@ public class EnvironmentLoggingApplicationListener implements ApplicationListene
 			if (!(propertySource instanceof EnumerablePropertySource)) {
 
 				Object source = propertySource != null
-					? propertySource.getSource()
-					: null;
+				? propertySource.getSource()
+				: null;
 
 				if (source instanceof Map) {
 

@@ -99,7 +99,8 @@ public class JacksonJsonToPdxConverter implements JsonToPdxArrayConverter {
 	 * either a JSON array or a JSON object.
 	 * @see org.apache.geode.pdx.PdxInstance
 	 */
-	@Nullable @Override
+	@Nullable
+	@Override
 	public PdxInstance[] convert(String json) {
 
 		try {
@@ -126,8 +127,8 @@ public class JacksonJsonToPdxConverter implements JsonToPdxArrayConverter {
 			else {
 
 				String message = String.format("Unable to process JSON node of type [%s];"
-					+ " expected either an [%s] or an [%s]", jsonNode.getNodeType(),
-						JsonNodeType.OBJECT, JsonNodeType.ARRAY);
+				+ " expected either an [%s] or an [%s]", jsonNode.getNodeType(),
+				JsonNodeType.OBJECT, JsonNodeType.ARRAY);
 
 				throw new IllegalStateException(message);
 			}

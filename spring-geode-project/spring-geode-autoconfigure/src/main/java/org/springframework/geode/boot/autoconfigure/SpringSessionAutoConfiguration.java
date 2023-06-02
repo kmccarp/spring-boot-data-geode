@@ -83,7 +83,7 @@ import org.springframework.util.StringUtils;
 @AutoConfigureAfter(ClientCacheAutoConfiguration.class)
 @Conditional(SpringSessionAutoConfiguration.SpringSessionStoreTypeCondition.class)
 @ConditionalOnBean(GemFireCache.class)
-@ConditionalOnClass({ GemFireCache.class, GemFireHttpSessionConfiguration.class })
+@ConditionalOnClass({GemFireCache.class, GemFireHttpSessionConfiguration.class})
 @ConditionalOnMissingBean(SessionRepositoryFilter.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @EnableGemFireHttpSession(poolName = "DEFAULT")
@@ -95,7 +95,7 @@ public class SpringSessionAutoConfiguration {
 
 	protected static final String SERVER_SERVLET_SESSION_TIMEOUT_PROPERTY = "server.servlet.session.timeout";
 	protected static final String SPRING_SESSION_DATA_GEMFIRE_SESSION_EXPIRATION_TIMEOUT =
-		"spring.session.data.gemfire.session.expiration.max-inactive-interval-seconds";
+	"spring.session.data.gemfire.session.expiration.max-inactive-interval-seconds";
 	protected static final String SPRING_SESSION_PROPERTY_SOURCE_NAME = "SpringSessionProperties";
 	protected static final String SPRING_SESSION_STORE_TYPE_PROPERTY = "spring.session.store-type";
 	protected static final String SPRING_SESSION_TIMEOUT_PROPERTY = "spring.session.timeout";
@@ -111,18 +111,18 @@ public class SpringSessionAutoConfiguration {
 
 				if (isSet(environment, SPRING_SESSION_TIMEOUT_PROPERTY)) {
 					springSessionProperties.setProperty(SPRING_SESSION_DATA_GEMFIRE_SESSION_EXPIRATION_TIMEOUT,
-						toSecondsAsString(environment.getProperty(SPRING_SESSION_TIMEOUT_PROPERTY, Duration.class,
-							getDefaultSessionTimeout())));
+					toSecondsAsString(environment.getProperty(SPRING_SESSION_TIMEOUT_PROPERTY, Duration.class,
+				getDefaultSessionTimeout())));
 				}
 				else if (isSet(environment, SERVER_SERVLET_SESSION_TIMEOUT_PROPERTY)) {
 					springSessionProperties.setProperty(SPRING_SESSION_DATA_GEMFIRE_SESSION_EXPIRATION_TIMEOUT,
-						toSecondsAsString(environment.getProperty(SERVER_SERVLET_SESSION_TIMEOUT_PROPERTY,
-							Duration.class, getDefaultSessionTimeout())));
+					toSecondsAsString(environment.getProperty(SERVER_SERVLET_SESSION_TIMEOUT_PROPERTY,
+				Duration.class, getDefaultSessionTimeout())));
 				}
 
 				if (!springSessionProperties.isEmpty()) {
 					environment.getPropertySources()
-						.addFirst(newPropertySource(SPRING_SESSION_PROPERTY_SOURCE_NAME, springSessionProperties));
+					.addFirst(newPropertySource(SPRING_SESSION_PROPERTY_SOURCE_NAME, springSessionProperties));
 				}
 			}
 		}
@@ -139,7 +139,7 @@ public class SpringSessionAutoConfiguration {
 	protected static int toSeconds(@Nullable Duration duration) {
 
 		return duration != null ? Long.valueOf(duration.getSeconds()).intValue()
-			: GemFireHttpSessionConfiguration.DEFAULT_MAX_INACTIVE_INTERVAL_IN_SECONDS;
+		: GemFireHttpSessionConfiguration.DEFAULT_MAX_INACTIVE_INTERVAL_IN_SECONDS;
 	}
 
 	protected static @NonNull String toSecondsAsString(@Nullable Duration duration) {
@@ -153,7 +153,7 @@ public class SpringSessionAutoConfiguration {
 	protected static boolean isSet(ConfigurableEnvironment environment, String propertyName) {
 
 		return environment.containsProperty(propertyName)
-			&& StringUtils.hasText(environment.getProperty(propertyName));
+		&& StringUtils.hasText(environment.getProperty(propertyName));
 	}
 
 	protected static class SpringSessionStoreTypeCondition implements Condition {
@@ -162,10 +162,10 @@ public class SpringSessionAutoConfiguration {
 		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
 
 			String springSessionStoreTypeValue =
-				context.getEnvironment().getProperty(SPRING_SESSION_STORE_TYPE_PROPERTY);
+			context.getEnvironment().getProperty(SPRING_SESSION_STORE_TYPE_PROPERTY);
 
 			return !StringUtils.hasText(springSessionStoreTypeValue)
-				|| SPRING_SESSION_STORE_TYPES.contains(springSessionStoreTypeValue.trim().toLowerCase());
+			|| SPRING_SESSION_STORE_TYPES.contains(springSessionStoreTypeValue.trim().toLowerCase());
 		}
 	}
 }

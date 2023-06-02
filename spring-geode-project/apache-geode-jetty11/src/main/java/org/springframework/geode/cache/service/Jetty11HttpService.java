@@ -115,8 +115,8 @@ public class Jetty11HttpService implements HttpService {
 
 	private static <T> String[] toArray(String commaDelimitedString) {
 		return StringUtils.isNotBlank(commaDelimitedString)
-			? commaDelimitedString.split(",")
-			: new String[0];
+		? commaDelimitedString.split(",")
+		: new String[0];
 	}
 
 	private static <T> Supplier<T> toSupplier(Supplier<T> lambda) {
@@ -209,21 +209,21 @@ public class Jetty11HttpService implements HttpService {
 	public boolean init(Cache cache) {
 
 		return Optional.ofNullable(cache)
-			.filter(CacheUtils::isPeerCache)
-			.map(this::resolveDistributedSystem)
-			.map(InternalDistributedSystem::getConfig)
-			.filter(this::isHttpServiceEnabled)
-			.map(this::initializeHttpServiceServer)
-			.isPresent();
+		.filter(CacheUtils::isPeerCache)
+		.map(this::resolveDistributedSystem)
+		.map(InternalDistributedSystem::getConfig)
+		.filter(this::isHttpServiceEnabled)
+		.map(this::initializeHttpServiceServer)
+		.isPresent();
 	}
 
 	private InternalDistributedSystem resolveDistributedSystem(Cache cache) {
 
 		return Optional.ofNullable(cache)
-			.map(GemFireCache::getDistributedSystem)
-			.filter(InternalDistributedSystem.class::isInstance)
-			.map(InternalDistributedSystem.class::cast)
-			.orElse(null);
+		.map(GemFireCache::getDistributedSystem)
+		.filter(InternalDistributedSystem.class::isInstance)
+		.map(InternalDistributedSystem.class::cast)
+		.orElse(null);
 	}
 
 	private boolean isHttpServiceEnabled(DistributionConfig configuration) {
@@ -234,7 +234,7 @@ public class Jetty11HttpService implements HttpService {
 
 		if (!httpServiceEnabled) {
 			logInfo("Apache Geode's embedded HttpService is disabled;"
-				+ " {} is set to [{}]", DistributionConfig.HTTP_SERVICE_PORT_NAME, httpServicePort);
+			+ " {} is set to [{}]", DistributionConfig.HTTP_SERVICE_PORT_NAME, httpServicePort);
 		}
 
 		return httpServiceEnabled;
@@ -249,7 +249,7 @@ public class Jetty11HttpService implements HttpService {
 		server.setHandler(new HandlerCollection(true));
 
 		logInfo("Initializing Apache Geode's embedded HTTP service with the Jetty {} Server...",
-			toSupplier(Server::getVersion));
+		toSupplier(Server::getVersion));
 
 		this.server = server;
 
@@ -273,10 +273,10 @@ public class Jetty11HttpService implements HttpService {
 		int httpServicePort = configuration.getHttpServicePort();
 
 		logInfo("Apache Geode's embedded HTTP service will run on host [{}] and listen on port [{}]",
-			httpServiceBindAddress, httpServicePort);
+		httpServiceBindAddress, httpServicePort);
 
 		ConnectionFactory[] connectionFactories =
-			newConnectionFactories(configuration).toArray(new ConnectionFactory[0]);
+		newConnectionFactories(configuration).toArray(new ConnectionFactory[0]);
 
 		ServerConnector connector = new ServerConnector(server, connectionFactories);
 
@@ -293,7 +293,7 @@ public class Jetty11HttpService implements HttpService {
 		HttpConnectionFactory httpConnectionFactory = newHttpConnectionFactory(configuration);
 
 		newSslConnectionFactory(configuration, httpConnectionFactory)
-			.ifPresent(connectionFactories::add);
+		.ifPresent(connectionFactories::add);
 
 		connectionFactories.add(httpConnectionFactory);
 
@@ -310,34 +310,34 @@ public class Jetty11HttpService implements HttpService {
 	}
 
 	private Optional<SslConnectionFactory> newSslConnectionFactory(DistributionConfig configuration,
-			HttpConnectionFactory httpConnectionFactory) {
+	HttpConnectionFactory httpConnectionFactory) {
 
 		SSLConfig sslConfiguration =
-			SSLConfigurationFactory.getSSLConfigForComponent(configuration, SecurableCommunicationChannel.WEB);
+		SSLConfigurationFactory.getSSLConfigForComponent(configuration, SecurableCommunicationChannel.WEB);
 
 		if (sslConfiguration.isEnabled()) {
 
 			SslContextFactory.Server serverSslContextFactory = new SslContextFactory.Server();
 
 			Optional.ofNullable(sslConfiguration.getAlias())
-				.filter(StringUtils::isNotBlank)
-				.ifPresent(serverSslContextFactory::setCertAlias);
+			.filter(StringUtils::isNotBlank)
+			.ifPresent(serverSslContextFactory::setCertAlias);
 
 			Optional.ofNullable(sslConfiguration.getCiphers())
-				.filter(this::isSslCiphersConfigured)
-				.ifPresent(ciphers -> {
-					serverSslContextFactory.setExcludeCipherSuites();
-					serverSslContextFactory.setIncludeCipherSuites(toArray(ciphers));
-				});
+			.filter(this::isSslCiphersConfigured)
+			.ifPresent(ciphers -> {
+				serverSslContextFactory.setExcludeCipherSuites();
+				serverSslContextFactory.setIncludeCipherSuites(toArray(ciphers));
+			});
 
 			serverSslContextFactory.setNeedClientAuth(sslConfiguration.isRequireAuth());
 			serverSslContextFactory.setSslContext(SSLUtil.createAndConfigureSSLContext(sslConfiguration,
-				SKIP_SSL_VERIFICATION));
+			SKIP_SSL_VERIFICATION));
 
 			httpConnectionFactory.getHttpConfiguration().addCustomizer(new SecureRequestCustomizer());
 
 			logDebug("SSL configuration [{}] for protocol [{}]",
-				toSupplier(serverSslContextFactory::dump), toSupplier(httpConnectionFactory::getProtocol));
+			toSupplier(serverSslContextFactory::dump), toSupplier(httpConnectionFactory::getProtocol));
 
 			return Optional.of(new SslConnectionFactory(serverSslContextFactory, httpConnectionFactory.getProtocol()));
 		}
@@ -347,7 +347,7 @@ public class Jetty11HttpService implements HttpService {
 
 	private boolean isSslCiphersConfigured(String sslCiphers) {
 		return StringUtils.isNotBlank(sslCiphers)
-			&& !APACHE_GEODE_ANY_SSL_CIPHERS.equalsIgnoreCase(sslCiphers.trim());
+		&& !APACHE_GEODE_ANY_SSL_CIPHERS.equalsIgnoreCase(sslCiphers.trim());
 	}
 
 	/**
@@ -368,19 +368,19 @@ public class Jetty11HttpService implements HttpService {
 		getOptionalServer().map(server -> {
 
 			logInfo("Adding Web application from path [{}] using context [{}]"
-				+ " to Apache Geode's embedded HTTP service", warFilePath, contextPath);
+			+ " to Apache Geode's embedded HTTP service", warFilePath, contextPath);
 
 			Path resolveWarFilePath = JakartaEEMigrationService.INSTANCE.migrate(warFilePath);
 
 			logInfo("Resolved WAR file path [{}]", resolveWarFilePath);
 
 			WebAppContext webAppContext =
-				getWebAppContextConfigurationFunction().apply(newWebAppContext(server, resolveWarFilePath, contextPath));
+			getWebAppContextConfigurationFunction().apply(newWebAppContext(server, resolveWarFilePath, contextPath));
 
 			webAppContext.setAttribute("org.eclipse.jetty.websocket.jakarta", false);
 
 			nullSafeMap(attributeNameValuePairs)
-				.forEach(webAppContext::setAttribute);
+			.forEach(webAppContext::setAttribute);
 
 			((HandlerCollection) server.getHandler()).addHandler(webAppContext);
 
@@ -391,7 +391,7 @@ public class Jetty11HttpService implements HttpService {
 		.orElseGet(() -> {
 
 			logInfo("Unable to add Web application from path [{}] using context [{}]"
-				+ " since the Apache Geode embedded HTTP service was not enabled", warFilePath, contextPath);
+		+ " since the Apache Geode embedded HTTP service was not enabled", warFilePath, contextPath);
 
 			return false;
 		});
@@ -400,7 +400,7 @@ public class Jetty11HttpService implements HttpService {
 	private WebAppContext newWebAppContext(Server server, Path warFilePath, String contextPath) {
 
 		Resource webApp = new PathResource(requireObject(warFilePath,
-			String.format("WAR file path of the Web application [%s] to add must not be null", contextPath)));
+		String.format("WAR file path of the Web application [%s] to add must not be null", contextPath)));
 
 		WebAppContext webAppContext = new WebAppContext(webApp, contextPath);
 
@@ -436,33 +436,33 @@ public class Jetty11HttpService implements HttpService {
 	private WebAppContext configureWebApplicationTempDirectory(WebAppContext webAppContext) {
 
 		DistributionConfig configuration = requireObject((DistributionConfig)
-			webAppContext.getServer().getAttribute(APACHE_GEODE_CONFIGURATION_ATTRIBUTE_NAME),
-			"DistributionConfig was not stored in the Server Attributes");
+	webAppContext.getServer().getAttribute(APACHE_GEODE_CONFIGURATION_ATTRIBUTE_NAME),
+		"DistributionConfig was not stored in the Server Attributes");
 
 		String contextPath = nullSafeString(webAppContext.getContextPath(), "defaultContext");
 
 		contextPath = (contextPath.startsWith(File.separator) ? contextPath.substring(1) : contextPath)
-			.replace(File.separator, UNDERSCORE);
+		.replace(File.separator, UNDERSCORE);
 
 		String hostPort = nullSafeString(configuration.getHttpServiceBindAddress(), "0.0.0.0")
-			.concat(UNDERSCORE)
-			.concat(String.valueOf(configuration.getHttpServicePort()));
+		.concat(UNDERSCORE)
+		.concat(String.valueOf(configuration.getHttpServicePort()));
 
 		String uuid = UUID.randomUUID().toString().substring(0, 8);
 
 		String[] tempDirectoryPathElements = {
-			"temp",
-			System.getProperty("user.name"),
-			"geode",
-			"services",
-			"http",
-			hostPort,
-			contextPath,
-			uuid
+		"temp",
+		System.getProperty("user.name"),
+		"geode",
+		"services",
+		"http",
+		hostPort,
+		contextPath,
+		uuid
 		};
 
 		Path tempDirectoryPath = FileSystems.getDefault()
-			.getPath(System.getProperty("user.dir"), tempDirectoryPathElements);
+		.getPath(System.getProperty("user.dir"), tempDirectoryPathElements);
 
 		File tempDirectory = tempDirectoryPath.toFile();
 
@@ -500,12 +500,12 @@ public class Jetty11HttpService implements HttpService {
 		logInfo("Closing Apache Geode's embedded HTTP service...");
 
 		getWebApplications().stream()
-			.map(SafeWebApplicationWrapper::from)
-			.forEach(SafeWebApplicationWrapper::safeStop);
+		.map(SafeWebApplicationWrapper::from)
+		.forEach(SafeWebApplicationWrapper::safeStop);
 
 		getOptionalServer()
-			.map(SafeServerWrapper::from)
-			.ifPresent(SafeServerWrapper::safeStopAndDestroy);
+		.map(SafeServerWrapper::from)
+		.ifPresent(SafeServerWrapper::safeStopAndDestroy);
 
 		File tempDirectory = new File(System.getProperty("user.dir"), "temp");
 
@@ -536,7 +536,7 @@ public class Jetty11HttpService implements HttpService {
 
 	private void logWarn(Throwable cause, String message, Object... arguments) {
 		log(Logger::isWarnEnabled, it ->
-			it.warn(MessageFormatter.format(message, resolveArguments(arguments)).getMessage(), cause));
+		it.warn(MessageFormatter.format(message, resolveArguments(arguments)).getMessage(), cause));
 	}
 
 	private Object[] resolveArguments(Object... arguments) {
@@ -579,7 +579,7 @@ public class Jetty11HttpService implements HttpService {
 			}
 			catch (Exception cause) {
 				throw new ServerException(String.format("Failed to start HTTP server [%s]",
-					serverReference), cause);
+				serverReference), cause);
 			}
 		}
 
@@ -646,10 +646,10 @@ public class Jetty11HttpService implements HttpService {
 			catch (Exception cause) {
 
 				getLogger().error("Failed to start Web application in context [{}]",
-					this.webAppContext.getContextPath(), cause);
+				this.webAppContext.getContextPath(), cause);
 
 				throw new WebApplicationException(String.format("Failed to start Web application in context [%s]",
-					this.webAppContext.getContextPath()), cause);
+				this.webAppContext.getContextPath()), cause);
 			}
 		}
 
@@ -668,7 +668,8 @@ public class Jetty11HttpService implements HttpService {
 	@SuppressWarnings("unused")
 	protected static class JettyException extends RuntimeException {
 
-		protected JettyException() { }
+		protected JettyException() {
+		}
 
 		protected JettyException(String message) {
 			super(message);
@@ -686,7 +687,8 @@ public class Jetty11HttpService implements HttpService {
 	@SuppressWarnings("unused")
 	protected static class ServerException extends JettyException {
 
-		public ServerException() { }
+		public ServerException() {
+		}
 
 		public ServerException(String message) {
 			super(message);
@@ -704,7 +706,8 @@ public class Jetty11HttpService implements HttpService {
 	@SuppressWarnings("unused")
 	protected static class WebApplicationException extends JettyException {
 
-		protected WebApplicationException() { }
+		protected WebApplicationException() {
+		}
 
 		protected WebApplicationException(String message) {
 			super(message);

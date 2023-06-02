@@ -50,7 +50,7 @@ import org.springframework.geode.config.annotation.ClusterAvailableConfiguration
 @Conditional(ClusterAvailableConfiguration.AnyClusterAvailableCondition.class)
 @ConditionalOnBean(ClientCacheFactoryBean.class)
 @ConditionalOnMissingBean(name = "continuousQueryBeanPostProcessor",
-	type = "org.springframework.data.gemfire.listener.ContinuousQueryListenerContainer")
+type = "org.springframework.data.gemfire.listener.ContinuousQueryListenerContainer")
 @EnableContinuousQueries
 @Import(EnableSubscriptionConfiguration.class)
 @SuppressWarnings("unused")

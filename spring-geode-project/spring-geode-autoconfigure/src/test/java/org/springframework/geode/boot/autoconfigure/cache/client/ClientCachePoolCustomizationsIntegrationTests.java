@@ -73,7 +73,8 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	private static final String DEFAULT_POOL_NAME = "DEFAULT";
 	private static final String SPRING_DATA_GEMFIRE_PROPERTY_PREFIX = "spring.data.gemfire.";
 
-	@BeforeClass @AfterClass
+	@BeforeClass
+	@AfterClass
 	public static void testSuiteSetupAndTearDown() {
 
 		PoolManager.close(false);
@@ -81,16 +82,17 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 		assertThat(PoolManager.find(DEFAULT_POOL_NAME)).isNull();
 	}
 
-	@Before @After
+	@Before
+	@After
 	public void testCaseSetupAndTearDown() {
 
 		System.getProperties().stringPropertyNames().stream()
-			.filter(propertyName -> propertyName.startsWith(SPRING_DATA_GEMFIRE_PROPERTY_PREFIX))
-			.forEach(System::clearProperty);
+		.filter(propertyName -> propertyName.startsWith(SPRING_DATA_GEMFIRE_PROPERTY_PREFIX))
+		.forEach(System::clearProperty);
 	}
 
 	private void testNamedPoolWasCustomized(@NonNull ConfigurableApplicationContext applicationContext,
-			@NonNull String poolName, boolean poolBeanPresent) {
+	@NonNull String poolName, boolean poolBeanPresent) {
 
 		ClientCache clientCache = applicationContext.getBean(ClientCache.class);
 
@@ -128,21 +130,22 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	}
 
 	private void testNamedPoolWasNotCustomized(@NonNull ConfigurableApplicationContext applicationContext,
-			@NonNull String poolName, boolean poolBeanPresent) {
+	@NonNull String poolName, boolean poolBeanPresent) {
 
 		try {
 			testNamedPoolWasCustomized(applicationContext, poolName, poolBeanPresent);
 			fail("Pool [%s] should not have been modified", poolName);
 		}
-		catch (AssertionFailedError ignore) { }
+		catch (AssertionFailedError ignore) {
+		}
 	}
 
 	@Test
 	public void usingClientCacheApplicationAnnotationModifiesDefaultPool() {
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithClientCacheApplicationConfiguration.class, WithEnableTestPoolConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithClientCacheApplicationConfiguration.class, WithEnableTestPoolConfiguration.class);
 
 		testNamedPoolWasCustomized(applicationContext, DEFAULT_POOL_NAME, false);
 		testNamedPoolWasNotCustomized(applicationContext, "TestPool", true);
@@ -152,10 +155,10 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	public void usingClientCacheConfigurerModifiesDefaultPool() {
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithClientCacheConfigurerConfiguration.class, WithEnableTestPoolConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithClientCacheConfigurerConfiguration.class, WithEnableTestPoolConfiguration.class);
 
-		testNamedPoolWasCustomized(applicationContext, DEFAULT_POOL_NAME,false);
+		testNamedPoolWasCustomized(applicationContext, DEFAULT_POOL_NAME, false);
 		testNamedPoolWasNotCustomized(applicationContext, "TestPool", true);
 	}
 
@@ -166,10 +169,10 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 		System.setProperty("spring.data.gemfire.pool.default.subscription-enabled", Boolean.TRUE.toString());
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableTestPoolConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableTestPoolConfiguration.class);
 
-		testNamedPoolWasCustomized(applicationContext, DEFAULT_POOL_NAME,false);
+		testNamedPoolWasCustomized(applicationContext, DEFAULT_POOL_NAME, false);
 		testNamedPoolWasNotCustomized(applicationContext, "TestPool", true);
 	}
 
@@ -180,10 +183,10 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 		System.setProperty("spring.data.gemfire.pool.subscription-enabled", Boolean.TRUE.toString());
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableTestPoolConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableTestPoolConfiguration.class);
 
-		testNamedPoolWasCustomized(applicationContext, DEFAULT_POOL_NAME,false);
+		testNamedPoolWasCustomized(applicationContext, DEFAULT_POOL_NAME, false);
 		testNamedPoolWasCustomized(applicationContext, "TestPool", true);
 	}
 
@@ -191,8 +194,8 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	public void usingEnablePoolAnnotationForTestPoolModifiesTestPool() {
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableTestPoolAttributesConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableTestPoolAttributesConfiguration.class);
 
 		testNamedPoolWasCustomized(applicationContext, "TestPool", true);
 		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME, false);
@@ -204,8 +207,8 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	public void usingPoolConfigurerForTestPoolModifiesTestPool() {
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableTestPoolConfiguration.class, WithPoolConfigurerConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableTestPoolConfiguration.class, WithPoolConfigurerConfiguration.class);
 
 		testNamedPoolWasCustomized(applicationContext, "TestPool", true);
 		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME, false);
@@ -215,8 +218,8 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	public void usingPoolConfigurerBeanForTestPoolModifiesTestPool() {
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableTestPoolConfigurerConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableTestPoolConfigurerConfiguration.class);
 
 		testNamedPoolWasCustomized(applicationContext, "TestPool", true);
 		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME, false);
@@ -226,8 +229,8 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	public void usingPoolConfigurerImportForTestPoolModifiesTestPool() {
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableTestPoolImportConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableTestPoolImportConfiguration.class);
 
 		testNamedPoolWasCustomized(applicationContext, "TestPool", true);
 		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME, false);
@@ -240,8 +243,8 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 		System.setProperty("spring.data.gemfire.pool.TestPool.subscription-enabled", Boolean.TRUE.toString());
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableTestPoolConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableTestPoolConfiguration.class);
 
 		testNamedPoolWasCustomized(applicationContext, "TestPool", true);
 		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME, false);
@@ -251,29 +254,31 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	public void usingEnablePoolAnnotationForDefaultPoolDoesNotModifyDefaultPool() {
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableDefaultPoolAttributesConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableDefaultPoolAttributesConfiguration.class);
 
-		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME,true);
+		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME, true);
 	}
 
 	@Test
 	public void usingEnablePoolAnnotationForDefaultPoolAndPoolConfigurerDoesNotModifyDefaultPool() {
 
 		ConfigurableApplicationContext applicationContext =
-			newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
-				WithEnableDefaultPoolConfiguration.class, WithPoolConfigurerConfiguration.class);
+		newApplicationContext(WithAutoConfiguredClientCacheConfiguration.class,
+	WithEnableDefaultPoolConfiguration.class, WithPoolConfigurerConfiguration.class);
 
-		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME,true);
+		testNamedPoolWasNotCustomized(applicationContext, DEFAULT_POOL_NAME, true);
 	}
 
 	@Configuration
 	@EnableAutoConfiguration
 	@EnableGemFireMockObjects(destroyOnEvents = ContextClosedEvent.class)
-	static class WithAutoConfiguredClientCacheConfiguration { }
+	static class WithAutoConfiguredClientCacheConfiguration {
+	}
 
 	@ClientCacheApplication(serverGroup = "TestServerGroup", subscriptionEnabled = true)
-	static class WithClientCacheApplicationConfiguration { }
+	static class WithClientCacheApplicationConfiguration {
+	}
 
 	@Configuration
 	static class WithClientCacheConfigurerConfiguration {
@@ -291,20 +296,24 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 
 	@Configuration
 	@EnablePool(name = "DEFAULT")
-	static class WithEnableDefaultPoolConfiguration { }
+	static class WithEnableDefaultPoolConfiguration {
+	}
 
 	@Configuration
 	@EnablePool(name = "DEFAULT", serverGroup = "TestServerGroup", subscriptionEnabled = true)
-	static class WithEnableDefaultPoolAttributesConfiguration { }
+	static class WithEnableDefaultPoolAttributesConfiguration {
+	}
 
 	@Configuration
 	@EnablePool(name = "TestPool", servers = @EnablePool.Server)
-	static class WithEnableTestPoolConfiguration { }
+	static class WithEnableTestPoolConfiguration {
+	}
 
 	@Configuration
 	@EnablePool(name = "TestPool", servers = @EnablePool.Server, serverGroup = "TestServerGroup",
-		subscriptionEnabled = true)
-	static class WithEnableTestPoolAttributesConfiguration { }
+	subscriptionEnabled = true)
+	static class WithEnableTestPoolAttributesConfiguration {
+	}
 
 	@Configuration
 	@EnablePool(name = "TestPool", servers = @EnablePool.Server)
@@ -324,7 +333,8 @@ public class ClientCachePoolCustomizationsIntegrationTests extends SpringBootApp
 	@Configuration
 	@EnablePool(name = "TestPool", servers = @EnablePool.Server)
 	@Import(WithPoolConfigurerConfiguration.class)
-	static class WithEnableTestPoolImportConfiguration { }
+	static class WithEnableTestPoolImportConfiguration {
+	}
 
 	@Configuration
 	static class WithPoolConfigurerConfiguration {

@@ -75,14 +75,14 @@ public class GeodeAsyncEventQueuesHealthIndicatorUnitTests {
 		Set<AsyncEventQueue> mockAsyncEventQueues = new HashSet<>();
 
 		mockAsyncEventQueues.add(AsyncEventQueueMockObjects.mockAsyncEventQueue("aeqOne", true,
-			250, 10000, "testDiskStoreOne", true, 16,
-			true, 65536, GatewaySender.OrderPolicy.THREAD, true,
-			true, true, 1024));
+		250, 10000, "testDiskStoreOne", true, 16,
+		true, 65536, GatewaySender.OrderPolicy.THREAD, true,
+		true, true, 1024));
 
 		mockAsyncEventQueues.add(AsyncEventQueueMockObjects.mockAsyncEventQueue("aeqTwo", false,
-			100, 1000, "testDiskStoreTwo", false, 8,
-			false, 32768, GatewaySender.OrderPolicy.KEY, false,
-			true, false, 8192));
+		100, 1000, "testDiskStoreTwo", false, 8,
+		false, 32768, GatewaySender.OrderPolicy.KEY, false,
+		true, false, 8192));
 
 		when(this.mockCache.getAsyncEventQueues()).thenReturn(mockAsyncEventQueues);
 
@@ -133,8 +133,8 @@ public class GeodeAsyncEventQueuesHealthIndicatorUnitTests {
 	public void testHealthCheckFailsWhenGemFireCacheIsInvalid(GemFireCache gemfireCache) throws Exception {
 
 		GeodeAsyncEventQueuesHealthIndicator healthIndicator = gemfireCache != null
-			? new GeodeAsyncEventQueuesHealthIndicator(gemfireCache)
-			: new GeodeAsyncEventQueuesHealthIndicator();
+		? new GeodeAsyncEventQueuesHealthIndicator(gemfireCache)
+		: new GeodeAsyncEventQueuesHealthIndicator();
 
 		Health.Builder builder = new Health.Builder();
 

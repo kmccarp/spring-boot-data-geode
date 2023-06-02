@@ -64,16 +64,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = AutoConfiguredHybridSecurityContextIntegrationTests.GemFireClientConfiguration.class,
-	properties = {
-		"spring.data.gemfire.pool.locators=localhost[${test.security.hybrid.gemfire.pool.locators.port:54441}]",
-		"spring.data.gemfire.security.username=phantom",
-		"spring.data.gemfire.security.password=s3cr3t"
-	},
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = AutoConfiguredHybridSecurityContextIntegrationTests.GemFireClientConfiguration.class,
+properties = {"spring.data.gemfire.pool.locators=localhost[${test.security.hybrid.gemfire.pool.locators.port:54441}]","spring.data.gemfire.security.username=phantom","spring.data.gemfire.security.password=s3cr3t"
+},
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 public class AutoConfiguredHybridSecurityContextIntegrationTests
-		extends AbstractAutoConfiguredSecurityContextIntegrationTests {
+extends AbstractAutoConfiguredSecurityContextIntegrationTests {
 
 	private static final String LOCATOR_PORT_PLACEHOLDER_REGEX = "%LOCATOR_PORT%";
 	private static final String VCAP_APPLICATION_PROPERTIES = "application-vcap-hybrid.properties";
@@ -86,8 +83,8 @@ public class AutoConfiguredHybridSecurityContextIntegrationTests
 		int locatorPort = findAvailablePort();
 
 		startGemFireServer(GemFireServerConfiguration.class,
-			String.format("-Dspring.data.gemfire.locator.port=%d", locatorPort),
-			"-Dspring.profiles.active=security-hybrid");
+		String.format("-Dspring.data.gemfire.locator.port=%d", locatorPort),
+		"-Dspring.profiles.active=security-hybrid");
 
 		loadVcapApplicationProperties(locatorPort);
 
@@ -103,7 +100,7 @@ public class AutoConfiguredHybridSecurityContextIntegrationTests
 		vcapApplicationProperties.stringPropertyNames().forEach(propertyName -> {
 
 			String propertyValue = String.valueOf(vcapApplicationProperties.getProperty(propertyName))
-				.replaceAll(LOCATOR_PORT_PLACEHOLDER_REGEX, String.valueOf(locatorPort));
+			.replaceAll(LOCATOR_PORT_PLACEHOLDER_REGEX, String.valueOf(locatorPort));
 
 			System.setProperty(propertyName, propertyValue);
 		});
@@ -125,7 +122,8 @@ public class AutoConfiguredHybridSecurityContextIntegrationTests
 	}
 
 	@SpringBootApplication
-	static class GemFireClientConfiguration extends BaseGemFireClientConfiguration { }
+	static class GemFireClientConfiguration extends BaseGemFireClientConfiguration {
+	}
 
 	@SpringBootApplication
 	@EnableLocator
@@ -135,9 +133,9 @@ public class AutoConfiguredHybridSecurityContextIntegrationTests
 		public static void main(String[] args) {
 
 			new SpringApplicationBuilder(GemFireServerConfiguration.class)
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 	}
 }

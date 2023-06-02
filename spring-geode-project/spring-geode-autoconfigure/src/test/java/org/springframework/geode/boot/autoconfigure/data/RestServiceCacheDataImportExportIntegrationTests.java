@@ -109,17 +109,12 @@ import example.app.golf.model.Golfer;
 @ActiveProfiles("NET-IMPORT-EXPORT")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = {
-		"spring.boot.data.gemfire.cache.data.export.enabled=true",
-		"spring.boot.data.gemfire.cache.data.export.resource.location=/cache/#{#regionName}/data/export",
-		"spring.boot.data.gemfire.cache.data.import.active-profiles=NET-IMPORT-EXPORT",
-		"spring.boot.data.gemfire.cache.data.import.resource.location=/cache/#{#regionName}/data/import",
-		"spring.session.store-type=NONE",
-		//"spring.boot.data.gemfire.cache.data.import.phase=2147483647",
-		//"spring.boot.data.gemfire.cache.data.export.resource.location=http://localhost:#{#env['local.server.port']}/cache/#{#regionName}/data/export",
-		//"spring.boot.data.gemfire.cache.data.import.resource.location=http://localhost:#{#env['local.server.port']}/cache/#{#regionName}/data/import",
-	},
-	webEnvironment = SpringBootTest.WebEnvironment.MOCK
+properties = {"spring.boot.data.gemfire.cache.data.export.enabled=true","spring.boot.data.gemfire.cache.data.export.resource.location=/cache/#{#regionName}/data/export","spring.boot.data.gemfire.cache.data.import.active-profiles=NET-IMPORT-EXPORT","spring.boot.data.gemfire.cache.data.import.resource.location=/cache/#{#regionName}/data/import","spring.session.store-type=NONE",
+//"spring.boot.data.gemfire.cache.data.import.phase=2147483647",
+//"spring.boot.data.gemfire.cache.data.export.resource.location=http://localhost:#{#env['local.server.port']}/cache/#{#regionName}/data/export",
+//"spring.boot.data.gemfire.cache.data.import.resource.location=http://localhost:#{#env['local.server.port']}/cache/#{#regionName}/data/import",
+},
+webEnvironment = SpringBootTest.WebEnvironment.MOCK
 )
 @AutoConfigureMockMvc
 @SuppressWarnings("unused")
@@ -148,9 +143,9 @@ public class RestServiceCacheDataImportExportIntegrationTests extends Integratio
 	private static Golfer findById(Iterable<Golfer> golfers, long id) {
 
 		return StreamSupport.stream(CollectionUtils.nullSafeIterable(golfers).spliterator(), false)
-			.filter(golfer -> golfer.getId().equals(id))
-			.findFirst()
-			.orElse(null);
+		.filter(golfer -> golfer.getId().equals(id))
+		.findFirst()
+		.orElse(null);
 	}
 
 	private static void log(String message, Object... args) {
@@ -223,10 +218,10 @@ public class RestServiceCacheDataImportExportIntegrationTests extends Integratio
 		public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 
 			CollectionUtils.nullSafeList(converters).stream()
-				.filter(AbstractJackson2HttpMessageConverter.class::isInstance)
-				.map(AbstractJackson2HttpMessageConverter.class::cast)
-				.map(AbstractJackson2HttpMessageConverter::getObjectMapper)
-				.forEach(objectMapper -> objectMapper.addMixIn(Golfer.class, ObjectTypeMetadataMixin.class));
+			.filter(AbstractJackson2HttpMessageConverter.class::isInstance)
+			.map(AbstractJackson2HttpMessageConverter.class::cast)
+			.map(AbstractJackson2HttpMessageConverter::getObjectMapper)
+			.forEach(objectMapper -> objectMapper.addMixIn(Golfer.class, ObjectTypeMetadataMixin.class));
 		}
 
 		@Bean
@@ -282,8 +277,8 @@ public class RestServiceCacheDataImportExportIntegrationTests extends Integratio
 			assertThat(regionName).isEqualTo("golfers");
 
 			return Arrays.asList(
-				Golfer.newGolfer(1L, "John Blum").withHandicap(12),
-				Golfer.newGolfer(2L, "Moe Haroon").withHandicap(10)
+			Golfer.newGolfer(1L, "John Blum").withHandicap(12),
+			Golfer.newGolfer(2L, "Moe Haroon").withHandicap(10)
 			);
 		}
 
@@ -306,12 +301,13 @@ public class RestServiceCacheDataImportExportIntegrationTests extends Integratio
 	}
 
 	@JsonTypeInfo(
-		use = JsonTypeInfo.Id.CLASS,
-		include = JsonTypeInfo.As.PROPERTY,
-		property = PdxInstanceWrapper.AT_TYPE_FIELD_NAME
+	use = JsonTypeInfo.Id.CLASS,
+	include = JsonTypeInfo.As.PROPERTY,
+	property = PdxInstanceWrapper.AT_TYPE_FIELD_NAME
 	)
 	@SuppressWarnings("all")
-	interface ObjectTypeMetadataMixin { }
+	interface ObjectTypeMetadataMixin {
+	}
 
 	static class RestServiceExportResourceResolver extends AbstractExportResourceResolver {
 
@@ -358,16 +354,16 @@ public class RestServiceCacheDataImportExportIntegrationTests extends Integratio
 
 				//String json = this.mvc.perform(get(resource.getURI()).accept(MediaType.APPLICATION_JSON))
 				String json = this.mvc.perform(get("/cache/{regionName}/data/import", "golfers")
-					.accept(MediaType.APPLICATION_JSON))
-					.andReturn()
-					.getResponse()
-					.getContentAsString();
+				.accept(MediaType.APPLICATION_JSON))
+				.andReturn()
+				.getResponse()
+				.getContentAsString();
 
 				return json.getBytes();
 			}
 			catch (Exception cause) {
 				throw new ResourceReadException(String.format("Failed to read from resource at location [%s]",
-					resource.getDescription()), cause);
+				resource.getDescription()), cause);
 			}
 		}
 	}
@@ -392,13 +388,13 @@ public class RestServiceCacheDataImportExportIntegrationTests extends Integratio
 
 				//this.mvc.perform(post(resource.getURI()).content(data).contentType(MediaType.APPLICATION_JSON))
 				this.mvc.perform(post("/cache/{regionName}/data/export", "golfers")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(data))
-					.andExpect(status().isOk());
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(data))
+				.andExpect(status().isOk());
 			}
 			catch (Exception cause) {
 				throw new ResourceWriteException(String.format("Failed to write to resource at location [%s]",
-					resource.getDescription()), cause);
+				resource.getDescription()), cause);
 			}
 		}
 	}

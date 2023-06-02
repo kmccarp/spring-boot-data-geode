@@ -77,7 +77,7 @@ public interface ResourceResolver {
 	 */
 	default @NonNull Resource require(@NonNull String location) {
 		return resolve(location)
-			.filter(Resource::exists)
-			.orElseThrow(() -> new ResourceNotFoundException(String.format("Resource [%s] does not exist", location)));
+		.filter(Resource::exists)
+		.orElseThrow(() -> new ResourceNotFoundException(String.format("Resource [%s] does not exist", location)));
 	}
 }

@@ -61,12 +61,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("MANUALLY_CONFIGURED_PDX_SERIALIZER")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = { "spring.application.name=ManuallyConfiguredPdxSerializerWithPdxSerializationAutoConfigurationIntegrationTests" },
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = {"spring.application.name=ManuallyConfiguredPdxSerializerWithPdxSerializationAutoConfigurationIntegrationTests"},
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class ManuallyConfiguredPdxSerializerWithPdxSerializationAutoConfigurationIntegrationTests
-		extends IntegrationTestsSupport {
+extends IntegrationTestsSupport {
 
 	@Autowired
 	private GemFireCache cache;
@@ -80,7 +80,7 @@ public class ManuallyConfiguredPdxSerializerWithPdxSerializationAutoConfiguratio
 
 		assertThat(this.cache).isNotNull();
 		assertThat(this.cache.getName())
-			.isEqualTo(ManuallyConfiguredPdxSerializerWithPdxSerializationAutoConfigurationIntegrationTests.class.getSimpleName());
+		.isEqualTo(ManuallyConfiguredPdxSerializerWithPdxSerializationAutoConfigurationIntegrationTests.class.getSimpleName());
 		assertThat(this.cache.getPdxSerializer()).isEqualTo(this.mockPdxSerializer);
 	}
 

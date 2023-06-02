@@ -210,7 +210,7 @@ public class JacksonJsonToObjectConverterUnitTests {
 		catch (MappingException expected) {
 
 			assertThat(expected)
-				.hasMessage("Failed to map JSON [%s] to an Object of type [non.existing.class.Type]", json);
+			.hasMessage("Failed to map JSON [%s] to an Object of type [non.existing.class.Type]", json);
 
 			assertThat(expected).hasCauseInstanceOf(ClassNotFoundException.class);
 			assertThat(expected.getCause()).hasMessageContaining("non.existing.class.Type");

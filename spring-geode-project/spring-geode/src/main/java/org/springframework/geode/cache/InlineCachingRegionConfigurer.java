@@ -74,7 +74,7 @@ public class InlineCachingRegionConfigurer<T, ID> implements RegionConfigurer {
 	 * @see java.util.function.Predicate
 	 */
 	public InlineCachingRegionConfigurer(@NonNull CrudRepository<T, ID> repository,
-			@Nullable Predicate<String> regionBeanName) {
+	@Nullable Predicate<String> regionBeanName) {
 
 		Assert.notNull(repository, "CrudRepository is required");
 
@@ -98,7 +98,7 @@ public class InlineCachingRegionConfigurer<T, ID> implements RegionConfigurer {
 	 * @see java.util.function.Predicate
 	 */
 	protected RepositoryCacheLoaderRegionConfigurer<T, ID> newRepositoryCacheLoaderRegionConfigurer(
-			@NonNull CrudRepository<T, ID> repository, @Nullable Predicate<String> regionBeanName) {
+	@NonNull CrudRepository<T, ID> repository, @Nullable Predicate<String> regionBeanName) {
 
 		return new RepositoryCacheLoaderRegionConfigurer<>(repository, regionBeanName);
 	}
@@ -117,7 +117,7 @@ public class InlineCachingRegionConfigurer<T, ID> implements RegionConfigurer {
 	 * @see java.util.function.Predicate
 	 */
 	protected RepositoryCacheWriterRegionConfigurer<T, ID> newRepositoryCacheWriterRegionConfigurer(
-			@NonNull CrudRepository<T, ID> repository, @Nullable Predicate<String> regionBeanName) {
+	@NonNull CrudRepository<T, ID> repository, @Nullable Predicate<String> regionBeanName) {
 
 		return new RepositoryCacheWriterRegionConfigurer<>(repository, regionBeanName);
 	}

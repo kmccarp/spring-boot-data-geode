@@ -443,9 +443,9 @@ public class PdxInstanceWrapperUnitTests {
 		assertThat(wrapper.getAtIdentifier()).isEqualTo("123456789");
 
 		verify(mockPdxInstance, times(1))
-			.hasField(eq(PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME));
+		.hasField(eq(PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME));
 		verify(mockPdxInstance, times(1))
-			.getField(eq(PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME));
+		.getField(eq(PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME));
 		verify(mockPdxInstance, times(1)).hasField(eq("isbn"));
 		verify(mockPdxInstance, times(1)).getField(eq("isbn"));
 		verifyNoMoreInteractions(mockPdxInstance);
@@ -467,7 +467,7 @@ public class PdxInstanceWrapperUnitTests {
 		catch (IllegalStateException expected) {
 
 			assertThat(expected).hasMessage("PdxInstance for type [%s] has no declared identifier",
-				Account.class.getName());
+			Account.class.getName());
 			assertThat(expected).hasNoCause();
 
 			throw expected;
@@ -475,9 +475,9 @@ public class PdxInstanceWrapperUnitTests {
 		finally {
 			verify(mockPdxInstance, times(1)).getClassName();
 			verify(mockPdxInstance, times(2))
-				.hasField(eq(PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME));
+			.hasField(eq(PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME));
 			verify(mockPdxInstance, times(1))
-				.hasField(eq(PdxInstanceWrapper.ID_FIELD_NAME));
+			.hasField(eq(PdxInstanceWrapper.ID_FIELD_NAME));
 			verify(mockPdxInstance, never()).getField(anyString());
 			verifyNoMoreInteractions(mockPdxInstance);
 		}
@@ -499,7 +499,7 @@ public class PdxInstanceWrapperUnitTests {
 		catch (IllegalStateException expected) {
 
 			assertThat(expected).hasMessage("PdxInstance for type [%s] has no id",
-				Account.class.getName());
+			Account.class.getName());
 			assertThat(expected).hasNoCause();
 
 			throw expected;
@@ -507,9 +507,9 @@ public class PdxInstanceWrapperUnitTests {
 		finally {
 			verify(mockPdxInstance, times(1)).getClassName();
 			verify(mockPdxInstance, times(1))
-				.hasField(eq(PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME));
+			.hasField(eq(PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME));
 			verify(mockPdxInstance, times(1))
-				.hasField(eq(PdxInstanceWrapper.ID_FIELD_NAME));
+			.hasField(eq(PdxInstanceWrapper.ID_FIELD_NAME));
 			verify(mockPdxInstance, never()).getField(any());
 			verifyNoMoreInteractions(mockPdxInstance);
 		}
@@ -537,7 +537,7 @@ public class PdxInstanceWrapperUnitTests {
 			String expectedMessage = "PdxInstance for type [%s] has no value [null] for field [ssn] declared in [%s]";
 
 			assertThat(expected).hasMessage(expectedMessage, Person.class.getName(),
-				PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME);
+			PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME);
 			assertThat(expected).hasNoCause();
 
 			throw expected;
@@ -572,7 +572,7 @@ public class PdxInstanceWrapperUnitTests {
 		catch (IllegalStateException expected) {
 
 			assertThat(expected).hasMessage("PdxInstance for type [%s] has no field [ssn] declared in [%s]",
-				Person.class.getName(), PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME);
+			Person.class.getName(), PdxInstanceWrapper.AT_IDENTIFIER_FIELD_NAME);
 			assertThat(expected).hasNoCause();
 
 			throw expected;
@@ -715,7 +715,7 @@ public class PdxInstanceWrapperUnitTests {
 		doReturn(Optional.of(mockObjectMapper)).when(wrapper).getObjectMapper();
 		doReturn(json).when(wrapper).jsonFormatterToJson(eq(mockPdxInstance));
 		doThrow(new JsonGenerationException("TEST", mock(JsonGenerator.class)))
-			.when(mockObjectMapper).readValue(anyString(), any(Class.class));
+		.when(mockObjectMapper).readValue(anyString(), any(Class.class));
 
 		assertThat(wrapper.getObject()).isEqualTo(value);
 
@@ -806,8 +806,10 @@ public class PdxInstanceWrapperUnitTests {
 		String getName();
 	}
 
-	interface Person { }
+	interface Person {
+	}
 
-	interface SendablePdxInstance extends PdxInstance, Sendable { }
+	interface SendablePdxInstance extends PdxInstance, Sendable {
+	}
 
 }

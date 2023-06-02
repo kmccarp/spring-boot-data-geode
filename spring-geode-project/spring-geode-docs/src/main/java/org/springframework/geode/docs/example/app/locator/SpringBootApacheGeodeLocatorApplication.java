@@ -52,9 +52,9 @@ public class SpringBootApacheGeodeLocatorApplication {
 	public static void main(String[] args) {
 
 		new SpringApplicationBuilder(SpringBootApacheGeodeLocatorApplication.class)
-			.web(WebApplicationType.NONE)
-			.build()
-			.run(args);
+		.web(WebApplicationType.NONE)
+		.build()
+		.run(args);
 
 		System.err.println("Press <enter> to exit!");
 
@@ -65,7 +65,8 @@ public class SpringBootApacheGeodeLocatorApplication {
 	@EnableManager(start = true)
 	@Profile("manager")
 	@SuppressWarnings("unused")
-	static class ManagerConfiguration { }
+	static class ManagerConfiguration {
+	}
 
 }
 // end::class[]

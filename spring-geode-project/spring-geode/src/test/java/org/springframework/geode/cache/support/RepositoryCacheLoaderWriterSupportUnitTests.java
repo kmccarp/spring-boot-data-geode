@@ -53,7 +53,7 @@ import org.springframework.data.repository.CrudRepository;
  * @since 1.1.0
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class RepositoryCacheLoaderWriterSupportUnitTests {
 
 	@Mock
@@ -68,7 +68,7 @@ public class RepositoryCacheLoaderWriterSupportUnitTests {
 	public void constructsRepositoryCacheLoaderWriterSupportSuccessfully() {
 
 		RepositoryCacheLoaderWriterSupport<Object, Object> cacheLoaderWriter =
-			new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository);
+		new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository);
 
 		assertThat(cacheLoaderWriter).isNotNull();
 		assertThat(cacheLoaderWriter.getEnvironment().orElse(null)).isNull();
@@ -96,7 +96,7 @@ public class RepositoryCacheLoaderWriterSupportUnitTests {
 		Environment mockEnvironment = mock(Environment.class);
 
 		RepositoryCacheLoaderWriterSupport<Object, Object> cacheLoaderWriter =
-			new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository);
+		new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository);
 
 		cacheLoaderWriter.setEnvironment(mockEnvironment);
 
@@ -110,7 +110,7 @@ public class RepositoryCacheLoaderWriterSupportUnitTests {
 	@Test
 	public void isNukeAndPaveEnabledReturnsFalse() {
 		assertThat(new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository)
-			.isNukeAndPaveEnabled()).isFalse();
+		.isNukeAndPaveEnabled()).isFalse();
 	}
 
 	@Test
@@ -119,18 +119,18 @@ public class RepositoryCacheLoaderWriterSupportUnitTests {
 		System.setProperty(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY, String.valueOf(false));
 
 		assertThat(Boolean.parseBoolean(System.getProperty(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY)))
-			.isFalse();
+		.isFalse();
 
 		Environment mockEnvironment = mock(Environment.class);
 
 		when(mockEnvironment.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY),
-			eq(Boolean.class))).thenReturn(true);
+		eq(Boolean.class))).thenReturn(true);
 
 		assertThat(new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository)
-			.with(mockEnvironment).isNukeAndPaveEnabled()).isTrue();
+		.with(mockEnvironment).isNukeAndPaveEnabled()).isTrue();
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY), eq(Boolean.class));
+		.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY), eq(Boolean.class));
 	}
 
 	@Test
@@ -139,10 +139,10 @@ public class RepositoryCacheLoaderWriterSupportUnitTests {
 		System.setProperty(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY, String.valueOf(true));
 
 		assertThat(Boolean.parseBoolean(System.getProperty(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY)))
-			.isTrue();
+		.isTrue();
 
 		assertThat(new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository).isNukeAndPaveEnabled())
-			.isTrue();
+		.isTrue();
 	}
 
 	@Test
@@ -155,7 +155,7 @@ public class RepositoryCacheLoaderWriterSupportUnitTests {
 		Object testEntity = new Object();
 
 		RepositoryCacheLoaderWriterSupport<Object, Object> cacheLoaderWriter =
-			new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository);
+		new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository);
 
 		assertThat(cacheLoaderWriter.doRepositoryOp(testEntity, mockRepositoryOperationFunction)).isEqualTo("TEST");
 
@@ -182,7 +182,7 @@ public class RepositoryCacheLoaderWriterSupportUnitTests {
 		Object testEntity = new Object();
 
 		RepositoryCacheLoaderWriterSupport<Object, Object> cacheLoaderWriter =
-			new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository);
+		new TestRepositoryCacheLoaderWriterSupport(this.mockCrudRepository);
 
 		try {
 			cacheLoaderWriter.doRepositoryOp(testEntity, mockRepositoryOperationFunction);
@@ -216,7 +216,8 @@ public class RepositoryCacheLoaderWriterSupportUnitTests {
 	@SuppressWarnings("unused")
 	static final class TestCacheRuntimeException extends CacheRuntimeException {
 
-		public TestCacheRuntimeException() { }
+		public TestCacheRuntimeException() {
+		}
 
 		public TestCacheRuntimeException(String message) {
 			super(message);

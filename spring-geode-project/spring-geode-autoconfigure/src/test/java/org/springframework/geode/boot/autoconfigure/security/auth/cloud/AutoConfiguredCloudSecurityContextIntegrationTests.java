@@ -57,12 +57,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = AutoConfiguredCloudSecurityContextIntegrationTests.GemFireClientConfiguration.class,
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = AutoConfiguredCloudSecurityContextIntegrationTests.GemFireClientConfiguration.class,
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class AutoConfiguredCloudSecurityContextIntegrationTests
-		extends AbstractAutoConfiguredSecurityContextIntegrationTests {
+extends AbstractAutoConfiguredSecurityContextIntegrationTests {
 
 	private static final String LOCATOR_PORT_PLACEHOLDER_REGEX = "%LOCATOR_PORT%";
 	private static final String VCAP_APPLICATION_PROPERTIES = "application-vcap-cloud.properties";
@@ -75,8 +75,8 @@ public class AutoConfiguredCloudSecurityContextIntegrationTests
 		int locatorPort = findAvailablePort();
 
 		startGemFireServer(GemFireServerConfiguration.class,
-			String.format("-Dspring.data.gemfire.locator.port=%d", locatorPort),
-			"-Dspring.profiles.active=security-cloud");
+		String.format("-Dspring.data.gemfire.locator.port=%d", locatorPort),
+		"-Dspring.profiles.active=security-cloud");
 
 		loadVcapApplicationProperties(locatorPort);
 
@@ -90,7 +90,7 @@ public class AutoConfiguredCloudSecurityContextIntegrationTests
 		vcapApplicationProperties.stringPropertyNames().forEach(propertyName -> {
 
 			String propertyValue = String.valueOf(vcapApplicationProperties.getProperty(propertyName))
-				.replaceAll(LOCATOR_PORT_PLACEHOLDER_REGEX, String.valueOf(locatorPort));
+			.replaceAll(LOCATOR_PORT_PLACEHOLDER_REGEX, String.valueOf(locatorPort));
 
 			System.setProperty(propertyName, propertyValue);
 		});
@@ -106,7 +106,8 @@ public class AutoConfiguredCloudSecurityContextIntegrationTests
 	}
 
 	@SpringBootApplication
-	static class GemFireClientConfiguration extends BaseGemFireClientConfiguration { }
+	static class GemFireClientConfiguration extends BaseGemFireClientConfiguration {
+	}
 
 	@SpringBootApplication
 	@EnableLocator
@@ -116,9 +117,9 @@ public class AutoConfiguredCloudSecurityContextIntegrationTests
 		public static void main(String[] args) {
 
 			new SpringApplicationBuilder(GemFireServerConfiguration.class)
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 	}
 }

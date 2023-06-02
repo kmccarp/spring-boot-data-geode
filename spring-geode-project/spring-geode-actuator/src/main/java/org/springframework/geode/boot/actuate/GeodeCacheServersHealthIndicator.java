@@ -77,53 +77,53 @@ public class GeodeCacheServersHealthIndicator extends AbstractGeodeHealthIndicat
 			AtomicInteger globalIndex = new AtomicInteger(0);
 
 			List<CacheServer> cacheServers = getGemFireCache()
-				.map(Cache.class::cast)
-				.map(Cache::getCacheServers)
-				.orElseGet(Collections::emptyList);
+			.map(Cache.class::cast)
+			.map(Cache::getCacheServers)
+			.orElseGet(Collections::emptyList);
 
 			builder.withDetail("geode.cache.server.count", cacheServers.size());
 
 			cacheServers.stream()
-				.filter(Objects::nonNull)
-				.forEach(cacheServer -> {
+			.filter(Objects::nonNull)
+			.forEach(cacheServer -> {
 
-					int cacheServerIndex = globalIndex.getAndIncrement();
+				int cacheServerIndex = globalIndex.getAndIncrement();
 
-					builder.withDetail(cacheServerKey(cacheServerIndex, "bind-address"), cacheServer.getBindAddress())
-						.withDetail(cacheServerKey(cacheServerIndex, "hostname-for-clients"), cacheServer.getHostnameForClients())
-						.withDetail(cacheServerKey(cacheServerIndex, "load-poll-interval"), cacheServer.getLoadPollInterval())
-						.withDetail(cacheServerKey(cacheServerIndex, "max-connections"), cacheServer.getMaxConnections())
-						.withDetail(cacheServerKey(cacheServerIndex, "max-message-count"), cacheServer.getMaximumMessageCount())
-						.withDetail(cacheServerKey(cacheServerIndex, "max-threads"), cacheServer.getMaxThreads())
-						.withDetail(cacheServerKey(cacheServerIndex, "max-time-between-pings"), cacheServer.getMaximumTimeBetweenPings())
-						.withDetail(cacheServerKey(cacheServerIndex, "message-time-to-live"), cacheServer.getMessageTimeToLive())
-						.withDetail(cacheServerKey(cacheServerIndex, "port"), cacheServer.getPort())
-						.withDetail(cacheServerKey(cacheServerIndex, "running"), toYesNoString(cacheServer.isRunning()))
-						.withDetail(cacheServerKey(cacheServerIndex, "socket-buffer-size"), cacheServer.getSocketBufferSize())
-						.withDetail(cacheServerKey(cacheServerIndex, "tcp-no-delay"), toYesNoString(cacheServer.getTcpNoDelay()));
+				builder.withDetail(cacheServerKey(cacheServerIndex, "bind-address"), cacheServer.getBindAddress())
+			.withDetail(cacheServerKey(cacheServerIndex, "hostname-for-clients"), cacheServer.getHostnameForClients())
+			.withDetail(cacheServerKey(cacheServerIndex, "load-poll-interval"), cacheServer.getLoadPollInterval())
+			.withDetail(cacheServerKey(cacheServerIndex, "max-connections"), cacheServer.getMaxConnections())
+			.withDetail(cacheServerKey(cacheServerIndex, "max-message-count"), cacheServer.getMaximumMessageCount())
+			.withDetail(cacheServerKey(cacheServerIndex, "max-threads"), cacheServer.getMaxThreads())
+			.withDetail(cacheServerKey(cacheServerIndex, "max-time-between-pings"), cacheServer.getMaximumTimeBetweenPings())
+			.withDetail(cacheServerKey(cacheServerIndex, "message-time-to-live"), cacheServer.getMessageTimeToLive())
+			.withDetail(cacheServerKey(cacheServerIndex, "port"), cacheServer.getPort())
+			.withDetail(cacheServerKey(cacheServerIndex, "running"), toYesNoString(cacheServer.isRunning()))
+			.withDetail(cacheServerKey(cacheServerIndex, "socket-buffer-size"), cacheServer.getSocketBufferSize())
+			.withDetail(cacheServerKey(cacheServerIndex, "tcp-no-delay"), toYesNoString(cacheServer.getTcpNoDelay()));
 
-					Optional.ofNullable(cacheServer.getLoadProbe())
-						.filter(ActuatorServerLoadProbeWrapper.class::isInstance)
-						.map(ActuatorServerLoadProbeWrapper.class::cast)
-						.flatMap(ActuatorServerLoadProbeWrapper::getCurrentServerMetrics)
-						.ifPresent(serverMetrics -> {
+				Optional.ofNullable(cacheServer.getLoadProbe())
+			.filter(ActuatorServerLoadProbeWrapper.class::isInstance)
+			.map(ActuatorServerLoadProbeWrapper.class::cast)
+			.flatMap(ActuatorServerLoadProbeWrapper::getCurrentServerMetrics)
+			.ifPresent(serverMetrics -> {
 
-							builder.withDetail(cacheServerMetricsKey(cacheServerIndex, "client-count"), serverMetrics.getClientCount())
-								.withDetail(cacheServerMetricsKey(cacheServerIndex, "max-connection-count"), serverMetrics.getMaxConnections())
-								.withDetail(cacheServerMetricsKey(cacheServerIndex, "open-connection-count"), serverMetrics.getConnectionCount())
-								.withDetail(cacheServerMetricsKey(cacheServerIndex, "subscription-connection-count"), serverMetrics.getSubscriptionConnectionCount());
+				builder.withDetail(cacheServerMetricsKey(cacheServerIndex, "client-count"), serverMetrics.getClientCount())
+				.withDetail(cacheServerMetricsKey(cacheServerIndex, "max-connection-count"), serverMetrics.getMaxConnections())
+				.withDetail(cacheServerMetricsKey(cacheServerIndex, "open-connection-count"), serverMetrics.getConnectionCount())
+				.withDetail(cacheServerMetricsKey(cacheServerIndex, "subscription-connection-count"), serverMetrics.getSubscriptionConnectionCount());
 
-							ServerLoad serverLoad = cacheServer.getLoadProbe().getLoad(serverMetrics);
+				ServerLoad serverLoad = cacheServer.getLoadProbe().getLoad(serverMetrics);
 
-							if (serverLoad != null) {
+				if (serverLoad != null) {
 
-								builder.withDetail(cacheServerLoadKey(cacheServerIndex, "connection-load"), serverLoad.getConnectionLoad())
-									.withDetail(cacheServerLoadKey(cacheServerIndex, "load-per-connection"), serverLoad.getLoadPerConnection())
-									.withDetail(cacheServerLoadKey(cacheServerIndex, "subscription-connection-load"), serverLoad.getSubscriptionConnectionLoad())
-									.withDetail(cacheServerLoadKey(cacheServerIndex, "load-per-subscription-connection"), serverLoad.getLoadPerSubscriptionConnection());
-							}
-						});
-				});
+					builder.withDetail(cacheServerLoadKey(cacheServerIndex, "connection-load"), serverLoad.getConnectionLoad())
+					.withDetail(cacheServerLoadKey(cacheServerIndex, "load-per-connection"), serverLoad.getLoadPerConnection())
+					.withDetail(cacheServerLoadKey(cacheServerIndex, "subscription-connection-load"), serverLoad.getSubscriptionConnectionLoad())
+					.withDetail(cacheServerLoadKey(cacheServerIndex, "load-per-subscription-connection"), serverLoad.getLoadPerSubscriptionConnection());
+				}
+			});
+			});
 
 			builder.up();
 

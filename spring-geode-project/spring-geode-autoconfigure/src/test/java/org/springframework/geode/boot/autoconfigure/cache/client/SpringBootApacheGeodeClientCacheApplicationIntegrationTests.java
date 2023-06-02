@@ -67,8 +67,8 @@ public class SpringBootApacheGeodeClientCacheApplicationIntegrationTests extends
 	public void clientCacheAndClientRegionAreAvailable() {
 
 		Optional.ofNullable(this.clientCache)
-			.map(it -> assertThat(GemfireUtils.isClient(it)).isTrue())
-			.orElseThrow(() -> newIllegalStateException("ClientCache was null"));
+		.map(it -> assertThat(GemfireUtils.isClient(it)).isTrue())
+		.orElseThrow(() -> newIllegalStateException("ClientCache was null"));
 
 		Region<Object, Object> example = this.clientCache.getRegion("Example");
 

@@ -70,32 +70,32 @@ public class GeodeAsyncEventQueuesHealthIndicator extends AbstractGeodeHealthInd
 		if (getGemFireCache().filter(CacheUtils::isPeer).isPresent()) {
 
 			Set<AsyncEventQueue> asyncEventQueues = getGemFireCache()
-				.map(Cache.class::cast)
-				.map(Cache::getAsyncEventQueues)
-				.orElseGet(Collections::emptySet);
+			.map(Cache.class::cast)
+			.map(Cache::getAsyncEventQueues)
+			.orElseGet(Collections::emptySet);
 
 			builder.withDetail("geode.async-event-queue.count", asyncEventQueues.size());
 
 			asyncEventQueues.stream()
-				.filter(Objects::nonNull)
-				.forEach(asyncEventQueue -> {
+			.filter(Objects::nonNull)
+			.forEach(asyncEventQueue -> {
 
-					String asyncEventQueueId = asyncEventQueue.getId();
+				String asyncEventQueueId = asyncEventQueue.getId();
 
-					builder.withDetail(asyncEventQueueKey(asyncEventQueueId, "batch-conflation-enabled"), toYesNoString(asyncEventQueue.isBatchConflationEnabled()))
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "batch-size"), asyncEventQueue.getBatchSize())
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "batch-time-interval"), asyncEventQueue.getBatchTimeInterval())
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "disk-store-name"), asyncEventQueue.getDiskStoreName())
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "disk-synchronous"), toYesNoString(asyncEventQueue.isDiskSynchronous()))
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "dispatcher-threads"), asyncEventQueue.getDispatcherThreads())
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "forward-expiration-destroy"), toYesNoString(asyncEventQueue.isForwardExpirationDestroy()))
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "max-queue-memory"), asyncEventQueue.getMaximumQueueMemory())
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "order-policy"), asyncEventQueue.getOrderPolicy())
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "parallel"), toYesNoString(asyncEventQueue.isParallel()))
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "persistent"), toYesNoString(asyncEventQueue.isPersistent()))
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "primary"), toYesNoString(asyncEventQueue.isPrimary()))
-						.withDetail(asyncEventQueueKey(asyncEventQueueId, "size"), asyncEventQueue.size());
-				});
+				builder.withDetail(asyncEventQueueKey(asyncEventQueueId, "batch-conflation-enabled"), toYesNoString(asyncEventQueue.isBatchConflationEnabled()))
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "batch-size"), asyncEventQueue.getBatchSize())
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "batch-time-interval"), asyncEventQueue.getBatchTimeInterval())
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "disk-store-name"), asyncEventQueue.getDiskStoreName())
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "disk-synchronous"), toYesNoString(asyncEventQueue.isDiskSynchronous()))
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "dispatcher-threads"), asyncEventQueue.getDispatcherThreads())
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "forward-expiration-destroy"), toYesNoString(asyncEventQueue.isForwardExpirationDestroy()))
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "max-queue-memory"), asyncEventQueue.getMaximumQueueMemory())
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "order-policy"), asyncEventQueue.getOrderPolicy())
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "parallel"), toYesNoString(asyncEventQueue.isParallel()))
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "persistent"), toYesNoString(asyncEventQueue.isPersistent()))
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "primary"), toYesNoString(asyncEventQueue.isPrimary()))
+			.withDetail(asyncEventQueueKey(asyncEventQueueId, "size"), asyncEventQueue.size());
+			});
 
 			builder.up();
 

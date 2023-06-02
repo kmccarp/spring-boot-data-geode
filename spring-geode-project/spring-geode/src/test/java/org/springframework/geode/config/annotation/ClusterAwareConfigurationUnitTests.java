@@ -100,13 +100,14 @@ import org.slf4j.Logger;
 public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport {
 
 	private ClusterAwareConfiguration.ClusterAwareCondition condition =
-		spy(new ClusterAwareConfiguration.ClusterAwareCondition());
+	spy(new ClusterAwareConfiguration.ClusterAwareCondition());
 
 	private @NonNull InetSocketAddress newSocketAddress(@NonNull String host, int port) {
 		return new InetSocketAddress(host, port);
 	}
 
-	@Before @After
+	@Before
+	@After
 	public void setupAndTearDown() {
 		System.clearProperty(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
 		ClusterAwareConfiguration.ClusterAwareCondition.reset();
@@ -160,15 +161,15 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 
 		doReturn(mockEnvironment).when(mockConditionContext).getEnvironment();
 		doReturn(true).when(mockEnvironment)
-			.getProperty(eq(ClusterAwareConfiguration.SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_PROPERTY),
-				eq(Boolean.class), eq(ClusterAwareConfiguration.DEFAULT_CLUSTER_AWARE_CONDITION_MATCH));
+		.getProperty(eq(ClusterAwareConfiguration.SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_PROPERTY),
+	eq(Boolean.class), eq(ClusterAwareConfiguration.DEFAULT_CLUSTER_AWARE_CONDITION_MATCH));
 
 		assertThat(this.condition.isMatch(mockConditionContext)).isTrue();
 
 		verify(mockConditionContext, times(1)).getEnvironment();
 		verify(mockEnvironment, times(1))
-			.getProperty(eq(ClusterAwareConfiguration.SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_PROPERTY),
-				eq(Boolean.class), eq(ClusterAwareConfiguration.DEFAULT_CLUSTER_AWARE_CONDITION_MATCH));
+		.getProperty(eq(ClusterAwareConfiguration.SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_PROPERTY),
+	eq(Boolean.class), eq(ClusterAwareConfiguration.DEFAULT_CLUSTER_AWARE_CONDITION_MATCH));
 
 		verifyNoMoreInteractions(mockConditionContext, mockEnvironment);
 	}
@@ -210,7 +211,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 
 		verify(mockConditionContext, times(1)).getResourceLoader();
 		verify(mockApplicationContext, times(1))
-			.addApplicationListener(isA(ApplicationListener.class));
+		.addApplicationListener(isA(ApplicationListener.class));
 
 		verifyNoMoreInteractions(mockConditionContext, mockApplicationContext);
 	}
@@ -237,7 +238,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		order.verify(this.condition, times(1)).getConnectionEndpoints(eq(mockEnvironment));
 		order.verify(this.condition, times(1)).countConnections(eq(mockConnectionEndpointList));
 		order.verify(this.condition, times(1))
-			.configureTopology(eq(mockEnvironment), eq(mockConnectionEndpointList), eq(1));
+		.configureTopology(eq(mockEnvironment), eq(mockConnectionEndpointList), eq(1));
 		order.verify(this.condition, times(1)).isMatch(eq(mockConnectionEndpointList), eq(1));
 
 		verify(this.condition, atLeastOnce()).getLogger();
@@ -256,7 +257,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 	public void isNotMatchReturnsFalse() {
 
 		ConnectionEndpointList connectionEndpoints =
-			ConnectionEndpointList.from(new ConnectionEndpoint("localhost", 1234));
+		ConnectionEndpointList.from(new ConnectionEndpoint("localhost", 1234));
 
 		assertThat(this.condition.isMatch(connectionEndpoints, 0)).isFalse();
 	}
@@ -271,16 +272,16 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		Environment mockEnvironment = mock(Environment.class);
 
 		doReturn(Collections.singletonList(defaultConnectionEndpoint))
-			.when(this.condition).getDefaultConnectionEndpoints(eq(mockEnvironment));
+		.when(this.condition).getDefaultConnectionEndpoints(eq(mockEnvironment));
 
 		doReturn(Collections.singletonList(configuredConnectionEndpoint))
-			.when(this.condition).getConfiguredConnectionEndpoints(eq(mockEnvironment));
+		.when(this.condition).getConfiguredConnectionEndpoints(eq(mockEnvironment));
 
 		doReturn(Collections.singletonList(pooledConnectionEndpoint))
-			.when(this.condition).getPooledConnectionEndpoints(eq(mockEnvironment));
+		.when(this.condition).getPooledConnectionEndpoints(eq(mockEnvironment));
 
 		assertThat(this.condition.getConnectionEndpoints(mockEnvironment))
-			.containsExactly(defaultConnectionEndpoint, configuredConnectionEndpoint, pooledConnectionEndpoint);
+		.containsExactly(defaultConnectionEndpoint, configuredConnectionEndpoint, pooledConnectionEndpoint);
 
 		verify(this.condition, times(1)).getDefaultConnectionEndpoints(eq(mockEnvironment));
 		verify(this.condition, times(1)).getConfiguredConnectionEndpoints(eq(mockEnvironment));
@@ -295,9 +296,9 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		Environment mockEnvironment = mock(Environment.class);
 
 		assertThat(this.condition.getDefaultConnectionEndpoints(mockEnvironment).stream()
-			.map(ConnectionEndpoint::toString)
-			.collect(Collectors.toList()))
-			.containsExactly("localhost[40404]", "localhost[10334]");
+		.map(ConnectionEndpoint::toString)
+		.collect(Collectors.toList()))
+		.containsExactly("localhost[40404]", "localhost[10334]");
 
 		verifyNoInteractions(mockEnvironment);
 	}
@@ -336,14 +337,14 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		List<ConnectionEndpoint> connectionEndpoints = this.condition.getConfiguredConnectionEndpoints(mockEnvironment);
 
 		List<String> connectionEndpointStrings = connectionEndpoints.stream()
-			.map(ConnectionEndpoint::toString)
-			.collect(Collectors.toList());
+		.map(ConnectionEndpoint::toString)
+		.collect(Collectors.toList());
 
 		assertThat(connectionEndpoints).isNotNull();
 		assertThat(connectionEndpoints).hasSize(7);
 		assertThat(connectionEndpointStrings)
-			.containsExactlyInAnyOrder("mars[41414]", "jupiter[42424]", "saturn[43434]", "boombox[1234]",
-				"cardboardbox[5678]", "mailbox[9012]", "skullbox[11235]");
+		.containsExactlyInAnyOrder("mars[41414]", "jupiter[42424]", "saturn[43434]", "boombox[1234]",
+	"cardboardbox[5678]", "mailbox[9012]", "skullbox[11235]");
 
 		verify(mockEnvironment, times(1)).getPropertySources();
 		verify(mockEnvironment, times(4)).getProperty(anyString());
@@ -356,51 +357,51 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		Pool mockPoolTwo = mock(Pool.class);
 
 		doReturn(Arrays.asList(mockPoolOne, null, mockPoolTwo, null, null))
-			.when(this.condition).getPoolsFromApacheGeode();
+		.when(this.condition).getPoolsFromApacheGeode();
 
 		List<InetSocketAddress> locatorSocketAddressesForPoolOne =
-			Arrays.asList(null, newSocketAddress("boombox", 1234),
-				newSocketAddress("skullbox", 56789), null);
+		Arrays.asList(null, newSocketAddress("boombox", 1234),
+	newSocketAddress("skullbox", 56789), null);
 
 		doReturn(locatorSocketAddressesForPoolOne).when(mockPoolOne).getLocators();
 
 		List<InetSocketAddress> onlineLocatorsSocketAddressesForPoolOne =
-			Arrays.asList(newSocketAddress("cardboardbox", 9012), null);
+		Arrays.asList(newSocketAddress("cardboardbox", 9012), null);
 
 		doReturn(onlineLocatorsSocketAddressesForPoolOne).when(mockPoolOne).getOnlineLocators();
 
 		List<InetSocketAddress> serverSocketAddressesForPoolOne =
-			Arrays.asList(newSocketAddress("mailbox", 10334), newSocketAddress("pobox", 4321));
+		Arrays.asList(newSocketAddress("mailbox", 10334), newSocketAddress("pobox", 4321));
 
 		doReturn(serverSocketAddressesForPoolOne).when(mockPoolOne).getServers();
 
 		List<InetSocketAddress> locatorSocketAddressesForPoolTwo =
-			Arrays.asList(null, newSocketAddress("mars", 1234), null, null);
+		Arrays.asList(null, newSocketAddress("mars", 1234), null, null);
 
 		doReturn(locatorSocketAddressesForPoolTwo).when(mockPoolTwo).getLocators();
 		doReturn(null).when(mockPoolTwo).getOnlineLocators();
 
 		List<InetSocketAddress> serverSocketAddressesForPoolTwo =
-			Arrays.asList(newSocketAddress("saturn", 1234), newSocketAddress("neptune", 56789));
+		Arrays.asList(newSocketAddress("saturn", 1234), newSocketAddress("neptune", 56789));
 
 		doReturn(serverSocketAddressesForPoolTwo).when(mockPoolTwo).getServers();
 
 		Environment mockEnvironment = mock(Environment.class);
 
 		List<ConnectionEndpoint> pooledConnectionEndpoints =
-			this.condition.getPooledConnectionEndpoints(mockEnvironment);
+		this.condition.getPooledConnectionEndpoints(mockEnvironment);
 
 		assertThat(pooledConnectionEndpoints).isNotNull();
 		assertThat(pooledConnectionEndpoints).hasSize(8);
 		assertThat(pooledConnectionEndpoints).containsExactlyInAnyOrder(
-			new PoolConnectionEndpoint("boombox", 1234).with(mockPoolOne),
-			new PoolConnectionEndpoint("skullbox", 56789).with(mockPoolOne),
-			new PoolConnectionEndpoint("cardboardbox", 9012).with(mockPoolOne),
-			new PoolConnectionEndpoint("mailbox", 10334).with(mockPoolOne),
-			new PoolConnectionEndpoint("pobox", 4321).with(mockPoolOne),
-			new PoolConnectionEndpoint("mars", 1234).with(mockPoolTwo),
-			new PoolConnectionEndpoint("saturn", 1234).with(mockPoolTwo),
-			new PoolConnectionEndpoint("neptune", 56789).with(mockPoolTwo)
+		new PoolConnectionEndpoint("boombox", 1234).with(mockPoolOne),
+		new PoolConnectionEndpoint("skullbox", 56789).with(mockPoolOne),
+		new PoolConnectionEndpoint("cardboardbox", 9012).with(mockPoolOne),
+		new PoolConnectionEndpoint("mailbox", 10334).with(mockPoolOne),
+		new PoolConnectionEndpoint("pobox", 4321).with(mockPoolOne),
+		new PoolConnectionEndpoint("mars", 1234).with(mockPoolTwo),
+		new PoolConnectionEndpoint("saturn", 1234).with(mockPoolTwo),
+		new PoolConnectionEndpoint("neptune", 56789).with(mockPoolTwo)
 		);
 
 		verify(this.condition, times(1)).getPooledConnectionEndpoints(eq(mockEnvironment));
@@ -433,11 +434,11 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 	public void countConnectionsIsCorrect() throws Exception {
 
 		ConnectionEndpointList list = new ConnectionEndpointList(
-			new ConnectionEndpoint("boombox", 1234),
-			new ConnectionEndpoint("cardboardbox", 5678),
-			new ConnectionEndpoint("mailbox", 9012),
-			new ConnectionEndpoint("pobox", 40404),
-			new ConnectionEndpoint("skullbox", 10334)
+		new ConnectionEndpoint("boombox", 1234),
+		new ConnectionEndpoint("cardboardbox", 5678),
+		new ConnectionEndpoint("mailbox", 9012),
+		new ConnectionEndpoint("pobox", 40404),
+		new ConnectionEndpoint("skullbox", 10334)
 		);
 
 		Logger mockLogger = mock(Logger.class);
@@ -513,7 +514,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		verify(mockConnectionEndpoint).toInetSocketAddress();
 		verify(this.condition, times(1)).newSocket(eq(mockConnectionEndpoint));
 		verify(mockSocket, times(1))
-			.connect(eq(mockSocketAddress), eq(ClusterAwareConfiguration.DEFAULT_TIMEOUT_IN_MILLISECONDS));
+		.connect(eq(mockSocketAddress), eq(ClusterAwareConfiguration.DEFAULT_TIMEOUT_IN_MILLISECONDS));
 
 		verifyNoMoreInteractions(mockConnectionEndpoint, mockSocket);
 
@@ -539,7 +540,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		verify(mockConnectionEndpoint, times(1)).toInetSocketAddress();
 		verify(this.condition, times(1)).newSocket(eq((PoolConnectionEndpoint) mockConnectionEndpoint));
 		verify(mockSocket, times(1))
-			.connect(isA(InetSocketAddress.class), eq(ClusterAwareConfiguration.DEFAULT_TIMEOUT_IN_MILLISECONDS));
+		.connect(isA(InetSocketAddress.class), eq(ClusterAwareConfiguration.DEFAULT_TIMEOUT_IN_MILLISECONDS));
 
 		verifyNoMoreInteractions(mockConnectionEndpoint, mockSocket);
 
@@ -586,6 +587,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 
 		verifyNoInteractions(mockSocket);
 	}
+
 	@Test(expected = SocketCreationException.class)
 	public void newSocketFromPoolConnectionEndpointHandlesIOException() throws IOException {
 
@@ -605,7 +607,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		catch (SocketCreationException expected) {
 
 			assertThat(expected).hasMessage("Failed to create Socket from PoolConnectionEndpoint [%s]",
-				mockPoolConnectionEndpoint);
+			mockPoolConnectionEndpoint);
 
 			assertThat(expected).hasCauseInstanceOf(IOException.class);
 			assertThat(expected.getCause()).hasMessage("TEST");
@@ -646,7 +648,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		verify(mockPool, times(1)).getSocketFactory();
 		verify(mockSocketFactory, times(1)).createSocket();
 		verify(this.condition, times(1))
-			.newSocket(eq((ConnectionEndpoint) mockPoolConnectionEndpoint));
+		.newSocket(eq((ConnectionEndpoint) mockPoolConnectionEndpoint));
 
 		verifyNoMoreInteractions(mockPool, mockPoolConnectionEndpoint, mockSocketFactory);
 
@@ -673,7 +675,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 		catch (SocketCreationException expected) {
 
 			assertThat(expected).hasMessage("Failed to create Socket from PoolConnectionEndpoint [%s]",
-				mockPoolConnectionEndpoint);
+			mockPoolConnectionEndpoint);
 
 			assertThat(expected).hasCauseInstanceOf(IOException.class);
 			assertThat(expected.getCause()).hasMessage("TEST");
@@ -687,7 +689,7 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 			verify(mockPool, times(1)).getSocketFactory();
 			verify(mockSocketFactory, times(1)).createSocket();
 			verify(this.condition, times(1))
-				.newSocket(eq((ConnectionEndpoint) mockPoolConnectionEndpoint));
+			.newSocket(eq((ConnectionEndpoint) mockPoolConnectionEndpoint));
 
 			verifyNoMoreInteractions(mockPool, mockPoolConnectionEndpoint, mockSocketFactory);
 		}
@@ -726,20 +728,20 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 	public void configureTopologySetsLocalWhenConnectionCountIsLessThanOneAndEnvironmentDoesNotContainTargetProperty() {
 
 		assertThat(System.getProperties())
-			.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
+		.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
 
 		MockEnvironment mockEnvironment = spy(new MockEnvironment());
 
 		ConnectionEndpointList connectionEndpoints =
-			new ConnectionEndpointList(new ConnectionEndpoint("localhost", 1234));
+		new ConnectionEndpointList(new ConnectionEndpoint("localhost", 1234));
 
-		this.condition.configureTopology(mockEnvironment, connectionEndpoints,0);
+		this.condition.configureTopology(mockEnvironment, connectionEndpoints, 0);
 
 		assertThat(mockEnvironment.getProperty(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY))
-			.isEqualTo("LOCAL");
+		.isEqualTo("LOCAL");
 
 		verify(mockEnvironment, times(1))
-			.containsProperty(eq(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY));
+		.containsProperty(eq(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY));
 		verify(mockEnvironment, times(1)).getPropertySources();
 	}
 
@@ -747,36 +749,36 @@ public class ClusterAwareConfigurationUnitTests extends IntegrationTestsSupport 
 	public void configureTopologySetsClientServerWhenConnectionCountIsGreaterThanEqualToOne() {
 
 		assertThat(System.getProperties())
-			.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
+		.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
 
 		ConfigurableEnvironment mockEnvironment = mock(ConfigurableEnvironment.class);
 
-		this.condition.configureTopology(mockEnvironment, null,1);
+		this.condition.configureTopology(mockEnvironment, null, 1);
 
 		assertThat(System.getProperties())
-			.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
+		.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
 
 		verify(mockEnvironment, never())
-			.containsProperty(eq(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY));
+		.containsProperty(eq(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY));
 	}
 
 	@Test
 	public void configureTopologySetsClientServerWhenEnvironmentContainsTargetProperty() {
 
 		assertThat(System.getProperties())
-			.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
+		.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
 
 		ConfigurableEnvironment mockEnvironment = mock(ConfigurableEnvironment.class);
 
 		when(mockEnvironment.containsProperty(eq(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY)))
-			.thenReturn(true);
+		.thenReturn(true);
 
-		this.condition.configureTopology(mockEnvironment, null,0);
+		this.condition.configureTopology(mockEnvironment, null, 0);
 
 		assertThat(System.getProperties())
-			.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
+		.doesNotContainKey(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
 
 		verify(mockEnvironment, times(1))
-			.containsProperty(eq(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY));
+		.containsProperty(eq(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY));
 	}
 }

@@ -55,18 +55,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("cluster-configuration-with-secure-cluster")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	webEnvironment = SpringBootTest.WebEnvironment.NONE,
-	properties = {
-		"VCAP_APPLICATION={ \"name\" : \"ClusterConfigurationWithClusterAwareWhenSecureClusterAvailableIntegrationTests\", \"uris\" : \"myapp.app.cloud.skullbox.com\"}",
-		"VCAP_SERVICES={ \"test-pcc\" : [{ \"name\" : \"test-pcc\", \"tags\" : \"cloudcache,database,gemfire,pivotal\", \"credentials\" : { \"urls\" : { \"gfsh\" : \"https://myapp.app.cloud.skullbox.com/gemfire/v1\" }}}]}",
-		"spring.boot.data.gemfire.cluster.condition.match=true"
-	}
+webEnvironment = SpringBootTest.WebEnvironment.NONE,
+properties = {"VCAP_APPLICATION={ \"name\" : \"ClusterConfigurationWithClusterAwareWhenSecureClusterAvailableIntegrationTests\", \"uris\" : \"myapp.app.cloud.skullbox.com\"}","VCAP_SERVICES={ \"test-pcc\" : [{ \"name\" : \"test-pcc\", \"tags\" : \"cloudcache,database,gemfire,pivotal\", \"credentials\" : { \"urls\" : { \"gfsh\" : \"https://myapp.app.cloud.skullbox.com/gemfire/v1\" }}}]}","spring.boot.data.gemfire.cluster.condition.match=true"
+}
 )
 @SuppressWarnings("unused")
 public class ClusterConfigurationWithClusterAwareWhenSecureClusterAvailableIntegrationTests
-		extends IntegrationTestsSupport {
+extends IntegrationTestsSupport {
 
-	@BeforeClass @AfterClass
+	@BeforeClass
+	@AfterClass
 	public static void resetClusterAwareCondition() {
 		ClusterAwareConfiguration.ClusterAwareCondition.reset();
 	}
@@ -81,7 +79,7 @@ public class ClusterConfigurationWithClusterAwareWhenSecureClusterAvailableInteg
 	public void configurationStatesManagementRestApiRequiresHttps() {
 
 		boolean configurationRequiresHttps =
-			ObjectUtils.invoke(this.configuration, "resolveManagementRequireHttps");
+		ObjectUtils.invoke(this.configuration, "resolveManagementRequireHttps");
 
 		assertThat(configurationRequiresHttps).isTrue();
 	}
@@ -90,7 +88,7 @@ public class ClusterConfigurationWithClusterAwareWhenSecureClusterAvailableInteg
 	public void environmentStatesManagementRestApiRequiresHttps() {
 
 		boolean environmentRequiresHttps =
-			this.environment.getProperty("spring.data.gemfire.management.require-https", Boolean.class);
+		this.environment.getProperty("spring.data.gemfire.management.require-https", Boolean.class);
 
 		assertThat(environmentRequiresHttps).isTrue();
 	}
@@ -99,6 +97,7 @@ public class ClusterConfigurationWithClusterAwareWhenSecureClusterAvailableInteg
 	@EnableClusterAware
 	@EnableGemFireMockObjects
 	@Profile("cluster-configuration-with-secure-cluster")
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

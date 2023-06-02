@@ -106,8 +106,8 @@ public class ApacheGeodeClientApplication implements Runnable {
 	protected ClientCache registerShutdownHook(ClientCache clientCache) {
 
 		Runtime.getRuntime().addShutdownHook(new Thread(() ->
-			Optional.ofNullable(clientCache).ifPresent(ClientCache::close),
-			"ClientCache Shutdown Hook"));
+	Optional.ofNullable(clientCache).ifPresent(ClientCache::close),
+		"ClientCache Shutdown Hook"));
 
 		return clientCache;
 	}

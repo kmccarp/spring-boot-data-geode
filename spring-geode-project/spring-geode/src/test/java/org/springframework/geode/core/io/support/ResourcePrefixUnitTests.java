@@ -34,7 +34,7 @@ public class ResourcePrefixUnitTests {
 	public void fromReturnsResourcePrefix() {
 
 		assertThat(ResourcePrefix.from(ResourceLoader.CLASSPATH_URL_PREFIX))
-			.isEqualTo(ResourcePrefix.CLASSPATH_URL_PREFIX);
+		.isEqualTo(ResourcePrefix.CLASSPATH_URL_PREFIX);
 
 		for (ResourcePrefix prefix : ResourcePrefix.values()) {
 			assertThat(ResourcePrefix.from(prefix.toString())).isEqualTo(prefix);

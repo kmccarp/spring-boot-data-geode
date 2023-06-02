@@ -123,7 +123,7 @@ public class PdxInstanceBuilderUnitTests {
 		RegionService mockRegionService = mock(RegionService.class);
 
 		doReturn(mockPdxInstanceFactory).when(mockRegionService)
-			.createPdxInstanceFactory(eq("example.app.test.model.Type"));
+		.createPdxInstanceFactory(eq("example.app.test.model.Type"));
 
 		PdxInstanceBuilder builder = PdxInstanceBuilder.create(mockRegionService);
 
@@ -135,20 +135,20 @@ public class PdxInstanceBuilderUnitTests {
 
 		inOrder.verify(mockPdxInstance, times(1)).getClassName();
 		inOrder.verify(mockRegionService, times(1))
-			.createPdxInstanceFactory(eq("example.app.test.model.Type"));
+		.createPdxInstanceFactory(eq("example.app.test.model.Type"));
 		inOrder.verify(mockPdxInstance, times(1)).getFieldNames();
 		inOrder.verify(mockPdxInstance, times(1)).getField(eq("fieldOne"));
 		inOrder.verify(mockPdxInstanceFactory, times(1))
-			.writeObject(eq("fieldOne"), eq("testOne"));
+		.writeObject(eq("fieldOne"), eq("testOne"));
 		inOrder.verify(mockPdxInstance, times(1)).isIdentityField(eq("fieldOne"));
 		inOrder.verify(mockPdxInstance, times(1)).getField(eq("id"));
 		inOrder.verify(mockPdxInstanceFactory, times(1))
-			.writeObject(eq("id"), eq(1));
+		.writeObject(eq("id"), eq(1));
 		inOrder.verify(mockPdxInstance, times(1)).isIdentityField(eq("id"));
 		inOrder.verify(mockPdxInstanceFactory, times(1)).markIdentityField(eq("id"));
 		inOrder.verify(mockPdxInstance, times(1)).getField(eq("fieldTwo"));
 		inOrder.verify(mockPdxInstanceFactory, times(1))
-			.writeObject(eq("fieldTwo"), eq("testTwo"));
+		.writeObject(eq("fieldTwo"), eq("testTwo"));
 		inOrder.verify(mockPdxInstance, times(1)).isIdentityField(eq("fieldTwo"));
 	}
 
@@ -164,7 +164,7 @@ public class PdxInstanceBuilderUnitTests {
 		doReturn("example.app.test.model.Type").when(mockPdxInstance).getClassName();
 		doReturn(null).when(mockPdxInstance).getFieldNames();
 		doReturn(mockPdxInstanceFactory).when(mockRegionService)
-			.createPdxInstanceFactory(eq("example.app.test.model.Type"));
+		.createPdxInstanceFactory(eq("example.app.test.model.Type"));
 
 		PdxInstanceBuilder builder = PdxInstanceBuilder.create(mockRegionService);
 
@@ -175,7 +175,7 @@ public class PdxInstanceBuilderUnitTests {
 		verify(mockPdxInstance, times(1)).getFieldNames();
 		verifyNoInteractions(mockPdxInstanceFactory);
 		verify(mockRegionService, times(1))
-			.createPdxInstanceFactory(eq("example.app.test.model.Type"));
+		.createPdxInstanceFactory(eq("example.app.test.model.Type"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -193,7 +193,7 @@ public class PdxInstanceBuilderUnitTests {
 
 			throw expected;
 		}
-		finally  {
+		finally {
 			verifyNoInteractions(mockRegionService);
 		}
 	}
@@ -326,7 +326,7 @@ public class PdxInstanceBuilderUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected).hasMessage("Expected an instance of PDX but was an instance of type [%s];"
-				+ " Was PDX read-serialized set to true", source.getClass().getName());
+			+ " Was PDX read-serialized set to true", source.getClass().getName());
 			assertThat(expected).hasNoCause();
 
 			throw expected;
@@ -367,7 +367,7 @@ public class PdxInstanceBuilderUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected).hasMessage("Expected an instance of PDX but was an instance of type [null];"
-				+ " Was PDX read-serialized set to true");
+			+ " Was PDX read-serialized set to true");
 			assertThat(expected).hasNoCause();
 
 			throw expected;

@@ -84,6 +84,7 @@ public class ManuallyConfiguredWithPropertiesSessionCachingIntegrationTests exte
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

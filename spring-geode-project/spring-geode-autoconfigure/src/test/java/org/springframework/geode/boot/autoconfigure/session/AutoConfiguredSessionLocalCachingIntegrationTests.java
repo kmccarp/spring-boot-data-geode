@@ -74,14 +74,11 @@ import org.springframework.web.client.RestTemplate;
 @ActiveProfiles("session-local")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = {
-		AutoConfiguredSessionLocalCachingIntegrationTests.TestConfiguration.class,
-		AutoConfiguredSessionLocalCachingIntegrationTests.TestWebApplication.class
-	},
-	properties = {
-		"spring.session.data.gemfire.session.region.name=Sessions"
-	},
-	webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+classes = {AutoConfiguredSessionLocalCachingIntegrationTests.TestConfiguration.class,AutoConfiguredSessionLocalCachingIntegrationTests.TestWebApplication.class
+},
+properties = {"spring.session.data.gemfire.session.region.name=Sessions"
+},
+webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @SuppressWarnings("unused")
 public class AutoConfiguredSessionLocalCachingIntegrationTests extends IntegrationTestsSupport {
@@ -90,7 +87,8 @@ public class AutoConfiguredSessionLocalCachingIntegrationTests extends Integrati
 
 	private static final String HTTP_HEADER_AUTHENTICATION_INFO = "Authentication-Info";
 
-	@BeforeClass @AfterClass
+	@BeforeClass
+	@AfterClass
 	public static void resetClusterAwareCondition() {
 		ClusterAwareConfiguration.ClusterAwareCondition.reset();
 	}
@@ -126,22 +124,22 @@ public class AutoConfiguredSessionLocalCachingIntegrationTests extends Integrati
 		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<String> response =
-			restTemplate.getForEntity(url.concat("/setter?name=MyKey&value=TEST"), String.class);
+		restTemplate.getForEntity(url.concat("/setter?name=MyKey&value=TEST"), String.class);
 
 		assertThat(response.getBody()).isEqualTo("SUCCESS");
 
 		//System.err.printf("HTTP RESPONSE HEADERS [%s]%n", response.getHeaders());
 
 		String httpHeaderWithSessionId =
-			StringUtils.collectionToCommaDelimitedString(response.getHeaders().get(HTTP_HEADER_AUTHENTICATION_INFO));
+		StringUtils.collectionToCommaDelimitedString(response.getHeaders().get(HTTP_HEADER_AUTHENTICATION_INFO));
 
 		assertThat(httpHeaderWithSessionId).contains(sessionId.get());
 		assertThat(this.sessionsRegion.keySet()).containsExactlyInAnyOrder(sessionId.get());
 
 		RequestEntity<Void> request = RequestEntity
-			.get(URI.create(url.concat("/getter?name=MyKey")))
-			.header(HTTP_HEADER_AUTHENTICATION_INFO, httpHeaderWithSessionId)
-			.build();
+		.get(URI.create(url.concat("/getter?name=MyKey")))
+		.header(HTTP_HEADER_AUTHENTICATION_INFO, httpHeaderWithSessionId)
+		.build();
 
 		response = restTemplate.exchange(request, String.class);
 
@@ -164,7 +162,7 @@ public class AutoConfiguredSessionLocalCachingIntegrationTests extends Integrati
 
 		@GetMapping("/attribute/setter")
 		public String setSessionAttribute(HttpSession session,
-				@RequestParam("name") String name, @RequestParam("value") String value) {
+		@RequestParam("name") String name, @RequestParam("value") String value) {
 
 			assertThat(session).isNotNull();
 			assertThat(session.getClass().getPackage().getName()).startsWith("org.springframework.session");

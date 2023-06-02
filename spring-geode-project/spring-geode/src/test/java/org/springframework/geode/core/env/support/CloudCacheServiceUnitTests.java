@@ -38,14 +38,14 @@ public class CloudCacheServiceUnitTests {
 		URL gfshUrl = new URL("http://localhost:7070/v1/gemfire");
 
 		CloudCacheService service = CloudCacheService.with("gemfire")
-			.withLocators("boombox[123],cardboardbox[456],mailbox[789],xbox[40404]")
-			.withGfshUrl(gfshUrl);
+		.withLocators("boombox[123],cardboardbox[456],mailbox[789],xbox[40404]")
+		.withGfshUrl(gfshUrl);
 
 		assertThat(service).isNotNull();
 		assertThat(service.getName()).isEqualTo("gemfire");
 		assertThat(service.getGfshUrl().orElse(null)).isEqualTo(gfshUrl);
 		assertThat(service.getLocators().orElse(null))
-			.isEqualTo("boombox[123],cardboardbox[456],mailbox[789],xbox[40404]");
+		.isEqualTo("boombox[123],cardboardbox[456],mailbox[789],xbox[40404]");
 
 		List<CloudCacheService.Locator> locators = service.getLocatorList();
 
@@ -120,15 +120,15 @@ public class CloudCacheServiceUnitTests {
 	public void parseLocatorsWithMultipleLocatorHostsPorts() {
 
 		List<CloudCacheService.Locator> locators =
-			CloudCacheService.Locator.parseLocators("  cardboardbox,  jukebox[12345], matchbox , skullbox  [6789] ");
+		CloudCacheService.Locator.parseLocators("  cardboardbox,  jukebox[12345], matchbox , skullbox  [6789] ");
 
 		assertThat(locators).isNotNull();
 		assertThat(locators).hasSize(4);
 		assertThat(locators).containsExactly(
-			CloudCacheService.Locator.newLocator("cardboardbox", 10334),
-			CloudCacheService.Locator.newLocator("jukebox", 12345),
-			CloudCacheService.Locator.newLocator("matchbox", 10334),
-			CloudCacheService.Locator.newLocator("skullbox", 6789)
+		CloudCacheService.Locator.newLocator("cardboardbox", 10334),
+		CloudCacheService.Locator.newLocator("jukebox", 12345),
+		CloudCacheService.Locator.newLocator("matchbox", 10334),
+		CloudCacheService.Locator.newLocator("skullbox", 6789)
 		);
 	}
 
@@ -238,7 +238,7 @@ public class CloudCacheServiceUnitTests {
 	@Test
 	public void locatorToStringPrintsHostPort() {
 		assertThat(CloudCacheService.Locator.newLocator("skullbox", 1234).toString())
-			.isEqualTo("skullbox[1234]");
+		.isEqualTo("skullbox[1234]");
 	}
 
 	@Test

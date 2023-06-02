@@ -38,7 +38,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(staticName = "newGolfer")
 public class Golfer {
 
-	@Id @NonNull
+	@Id
+	@NonNull
 	private Long id;
 
 	@NonNull

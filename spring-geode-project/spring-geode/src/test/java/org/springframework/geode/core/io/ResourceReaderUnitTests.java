@@ -49,7 +49,7 @@ public class ResourceReaderUnitTests {
 	@Test
 	public void readIntoByteBufferCallsRead() {
 
-		byte[] array = { (byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE };
+		byte[] array = {(byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE};
 
 		Resource mockResource = mock(Resource.class);
 
@@ -95,7 +95,7 @@ public class ResourceReaderUnitTests {
 	@Test
 	public void thenReadFromResourceReaderReadsFromThis() {
 
-		byte[] array = { (byte) 0xBA, (byte) 0xBE };
+		byte[] array = {(byte) 0xBA, (byte) 0xBE};
 
 		Resource mockResource = mock(Resource.class);
 
@@ -118,7 +118,7 @@ public class ResourceReaderUnitTests {
 	@Test
 	public void thenReadFromResourceReaderReadsFromThat() {
 
-		byte[] array = { (byte) 0xFA, (byte) 0xDE };
+		byte[] array = {(byte) 0xFA, (byte) 0xDE};
 
 		Resource mockResource = mock(Resource.class);
 

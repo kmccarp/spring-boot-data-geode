@@ -78,7 +78,7 @@ public class QuorumLostEventUnitTests {
 
 		assertThat(event.withFailedMembers(mockMemberOne, mockMemberTwo)).isSameAs(event);
 		assertThat(this.<DistributedMember>normalize(event.getFailedMembers()))
-			.containsExactlyInAnyOrder(mockMemberOne, mockMemberTwo);
+		.containsExactlyInAnyOrder(mockMemberOne, mockMemberTwo);
 
 		assertThat(event.withFailedMembers((DistributedMember[]) null)).isSameAs(event);
 		assertThat(event.getFailedMembers()).isNotNull();
@@ -115,7 +115,7 @@ public class QuorumLostEventUnitTests {
 
 		assertThat(event.withRemainingMembers(mockMemberOne, mockMemberTwo)).isSameAs(event);
 		assertThat(this.<DistributedMember>normalize(event.getRemainingMembers()))
-			.containsExactlyInAnyOrder(mockMemberOne, mockMemberTwo);
+		.containsExactlyInAnyOrder(mockMemberOne, mockMemberTwo);
 
 		assertThat(event.withRemainingMembers((DistributedMember[]) null)).isSameAs(event);
 		assertThat(event.getRemainingMembers()).isNotNull();
@@ -123,7 +123,7 @@ public class QuorumLostEventUnitTests {
 
 		assertThat(event.withRemainingMembers(mockMemberOne)).isSameAs(event);
 		assertThat(this.<DistributedMember>normalize(event.getRemainingMembers()))
-			.containsExactlyInAnyOrder(mockMemberOne);
+		.containsExactlyInAnyOrder(mockMemberOne);
 
 		assertThat(event.withRemainingMembers((Iterable<? extends DistributedMember>) null)).isSameAs(event);
 		assertThat(event.getRemainingMembers()).isNotNull();
@@ -131,7 +131,7 @@ public class QuorumLostEventUnitTests {
 
 		assertThat(event.withRemainingMembers(Collections.singletonList(mockMemberTwo))).isSameAs(event);
 		assertThat(this.<DistributedMember>normalize(event.getRemainingMembers()))
-			.containsExactlyInAnyOrder(mockMemberTwo);
+		.containsExactlyInAnyOrder(mockMemberTwo);
 
 		assertThat(event.withRemainingMembers()).isSameAs(event);
 		assertThat(event.getRemainingMembers()).isNotNull();

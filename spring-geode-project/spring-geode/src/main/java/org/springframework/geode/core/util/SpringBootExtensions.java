@@ -52,7 +52,7 @@ public abstract class SpringBootExtensions extends SpringExtensions {
 	public static void cleanUpLoggingSystem(@NonNull ClassLoader classLoader) {
 
 		Optional.ofNullable(LoggingSystemFactory.fromSpringFactories())
-			.map(loggingSystemFactory -> loggingSystemFactory.getLoggingSystem(classLoader))
-			.ifPresent(LoggingSystem::cleanUp);
+		.map(loggingSystemFactory -> loggingSystemFactory.getLoggingSystem(classLoader))
+		.ifPresent(LoggingSystem::cleanUp);
 	}
 }

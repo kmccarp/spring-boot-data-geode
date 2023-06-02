@@ -71,36 +71,36 @@ public class GeodeGatewaySendersHealthIndicator extends AbstractGeodeHealthIndic
 		if (getGemFireCache().filter(CacheUtils::isPeer).isPresent()) {
 
 			Set<GatewaySender> gatewaySenders = getGemFireCache()
-				.map(Cache.class::cast)
-				.map(Cache::getGatewaySenders)
-				.orElseGet(Collections::emptySet);
+			.map(Cache.class::cast)
+			.map(Cache::getGatewaySenders)
+			.orElseGet(Collections::emptySet);
 
 			builder.withDetail("geode.gateway-sender.count", gatewaySenders.size());
 
 			gatewaySenders.stream()
-				.filter(Objects::nonNull)
-				.forEach(gatewaySender -> {
+			.filter(Objects::nonNull)
+			.forEach(gatewaySender -> {
 
-					String gatewaySenderId = gatewaySender.getId();
+				String gatewaySenderId = gatewaySender.getId();
 
-					builder.withDetail(gatewaySendersKey(gatewaySenderId, "alert-threshold"), gatewaySender.getAlertThreshold())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "batch-conflation-enabled"), toYesNoString(gatewaySender.isBatchConflationEnabled()))
-						.withDetail(gatewaySendersKey(gatewaySenderId, "batch-size"), gatewaySender.getBatchSize())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "batch-time-interval"), gatewaySender.getBatchTimeInterval())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "disk-store-name"), emptyIfUnset(gatewaySender.getDiskStoreName()))
-						.withDetail(gatewaySendersKey(gatewaySenderId, "disk-synchronous"), toYesNoString(gatewaySender.isDiskSynchronous()))
-						.withDetail(gatewaySendersKey(gatewaySenderId, "dispatcher-threads"), gatewaySender.getDispatcherThreads())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "max-queue-memory"), gatewaySender.getMaximumQueueMemory())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "max-parallelism-for-replicated-region"), gatewaySender.getMaxParallelismForReplicatedRegion())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "order-policy"), gatewaySender.getOrderPolicy())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "parallel"), toYesNoString(gatewaySender.isParallel()))
-						.withDetail(gatewaySendersKey(gatewaySenderId, "paused"), toYesNoString(gatewaySender.isPaused()))
-						.withDetail(gatewaySendersKey(gatewaySenderId, "persistent"), toYesNoString(gatewaySender.isPersistenceEnabled()))
-						.withDetail(gatewaySendersKey(gatewaySenderId, "remote-distributed-system-id"), gatewaySender.getRemoteDSId())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "running"), toYesNoString(gatewaySender.isRunning()))
-						.withDetail(gatewaySendersKey(gatewaySenderId, "socket-buffer-size"), gatewaySender.getSocketBufferSize())
-						.withDetail(gatewaySendersKey(gatewaySenderId, "socket-read-timeout"), gatewaySender.getSocketReadTimeout());
-				});
+				builder.withDetail(gatewaySendersKey(gatewaySenderId, "alert-threshold"), gatewaySender.getAlertThreshold())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "batch-conflation-enabled"), toYesNoString(gatewaySender.isBatchConflationEnabled()))
+			.withDetail(gatewaySendersKey(gatewaySenderId, "batch-size"), gatewaySender.getBatchSize())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "batch-time-interval"), gatewaySender.getBatchTimeInterval())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "disk-store-name"), emptyIfUnset(gatewaySender.getDiskStoreName()))
+			.withDetail(gatewaySendersKey(gatewaySenderId, "disk-synchronous"), toYesNoString(gatewaySender.isDiskSynchronous()))
+			.withDetail(gatewaySendersKey(gatewaySenderId, "dispatcher-threads"), gatewaySender.getDispatcherThreads())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "max-queue-memory"), gatewaySender.getMaximumQueueMemory())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "max-parallelism-for-replicated-region"), gatewaySender.getMaxParallelismForReplicatedRegion())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "order-policy"), gatewaySender.getOrderPolicy())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "parallel"), toYesNoString(gatewaySender.isParallel()))
+			.withDetail(gatewaySendersKey(gatewaySenderId, "paused"), toYesNoString(gatewaySender.isPaused()))
+			.withDetail(gatewaySendersKey(gatewaySenderId, "persistent"), toYesNoString(gatewaySender.isPersistenceEnabled()))
+			.withDetail(gatewaySendersKey(gatewaySenderId, "remote-distributed-system-id"), gatewaySender.getRemoteDSId())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "running"), toYesNoString(gatewaySender.isRunning()))
+			.withDetail(gatewaySendersKey(gatewaySenderId, "socket-buffer-size"), gatewaySender.getSocketBufferSize())
+			.withDetail(gatewaySendersKey(gatewaySenderId, "socket-read-timeout"), gatewaySender.getSocketReadTimeout());
+			});
 
 			builder.up();
 

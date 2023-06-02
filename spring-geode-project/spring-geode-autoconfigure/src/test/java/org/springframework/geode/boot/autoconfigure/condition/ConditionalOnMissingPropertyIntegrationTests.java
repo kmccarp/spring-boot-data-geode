@@ -44,26 +44,26 @@ import org.springframework.data.gemfire.tests.integration.SpringBootApplicationI
 public class ConditionalOnMissingPropertyIntegrationTests extends SpringBootApplicationIntegrationTestsSupport {
 
 	private Function<SpringApplicationBuilder, SpringApplicationBuilder> springApplicationBuilderFunction =
-		Function.identity();
+	Function.identity();
 
 	private final Function<SpringApplicationBuilder, SpringApplicationBuilder> allMatchingPropertiesFunction =
-		builder -> {
-			builder.properties(Collections.singletonMap("example.app.config.propOne", ""));
-			builder.properties(Collections.singletonMap("example.app.config.propTwo", "test"));
-			return builder;
-		};
+	builder -> {
+		builder.properties(Collections.singletonMap("example.app.config.propOne", ""));
+		builder.properties(Collections.singletonMap("example.app.config.propTwo", "test"));
+		return builder;
+	};
 
 	private final Function<SpringApplicationBuilder, SpringApplicationBuilder> nonMatchingPropertyFunction =
-		builder -> {
-			builder.properties(Collections.singletonMap("example.app.cfg.propertyOne", ""));
-			return builder;
-		};
+	builder -> {
+		builder.properties(Collections.singletonMap("example.app.cfg.propertyOne", ""));
+		return builder;
+	};
 
 	private final Function<SpringApplicationBuilder, SpringApplicationBuilder> singleMatchingPropertyFunction =
-		builder -> {
-			builder.properties(Collections.singletonMap("example.app.config.propTwo", "test"));
-			return builder;
-		};
+	builder -> {
+		builder.properties(Collections.singletonMap("example.app.config.propTwo", "test"));
+		return builder;
+	};
 
 	@Override
 	protected SpringApplicationBuilder processBeforeBuild(SpringApplicationBuilder springApplicationBuilder) {
@@ -109,7 +109,7 @@ public class ConditionalOnMissingPropertyIntegrationTests extends SpringBootAppl
 	static class TestConfiguration {
 
 		@Bean
-		@ConditionalOnMissingProperty(prefix = "example.app.config", name = { "propOne", "propTwo" })
+		@ConditionalOnMissingProperty(prefix = "example.app.config", name = {"propOne", "propTwo"})
 		Object conditionalBean() {
 			return "conditional";
 		}

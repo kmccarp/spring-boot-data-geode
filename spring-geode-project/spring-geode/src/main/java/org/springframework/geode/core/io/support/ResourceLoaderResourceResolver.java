@@ -69,8 +69,8 @@ public class ResourceLoaderResourceResolver implements ResourceLoaderAware, Reso
 	public Optional<ClassLoader> getClassLoader() {
 
 		return Optional.ofNullable(Optional.ofNullable(this.resolvedResourceLoader.get())
-			.map(ResourceLoader::getClassLoader)
-			.orElseGet(ClassUtils::getDefaultClassLoader));
+		.map(ResourceLoader::getClassLoader)
+		.orElseGet(ClassUtils::getDefaultClassLoader));
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class ResourceLoaderResourceResolver implements ResourceLoaderAware, Reso
 	 */
 	protected @NonNull ResourceLoader getResourceLoader() {
 		return this.resolvedResourceLoader.updateAndGet(resourceLoader ->
-			initialize(resourceLoader, this::newResourceLoader));
+		initialize(resourceLoader, this::newResourceLoader));
 	}
 
 	/**
@@ -112,8 +112,8 @@ public class ResourceLoaderResourceResolver implements ResourceLoaderAware, Reso
 	protected @NonNull ResourceLoader newResourceLoader() {
 
 		return getClassLoader()
-			.map(DefaultResourceLoader::new)
-			.orElseGet(DefaultResourceLoader::new);
+		.map(DefaultResourceLoader::new)
+		.orElseGet(DefaultResourceLoader::new);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class ResourceLoaderResourceResolver implements ResourceLoaderAware, Reso
 	protected @NonNull Resource newResource(@NonNull String location) {
 
 		Assert.hasText(location, () ->
-			String.format("The location [%s] of the Resource must be specified", location));
+		String.format("The location [%s] of the Resource must be specified", location));
 
 		return new ClassPathResource(location);
 	}
@@ -164,7 +164,7 @@ public class ResourceLoaderResourceResolver implements ResourceLoaderAware, Reso
 	 */
 	protected @Nullable Resource onMissingResource(@Nullable Resource resource, @NonNull String location) {
 		throw new ResourceNotFoundException(String.format("Failed to resolve Resource [%1$s] at location [%2$s]",
-			ResourceUtils.nullSafeGetDescription(resource), location));
+		ResourceUtils.nullSafeGetDescription(resource), location));
 	}
 
 	/**
@@ -204,15 +204,15 @@ public class ResourceLoaderResourceResolver implements ResourceLoaderAware, Reso
 	public Optional<Resource> resolve(@NonNull String location) {
 
 		Assert.hasText(location, () ->
-			String.format("The location [%s] of the Resource to resolve must be specified", location));
+		String.format("The location [%s] of the Resource to resolve must be specified", location));
 
 		Resource resource = getResourceLoader().getResource(location);
 
 		resource = postProcess(resource);
 
 		Resource resolvedResource = isQualified(resource)
-			? resource
-			: onMissingResource(resource, location);
+		? resource
+		: onMissingResource(resource, location);
 
 		return Optional.ofNullable(resolvedResource);
 	}

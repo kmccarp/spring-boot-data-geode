@@ -56,7 +56,8 @@ public class SecurityManagerConfigurationIntegrationTests extends IntegrationTes
 	@Autowired
 	public CacheFactoryBean cacheFactoryBean;
 
-	@Autowired @SuppressWarnings("unused")
+	@Autowired
+	@SuppressWarnings("unused")
 	private org.apache.geode.security.SecurityManager securityManager;
 
 	@Test
@@ -84,7 +85,8 @@ public class SecurityManagerConfigurationIntegrationTests extends IntegrationTes
 	@EnableSecurityManager
 	static class TestConfiguration {
 
-		@Bean @SuppressWarnings("unused")
+		@Bean
+		@SuppressWarnings("unused")
 		org.apache.geode.security.SecurityManager mockSecurityManager() {
 			return mock(org.apache.geode.security.SecurityManager.class);
 		}

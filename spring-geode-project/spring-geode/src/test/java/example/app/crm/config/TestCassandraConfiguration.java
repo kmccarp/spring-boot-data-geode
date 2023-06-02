@@ -120,11 +120,11 @@ public abstract class TestCassandraConfiguration {
 				if (bean instanceof CassandraTemplate cassandraTemplate) {
 
 					Consumer<CassandraTemplate> cassandraTemplateConsumer = noopCassandraTemplateConsumer()
-						.andThen(insertEntityObjectCassandraTemplateConsumer())
-						.andThen(assertEntityCountCassandraTemplateConsumer())
-						.andThen(assertEntityObjectCassandraTemplateConsumer())
-						.andThen(assertKeyspaceNameCassandraTemplateConsumer())
-						.andThen(assertTableNameCassandraTemplateConsumer());
+					.andThen(insertEntityObjectCassandraTemplateConsumer())
+					.andThen(assertEntityCountCassandraTemplateConsumer())
+					.andThen(assertEntityObjectCassandraTemplateConsumer())
+					.andThen(assertKeyspaceNameCassandraTemplateConsumer())
+					.andThen(assertTableNameCassandraTemplateConsumer());
 
 					cassandraTemplateConsumer.accept(cassandraTemplate);
 				}
@@ -135,7 +135,8 @@ public abstract class TestCassandraConfiguration {
 	}
 
 	private Consumer<CassandraTemplate> noopCassandraTemplateConsumer() {
-		return cassandraTemplate -> {};
+		return cassandraTemplate -> {
+		};
 	}
 
 	private Consumer<CassandraTemplate> assertEntityCountCassandraTemplateConsumer() {
@@ -149,7 +150,7 @@ public abstract class TestCassandraConfiguration {
 			String cql = "SELECT id, name FROM \"Customers\"";
 
 			RowMapper<Customer> customerRowMapper = (row, rowNumber) ->
-				Customer.newCustomer(row.getLong("id"), row.getString("name"));
+			Customer.newCustomer(row.getLong("id"), row.getString("name"));
 
 			Customer actualCustomer = cassandraTemplate.getCqlOperations().queryForObject(cql, customerRowMapper);
 
@@ -168,13 +169,13 @@ public abstract class TestCassandraConfiguration {
 		return cassandraTemplate -> {
 
 			String resolvedKeyspaceName = Optional.ofNullable(cassandraTemplate.getCqlOperations())
-				.filter(CqlTemplate.class::isInstance)
-				.map(CqlTemplate.class::cast)
-				.map(CqlTemplate::getSessionFactory)
-				.map(SessionFactory::getSession)
-				.flatMap(Session::getKeyspace)
-				.map(CqlIdentifier::toString)
-				.orElse(null);
+			.filter(CqlTemplate.class::isInstance)
+			.map(CqlTemplate.class::cast)
+			.map(CqlTemplate::getSessionFactory)
+			.map(SessionFactory::getSession)
+			.flatMap(Session::getKeyspace)
+			.map(CqlIdentifier::toString)
+			.orElse(null);
 
 			assertThat(resolvedKeyspaceName).isEqualToIgnoringCase(KEYSPACE_NAME);
 		};
@@ -189,21 +190,21 @@ public abstract class TestCassandraConfiguration {
 			assertThat(entityTableName).endsWithIgnoringCase("Customers");
 
 			Optional.ofNullable(cassandraTemplate.getCqlOperations())
-				.filter(CqlTemplate.class::isInstance)
-				.map(CqlTemplate.class::cast)
-				.map(CqlTemplate::getSessionFactory)
-				.map(SessionFactory::getSession)
-				.map(Session::getMetadata)
-				.flatMap(metadata -> metadata.getKeyspace(KEYSPACE_NAME))
-				.map(keyspaceMetadata -> keyspaceMetadata.getTable(entityTableName))
-				.orElseThrow(() -> new IllegalStateException(String.format("Table [%s] not found", entityTableName)));
+			.filter(CqlTemplate.class::isInstance)
+			.map(CqlTemplate.class::cast)
+			.map(CqlTemplate::getSessionFactory)
+			.map(SessionFactory::getSession)
+			.map(Session::getMetadata)
+			.flatMap(metadata -> metadata.getKeyspace(KEYSPACE_NAME))
+			.map(keyspaceMetadata -> keyspaceMetadata.getTable(entityTableName))
+			.orElseThrow(() -> new IllegalStateException(String.format("Table [%s] not found", entityTableName)));
 		};
 	}
 
 	@Bean
 	@Profile(DEBUGGING_PROFILE)
 	ApplicationListener<ContextRefreshedEvent> populateCassandraDatabaseUsingRepository(
-			CustomerRepository customerRepository) {
+	CustomerRepository customerRepository) {
 
 		return event -> customerRepository.save(pieDoe);
 	}

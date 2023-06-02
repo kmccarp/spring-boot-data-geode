@@ -41,7 +41,8 @@ import lombok.ToString;
 @AllArgsConstructor(staticName = "newCustomer")
 public class Customer {
 
-	@Id @NonNull
+	@Id
+	@NonNull
 	private Long id;
 
 	@NonNull

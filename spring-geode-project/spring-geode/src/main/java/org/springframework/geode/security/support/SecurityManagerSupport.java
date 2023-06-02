@@ -35,7 +35,8 @@ public abstract class SecurityManagerSupport implements org.apache.geode.securit
 	protected static final boolean DEFAULT_AUTHORIZATION = false;
 
 	@Override
-	public void init(Properties securityProperties) { }
+	public void init(Properties securityProperties) {
+	}
 
 	@Override
 	public Object authenticate(Properties credentials) throws AuthenticationFailedException {
@@ -48,6 +49,7 @@ public abstract class SecurityManagerSupport implements org.apache.geode.securit
 	}
 
 	@Override
-	public void close() { }
+	public void close() {
+	}
 
 }

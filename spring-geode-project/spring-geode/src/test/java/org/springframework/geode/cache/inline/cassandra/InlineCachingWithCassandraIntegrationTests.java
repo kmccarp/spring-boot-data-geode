@@ -67,7 +67,7 @@ import example.app.crm.repo.CustomerRepository;
 @ActiveProfiles("inline-caching-cassandra")
 @SuppressWarnings("unused")
 public class InlineCachingWithCassandraIntegrationTests
-		extends AbstractInlineCachingWithExternalDataSourceIntegrationTests {
+extends AbstractInlineCachingWithExternalDataSourceIntegrationTests {
 
 	@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 	@ClientCacheApplication
@@ -84,7 +84,7 @@ public class InlineCachingWithCassandraIntegrationTests
 
 		@Bean
 		InlineCachingRegionConfigurer<Customer, Long> inlineCachingForCustomersRegionConfigurer(
-				CustomerRepository customerRepository) {
+		CustomerRepository customerRepository) {
 
 			return new InlineCachingRegionConfigurer<>(customerRepository, Predicate.isEqual("Customers"));
 		}

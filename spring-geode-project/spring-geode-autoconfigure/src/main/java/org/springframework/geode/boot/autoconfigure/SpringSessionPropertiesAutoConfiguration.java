@@ -46,9 +46,9 @@ import org.springframework.session.data.gemfire.config.annotation.web.http.GemFi
  * @since 1.0.0
  */
 @SpringBootConfiguration
-@ConditionalOnBean({ GemFireCache.class, SessionRepository.class })
-@ConditionalOnClass({ GemFireCache.class, CacheFactoryBean.class, GemFireHttpSessionConfiguration.class })
-@EnableConfigurationProperties({ SpringSessionProperties.class })
+@ConditionalOnBean({GemFireCache.class, SessionRepository.class})
+@ConditionalOnClass({GemFireCache.class, CacheFactoryBean.class, GemFireHttpSessionConfiguration.class})
+@EnableConfigurationProperties({SpringSessionProperties.class})
 @SuppressWarnings("unused")
 public class SpringSessionPropertiesAutoConfiguration {
 

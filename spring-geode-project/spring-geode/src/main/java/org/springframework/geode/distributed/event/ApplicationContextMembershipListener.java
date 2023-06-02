@@ -41,7 +41,7 @@ import org.springframework.util.Assert;
  * @since 1.3.0
  */
 public class ApplicationContextMembershipListener
-		extends MembershipListenerAdapter<ApplicationContextMembershipListener> {
+extends MembershipListenerAdapter<ApplicationContextMembershipListener> {
 
 	private final ConfigurableApplicationContext applicationContext;
 

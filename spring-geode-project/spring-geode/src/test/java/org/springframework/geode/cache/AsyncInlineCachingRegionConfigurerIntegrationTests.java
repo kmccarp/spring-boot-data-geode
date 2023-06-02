@@ -128,7 +128,7 @@ public class AsyncInlineCachingRegionConfigurerIntegrationTests extends Integrat
 
 		assertThat(listener).isInstanceOf(RepositoryAsyncEventListener.class);
 		assertThat(((RepositoryAsyncEventListener<User, Long>) listener).getRepository())
-			.isEqualTo(this.usersRepository);
+		.isEqualTo(this.usersRepository);
 
 		Map<Long, User> data = new HashMap<>();
 
@@ -200,7 +200,7 @@ public class AsyncInlineCachingRegionConfigurerIntegrationTests extends Integrat
 
 		@Bean
 		AsyncInlineCachingRegionConfigurer<User, Long> asyncInlineCachingUsersRegionConfigurer(
-				@Qualifier("usersRepository") CrudRepository<User, Long> usersRepository) {
+		@Qualifier("usersRepository") CrudRepository<User, Long> usersRepository) {
 
 			return AsyncInlineCachingRegionConfigurer.create(usersRepository, "Users");
 		}

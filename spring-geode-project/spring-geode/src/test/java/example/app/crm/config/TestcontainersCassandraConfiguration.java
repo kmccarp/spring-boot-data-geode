@@ -86,7 +86,7 @@ public class TestcontainersCassandraConfiguration extends TestCassandraConfigura
 
 	//private static final DockerImageName CASSANDRA_DOCKER_IMAGE_NAME = DockerImageName.parse("cassandra:latest");
 	private static final DockerImageName CASSANDRA_DOCKER_IMAGE_NAME =
-		DockerImageName.parse(String.format("cassandra:%s", CASSANDRA_VERSION));
+	DockerImageName.parse(String.format("cassandra:%s", CASSANDRA_VERSION));
 	//private static final DockerImageName CASSANDRA_DOCKER_IMAGE_NAME =
 	//	DockerImageName.parse(String.format("%1$sspring-data-with-cassandra-3.11:%2$s",
 	//		TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_PREFIX, SPRING_JAVA_VERSION))
@@ -107,12 +107,12 @@ public class TestcontainersCassandraConfiguration extends TestCassandraConfigura
 
 	@Bean
 	CqlSessionBuilderCustomizer cqlSessionBuilderCustomizer(CassandraProperties properties,
-			@Qualifier("CassandraContainer") GenericContainer<?> cassandraContainer) {
+	@Qualifier("CassandraContainer") GenericContainer<?> cassandraContainer) {
 
 		return cqlSessionBuilder -> cqlSessionBuilder
-			.addContactPoint(resolveContactPoint(cassandraContainer))
-			.withLocalDatacenter(properties.getLocalDatacenter())
-			.withKeyspace(properties.getKeyspaceName());
+		.addContactPoint(resolveContactPoint(cassandraContainer))
+		.withLocalDatacenter(properties.getLocalDatacenter())
+		.withKeyspace(properties.getKeyspaceName());
 	}
 
 	protected @NonNull Logger getLogger() {
@@ -151,10 +151,10 @@ public class TestcontainersCassandraConfiguration extends TestCassandraConfigura
 	private @NonNull GenericContainer<?> newCassandraContainer(@NonNull Environment environment) {
 
 		return new CassandraContainer<>(CASSANDRA_DOCKER_IMAGE_NAME)
-			.withInitScript(CASSANDRA_SCHEMA_CQL)
-			//.withInitScript(CASSANDRA_INIT_CQL)
-			.withExposedPorts(CASSANDRA_DEFAULT_PORT)
-			.withReuse(true);
+		.withInitScript(CASSANDRA_SCHEMA_CQL)
+		//.withInitScript(CASSANDRA_INIT_CQL)
+		.withExposedPorts(CASSANDRA_DEFAULT_PORT)
+		.withReuse(true);
 	}
 
 	private @NonNull GenericContainer<?> newEnvironmentCustomizedCassandraContainer(@NonNull Environment environment) {
@@ -168,9 +168,9 @@ public class TestcontainersCassandraConfiguration extends TestCassandraConfigura
 	private @NonNull CqlSession newCqlSession(@NonNull GenericContainer<?> cassandraContainer) {
 
 		return CqlSession.builder()
-			.addContactPoint(resolveContactPoint(cassandraContainer))
-			.withLocalDatacenter(LOCAL_DATACENTER_NAME)
-			.build();
+		.addContactPoint(resolveContactPoint(cassandraContainer))
+		.withLocalDatacenter(LOCAL_DATACENTER_NAME)
+		.build();
 	}
 
 	private boolean isJenkinsEnvironment() {
@@ -182,17 +182,17 @@ public class TestcontainersCassandraConfiguration extends TestCassandraConfigura
 	}
 
 	private @NonNull GenericContainer<?> withCassandraEnvironmentConfiguration(
-			@NonNull GenericContainer<?> cassandraContainer, @NonNull Environment environment) {
+	@NonNull GenericContainer<?> cassandraContainer, @NonNull Environment environment) {
 
 		return isNotJenkinsEnvironment()
-			? cassandraContainer.withEnv("TESTCONTAINERS_RYUK_DISABLED", TESTCONTAINERS_RYUK_DISABLED)
-				.withEnv("TESTCONTAINERS_PULL_PAUSE_TIMEOUT", TESTCONTAINERS_PULL_PAUSE_TIMEOUT)
-			: cassandraContainer.withEnv("TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX", TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_PREFIX)
-				.withEnv("TESTCONTAINERS_PULL_PAUSE_TIMEOUT", TESTCONTAINERS_PULL_PAUSE_TIMEOUT);
+		? cassandraContainer.withEnv("TESTCONTAINERS_RYUK_DISABLED", TESTCONTAINERS_RYUK_DISABLED)
+		.withEnv("TESTCONTAINERS_PULL_PAUSE_TIMEOUT", TESTCONTAINERS_PULL_PAUSE_TIMEOUT)
+		: cassandraContainer.withEnv("TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX", TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_PREFIX)
+		.withEnv("TESTCONTAINERS_PULL_PAUSE_TIMEOUT", TESTCONTAINERS_PULL_PAUSE_TIMEOUT);
 	}
 
 	private @NonNull GenericContainer<?> withCassandraServer(@NonNull GenericContainer<?> cassandraContainer,
-			@NonNull Environment environment) {
+	@NonNull Environment environment) {
 
 		if (Arrays.asList(environment.getActiveProfiles()).contains(DEBUGGING_PROFILE)) {
 			cassandraContainer = initializeCassandraServer(cassandraContainer);
@@ -216,24 +216,24 @@ public class TestcontainersCassandraConfiguration extends TestCassandraConfigura
 		try (CqlSession session = newCqlSession(cassandraContainer)) {
 
 			session.getMetadata().getKeyspace(KEYSPACE_NAME)
-				.map(keyspaceMetadata -> {
+			.map(keyspaceMetadata -> {
 
-					assertThat(keyspaceMetadata.getName().toString()).isEqualToIgnoringCase(KEYSPACE_NAME);
+				assertThat(keyspaceMetadata.getName().toString()).isEqualToIgnoringCase(KEYSPACE_NAME);
 
-					keyspaceMetadata.getTable(TABLE_NAME)
-						.map(tableMetadata -> {
+				keyspaceMetadata.getTable(TABLE_NAME)
+			.map(tableMetadata -> {
 
-							assertThat(tableMetadata.getName().toString()).isEqualTo(TABLE_NAME);
-							assertThat(tableMetadata.getKeyspace().toString()).isEqualToIgnoringCase(KEYSPACE_NAME);
-							//assertCustomersTableHasSizeOne(session);
+				assertThat(tableMetadata.getName().toString()).isEqualTo(TABLE_NAME);
+				assertThat(tableMetadata.getKeyspace().toString()).isEqualToIgnoringCase(KEYSPACE_NAME);
+				//assertCustomersTableHasSizeOne(session);
 
-							return tableMetadata;
-						})
-						.orElseThrow(() -> new IllegalStateException(String.format("Table [%s] not found", TABLE_NAME)));
+				return tableMetadata;
+			})
+			.orElseThrow(() -> new IllegalStateException(String.format("Table [%s] not found", TABLE_NAME)));
 
-					return keyspaceMetadata;
-				})
-				.orElseThrow(() -> new IllegalStateException(String.format("Keyspace [%s] not found", KEYSPACE_NAME)));
+				return keyspaceMetadata;
+			})
+			.orElseThrow(() -> new IllegalStateException(String.format("Keyspace [%s] not found", KEYSPACE_NAME)));
 		}
 
 		return cassandraContainer;
@@ -250,6 +250,6 @@ public class TestcontainersCassandraConfiguration extends TestCassandraConfigura
 
 	private @NonNull InetSocketAddress resolveContactPoint(@NonNull GenericContainer<?> cassandraContainer) {
 		return new InetSocketAddress(cassandraContainer.getHost(),
-			cassandraContainer.getMappedPort(CASSANDRA_DEFAULT_PORT));
+		cassandraContainer.getMappedPort(CASSANDRA_DEFAULT_PORT));
 	}
 }

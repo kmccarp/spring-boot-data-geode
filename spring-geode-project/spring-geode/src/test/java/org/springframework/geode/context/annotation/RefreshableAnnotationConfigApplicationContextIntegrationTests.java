@@ -42,7 +42,7 @@ public class RefreshableAnnotationConfigApplicationContextIntegrationTests {
 	public void constructsAndRefreshesRefreshableApplicationContextSuccessfully() {
 
 		try (RefreshableAnnotationConfigApplicationContext applicationContext =
-				 new RefreshableAnnotationConfigApplicationContext()) {
+		new RefreshableAnnotationConfigApplicationContext()) {
 
 			assertThat(applicationContext).isNotNull();
 
@@ -89,7 +89,8 @@ public class RefreshableAnnotationConfigApplicationContextIntegrationTests {
 
 		private String name;
 
-		public NamedBean() { }
+		public NamedBean() {
+		}
 
 		public NamedBean(String name) {
 			setBeanName(name);

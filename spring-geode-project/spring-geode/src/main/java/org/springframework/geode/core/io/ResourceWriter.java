@@ -64,7 +64,7 @@ public interface ResourceWriter {
 	 * @see java.nio.ByteBuffer
 	 * @see #write(Resource, byte[])
 	 */
-	default void write (@NonNull Resource resource, ByteBuffer data) {
+	default void write(@NonNull Resource resource, ByteBuffer data) {
 		write(resource, data.array());
 	}
 
@@ -82,13 +82,13 @@ public interface ResourceWriter {
 	default ResourceWriter thenWriteTo(ResourceWriter writer) {
 
 		return writer == null ? this
-			: (resource, data) -> {
-				try {
-					this.write(resource, data);
-				}
-				catch (UnhandledResourceException ignore) {
-					writer.write(resource, data);
-				}
-			};
+		: (resource, data) -> {
+			try {
+				this.write(resource, data);
+			}
+			catch (UnhandledResourceException ignore) {
+				writer.write(resource, data);
+			}
+		};
 	}
 }

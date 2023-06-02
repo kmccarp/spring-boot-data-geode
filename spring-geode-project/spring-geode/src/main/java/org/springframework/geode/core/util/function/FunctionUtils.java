@@ -28,11 +28,11 @@ import java.util.function.Function;
 @SuppressWarnings("unused")
 public abstract class FunctionUtils {
 
-  public static <T, R> Function<T, R> toNullReturningFunction(Consumer<T> consumer) {
+	public static <T, R> Function<T, R> toNullReturningFunction(Consumer<T> consumer) {
 
-    return object -> {
-      consumer.accept(object);
-      return null;
-    };
-  }
+		return object -> {
+			consumer.accept(object);
+			return null;
+		};
+	}
 }

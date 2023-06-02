@@ -133,8 +133,8 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		doReturn("example.app.test.model.Type").when(mockPdxInstanceSource).getClassName();
 		doReturn(mockPdxInstanceFactory).when(mockPdxInstanceBuilder).copy(eq(mockPdxInstanceSource));
 		doReturn(mockPdxInstanceFactory).when(mockPdxInstanceFactory)
-			.writeString(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME),
-				eq("example.app.test.model.Type"));
+		.writeString(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME),
+	eq("example.app.test.model.Type"));
 		doReturn(mockPdxInstanceTarget).when(mockPdxInstanceFactory).create();
 
 		JSONFormatterPdxToJsonConverter converter = spy(new JSONFormatterPdxToJsonConverter());
@@ -144,13 +144,13 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		assertThat(converter.decorate(mockPdxInstanceSource)).isEqualTo(mockPdxInstanceTarget);
 
 		verify(mockPdxInstanceSource, times(1))
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verify(mockPdxInstanceSource, times(2)).getClassName();
-		verify(converter,times(1)).newPdxInstanceBuilder();
+		verify(converter, times(1)).newPdxInstanceBuilder();
 		verify(mockPdxInstanceBuilder, times(1)).copy(eq(mockPdxInstanceSource));
 		verify(mockPdxInstanceFactory, times(1))
-			.writeString(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME),
-				eq("example.app.test.model.Type"));
+		.writeString(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME),
+	eq("example.app.test.model.Type"));
 		verify(mockPdxInstanceFactory, times(1)).create();
 		verifyNoInteractions(mockPdxInstanceTarget);
 
@@ -162,14 +162,14 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		PdxInstance mockPdxInstance = mock(PdxInstance.class);
 
 		doReturn(true).when(mockPdxInstance)
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 
 		JSONFormatterPdxToJsonConverter converter = new JSONFormatterPdxToJsonConverter();
 
 		assertThat(converter.decorate(mockPdxInstance)).isSameAs(mockPdxInstance);
 
 		verify(mockPdxInstance, times(1))
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verifyNoMoreInteractions(mockPdxInstance);
 	}
 
@@ -179,7 +179,7 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		PdxInstance mockPdxInstance = mock(PdxInstance.class);
 
 		doReturn(false).when(mockPdxInstance)
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		doReturn(JSONFormatter.JSON_CLASSNAME).when(mockPdxInstance).getClassName();
 
 		JSONFormatterPdxToJsonConverter converter = spy(new JSONFormatterPdxToJsonConverter());
@@ -190,14 +190,14 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected).hasMessage("Class name [%s] is required and cannot be equal to [%s]",
-				JSONFormatter.JSON_CLASSNAME);
+			JSONFormatter.JSON_CLASSNAME);
 			assertThat(expected).hasNoCause();
 
 			throw expected;
 		}
 		finally {
 			verify(mockPdxInstance, times(1))
-				.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 			verify(mockPdxInstance, times(2)).getClassName();
 			verify(converter, never()).newPdxInstanceBuilder();
 		}
@@ -209,7 +209,7 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		PdxInstance mockPdxInstance = mock(PdxInstance.class);
 
 		doReturn(false).when(mockPdxInstance)
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		doReturn(null).when(mockPdxInstance).getClassName();
 
 		JSONFormatterPdxToJsonConverter converter = spy(new JSONFormatterPdxToJsonConverter());
@@ -220,14 +220,14 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected).hasMessage("Class name [null] is required and cannot be equal to [%s]",
-				JSONFormatter.JSON_CLASSNAME);
+			JSONFormatter.JSON_CLASSNAME);
 			assertThat(expected).hasNoCause();
 
 			throw expected;
 		}
 		finally {
 			verify(mockPdxInstance, times(1))
-				.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 			verify(mockPdxInstance, times(2)).getClassName();
 			verify(converter, never()).newPdxInstanceBuilder();
 		}
@@ -244,7 +244,7 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 
 		String sourceJson = "{ \"name\": \"Jon Doe\" }";
 		String targetJson = String.format("{ \"%s\": \"%s\"\"name\": \"Jon Doe\" }",
-			JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME, Customer.class.getName());
+		JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME, Customer.class.getName());
 
 		PdxInstance mockPdxInstance = mock(PdxInstance.class);
 
@@ -256,24 +256,24 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 
 		doReturn(Customer.class.getName()).when(mockPdxInstance).getClassName();
 		doReturn(false).when(mockPdxInstance)
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		doReturn(mockObjectMapper).when(converter).newObjectMapper(eq(sourceJson));
 		doReturn(mockJsonNode).when(mockObjectMapper).readTree(eq(sourceJson));
 		doReturn(false).when(mockJsonNode)
-			.has(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.has(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		doReturn(targetJson).when(mockObjectMapper).writeValueAsString(eq(mockJsonNode));
 
 		assertThat(converter.decorate(mockPdxInstance, sourceJson)).isEqualTo(targetJson);
 
 		verify(mockPdxInstance, times(1))
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verify(converter, times(1)).newObjectMapper(eq(sourceJson));
 		verify(mockObjectMapper, times(1)).readTree(eq(sourceJson));
 		verify(mockJsonNode, times(1))
-			.has(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.has(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verify(mockPdxInstance, times(1)).getClassName();
 		verify((ObjectNode) mockJsonNode, times(1))
-			.put(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME), eq(Customer.class.getName()));
+		.put(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME), eq(Customer.class.getName()));
 		verify(mockObjectMapper, times(1)).writeValueAsString(eq(mockJsonNode));
 	}
 
@@ -282,13 +282,13 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 
 		String json = "{ \"name\": \"Jon Doe\" }";
 		String expectedJson = String.format("{\n  \"name\" : \"Jon Doe\",\n  \"%s\" : \"%s\"\n}",
-			JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME, Customer.class.getName());
+		JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME, Customer.class.getName());
 
 		PdxInstance mockPdxInstance = mock(PdxInstance.class);
 
 		doReturn(Customer.class.getName()).when(mockPdxInstance).getClassName();
 		doReturn(false).when(mockPdxInstance)
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 
 		JSONFormatterPdxToJsonConverter converter = new JSONFormatterPdxToJsonConverter();
 
@@ -296,7 +296,7 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 
 		verify(mockPdxInstance, times(1)).getClassName();
 		verify(mockPdxInstance, times(1))
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verifyNoMoreInteractions(mockPdxInstance);
 	}
 
@@ -308,14 +308,14 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		PdxInstance mockPdxInstance = mock(PdxInstance.class);
 
 		doReturn(true).when(mockPdxInstance)
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 
 		JSONFormatterPdxToJsonConverter converter = spy(new JSONFormatterPdxToJsonConverter());
 
 		assertThat(converter.decorate(mockPdxInstance, json)).isEqualTo(json);
 
 		verify(mockPdxInstance, times(1))
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verify(converter, never()).newObjectMapper(any());
 		verifyNoMoreInteractions(mockPdxInstance);
 	}
@@ -334,26 +334,26 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		JSONFormatterPdxToJsonConverter converter = spy(new JSONFormatterPdxToJsonConverter());
 
 		doReturn(false).when(mockPdxInstance)
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		doReturn(mockObjectMapper).when(converter).newObjectMapper(eq(json));
 		doReturn(mockJsonNode).when(mockObjectMapper).readTree(eq(json));
 		doReturn(true).when(mockJsonNode)
-			.has(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.has(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 
 		assertThat(converter.decorate(mockPdxInstance, json)).isEqualTo(json);
 
 		verify(mockPdxInstance, times(1))
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verify(converter, times(1)).newObjectMapper(eq(json));
 		verify(mockObjectMapper, times(1)).readTree(eq(json));
 		verify(mockJsonNode, times(1))
-			.has(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.has(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verifyNoMoreInteractions(mockPdxInstance, mockObjectMapper, mockJsonNode);
 	}
 
 	@Test
 	public void decoratesJsonThrowsJsonProcessingExceptionWhenPdxInstanceClassNameIsSpecifiedAndValid()
-		throws JsonProcessingException {
+	throws JsonProcessingException {
 
 		String json = "{ \"name\": \"Jon Doe\" }";
 
@@ -375,7 +375,7 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		assertThat(converter.decorate(mockPdxInstance, json)).isEqualTo(json);
 
 		verify(mockPdxInstance, times(1))
-			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+		.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 		verify(converter, times(1)).newObjectMapper(eq(json));
 		verify(mockObjectMapper, times(1)).readTree(eq(json));
 		verify(mockPdxInstance, times(1)).getClassName();
@@ -414,7 +414,7 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 		}
 		finally {
 			verify(mockPdxInstance, times(1))
-				.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
+			.hasField(eq(JSONFormatterPdxToJsonConverter.AT_TYPE_METADATA_PROPERTY_NAME));
 			verify(converter, times(1)).newObjectMapper(eq(json));
 			verify(mockObjectMapper, times(1)).readTree(eq(json));
 			verify(mockPdxInstance, times(1)).getClassName();
@@ -520,7 +520,7 @@ public class JSONFormatterPdxToJsonConverterUnitTests {
 	public void isValidJsonWithJson() {
 
 		assertThat(new JSONFormatterPdxToJsonConverter()
-			.isValidJson("[{ \"name\": \"Jon Doe\" }, { \"name\": \"Jane Doe\" }]")).isTrue();
+		.isValidJson("[{ \"name\": \"Jon Doe\" }, { \"name\": \"Jane Doe\" }]")).isTrue();
 		assertThat(new JSONFormatterPdxToJsonConverter().isValidJson("{ \"name\": \"Jon Doe\" }")).isTrue();
 		assertThat(new JSONFormatterPdxToJsonConverter().isValidJson("{}")).isTrue();
 		assertThat(new JSONFormatterPdxToJsonConverter().isValidJson("[]")).isTrue();

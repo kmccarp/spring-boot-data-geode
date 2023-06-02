@@ -63,11 +63,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = {
-		"spring.application.name=UserDefinedPdxSerializerPdxSerializationAutoConfigurationIntegrationTests",
-		"spring.data.gemfire.pdx.serializer-bean-name=mockPdxSerializer"
-	},
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = {"spring.application.name=UserDefinedPdxSerializerPdxSerializationAutoConfigurationIntegrationTests","spring.data.gemfire.pdx.serializer-bean-name=mockPdxSerializer"
+},
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class UserDefinedPdxSerializerPdxSerializationAutoConfigurationIntegrationTests extends IntegrationTestsSupport {
@@ -84,7 +82,7 @@ public class UserDefinedPdxSerializerPdxSerializationAutoConfigurationIntegratio
 
 		assertThat(this.cache).isNotNull();
 		assertThat(this.cache.getName())
-			.isEqualTo(UserDefinedPdxSerializerPdxSerializationAutoConfigurationIntegrationTests.class.getSimpleName());
+		.isEqualTo(UserDefinedPdxSerializerPdxSerializationAutoConfigurationIntegrationTests.class.getSimpleName());
 		assertThat(this.cache.getPdxSerializer()).isEqualTo(this.mockPdxSerializer);
 	}
 

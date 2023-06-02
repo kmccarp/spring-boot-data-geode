@@ -91,8 +91,8 @@ public class QuorumLostEvent extends MembershipEvent<QuorumLostEvent> {
 	public QuorumLostEvent withFailedMembers(DistributedMember... failedMembers) {
 
 		return withFailedMembers(failedMembers != null
-			? Arrays.asList(failedMembers)
-			: Collections.emptySet());
+		? Arrays.asList(failedMembers)
+		: Collections.emptySet());
 	}
 
 	/**
@@ -108,8 +108,8 @@ public class QuorumLostEvent extends MembershipEvent<QuorumLostEvent> {
 	public QuorumLostEvent withFailedMembers(Iterable<? extends DistributedMember> failedMembers) {
 
 		this.failedMembers = failedMembers != null
-			? failedMembers
-			: Collections.emptySet();
+		? failedMembers
+		: Collections.emptySet();
 
 		return this;
 	}
@@ -127,8 +127,8 @@ public class QuorumLostEvent extends MembershipEvent<QuorumLostEvent> {
 	public QuorumLostEvent withRemainingMembers(DistributedMember... remainingMembers) {
 
 		return withRemainingMembers(remainingMembers != null
-			? Arrays.asList(remainingMembers)
-			: Collections.emptyList());
+		? Arrays.asList(remainingMembers)
+		: Collections.emptyList());
 	}
 
 	/**
@@ -145,8 +145,8 @@ public class QuorumLostEvent extends MembershipEvent<QuorumLostEvent> {
 	public QuorumLostEvent withRemainingMembers(Iterable<? extends DistributedMember> remainingMembers) {
 
 		this.remainingMembers = remainingMembers != null
-			? remainingMembers
-			: Collections.emptyList();
+		? remainingMembers
+		: Collections.emptyList();
 
 		return this;
 	}

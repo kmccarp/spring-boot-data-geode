@@ -50,7 +50,7 @@ public class SecurityProperties {
 	private final SecurityManagerProperties securityManagerProperties = new SecurityManagerProperties();
 
 	private final SecurityPostProcessorProperties securityPostProcessorProperties =
-		new SecurityPostProcessorProperties();
+	new SecurityPostProcessorProperties();
 
 	@NestedConfigurationProperty
 	private final SslProperties ssl = new SslProperties();

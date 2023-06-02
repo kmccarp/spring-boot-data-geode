@@ -113,7 +113,7 @@ public class RegionTemplateAutoConfiguration extends TypelessAnnotationConfigSup
 			if (beanFactory instanceof BeanDefinitionRegistry registry) {
 
 				List<String> beanDefinitionNames =
-					Arrays.asList(ArrayUtils.nullSafeArray(registry.getBeanDefinitionNames(), String.class));
+				Arrays.asList(ArrayUtils.nullSafeArray(registry.getBeanDefinitionNames(), String.class));
 
 				Set<String> userRegionTemplateNames = new HashSet<>();
 
@@ -145,31 +145,31 @@ public class RegionTemplateAutoConfiguration extends TypelessAnnotationConfigSup
 	}
 
 	private boolean isBeanWithGemfireTemplateDependency(@NonNull BeanFactory beanFactory,
-			@NonNull BeanDefinition beanDefinition) {
+	@NonNull BeanDefinition beanDefinition) {
 
 		Predicate<Object> isGemfireTemplate = value -> value instanceof RuntimeBeanReference
-			? beanFactory.isTypeMatch(((RuntimeBeanReference) value).getBeanName(), GemfireOperations.class)
-			: value instanceof GemfireOperations;
+		? beanFactory.isTypeMatch(((RuntimeBeanReference) value).getBeanName(), GemfireOperations.class)
+		: value instanceof GemfireOperations;
 
 		boolean match = beanDefinition.getConstructorArgumentValues().getGenericArgumentValues().stream()
-			.map(ConstructorArgumentValues.ValueHolder::getValue)
-			.anyMatch(isGemfireTemplate);
+		.map(ConstructorArgumentValues.ValueHolder::getValue)
+		.anyMatch(isGemfireTemplate);
 
 		match |= match || beanDefinition.getPropertyValues().getPropertyValueList().stream()
-			.map(PropertyValue::getValue)
-			.anyMatch(isGemfireTemplate);
+		.map(PropertyValue::getValue)
+		.anyMatch(isGemfireTemplate);
 
 		match |= match || Optional.of(beanDefinition)
-			.filter(AnnotatedBeanDefinition.class::isInstance)
-			.map(AnnotatedBeanDefinition.class::cast)
-			.map(AnnotatedBeanDefinition::getFactoryMethodMetadata)
-			.filter(StandardMethodMetadata.class::isInstance)
-			.map(StandardMethodMetadata.class::cast)
-			.map(StandardMethodMetadata::getIntrospectedMethod)
-			.map(method -> Arrays.stream(ArrayUtils.nullSafeArray(method.getParameterTypes(), Class.class))
-				.filter(Objects::nonNull)
-				.anyMatch(GemfireOperations.class::isAssignableFrom)
-			).orElse(false);
+		.filter(AnnotatedBeanDefinition.class::isInstance)
+		.map(AnnotatedBeanDefinition.class::cast)
+		.map(AnnotatedBeanDefinition::getFactoryMethodMetadata)
+		.filter(StandardMethodMetadata.class::isInstance)
+		.map(StandardMethodMetadata.class::cast)
+		.map(StandardMethodMetadata::getIntrospectedMethod)
+		.map(method -> Arrays.stream(ArrayUtils.nullSafeArray(method.getParameterTypes(), Class.class))
+	.filter(Objects::nonNull)
+	.anyMatch(GemfireOperations.class::isAssignableFrom)
+		).orElse(false);
 
 		return match;
 	}
@@ -185,7 +185,7 @@ public class RegionTemplateAutoConfiguration extends TypelessAnnotationConfigSup
 	private BeanDefinition newGemfireTemplateBeanDefinition(String regionBeanName) {
 
 		BeanDefinitionBuilder builder =
-			BeanDefinitionBuilder.genericBeanDefinition(GemfireTemplate.class);
+		BeanDefinitionBuilder.genericBeanDefinition(GemfireTemplate.class);
 
 		builder.addConstructorArgReference(regionBeanName);
 
@@ -204,13 +204,13 @@ public class RegionTemplateAutoConfiguration extends TypelessAnnotationConfigSup
 	}
 
 	private void setAutoConfiguredRegionTemplateDependencies(BeanDefinitionRegistry registry,
-			Set<String> dependencyBeanNames) {
+	Set<String> dependencyBeanNames) {
 
 		String[] dependencyBeanNamesArray = dependencyBeanNames.toArray(new String[0]);
 
 		this.autoConfiguredRegionTemplateBeanNames.stream()
-			.map(registry::getBeanDefinition)
-			.forEach(beanDefinition -> SpringExtensions.addDependsOn(beanDefinition, dependencyBeanNamesArray));
+		.map(registry::getBeanDefinition)
+		.forEach(beanDefinition -> SpringExtensions.addDependsOn(beanDefinition, dependencyBeanNamesArray));
 	}
 
 	// Required by @EnableClusterDefinedRegions & Native-Defined Regions (e.g. Regions defined in "cache.xml").
@@ -227,7 +227,8 @@ public class RegionTemplateAutoConfiguration extends TypelessAnnotationConfigSup
 			 *
 			 * @see RegionTemplateAutoConfiguration#setAutoConfiguredRegionTemplateDependencies(BeanDefinitionRegistry, Set)
 			 */
-			@Nullable @Override
+			@Nullable
+			@Override
 			public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 
 				if (bean instanceof GemfireTemplate) {
@@ -262,11 +263,11 @@ public class RegionTemplateAutoConfiguration extends TypelessAnnotationConfigSup
 	private void handlePrematureCacheCreation(ConfigurableApplicationContext applicationContext) {
 
 		Optional.ofNullable(GemfireUtils.resolveGemFireCache())
-			.ifPresent(cache -> registerRegionTemplatesForCacheRegions(applicationContext, cache));
+		.ifPresent(cache -> registerRegionTemplatesForCacheRegions(applicationContext, cache));
 	}
 
 	// Required by @EnableCachingDefinedRegions
-	@EventListener({ ContextRefreshedEvent.class })
+	@EventListener({ContextRefreshedEvent.class})
 	public void regionTemplateContextRefreshedEventListener(ContextRefreshedEvent event) {
 
 		this.regionNamesWithTemplates.clear();
@@ -282,7 +283,7 @@ public class RegionTemplateAutoConfiguration extends TypelessAnnotationConfigSup
 	}
 
 	private void registerRegionTemplatesForCacheRegions(@NonNull ConfigurableApplicationContext applicationContext,
-			@NonNull GemFireCache cache) {
+	@NonNull GemFireCache cache) {
 
 		for (Region<?, ?> region : CollectionUtils.nullSafeSet(cache.rootRegions())) {
 
@@ -293,12 +294,12 @@ public class RegionTemplateAutoConfiguration extends TypelessAnnotationConfigSup
 	}
 
 	private void registerRegionTemplateBean(@NonNull ConfigurableApplicationContext applicationContext,
-			@NonNull Region<?, ?> region, String regionTemplateBeanName) {
+	@NonNull Region<?, ?> region, String regionTemplateBeanName) {
 
 		Optional.of(applicationContext)
-			.filter(it -> isNotBean(it, regionTemplateBeanName))
-			.map(ConfigurableApplicationContext::getBeanFactory)
-			.ifPresent(beanFactory -> register(newGemfireTemplate(region), regionTemplateBeanName, beanFactory));
+		.filter(it -> isNotBean(it, regionTemplateBeanName))
+		.map(ConfigurableApplicationContext::getBeanFactory)
+		.ifPresent(beanFactory -> register(newGemfireTemplate(region), regionTemplateBeanName, beanFactory));
 	}
 
 	private boolean isNotBean(@NonNull ApplicationContext applicationContext, @Nullable String beanName) {

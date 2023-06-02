@@ -62,10 +62,10 @@ public class JacksonJsonToObjectConverter implements JsonToObjectConverter {
 	private @NonNull ObjectMapper newObjectMapper() {
 
 		return new ObjectMapper()
-			.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
-			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-			.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
-			.findAndRegisterModules();
+		.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
+		.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+		.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
+		.findAndRegisterModules();
 	}
 
 	/**
@@ -106,20 +106,20 @@ public class JacksonJsonToObjectConverter implements JsonToObjectConverter {
 					Assert.state(jsonNode.isObject(), () -> String.format("The JSON [%s] must be an object", json));
 
 					Assert.state(jsonNode.has(AT_TYPE_FIELD_NAME),
-						() -> String.format("The JSON object [%1$s] must have an '%2$s' metadata field",
-							json, AT_TYPE_FIELD_NAME));
+					() -> String.format("The JSON object [%1$s] must have an '%2$s' metadata field",
+				json, AT_TYPE_FIELD_NAME));
 
 					objectTypeName = jsonNode.get(AT_TYPE_FIELD_NAME).asText();
 
 					Class<?> objectType =
-						ClassUtils.forName(objectTypeName, Thread.currentThread().getContextClassLoader());
+					ClassUtils.forName(objectTypeName, Thread.currentThread().getContextClassLoader());
 
 					return objectMapper.readValue(json, objectType);
 				}
 			}
 			catch (ClassNotFoundException cause) {
 				throw new MappingException(String.format("Failed to map JSON [%1$s] to an Object of type [%2$s]",
-					json, objectTypeName), cause);
+				json, objectTypeName), cause);
 			}
 			catch (JsonProcessingException cause) {
 				throw new DataRetrievalFailureException(String.format("Failed to read JSON [%s]", json), cause);
@@ -139,6 +139,6 @@ public class JacksonJsonToObjectConverter implements JsonToObjectConverter {
 	boolean isPojo(@Nullable JsonNode jsonNode) {
 
 		return jsonNode != null
-			&& (jsonNode instanceof POJONode || jsonNode.isPojo() || JsonNodeType.POJO.equals(jsonNode.getNodeType()));
+		&& (jsonNode instanceof POJONode || jsonNode.isPojo() || JsonNodeType.POJO.equals(jsonNode.getNodeType()));
 	}
 }

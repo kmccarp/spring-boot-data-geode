@@ -49,16 +49,17 @@ public class SmartEnvironmentAccessor implements PropertyAccessor {
 	/**
 	 * @inheritDoc
 	 */
-	@Nullable @Override
+	@Nullable
+	@Override
 	public Class<?>[] getSpecificTargetClasses() {
-		return new Class[] { Environment.class, EnvironmentCapable.class };
+		return new Class[]{Environment.class, EnvironmentCapable.class};
 	}
 
 	private Optional<Environment> asEnvironment(@Nullable Object target) {
 
 		Environment environment = target instanceof Environment ? (Environment) target
-			: target instanceof EnvironmentCapable ? ((EnvironmentCapable) target).getEnvironment()
-			: null;
+		: target instanceof EnvironmentCapable ? ((EnvironmentCapable) target).getEnvironment()
+		: null;
 
 		return Optional.ofNullable(environment);
 	}
@@ -70,8 +71,8 @@ public class SmartEnvironmentAccessor implements PropertyAccessor {
 	public boolean canRead(EvaluationContext context, @Nullable Object target, String name) {
 
 		return asEnvironment(target)
-			.filter(environment -> environment.containsProperty(name))
-			.isPresent();
+		.filter(environment -> environment.containsProperty(name))
+		.isPresent();
 	}
 
 	/**
@@ -81,8 +82,8 @@ public class SmartEnvironmentAccessor implements PropertyAccessor {
 	public TypedValue read(EvaluationContext context, @Nullable Object target, String name) {
 
 		String value = asEnvironment(target)
-			.map(environment -> environment.getProperty(name))
-			.orElse(null);
+		.map(environment -> environment.getProperty(name))
+		.orElse(null);
 
 		return new TypedValue(value);
 	}
@@ -100,6 +101,7 @@ public class SmartEnvironmentAccessor implements PropertyAccessor {
 	 * @inheritDoc
 	 */
 	@Override
-	public void write(EvaluationContext context, @Nullable Object target, String name, @Nullable Object newValue) { }
+	public void write(EvaluationContext context, @Nullable Object target, String name, @Nullable Object newValue) {
+	}
 
 }

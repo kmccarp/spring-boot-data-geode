@@ -53,9 +53,9 @@ import org.springframework.util.StringUtils;
 public class GeodeCacheHealthIndicator extends AbstractGeodeHealthIndicator {
 
 	private final Function<Health.Builder, Health.Builder> gemfireHealthIndicatorFunctions = withCacheDetails()
-		.andThen(withDistributedSystemDetails())
-		.andThen(withDistributedMemberDetails())
-		.andThen(withResourceManagerDetails());
+	.andThen(withDistributedSystemDetails())
+	.andThen(withDistributedMemberDetails())
+	.andThen(withResourceManagerDetails());
 
 	/**
 	 * Default constructor to construct an uninitialized instance of {@link GeodeCacheHealthIndicator},
@@ -98,7 +98,7 @@ public class GeodeCacheHealthIndicator extends AbstractGeodeHealthIndicator {
 			getGemfireHealthIndicatorFunctions().apply(builder);
 
 			builder.status(getGemFireCache().map(GemFireCache::isClosed).orElse(true)
-				? Status.DOWN : Status.UP);
+			? Status.DOWN : Status.UP);
 
 			return;
 		}
@@ -109,53 +109,53 @@ public class GeodeCacheHealthIndicator extends AbstractGeodeHealthIndicator {
 	private Function<Health.Builder, Health.Builder> withCacheDetails() {
 
 		return healthBuilder -> healthBuilder.withDetail("geode.cache.name", getGemFireCache().map(GemFireCache::getName).orElse(""))
-				.withDetail("geode.cache.closed", getGemFireCache().map(GemFireCache::isClosed).map(this::toYesNoString).orElse("Yes"))
-			.withDetail("geode.cache.cancel-in-progress", getGemFireCache()
-				.map(GemFireCache::getCancelCriterion)
-				.filter(CancelCriterion::isCancelInProgress)
-				.isPresent() ? "Yes" : "No");
+		.withDetail("geode.cache.closed", getGemFireCache().map(GemFireCache::isClosed).map(this::toYesNoString).orElse("Yes"))
+		.withDetail("geode.cache.cancel-in-progress", getGemFireCache()
+	.map(GemFireCache::getCancelCriterion)
+	.filter(CancelCriterion::isCancelInProgress)
+	.isPresent() ? "Yes" : "No");
 	}
 
 	private Function<Health.Builder, Health.Builder> withDistributedMemberDetails() {
 
 		return healthBuilder -> getGemFireCache()
-			.map(GemFireCache::getDistributedSystem)
-			.map(DistributedSystem::getDistributedMember)
-			.map(distributedMember -> healthBuilder
-				.withDetail("geode.distributed-member.id", distributedMember.getId())
-				.withDetail("geode.distributed-member.name", distributedMember.getName())
-				.withDetail("geode.distributed-member.groups", distributedMember.getGroups())
-				.withDetail("geode.distributed-member.host", distributedMember.getHost())
-				.withDetail("geode.distributed-member.process-id", distributedMember.getProcessId())
-			)
-			.orElse(healthBuilder);
+		.map(GemFireCache::getDistributedSystem)
+		.map(DistributedSystem::getDistributedMember)
+		.map(distributedMember -> healthBuilder
+	.withDetail("geode.distributed-member.id", distributedMember.getId())
+	.withDetail("geode.distributed-member.name", distributedMember.getName())
+	.withDetail("geode.distributed-member.groups", distributedMember.getGroups())
+	.withDetail("geode.distributed-member.host", distributedMember.getHost())
+	.withDetail("geode.distributed-member.process-id", distributedMember.getProcessId())
+		)
+		.orElse(healthBuilder);
 	}
 
 	private Function<Health.Builder, Health.Builder> withDistributedSystemDetails() {
 
 		return healthBuilder -> getGemFireCache()
-			.map(GemFireCache::getDistributedSystem)
-			.map(distributedSystem -> healthBuilder
-				.withDetail("geode.distributed-system.member-count", toMemberCount(distributedSystem))
-				.withDetail("geode.distributed-system.connection", toConnectedNoConnectedString(distributedSystem.isConnected()))
-				.withDetail("geode.distributed-system.reconnecting", toYesNoString(distributedSystem.isReconnecting()))
-				.withDetail("geode.distributed-system.properties-location", toString(DistributedSystem.getPropertiesFileURL()))
-				.withDetail("geode.distributed-system.security-properties-location", toString(DistributedSystem.getSecurityPropertiesFileURL()))
-			)
-			.orElse(healthBuilder);
+		.map(GemFireCache::getDistributedSystem)
+		.map(distributedSystem -> healthBuilder
+	.withDetail("geode.distributed-system.member-count", toMemberCount(distributedSystem))
+	.withDetail("geode.distributed-system.connection", toConnectedNoConnectedString(distributedSystem.isConnected()))
+	.withDetail("geode.distributed-system.reconnecting", toYesNoString(distributedSystem.isReconnecting()))
+	.withDetail("geode.distributed-system.properties-location", toString(DistributedSystem.getPropertiesFileURL()))
+	.withDetail("geode.distributed-system.security-properties-location", toString(DistributedSystem.getSecurityPropertiesFileURL()))
+		)
+		.orElse(healthBuilder);
 	}
 
 	private Function<Health.Builder, Health.Builder> withResourceManagerDetails() {
 
 		return healthBuilder -> getGemFireCache()
-			.map(GemFireCache::getResourceManager)
-			.map(resourceManager -> healthBuilder
-				.withDetail("geode.resource-manager.critical-heap-percentage", resourceManager.getCriticalHeapPercentage())
-				.withDetail("geode.resource-manager.critical-off-heap-percentage", resourceManager.getCriticalOffHeapPercentage())
-				.withDetail("geode.resource-manager.eviction-heap-percentage", resourceManager.getEvictionHeapPercentage())
-				.withDetail("geode.resource-manager.eviction-off-heap-percentage", resourceManager.getEvictionOffHeapPercentage())
-			)
-			.orElse(healthBuilder);
+		.map(GemFireCache::getResourceManager)
+		.map(resourceManager -> healthBuilder
+	.withDetail("geode.resource-manager.critical-heap-percentage", resourceManager.getCriticalHeapPercentage())
+	.withDetail("geode.resource-manager.critical-off-heap-percentage", resourceManager.getCriticalOffHeapPercentage())
+	.withDetail("geode.resource-manager.eviction-heap-percentage", resourceManager.getEvictionHeapPercentage())
+	.withDetail("geode.resource-manager.eviction-off-heap-percentage", resourceManager.getEvictionOffHeapPercentage())
+		)
+		.orElse(healthBuilder);
 	}
 
 	private String emptyIfUnset(String value) {

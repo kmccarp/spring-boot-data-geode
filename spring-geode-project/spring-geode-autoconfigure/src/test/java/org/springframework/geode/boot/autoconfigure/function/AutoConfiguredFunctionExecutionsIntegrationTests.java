@@ -77,18 +77,18 @@ public class AutoConfiguredFunctionExecutionsIntegrationTests extends Integratio
 
 		assertThat(this.gemfireCache).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getGroupMembers("test"))
-			.contains(this.gemfireCache.getDistributedSystem().getDistributedMember());
+		.contains(this.gemfireCache.getDistributedSystem().getDistributedMember());
 	}
 
 	@Test
 	public void firstFunctionsMustBeRegistered() {
 
 		Arrays.stream(CalculatorFunctions.class.getMethods())
-			.filter(method -> !Object.class.equals(method.getDeclaringClass()))
-			.map(Method::getName)
-			.forEach(methodName -> assertThat(FunctionService.isRegistered(methodName))
-				.describedAs("Function [%s] was not registered", methodName)
-				.isTrue());
+		.filter(method -> !Object.class.equals(method.getDeclaringClass()))
+		.map(Method::getName)
+		.forEach(methodName -> assertThat(FunctionService.isRegistered(methodName))
+	.describedAs("Function [%s] was not registered", methodName)
+	.isTrue());
 	}
 
 	@Test
@@ -107,13 +107,13 @@ public class AutoConfiguredFunctionExecutionsIntegrationTests extends Integratio
 	private Object extractResult(Object result) {
 
 		return Optional.ofNullable(result)
-			.filter(Iterable.class::isInstance)
-			.map(Iterable.class::cast)
-			.map(Iterable::iterator)
-			.filter(Iterator::hasNext)
-			.map(Iterator::next)
-			.map(this::extractResult)
-			.orElse(result);
+		.filter(Iterable.class::isInstance)
+		.map(Iterable.class::cast)
+		.map(Iterable::iterator)
+		.filter(Iterator::hasNext)
+		.map(Iterator::next)
+		.map(this::extractResult)
+		.orElse(result);
 	}
 
 	@SpringBootApplication

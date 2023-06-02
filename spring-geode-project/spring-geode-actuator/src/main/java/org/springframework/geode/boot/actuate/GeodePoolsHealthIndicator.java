@@ -81,39 +81,39 @@ public class GeodePoolsHealthIndicator extends AbstractGeodeHealthIndicator {
 			builder.withDetail("geode.pool.count", pools.size());
 
 			pools.values().stream()
-				.filter(Objects::nonNull)
-				.forEach(pool -> {
+			.filter(Objects::nonNull)
+			.forEach(pool -> {
 
-					String poolName = pool.getName();
+				String poolName = pool.getName();
 
-					builder.withDetail(poolKey(poolName, "destroyed"), toYesNoString(pool.isDestroyed()))
-						.withDetail(poolKey(poolName, "free-connection-timeout"), pool.getFreeConnectionTimeout())
-						.withDetail(poolKey(poolName, "idle-timeout"), pool.getIdleTimeout())
-						.withDetail(poolKey(poolName, "load-conditioning-interval"), pool.getLoadConditioningInterval())
-						.withDetail(poolKey(poolName, "locators"), toCommaDelimitedHostAndPortsString(pool.getLocators()))
-						.withDetail(poolKey(poolName, "max-connections"), pool.getMaxConnections())
-						.withDetail(poolKey(poolName, "min-connections"), pool.getMinConnections())
-						.withDetail(poolKey(poolName, "multi-user-authentication"), toYesNoString(pool.getMultiuserAuthentication()))
-						.withDetail(poolKey(poolName, "online-locators"), toCommaDelimitedHostAndPortsString(pool.getOnlineLocators()))
-						.withDetail(poolKey(poolName, "ping-interval"), pool.getPingInterval())
-						.withDetail(poolKey(poolName, "pr-single-hop-enabled"), toYesNoString(pool.getPRSingleHopEnabled()))
-						.withDetail(poolKey(poolName, "read-timeout"), pool.getReadTimeout())
-						.withDetail(poolKey(poolName, "retry-attempts"), pool.getRetryAttempts())
-						.withDetail(poolKey(poolName, "server-group"), pool.getServerGroup())
-						.withDetail(poolKey(poolName, "servers"), toCommaDelimitedHostAndPortsString(pool.getServers()))
-						.withDetail(poolKey(poolName, "socket-buffer-size"), pool.getSocketBufferSize())
-						.withDetail(poolKey(poolName, "statistic-interval"), pool.getStatisticInterval())
-						.withDetail(poolKey(poolName, "subscription-ack-interval"), pool.getSubscriptionAckInterval())
-						.withDetail(poolKey(poolName, "subscription-enabled"), toYesNoString(pool.getSubscriptionEnabled()))
-						.withDetail(poolKey(poolName, "subscription-message-tracking-timeout"), pool.getSubscriptionMessageTrackingTimeout())
-						.withDetail(poolKey(poolName, "subscription-redundancy"), pool.getSubscriptionRedundancy());
-						//.withDetail(poolKey(poolName, "thread-local-connections"), toYesNoString(pool.getThreadLocalConnections()));
+				builder.withDetail(poolKey(poolName, "destroyed"), toYesNoString(pool.isDestroyed()))
+			.withDetail(poolKey(poolName, "free-connection-timeout"), pool.getFreeConnectionTimeout())
+			.withDetail(poolKey(poolName, "idle-timeout"), pool.getIdleTimeout())
+			.withDetail(poolKey(poolName, "load-conditioning-interval"), pool.getLoadConditioningInterval())
+			.withDetail(poolKey(poolName, "locators"), toCommaDelimitedHostAndPortsString(pool.getLocators()))
+			.withDetail(poolKey(poolName, "max-connections"), pool.getMaxConnections())
+			.withDetail(poolKey(poolName, "min-connections"), pool.getMinConnections())
+			.withDetail(poolKey(poolName, "multi-user-authentication"), toYesNoString(pool.getMultiuserAuthentication()))
+			.withDetail(poolKey(poolName, "online-locators"), toCommaDelimitedHostAndPortsString(pool.getOnlineLocators()))
+			.withDetail(poolKey(poolName, "ping-interval"), pool.getPingInterval())
+			.withDetail(poolKey(poolName, "pr-single-hop-enabled"), toYesNoString(pool.getPRSingleHopEnabled()))
+			.withDetail(poolKey(poolName, "read-timeout"), pool.getReadTimeout())
+			.withDetail(poolKey(poolName, "retry-attempts"), pool.getRetryAttempts())
+			.withDetail(poolKey(poolName, "server-group"), pool.getServerGroup())
+			.withDetail(poolKey(poolName, "servers"), toCommaDelimitedHostAndPortsString(pool.getServers()))
+			.withDetail(poolKey(poolName, "socket-buffer-size"), pool.getSocketBufferSize())
+			.withDetail(poolKey(poolName, "statistic-interval"), pool.getStatisticInterval())
+			.withDetail(poolKey(poolName, "subscription-ack-interval"), pool.getSubscriptionAckInterval())
+			.withDetail(poolKey(poolName, "subscription-enabled"), toYesNoString(pool.getSubscriptionEnabled()))
+			.withDetail(poolKey(poolName, "subscription-message-tracking-timeout"), pool.getSubscriptionMessageTrackingTimeout())
+			.withDetail(poolKey(poolName, "subscription-redundancy"), pool.getSubscriptionRedundancy());
+				//.withDetail(poolKey(poolName, "thread-local-connections"), toYesNoString(pool.getThreadLocalConnections()));
 
-					getGemFireCache()
-						.map(ClientCache.class::cast)
-						.filter(CacheUtils::isDurable)
-						.ifPresent(it -> builder.withDetail(poolKey(poolName, "pending-event-count"), pool.getPendingEventCount()));
-				});
+				getGemFireCache()
+			.map(ClientCache.class::cast)
+			.filter(CacheUtils::isDurable)
+			.ifPresent(it -> builder.withDetail(poolKey(poolName, "pending-event-count"), pool.getPendingEventCount()));
+			});
 
 			builder.up();
 
@@ -134,8 +134,8 @@ public class GeodePoolsHealthIndicator extends AbstractGeodeHealthIndicator {
 	private String toCommaDelimitedHostAndPortsString(List<InetSocketAddress> socketAddresses) {
 
 		return StringUtils.collectionToCommaDelimitedString(nullSafeList(socketAddresses).stream()
-			.filter(Objects::nonNull)
-			.map(socketAddress -> String.format("%1$s:%2$d", socketAddress.getHostName(), socketAddress.getPort()))
-			.collect(Collectors.toList()));
+		.filter(Objects::nonNull)
+		.map(socketAddress -> String.format("%1$s:%2$d", socketAddress.getHostName(), socketAddress.getPort()))
+		.collect(Collectors.toList()));
 	}
 }

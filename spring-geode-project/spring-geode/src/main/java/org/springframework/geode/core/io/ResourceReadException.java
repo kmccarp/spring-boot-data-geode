@@ -34,7 +34,8 @@ public class ResourceReadException extends ResourceDataAccessException {
 	 * Constructs a new instance of {@link ResourceReadException} with no {@link String message}
 	 * or known {@link Throwable cause}.
 	 */
-	public ResourceReadException() { }
+	public ResourceReadException() {
+	}
 
 	/**
 	 * Constructs a new instance of {@link ResourceReadException} initialized with the given {@link String message}

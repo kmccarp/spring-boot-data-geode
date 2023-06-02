@@ -56,7 +56,7 @@ public class AbstractResourceWriterUnitTests {
 	@Test
 	public void writeToWritableResourceCallsDoWrite() throws IOException {
 
-		byte[] array = { (byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE };
+		byte[] array = {(byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE};
 
 		AbstractResourceWriter mockResourceWriter = mock(AbstractResourceWriter.class);
 
@@ -86,7 +86,7 @@ public class AbstractResourceWriterUnitTests {
 	@Test(expected = UnhandledResourceException.class)
 	public void writeToNonWritableResourceThrowsUnhandledResourceException() throws IOException {
 
-		byte[] array = { (byte) 0x01 };
+		byte[] array = {(byte) 0x01};
 
 		AbstractResourceWriter mockResourceWriter = mock(AbstractResourceWriter.class);
 
@@ -117,7 +117,7 @@ public class AbstractResourceWriterUnitTests {
 	@Test(expected = UnhandledResourceException.class)
 	public void writeToNullResourceThrowsUnhandledResourceException() throws IOException {
 
-		byte[] array = { (byte) 0x02 };
+		byte[] array = {(byte) 0x02};
 
 		AbstractResourceWriter mockResourceWriter = mock(AbstractResourceWriter.class);
 
@@ -143,7 +143,7 @@ public class AbstractResourceWriterUnitTests {
 	@Test(expected = UnhandledResourceException.class)
 	public void writeToUnhandledResourceThrowsUnhandledResourceException() throws IOException {
 
-		byte[] array = { (byte) 0x04 };
+		byte[] array = {(byte) 0x04};
 
 		AbstractResourceWriter mockResourceWriter = mock(AbstractResourceWriter.class);
 
@@ -176,7 +176,7 @@ public class AbstractResourceWriterUnitTests {
 	@Test(expected = ResourceWriteException.class)
 	public void writeThrowsResourceWriteExceptionForIoException() throws IOException {
 
-		byte[] array = { (byte) 0x08 };
+		byte[] array = {(byte) 0x08};
 
 		AbstractResourceWriter mockResourceWriter = mock(AbstractResourceWriter.class);
 

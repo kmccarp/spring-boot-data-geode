@@ -83,9 +83,9 @@ public class ResourceLoaderResourceResolverUnitTests {
 		ResourceLoaderResourceResolver resourceResolver = new ResourceLoaderResourceResolver();
 
 		Set<ClassLoader> classLoaders = CollectionUtils.asSet(
-			Thread.currentThread().getContextClassLoader(),
-			getClass().getClassLoader(),
-			ClassLoader.getSystemClassLoader()
+		Thread.currentThread().getContextClassLoader(),
+		getClass().getClassLoader(),
+		ClassLoader.getSystemClassLoader()
 		);
 
 		assertThat(classLoaders).contains(resourceResolver.getClassLoader().orElse(null));
@@ -397,7 +397,7 @@ public class ResourceLoaderResourceResolverUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected)
-				.hasMessage("The location [%s] of the Resource to resolve must be specified", location);
+			.hasMessage("The location [%s] of the Resource to resolve must be specified", location);
 
 			assertThat(expected).hasNoCause();
 

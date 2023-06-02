@@ -93,16 +93,16 @@ public class SpringBootApacheGeodeDockerClientCacheApplication {
 
 		assertThat(cache).isNotNull();
 		assertThat(cache.getName())
-			.isEqualTo(SpringBootApacheGeodeDockerClientCacheApplication.class.getSimpleName());
+		.isEqualTo(SpringBootApacheGeodeDockerClientCacheApplication.class.getSimpleName());
 		assertThat(cache.getPdxSerializer()).isInstanceOf(MappingPdxSerializer.class);
 
 		MappingPdxSerializer serializer = (MappingPdxSerializer) cache.getPdxSerializer();
 
 		serializer.setIncludeTypeFilters(type -> Optional.ofNullable(type)
-			.map(Class::getPackage)
-			.map(Package::getName)
-			.filter(packageName -> packageName.startsWith(this.getClass().getPackage().getName()))
-			.isPresent());
+		.map(Class::getPackage)
+		.map(Package::getName)
+		.filter(packageName -> packageName.startsWith(this.getClass().getPackage().getName()))
+		.isPresent());
 	}
 
 	private void log(String message, Object... args) {

@@ -291,12 +291,12 @@ public class PdxInstanceWrapperRegionAspectUnitTests {
 		doReturn(mockCacheStatistics).when(mockRegionEntry).getStatistics();
 
 		doAnswer(invocation -> userAttribute.getAndUpdate(it -> invocation.getArgument(0)))
-			.when(mockRegionEntry).setUserAttribute(any());
+		.when(mockRegionEntry).setUserAttribute(any());
 
 		doAnswer(invocation -> userAttribute.get()).when(mockRegionEntry).getUserAttribute();
 
 		doAnswer(invocation -> value.getAndUpdate(it -> invocation.getArgument(0)))
-			.when(mockRegionEntry).setValue(any());
+		.when(mockRegionEntry).setValue(any());
 
 		doAnswer(invocation -> value.get()).when(mockRegionEntry).getValue();
 

@@ -84,10 +84,10 @@ public class LocatorsConfiguration extends AbstractAnnotationConfigSupport imple
 			AnnotationAttributes useLocatorsAttributes = getAnnotationAttributes(importMetadata);
 
 			setLocators(useLocatorsAttributes.containsKey("locators")
-				? useLocatorsAttributes.getString("locators") : null);
+			? useLocatorsAttributes.getString("locators") : null);
 
 			setRemoteLocators(useLocatorsAttributes.containsKey("remoteLocators")
-				? useLocatorsAttributes.getString("remoteLocators") : null);
+			? useLocatorsAttributes.getString("remoteLocators") : null);
 		}
 	}
 
@@ -98,7 +98,7 @@ public class LocatorsConfiguration extends AbstractAnnotationConfigSupport imple
 	protected Optional<String> getLocators() {
 
 		return Optional.ofNullable(this.locators)
-			.filter(StringUtils::hasText);
+		.filter(StringUtils::hasText);
 	}
 
 	protected Logger getLogger() {
@@ -112,7 +112,7 @@ public class LocatorsConfiguration extends AbstractAnnotationConfigSupport imple
 	protected Optional<String> getRemoteLocators() {
 
 		return Optional.ofNullable(this.remoteLocators)
-			.filter(StringUtils::hasText);
+		.filter(StringUtils::hasText);
 	}
 
 	@Bean
@@ -125,16 +125,16 @@ public class LocatorsConfiguration extends AbstractAnnotationConfigSupport imple
 			getLocators().ifPresent(locators -> {
 				if (logger.isWarnEnabled()) {
 					logger.warn("The '{}' property was configured [{}];"
-						+ " however, this value does not have any effect for ClientCache instances",
-							LOCATORS_PROPERTY, locators);
+					+ " however, this value does not have any effect for ClientCache instances",
+					LOCATORS_PROPERTY, locators);
 				}
 			});
 
 			getRemoteLocators().ifPresent(remoteLocators -> {
 				if (logger.isWarnEnabled()) {
 					logger.warn("The '{}' property was configured [{}];"
-						+ " however, this value does not have any effect for ClientCache instances",
-							REMOTE_LOCATORS_PROPERTY, remoteLocators);
+					+ " however, this value does not have any effect for ClientCache instances",
+					REMOTE_LOCATORS_PROPERTY, remoteLocators);
 				}
 			});
 		};
@@ -150,7 +150,7 @@ public class LocatorsConfiguration extends AbstractAnnotationConfigSupport imple
 			getLocators().ifPresent(locators -> gemfireProperties.setProperty(LOCATORS_PROPERTY, locators));
 
 			getRemoteLocators().ifPresent(remoteLocators ->
-				gemfireProperties.setProperty(REMOTE_LOCATORS_PROPERTY, remoteLocators));
+			gemfireProperties.setProperty(REMOTE_LOCATORS_PROPERTY, remoteLocators));
 		};
 	}
 
@@ -164,7 +164,7 @@ public class LocatorsConfiguration extends AbstractAnnotationConfigSupport imple
 			getLocators().ifPresent(locators -> gemfireProperties.setProperty(LOCATORS_PROPERTY, locators));
 
 			getRemoteLocators().ifPresent(remoteLocators ->
-				gemfireProperties.setProperty(REMOTE_LOCATORS_PROPERTY, remoteLocators));
+			gemfireProperties.setProperty(REMOTE_LOCATORS_PROPERTY, remoteLocators));
 		};
 	}
 }

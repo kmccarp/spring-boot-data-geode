@@ -46,7 +46,8 @@ public interface ResourceReader {
 	 * @return a {@literal non-null} byte array containing the data from the {@link Resource}.
 	 * @see org.springframework.core.io.Resource
 	 */
-	@NonNull byte[] read(@NonNull Resource resource);
+	@NonNull
+	byte[] read(@NonNull Resource resource);
 
 	/**
 	 * Reads data from the {@literal non-null} {@link Resource} into a {@link ByteBuffer}.
@@ -75,13 +76,13 @@ public interface ResourceReader {
 	default @NonNull ResourceReader thenReadFrom(@Nullable ResourceReader reader) {
 
 		return reader == null ? this
-			: resource -> {
-				try {
-					return this.read(resource);
-				}
-				catch (UnhandledResourceException ignore) {
-					return reader.read(resource);
-				}
-			};
+		: resource -> {
+			try {
+				return this.read(resource);
+			}
+			catch (UnhandledResourceException ignore) {
+				return reader.read(resource);
+			}
+		};
 	}
 }

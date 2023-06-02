@@ -76,19 +76,19 @@ public class GeodeGatewaySendersHealthIndicatorUnitTests {
 	public void healthCheckCapturesDetails() throws Exception {
 
 		GatewaySender mockGatewaySenderOne = GatewayMockObjects.mockGatewaySender("MockGatewaySenderOne",
-			100, true, 250, 30000, "TestDiskStore",
-			true, 8, 16384, 24,
-			GatewaySender.OrderPolicy.THREAD, true, true, 123,
-			true, 32768, 15000);
+		100, true, 250, 30000, "TestDiskStore",
+		true, 8, 16384, 24,
+		GatewaySender.OrderPolicy.THREAD, true, true, 123,
+		true, 32768, 15000);
 
 		GatewaySender mockGatewaySenderTwo = GatewayMockObjects.mockGatewaySender("MockGatewaySenderTwo",
-			99, false, 500, 20000, null,
-			false, 16, 8192, 32,
-			GatewaySender.OrderPolicy.KEY, false, false, 789,
-			false, 65536, 20000);
+		99, false, 500, 20000, null,
+		false, 16, 8192, 32,
+		GatewaySender.OrderPolicy.KEY, false, false, 789,
+		false, 65536, 20000);
 
 		Set<GatewaySender> mockGatewaySenders =
-			new TreeSet<>(Comparator.comparing(GatewaySender::getId));
+		new TreeSet<>(Comparator.comparing(GatewaySender::getId));
 
 		mockGatewaySenders.addAll(asSet(mockGatewaySenderOne, mockGatewaySenderTwo));
 
@@ -147,8 +147,8 @@ public class GeodeGatewaySendersHealthIndicatorUnitTests {
 	private void testHealthCheckFailsWithInvalidGemFireCache(GemFireCache gemfireCache) throws Exception {
 
 		GeodeGatewaySendersHealthIndicator healthIndicator = gemfireCache != null
-			? new GeodeGatewaySendersHealthIndicator(gemfireCache)
-			: new GeodeGatewaySendersHealthIndicator();
+		? new GeodeGatewaySendersHealthIndicator(gemfireCache)
+		: new GeodeGatewaySendersHealthIndicator();
 
 		Health.Builder builder = new Health.Builder();
 

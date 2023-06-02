@@ -76,7 +76,7 @@ public class ObjectUtilsUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected).hasMessage("Object [%s] is not an instance of type [%s]",
-				object.getClass().getName(), C.class.getName());
+			object.getClass().getName(), C.class.getName());
 			assertThat(expected).hasNoCause();
 
 			throw expected;
@@ -110,7 +110,7 @@ public class ObjectUtilsUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected).hasMessage("Object [%s] is not an instance of type [%s]",
-				source.getClass().getName(), A.class.getName());
+			source.getClass().getName(), A.class.getName());
 			assertThat(expected).hasNoCause();
 
 			throw expected;
@@ -159,8 +159,10 @@ public class ObjectUtilsUnitTests {
 
 	@Test
 	public void doOperationSafelyReturnsDefaultValue() {
-		assertThat(ObjectUtils.doOperationSafely(() -> { throw newRuntimeException("test"); },
-			"default value")).isEqualTo("default value");
+		assertThat(ObjectUtils.doOperationSafely(() -> {
+		 throw newRuntimeException("test");
+	 },
+		"default value")).isEqualTo("default value");
 	}
 
 	@Test
@@ -168,15 +170,19 @@ public class ObjectUtilsUnitTests {
 
 		Supplier<String> suppliedValue = () -> "supplied value";
 
-		assertThat(ObjectUtils.<String>doOperationSafely(() -> { throw newRuntimeException("test"); }, suppliedValue))
-			.isEqualTo("supplied value");
+		assertThat(ObjectUtils.<String>doOperationSafely(() -> {
+			throw newRuntimeException("test");
+		}, suppliedValue))
+		.isEqualTo("supplied value");
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void doOperationSafelyWithNullDefaultValueThrowsIllegalStateException() {
 
 		try {
-			ObjectUtils.doOperationSafely(() -> { throw newRuntimeException("test"); }, (Object) null);
+			ObjectUtils.doOperationSafely(() -> {
+				throw newRuntimeException("test");
+			}, (Object) null);
 		}
 		catch (IllegalStateException expected) {
 
@@ -195,7 +201,9 @@ public class ObjectUtilsUnitTests {
 		Supplier<String> suppliedValue = () -> null;
 
 		try {
-			ObjectUtils.<String>doOperationSafely(() -> { throw newRuntimeException("test"); }, suppliedValue);
+			ObjectUtils.<String>doOperationSafely(() -> {
+				throw newRuntimeException("test");
+			}, suppliedValue);
 		}
 		catch (IllegalStateException expected) {
 
@@ -212,7 +220,7 @@ public class ObjectUtilsUnitTests {
 	public void findMethodUsingExactArguments() {
 
 		Optional<Method> method =
-			ObjectUtils.findMethod(TestObject.class, "exactArgumentMethod", true);
+		ObjectUtils.findMethod(TestObject.class, "exactArgumentMethod", true);
 
 		assertThat(method.orElse(null)).isNotNull();
 		assertThat(method.map(Method::getName).orElse(null)).isEqualTo("exactArgumentMethod");
@@ -222,7 +230,7 @@ public class ObjectUtilsUnitTests {
 	public void findMethodUsingGenericArguments() {
 
 		Optional<Method> method =
-			ObjectUtils.findMethod(TestObject.class, "genericArgumentMethod", "test", 2L);
+		ObjectUtils.findMethod(TestObject.class, "genericArgumentMethod", "test", 2L);
 
 		assertThat(method.orElse(null)).isNotNull();
 		assertThat(method.map(Method::getName).orElse(null)).isEqualTo("genericArgumentMethod");
@@ -353,7 +361,7 @@ public class ObjectUtilsUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected).hasMessage("Method [nonExistingMethod] on Object of type [%s] not found",
-				TestObject.class.getName());
+			TestObject.class.getName());
 
 			assertThat(expected).hasNoCause();
 
@@ -421,10 +429,13 @@ public class ObjectUtilsUnitTests {
 		}
 	}
 
-	static class A { }
+	static class A {
+	}
 
-	static class B extends A { }
+	static class B extends A {
+	}
 
-	static class C { }
+	static class C {
+	}
 
 }

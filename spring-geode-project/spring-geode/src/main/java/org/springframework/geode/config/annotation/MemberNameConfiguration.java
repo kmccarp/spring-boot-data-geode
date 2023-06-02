@@ -59,7 +59,7 @@ import org.springframework.util.StringUtils;
  */
 @Configuration
 @SuppressWarnings("unused")
-public class MemberNameConfiguration extends AbstractAnnotationConfigSupport implements ImportAware  {
+public class MemberNameConfiguration extends AbstractAnnotationConfigSupport implements ImportAware {
 
 	private static final String GEMFIRE_NAME_PROPERTY = "name";
 	private static final String SPRING_APPLICATION_NAME_PROPERTY = "spring.application.name";
@@ -94,24 +94,24 @@ public class MemberNameConfiguration extends AbstractAnnotationConfigSupport imp
 			AnnotationAttributes memberNameAttributes = getAnnotationAttributes(importMetadata);
 
 			setMemberName(memberNameAttributes.containsKey("value")
-				? memberNameAttributes.getString("value") : null);
+			? memberNameAttributes.getString("value") : null);
 
 			setMemberName(memberNameAttributes.containsKey("name")
-				? memberNameAttributes.getString("name") : null);
+			? memberNameAttributes.getString("name") : null);
 		}
 	}
 
 	protected void setMemberName(String memberName) {
 
 		this.memberName = Optional.ofNullable(memberName)
-			.filter(StringUtils::hasText)
-			.orElse(this.memberName);
+		.filter(StringUtils::hasText)
+		.orElse(this.memberName);
 	}
 
 	protected Optional<String> getMemberName() {
 
 		return Optional.ofNullable(this.memberName)
-			.filter(StringUtils::hasText);
+		.filter(StringUtils::hasText);
 	}
 
 	@Bean
@@ -129,15 +129,15 @@ public class MemberNameConfiguration extends AbstractAnnotationConfigSupport imp
 	private void configureMemberName(Environment environment, CacheFactoryBean cacheFactoryBean) {
 
 		getMemberName()
-			.filter(memberName -> namePropertiesNotPresent(environment))
-			.ifPresent(memberName ->
-				cacheFactoryBean.getProperties().setProperty(GEMFIRE_NAME_PROPERTY, memberName));
+		.filter(memberName -> namePropertiesNotPresent(environment))
+		.ifPresent(memberName ->
+	cacheFactoryBean.getProperties().setProperty(GEMFIRE_NAME_PROPERTY, memberName));
 	}
 
 	private boolean namePropertiesArePresent(Environment environment) {
 
 		return NAME_PROPERTIES.stream()
-			.anyMatch(environment::containsProperty);
+		.anyMatch(environment::containsProperty);
 	}
 
 	private boolean namePropertiesNotPresent(Environment environment) {

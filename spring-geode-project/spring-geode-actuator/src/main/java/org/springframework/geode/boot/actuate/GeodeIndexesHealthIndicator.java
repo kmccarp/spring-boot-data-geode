@@ -92,37 +92,37 @@ public class GeodeIndexesHealthIndicator extends AbstractGeodeHealthIndicator {
 		if (getApplicationContext().isPresent()) {
 
 			Map<String, Index> indexes = getApplicationContext()
-				.map(it -> it.getBeansOfType(Index.class))
-				.orElseGet(Collections::emptyMap);
+			.map(it -> it.getBeansOfType(Index.class))
+			.orElseGet(Collections::emptyMap);
 
 			builder.withDetail("geode.index.count", indexes.size());
 
 			indexes.values().stream()
-				.filter(Objects::nonNull)
-				.forEach(index -> {
+			.filter(Objects::nonNull)
+			.forEach(index -> {
 
-					String indexName = index.getName();
+				String indexName = index.getName();
 
-					builder.withDetail(indexKey(indexName, "from-clause"), index.getFromClause())
-						.withDetail(indexKey(indexName, "indexed-expression"), index.getIndexedExpression())
-						.withDetail(indexKey(indexName, "projection-attributes"), index.getProjectionAttributes())
-						.withDetail(indexKey(indexName, "region"), toRegionPath(index.getRegion()))
-						.withDetail(indexKey(indexName, "type"), String.valueOf(index.getType()));
+				builder.withDetail(indexKey(indexName, "from-clause"), index.getFromClause())
+			.withDetail(indexKey(indexName, "indexed-expression"), index.getIndexedExpression())
+			.withDetail(indexKey(indexName, "projection-attributes"), index.getProjectionAttributes())
+			.withDetail(indexKey(indexName, "region"), toRegionPath(index.getRegion()))
+			.withDetail(indexKey(indexName, "type"), String.valueOf(index.getType()));
 
-					IndexStatistics indexStatistics = index.getStatistics();
+				IndexStatistics indexStatistics = index.getStatistics();
 
-					if (indexStatistics != null) {
+				if (indexStatistics != null) {
 
-						builder.withDetail(indexStatisticsKey(indexName, "number-of-bucket-indexes"), indexStatistics.getNumberOfBucketIndexes())
-							.withDetail(indexStatisticsKey(indexName, "number-of-keys"), indexStatistics.getNumberOfKeys())
-							.withDetail(indexStatisticsKey(indexName, "number-of-map-index-keys"), indexStatistics.getNumberOfMapIndexKeys())
-							.withDetail(indexStatisticsKey(indexName, "number-of-values"), indexStatistics.getNumberOfValues())
-							.withDetail(indexStatisticsKey(indexName, "number-of-updates"), indexStatistics.getNumUpdates())
-							.withDetail(indexStatisticsKey(indexName, "read-lock-count"), indexStatistics.getReadLockCount())
-							.withDetail(indexStatisticsKey(indexName, "total-update-time"), indexStatistics.getTotalUpdateTime())
-							.withDetail(indexStatisticsKey(indexName, "total-uses"), indexStatistics.getTotalUses());
-					}
-				});
+					builder.withDetail(indexStatisticsKey(indexName, "number-of-bucket-indexes"), indexStatistics.getNumberOfBucketIndexes())
+				.withDetail(indexStatisticsKey(indexName, "number-of-keys"), indexStatistics.getNumberOfKeys())
+				.withDetail(indexStatisticsKey(indexName, "number-of-map-index-keys"), indexStatistics.getNumberOfMapIndexKeys())
+				.withDetail(indexStatisticsKey(indexName, "number-of-values"), indexStatistics.getNumberOfValues())
+				.withDetail(indexStatisticsKey(indexName, "number-of-updates"), indexStatistics.getNumUpdates())
+				.withDetail(indexStatisticsKey(indexName, "read-lock-count"), indexStatistics.getReadLockCount())
+				.withDetail(indexStatisticsKey(indexName, "total-update-time"), indexStatistics.getTotalUpdateTime())
+				.withDetail(indexStatisticsKey(indexName, "total-uses"), indexStatistics.getTotalUses());
+				}
+			});
 
 			builder.up();
 

@@ -45,15 +45,15 @@ public class EnableSubscriptionConfigurationUnitTests {
 	private <T> T getFieldValue(@Nullable Object target, @NonNull String fieldName) {
 
 		return Optional.ofNullable(target)
-			.map(Object::getClass)
-			.map(targetType -> ReflectionUtils.findField(targetType, fieldName))
-			.map(field -> {
-				ReflectionUtils.makeAccessible(field);
-				return field;
-			})
-			.map(field -> (T) ReflectionUtils.getField(field, target))
-			.orElseThrow(() -> newIllegalArgumentException("Unable to get value of field [%s] on object of type [%s]",
-				fieldName, target != null ? target.getClass().getName() : null));
+		.map(Object::getClass)
+		.map(targetType -> ReflectionUtils.findField(targetType, fieldName))
+		.map(field -> {
+			ReflectionUtils.makeAccessible(field);
+			return field;
+		})
+		.map(field -> (T) ReflectionUtils.getField(field, target))
+		.orElseThrow(() -> newIllegalArgumentException("Unable to get value of field [%s] on object of type [%s]",
+	fieldName, target != null ? target.getClass().getName() : null));
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class EnableSubscriptionConfigurationUnitTests {
 		assertThat(Boolean.TRUE.equals(clientCacheFactoryBean.getSubscriptionEnabled())).isFalse();
 
 		this.configuration.enableSubscriptionClientCacheConfigurer()
-			.configure("testClientCache", clientCacheFactoryBean);
+		.configure("testClientCache", clientCacheFactoryBean);
 
 		assertThat(clientCacheFactoryBean.getSubscriptionEnabled()).isTrue();
 	}

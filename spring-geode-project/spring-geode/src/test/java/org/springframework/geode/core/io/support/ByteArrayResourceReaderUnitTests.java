@@ -47,7 +47,7 @@ public class ByteArrayResourceReaderUnitTests {
 	@Test
 	public void doReadResourceReturnsByteArray() throws IOException {
 
-		byte[] data = { (byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE };
+		byte[] data = {(byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE};
 
 		ByteArrayInputStream in = new ByteArrayInputStream(data);
 
@@ -69,6 +69,6 @@ public class ByteArrayResourceReaderUnitTests {
 	@Test
 	public void getBufferSizeIsDefault() {
 		assertThat(new ByteArrayResourceReader().getBufferSize())
-			.isEqualTo(ByteArrayResourceReader.DEFAULT_BUFFER_SIZE);
+		.isEqualTo(ByteArrayResourceReader.DEFAULT_BUFFER_SIZE);
 	}
 }

@@ -92,7 +92,7 @@ public class ObjectSerializationIntegrationTests {
 
 	@Test
 	public void serializedObjectWithNullIntegerFieldUsesLessSpaceThanObjectWithIntegerFieldSet()
-			throws ClassNotFoundException, IOException {
+	throws ClassNotFoundException, IOException {
 
 		IntegerEmployee jonDoe = new IntegerEmployee("Jon Doe");
 
@@ -132,7 +132,7 @@ public class ObjectSerializationIntegrationTests {
 	@ToString
 	@AllArgsConstructor
 	@RequiredArgsConstructor
-	@EqualsAndHashCode(of = { "name", "age" })
+	@EqualsAndHashCode(of = {"name", "age"})
 	public static class IntEmployee implements Serializable {
 
 		private int age;
@@ -146,7 +146,7 @@ public class ObjectSerializationIntegrationTests {
 	@ToString
 	@AllArgsConstructor
 	@RequiredArgsConstructor
-	@EqualsAndHashCode(of = { "name", "age" })
+	@EqualsAndHashCode(of = {"name", "age"})
 	public static class IntegerEmployee implements Serializable {
 
 		private Integer age;

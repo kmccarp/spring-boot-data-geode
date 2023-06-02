@@ -55,21 +55,21 @@ import org.slf4j.LoggerFactory;
  * @see org.springframework.geode.data.CacheDataImporterExporter
  * @since 1.3.0
  */
-@SuppressWarnings({ "rawtypes", "unused" })
+@SuppressWarnings({"rawtypes", "unused"})
 public abstract class AbstractCacheDataImporterExporter
-		implements ApplicationContextAware, CacheDataImporterExporter, EnvironmentAware {
+implements ApplicationContextAware, CacheDataImporterExporter, EnvironmentAware {
 
 	protected static final boolean DEFAULT_CACHE_DATA_EXPORT_ENABLED = false;
 	protected static final boolean DEFAULT_CACHE_DATA_IMPORT_ENABLED = true;
 
 	protected static final String CACHE_DATA_EXPORT_ENABLED_PROPERTY_NAME =
-		"spring.boot.data.gemfire.cache.data.export.enabled";
+	"spring.boot.data.gemfire.cache.data.export.enabled";
 
 	protected static final String CACHE_DATA_IMPORT_ACTIVE_PROFILES_PROPERTY_NAME =
-		"spring.boot.data.gemfire.cache.data.import.active-profiles";
+	"spring.boot.data.gemfire.cache.data.import.active-profiles";
 
 	protected static final String CACHE_DATA_IMPORT_ENABLED_PROPERTY_NAME =
-		"spring.boot.data.gemfire.cache.data.import.enabled";
+	"spring.boot.data.gemfire.cache.data.import.enabled";
 
 	protected static final String DEFAULT_CACHE_DATA_IMPORT_ACTIVE_PROFILES = "";
 
@@ -135,7 +135,7 @@ public abstract class AbstractCacheDataImporterExporter
 	protected ApplicationContext requireApplicationContext() {
 
 		return getApplicationContext()
-			.orElseThrow(() -> newIllegalStateException("ApplicationContext was not configured"));
+		.orElseThrow(() -> newIllegalStateException("ApplicationContext was not configured"));
 	}
 
 	/**
@@ -176,7 +176,7 @@ public abstract class AbstractCacheDataImporterExporter
 	protected Environment requireEnvironment() {
 
 		return getEnvironment()
-			.orElseThrow(() -> newIllegalStateException("Environment was not configured"));
+		.orElseThrow(() -> newIllegalStateException("Environment was not configured"));
 	}
 
 	/**
@@ -199,7 +199,7 @@ public abstract class AbstractCacheDataImporterExporter
 	protected @NonNull Predicate<Region<?, ?>> getRegionPredicate() {
 
 		return Optional.ofNullable(this.regionPredicate)
-			.orElseGet(this::newRegionPredicate);
+		.orElseGet(this::newRegionPredicate);
 	}
 
 	/**
@@ -213,8 +213,8 @@ public abstract class AbstractCacheDataImporterExporter
 	protected boolean isExportEnabled(@Nullable Environment environment) {
 
 		return environment != null
-			&& Boolean.TRUE.equals(environment.getProperty(CACHE_DATA_EXPORT_ENABLED_PROPERTY_NAME, Boolean.class,
-				DEFAULT_CACHE_DATA_EXPORT_ENABLED));
+		&& Boolean.TRUE.equals(environment.getProperty(CACHE_DATA_EXPORT_ENABLED_PROPERTY_NAME, Boolean.class,
+		DEFAULT_CACHE_DATA_EXPORT_ENABLED));
 	}
 
 	/**
@@ -227,15 +227,16 @@ public abstract class AbstractCacheDataImporterExporter
 	 * @see #getRegionPredicate()
 	 * @see #doExportFrom(Region)
 	 */
-	@NonNull @Override
+	@NonNull
+	@Override
 	public Region exportFrom(@NonNull Region region) {
 
 		Assert.notNull(region, "Region must not be null");
 
 		boolean exportEnabled = getEnvironment()
-			.filter(this::isExportEnabled)
-			.filter(environment -> getRegionPredicate().test(region))
-			.isPresent();
+		.filter(this::isExportEnabled)
+		.filter(environment -> getRegionPredicate().test(region))
+		.isPresent();
 
 		return exportEnabled ? doExportFrom(region) : region;
 	}
@@ -261,8 +262,8 @@ public abstract class AbstractCacheDataImporterExporter
 	protected boolean isImportEnabled(@Nullable Environment environment) {
 
 		return environment != null
-			&& Boolean.TRUE.equals(environment.getProperty(CACHE_DATA_IMPORT_ENABLED_PROPERTY_NAME, Boolean.class,
-				DEFAULT_CACHE_DATA_IMPORT_ENABLED));
+		&& Boolean.TRUE.equals(environment.getProperty(CACHE_DATA_IMPORT_ENABLED_PROPERTY_NAME, Boolean.class,
+		DEFAULT_CACHE_DATA_IMPORT_ENABLED));
 	}
 
 	/**
@@ -285,8 +286,8 @@ public abstract class AbstractCacheDataImporterExporter
 		boolean importProfilesActive = true;
 
 		String cacheDataImportActiveProfiles =
-			environment.getProperty(CACHE_DATA_IMPORT_ACTIVE_PROFILES_PROPERTY_NAME,
-				DEFAULT_CACHE_DATA_IMPORT_ACTIVE_PROFILES);
+		environment.getProperty(CACHE_DATA_IMPORT_ACTIVE_PROFILES_PROPERTY_NAME,
+	DEFAULT_CACHE_DATA_IMPORT_ACTIVE_PROFILES);
 
 		Set<String> cacheDataImportProfiles = commaDelimitedStringToSet(cacheDataImportActiveProfiles);
 
@@ -312,16 +313,17 @@ public abstract class AbstractCacheDataImporterExporter
 	 * @see #getRegionPredicate()
 	 * @see #doImportInto(Region)
 	 */
-	@NonNull @Override
+	@NonNull
+	@Override
 	public Region importInto(@NonNull Region region) {
 
 		Assert.notNull(region, "Region must not be null");
 
 		boolean importEnabled = getEnvironment()
-			.filter(this::isImportEnabled)
-			.filter(this::isImportProfilesActive)
-			.filter(environment -> getRegionPredicate().test(region))
-			.isPresent();
+		.filter(this::isImportEnabled)
+		.filter(this::isImportProfilesActive)
+		.filter(environment -> getRegionPredicate().test(region))
+		.isPresent();
 
 		return importEnabled ? doImportInto(region) : region;
 	}
@@ -336,37 +338,40 @@ public abstract class AbstractCacheDataImporterExporter
 	 */
 	protected abstract @NonNull Region doImportInto(@NonNull Region region);
 
-	@NonNull Set<String> commaDelimitedStringToSet(@Nullable String commaDelimitedString) {
+	@NonNull
+	Set<String> commaDelimitedStringToSet(@Nullable String commaDelimitedString) {
 
 		return StringUtils.hasText(commaDelimitedString)
-			? Arrays.stream(commaDelimitedString.split(","))
-				.map(String::trim)
-				.filter(StringUtils::hasText)
-				.collect(Collectors.toSet())
-			: Collections.emptySet();
+		? Arrays.stream(commaDelimitedString.split(","))
+		.map(String::trim)
+		.filter(StringUtils::hasText)
+		.collect(Collectors.toSet())
+		: Collections.emptySet();
 	}
 
-	@NonNull Set<String> getActiveProfiles(@NonNull Environment environment) {
+	@NonNull
+	Set<String> getActiveProfiles(@NonNull Environment environment) {
 
 		return environment != null
-			? toSet(environment.getActiveProfiles(), String.class)
-			: Collections.emptySet();
+		? toSet(environment.getActiveProfiles(), String.class)
+		: Collections.emptySet();
 	}
 
-	@NonNull Set<String> useDefaultProfilesIfEmpty(@NonNull Environment environment,
-			@Nullable Set<String> activeProfiles) {
+	@NonNull
+	Set<String> useDefaultProfilesIfEmpty(@NonNull Environment environment,
+	@Nullable Set<String> activeProfiles) {
 
 		Set<String> resolvedProfiles = CollectionUtils.nullSafeSet(activeProfiles).stream()
-			.filter(StringUtils::hasText)
-			.collect(Collectors.toSet());
+		.filter(StringUtils::hasText)
+		.collect(Collectors.toSet());
 
 		if (resolvedProfiles.isEmpty()) {
 
 			Set<String> defaultProfiles = environment != null
-				? toSet(environment.getDefaultProfiles(), String.class).stream()
-					.filter(StringUtils::hasText)
-					.collect(Collectors.toSet())
-				: Collections.emptySet();
+			? toSet(environment.getDefaultProfiles(), String.class).stream()
+			.filter(StringUtils::hasText)
+			.collect(Collectors.toSet())
+			: Collections.emptySet();
 
 			if (isNotDefaultProfileOnlySet(defaultProfiles)) {
 				resolvedProfiles = defaultProfiles;
@@ -380,8 +385,8 @@ public abstract class AbstractCacheDataImporterExporter
 	boolean isNotDefaultProfileOnlySet(@Nullable Set<String> profiles) {
 
 		return Objects.nonNull(profiles)
-			&& !profiles.isEmpty()
-			&& !Collections.singleton(RESERVED_DEFAULT_PROFILE_NAME).containsAll(profiles);
+		&& !profiles.isEmpty()
+		&& !Collections.singleton(RESERVED_DEFAULT_PROFILE_NAME).containsAll(profiles);
 	}
 
 	private static @NonNull <T> Set<T> toSet(@Nullable T[] array, @NonNull Class<T> type) {

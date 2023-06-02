@@ -71,14 +71,14 @@ import org.springframework.lang.Nullable;
  */
 @SpringBootConfiguration
 @ConditionalOnBean(GemFireCache.class)
-@ConditionalOnClass({ CacheFactoryBean.class, GemFireCache.class })
+@ConditionalOnClass({CacheFactoryBean.class, GemFireCache.class})
 @SuppressWarnings("unused")
 public class DataImportExportAutoConfiguration {
 
 	protected static final String GEMFIRE_DISABLE_SHUTDOWN_HOOK = "gemfire.disableShutdownHook";
 	protected static final String PDX_READ_SERIALIZED_PROPERTY = "spring.data.gemfire.pdx.read-serialized";
 	protected static final String REGION_ADVICE_ENABLED_PROPERTY =
-		"spring.boot.data.gemfire.cache.region.advice.enabled";
+	"spring.boot.data.gemfire.cache.region.advice.enabled";
 
 	@Bean
 	CacheDataImporterExporter jsonCacheDataImporterExporter() {
@@ -102,10 +102,12 @@ public class DataImportExportAutoConfiguration {
 		}
 
 		@ConditionalOnProperty(name = REGION_ADVICE_ENABLED_PROPERTY, havingValue = "true")
-		static class AdviseRegionOnRegionAdviceEnabledProperty { }
+		static class AdviseRegionOnRegionAdviceEnabledProperty {
+		}
 
 		@Conditional(PdxReadSerializedCondition.class)
-		static class AdviseRegionOnPdxReadSerializedCondition { }
+		static class AdviseRegionOnPdxReadSerializedCondition {
+		}
 
 	}
 
@@ -119,25 +121,25 @@ public class DataImportExportAutoConfiguration {
 		private boolean isCachePdxReadSerializedEnabled() {
 
 			return SimpleCacheResolver.getInstance().resolve()
-				.filter(GemFireCache::getPdxReadSerialized)
-				.isPresent();
+			.filter(GemFireCache::getPdxReadSerialized)
+			.isPresent();
 		}
 
 		private boolean isPdxReadSerializedEnabled(@NonNull Environment environment) {
 
 			return Optional.ofNullable(environment)
-				.filter(env -> env.getProperty(PDX_READ_SERIALIZED_PROPERTY, Boolean.class, false))
-				.isPresent();
+			.filter(env -> env.getProperty(PDX_READ_SERIALIZED_PROPERTY, Boolean.class, false))
+			.isPresent();
 		}
 	}
 
 	private static final boolean DEFAULT_EXPORT_ENABLED = false;
 
 	private static final Predicate<Environment> disableGemFireShutdownHookPredicate = environment ->
-		Optional.ofNullable(environment)
-			.filter(env -> env.getProperty(CacheDataImporterExporterReference.EXPORT_ENABLED_PROPERTY_NAME,
-				Boolean.class, DEFAULT_EXPORT_ENABLED))
-			.isPresent();
+	Optional.ofNullable(environment)
+.filter(env -> env.getProperty(CacheDataImporterExporterReference.EXPORT_ENABLED_PROPERTY_NAME,
+Boolean.class, DEFAULT_EXPORT_ENABLED))
+.isPresent();
 
 	static abstract class AbstractDisableGemFireShutdownHookSupport {
 
@@ -158,11 +160,11 @@ public class DataImportExportAutoConfiguration {
 
 	static abstract class CacheDataImporterExporterReference extends AbstractCacheDataImporterExporter {
 		static final String EXPORT_ENABLED_PROPERTY_NAME =
-			AbstractCacheDataImporterExporter.CACHE_DATA_EXPORT_ENABLED_PROPERTY_NAME;
+		AbstractCacheDataImporterExporter.CACHE_DATA_EXPORT_ENABLED_PROPERTY_NAME;
 	}
 
 	static class DisableGemFireShutdownHookCondition extends AbstractDisableGemFireShutdownHookSupport
-			implements Condition {
+	implements Condition {
 
 		@Override
 		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
@@ -171,7 +173,7 @@ public class DataImportExportAutoConfiguration {
 	}
 
 	public static class DisableGemFireShutdownHookEnvironmentPostProcessor
-			extends AbstractDisableGemFireShutdownHookSupport implements EnvironmentPostProcessor {
+	extends AbstractDisableGemFireShutdownHookSupport implements EnvironmentPostProcessor {
 
 		@Override
 		public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {

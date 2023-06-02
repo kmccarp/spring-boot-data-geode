@@ -67,8 +67,8 @@ import org.slf4j.LoggerFactory;
  * @since 1.3.0
  */
 @SpringBootConfiguration
-@ConditionalOnClass({ GemFireCache.class, CacheFactoryBean.class })
-@AutoConfigureBefore({ ClientCacheAutoConfiguration.class })
+@ConditionalOnClass({GemFireCache.class, CacheFactoryBean.class})
+@AutoConfigureBefore({ClientCacheAutoConfiguration.class})
 @SuppressWarnings("unused")
 public class EnvironmentSourcedGemFirePropertiesAutoConfiguration {
 
@@ -91,7 +91,7 @@ public class EnvironmentSourcedGemFirePropertiesAutoConfiguration {
 	}
 
 	protected void configureGemFireProperties(@NonNull ConfigurableEnvironment environment,
-			@NonNull CacheFactoryBean cache) {
+	@NonNull CacheFactoryBean cache) {
 
 		Assert.notNull(environment, "Environment must not be null");
 		Assert.notNull(cache, "CacheFactoryBean must not be null");
@@ -101,32 +101,32 @@ public class EnvironmentSourcedGemFirePropertiesAutoConfiguration {
 		if (propertySources != null) {
 
 			Set<String> gemfirePropertyNames = propertySources.stream()
-				.filter(EnumerablePropertySource.class::isInstance)
-				.map(EnumerablePropertySource.class::cast)
-				.map(EnumerablePropertySource::getPropertyNames)
-				.map(propertyNamesArray -> ArrayUtils.nullSafeArray(propertyNamesArray, String.class))
-				.flatMap(Arrays::stream)
-				.filter(this::isGemFireDotPrefixedProperty)
-				.filter(this::isValidGemFireProperty)
-				.collect(Collectors.toSet());
+			.filter(EnumerablePropertySource.class::isInstance)
+			.map(EnumerablePropertySource.class::cast)
+			.map(EnumerablePropertySource::getPropertyNames)
+			.map(propertyNamesArray -> ArrayUtils.nullSafeArray(propertyNamesArray, String.class))
+			.flatMap(Arrays::stream)
+			.filter(this::isGemFireDotPrefixedProperty)
+			.filter(this::isValidGemFireProperty)
+			.collect(Collectors.toSet());
 
 			Properties gemfireProperties = cache.getProperties();
 
 			gemfirePropertyNames.stream()
-				.filter(gemfirePropertyName -> isNotSet(gemfireProperties, gemfirePropertyName))
-				.filter(this::isValidGemFireProperty)
-				.forEach(gemfirePropertyName -> {
+			.filter(gemfirePropertyName -> isNotSet(gemfireProperties, gemfirePropertyName))
+			.filter(this::isValidGemFireProperty)
+			.forEach(gemfirePropertyName -> {
 
-					String propertyName = normalizeGemFirePropertyName(gemfirePropertyName);
-					String propertyValue = environment.getProperty(gemfirePropertyName);
+				String propertyName = normalizeGemFirePropertyName(gemfirePropertyName);
+				String propertyValue = environment.getProperty(gemfirePropertyName);
 
-					if (StringUtils.hasText(propertyValue)) {
-						gemfireProperties.setProperty(propertyName, propertyValue);
-					}
-					else {
-						getLogger().warn("Apache Geode Property [{}] was not set", propertyName);
-					}
-				});
+				if (StringUtils.hasText(propertyValue)) {
+					gemfireProperties.setProperty(propertyName, propertyValue);
+				}
+				else {
+					getLogger().warn("Apache Geode Property [{}] was not set", propertyName);
+				}
+			});
 
 			cache.setProperties(gemfireProperties);
 		}

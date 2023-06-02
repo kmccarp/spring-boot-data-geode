@@ -81,7 +81,7 @@ public class FileResourceWriter extends AbstractResourceWriter {
 			catch (IOException cause) {
 
 				String message = String.format("Failed to write data (%1$d byte(s)) to Resource using [%2$s]",
-					data.length, getClass().getName());
+				data.length, getClass().getName());
 
 				throw new ResourceWriteException(message, cause);
 			}
@@ -128,9 +128,9 @@ public class FileResourceWriter extends AbstractResourceWriter {
 	protected OpenOption[] getOpenOptions() {
 
 		return ArrayUtils.asArray(
-			StandardOpenOption.CREATE,
-			StandardOpenOption.TRUNCATE_EXISTING,
-			StandardOpenOption.WRITE
+		StandardOpenOption.CREATE,
+		StandardOpenOption.TRUNCATE_EXISTING,
+		StandardOpenOption.WRITE
 		);
 	}
 
@@ -156,8 +156,8 @@ public class FileResourceWriter extends AbstractResourceWriter {
 	protected @NonNull OutputStream decorate(@Nullable OutputStream outputStream) {
 
 		return outputStream instanceof BufferedOutputStream ? outputStream
-			: outputStream != null ? new BufferedOutputStream(outputStream, getBufferSize())
-			: newFileOutputStream();
+		: outputStream != null ? new BufferedOutputStream(outputStream, getBufferSize())
+		: newFileOutputStream();
 	}
 
 	/**
@@ -177,24 +177,24 @@ public class FileResourceWriter extends AbstractResourceWriter {
 	protected OutputStream newFileOutputStream() {
 
 		return getResource()
-			.filter(this::isAbleToHandle)
-			.map(resource -> {
-				try {
+		.filter(this::isAbleToHandle)
+		.map(resource -> {
+			try {
 
-					OutputStream fileOutputStream =
-						Files.newOutputStream(resource.getFile().toPath(), getOpenOptions());
+				OutputStream fileOutputStream =
+			Files.newOutputStream(resource.getFile().toPath(), getOpenOptions());
 
-					return new BufferedOutputStream(fileOutputStream, getBufferSize());
-				}
-				catch (IOException cause) {
+				return new BufferedOutputStream(fileOutputStream, getBufferSize());
+			}
+			catch (IOException cause) {
 
-					String message = String.format("Failed to access the Resource [%s] as a file",
-						resource.getDescription());
+				String message = String.format("Failed to access the Resource [%s] as a file",
+			resource.getDescription());
 
-					throw new ResourceDataAccessException(message, cause);
-				}
-			})
-			.orElseThrow(() -> newIllegalStateException("Resource [%s] is not a file based resource",
-				getResource().map(Resource::getDescription).orElse(null)));
+				throw new ResourceDataAccessException(message, cause);
+			}
+		})
+		.orElseThrow(() -> newIllegalStateException("Resource [%s] is not a file based resource",
+	getResource().map(Resource::getDescription).orElse(null)));
 	}
 }

@@ -197,8 +197,8 @@ public class SpringSessionProperties {
 		public void setMaxInactiveInterval(Duration duration) {
 
 			int maxInactiveIntervalInSeconds = duration != null
-				? Long.valueOf(duration.toSeconds()).intValue()
-				: GemFireHttpSessionConfiguration.DEFAULT_MAX_INACTIVE_INTERVAL_IN_SECONDS;
+			? Long.valueOf(duration.toSeconds()).intValue()
+			: GemFireHttpSessionConfiguration.DEFAULT_MAX_INACTIVE_INTERVAL_IN_SECONDS;
 
 			setMaxInactiveIntervalSeconds(maxInactiveIntervalInSeconds);
 		}

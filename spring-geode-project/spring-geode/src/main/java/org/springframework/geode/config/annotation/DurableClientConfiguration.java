@@ -83,48 +83,48 @@ public class DurableClientConfiguration extends AbstractAnnotationConfigSupport 
 			AnnotationAttributes enableDurableClientAttributes = getAnnotationAttributes(importMetadata);
 
 			this.durableClientId = enableDurableClientAttributes.containsKey("id")
-				? enableDurableClientAttributes.getString("id")
-				: null;
+			? enableDurableClientAttributes.getString("id")
+			: null;
 
 			this.durableClientTimeout = enableDurableClientAttributes.containsKey("timeout")
-				? enableDurableClientAttributes.getNumber("timeout")
-				: DEFAULT_DURABLE_CLIENT_TIMEOUT;
+			? enableDurableClientAttributes.getNumber("timeout")
+			: DEFAULT_DURABLE_CLIENT_TIMEOUT;
 
 			this.keepAlive = enableDurableClientAttributes.containsKey("keepAlive")
-				? enableDurableClientAttributes.getBoolean("keepAlive")
-				: DEFAULT_KEEP_ALIVE;
+			? enableDurableClientAttributes.getBoolean("keepAlive")
+			: DEFAULT_KEEP_ALIVE;
 
 			this.readyForEvents = enableDurableClientAttributes.containsKey("readyForEvents")
-				? enableDurableClientAttributes.getBoolean("readyForEvents")
-				: DEFAULT_READY_FOR_EVENTS;
+			? enableDurableClientAttributes.getBoolean("readyForEvents")
+			: DEFAULT_READY_FOR_EVENTS;
 		}
 	}
 
 	protected Optional<String> getDurableClientId() {
 
 		return Optional.ofNullable(this.durableClientId)
-			.filter(StringUtils::hasText);
+		.filter(StringUtils::hasText);
 	}
 
 	protected Integer getDurableClientTimeout() {
 
 		return this.durableClientTimeout != null
-			? this.durableClientTimeout
-			: DEFAULT_DURABLE_CLIENT_TIMEOUT;
+		? this.durableClientTimeout
+		: DEFAULT_DURABLE_CLIENT_TIMEOUT;
 	}
 
 	protected Boolean getKeepAlive() {
 
 		return this.keepAlive != null
-			? this.keepAlive
-			: DEFAULT_KEEP_ALIVE;
+		? this.keepAlive
+		: DEFAULT_KEEP_ALIVE;
 	}
 
 	protected Boolean getReadyForEvents() {
 
 		return this.readyForEvents != null
-			? this.readyForEvents
-			: DEFAULT_READY_FOR_EVENTS;
+		? this.readyForEvents
+		: DEFAULT_READY_FOR_EVENTS;
 	}
 
 	protected Logger getLogger() {
@@ -152,7 +152,7 @@ public class DurableClientConfiguration extends AbstractAnnotationConfigSupport 
 
 			if (logger.isWarnEnabled()) {
 				logger.warn("Durable Client ID [{}] was set on a peer Cache instance, which will not have any effect",
-					durableClientId);
+				durableClientId);
 			}
 		});
 	}

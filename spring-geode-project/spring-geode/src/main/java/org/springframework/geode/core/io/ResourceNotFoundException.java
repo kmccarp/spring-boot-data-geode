@@ -32,7 +32,8 @@ public class ResourceNotFoundException extends RuntimeException {
 	 * Constructs a new instance of {@link ResourceNotFoundException} with no {@link String message}
 	 * or known {@link Throwable cause}.
 	 */
-	public ResourceNotFoundException() { }
+	public ResourceNotFoundException() {
+	}
 
 	/**
 	 * Constructs a new instance of {@link ResourceNotFoundException} initialized with the given {@link String message}

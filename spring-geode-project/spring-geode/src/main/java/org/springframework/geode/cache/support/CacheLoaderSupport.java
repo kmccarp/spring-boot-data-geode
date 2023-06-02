@@ -35,6 +35,7 @@ public interface CacheLoaderSupport<K, V> extends CacheLoader<K, V> {
 	 * @see org.apache.geode.cache.CacheLoader#close()
 	 */
 	@Override
-	default void close() {}
+	default void close() {
+	}
 
 }

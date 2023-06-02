@@ -92,7 +92,7 @@ public class CloudCacheService extends Service {
 	public Optional<String> getLocators() {
 
 		return Optional.ofNullable(this.locators)
-			.filter(StringUtils::hasText);
+		.filter(StringUtils::hasText);
 	}
 
 	/**
@@ -106,8 +106,8 @@ public class CloudCacheService extends Service {
 	public List<Locator> getLocatorList() {
 
 		return getLocators()
-			.map(Locator::parseLocators)
-			.orElseGet(Collections::emptyList);
+		.map(Locator::parseLocators)
+		.orElseGet(Collections::emptyList);
 	}
 
 	/**
@@ -248,9 +248,9 @@ public class CloudCacheService extends Service {
 		public static List<Locator> parseLocators(String locators) {
 
 			return Arrays.stream(String.valueOf(locators).split(","))
-				.filter(StringUtils::hasText)
-				.map(Locator::parse)
-				.collect(Collectors.toList());
+			.filter(StringUtils::hasText)
+			.map(Locator::parse)
+			.collect(Collectors.toList());
 		}
 
 		/**
@@ -266,15 +266,15 @@ public class CloudCacheService extends Service {
 		public static Locator parse(String hostPort) {
 
 			return Optional.ofNullable(hostPort)
-				.filter(StringUtils::hasText)
-				.map(it -> {
+			.filter(StringUtils::hasText)
+			.map(it -> {
 
-					String host = parseHost(it);
-					int port = parsePort(it);
+				String host = parseHost(it);
+				int port = parsePort(it);
 
-					return newLocator(host, port);
-				})
-				.orElseThrow(() -> newIllegalArgumentException("Locator host/port [%s] is not valid", hostPort));
+				return newLocator(host, port);
+			})
+			.orElseThrow(() -> newIllegalArgumentException("Locator host/port [%s] is not valid", hostPort));
 		}
 
 		private static String parseHost(String value) {
@@ -282,8 +282,8 @@ public class CloudCacheService extends Service {
 			int index = String.valueOf(value).trim().indexOf("[");
 
 			return index > 0 ? value.trim().substring(0, index).trim()
-				: index != 0 && StringUtils.hasText(value) ? value.trim()
-				: DEFAULT_LOCATOR_HOST;
+			: index != 0 && StringUtils.hasText(value) ? value.trim()
+			: DEFAULT_LOCATOR_HOST;
 		}
 
 		private static int parsePort(String value) {
@@ -356,7 +356,7 @@ public class CloudCacheService extends Service {
 			Locator that = (Locator) obj;
 
 			return this.getHost().equals(that.getHost())
-				&& this.getPort() == that.getPort();
+			&& this.getPort() == that.getPort();
 		}
 
 		@Override

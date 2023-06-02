@@ -104,7 +104,7 @@ public class JacksonObjectToJsonConverterUnitTests {
 
 		doReturn(mockObjectMapper).when(converter).newObjectMapper(any());
 		doThrow(new JsonGenerationException("TEST", (JsonGenerator) null))
-			.when(mockObjectMapper).writeValueAsString(any());
+		.when(mockObjectMapper).writeValueAsString(any());
 
 		try {
 			converter.convert(source);
@@ -161,13 +161,13 @@ public class JacksonObjectToJsonConverterUnitTests {
 		verify(converter, times(1)).newObjectMapper();
 
 		verify(mockObjectMapper, times(1))
-			.addMixIn(eq(target.getClass()), eq(JacksonObjectToJsonConverter.ObjectTypeMetadataMixin.class));
+		.addMixIn(eq(target.getClass()), eq(JacksonObjectToJsonConverter.ObjectTypeMetadataMixin.class));
 		verify(mockObjectMapper, times(1))
-			.configure(eq(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN), eq(true));
+		.configure(eq(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN), eq(true));
 		verify(mockObjectMapper, times(1))
-			.configure(eq(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY), eq(true));
+		.configure(eq(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY), eq(true));
 		verify(mockObjectMapper, times(1))
-			.configure(eq(SerializationFeature.INDENT_OUTPUT), eq(true));
+		.configure(eq(SerializationFeature.INDENT_OUTPUT), eq(true));
 		verify(mockObjectMapper, times(1)).findAndRegisterModules();
 		verifyNoMoreInteractions(mockObjectMapper);
 	}

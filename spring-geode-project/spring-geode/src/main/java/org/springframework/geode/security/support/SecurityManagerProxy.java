@@ -73,7 +73,7 @@ import org.springframework.util.Assert;
  */
 @SuppressWarnings("unused")
 public class SecurityManagerProxy extends LazyWiringDeclarableSupport
-		implements org.apache.geode.security.SecurityManager, DisposableBean, BeanFactoryAware {
+implements org.apache.geode.security.SecurityManager, DisposableBean, BeanFactoryAware {
 
 	private static final AtomicReference<SecurityManagerProxy> INSTANCE = new AtomicReference<>();
 

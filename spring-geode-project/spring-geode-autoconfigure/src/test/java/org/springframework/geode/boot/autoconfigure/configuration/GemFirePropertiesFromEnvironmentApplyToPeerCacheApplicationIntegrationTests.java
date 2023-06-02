@@ -57,18 +57,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("peer-application-gemfire-properties")
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {
-	"spring.application.name=GemFirePropertiesFromEnvironmentApplyToPeerCacheApplicationIntegrationTests",
-	"gemfire.conserve-sockets=false",
-	"gemfire.distributed-system-id=123",
-	"gemfire.enable-network-partition-detection=false",
-	"gemfire.enable-time-statistics=true",
-	"gemfire.enforce-unique-host=true",
-	"gemfire.groups=TestGroup",
-	"gemfire.member-timeout=30000"
+"spring.application.name=GemFirePropertiesFromEnvironmentApplyToPeerCacheApplicationIntegrationTests",
+"gemfire.conserve-sockets=false",
+"gemfire.distributed-system-id=123",
+"gemfire.enable-network-partition-detection=false",
+"gemfire.enable-time-statistics=true",
+"gemfire.enforce-unique-host=true",
+"gemfire.groups=TestGroup",
+"gemfire.member-timeout=30000"
 })
 @SuppressWarnings("unused")
 public class GemFirePropertiesFromEnvironmentApplyToPeerCacheApplicationIntegrationTests
-		extends IntegrationTestsSupport {
+extends IntegrationTestsSupport {
 
 	@Autowired
 	private Cache peerCache;
@@ -78,15 +78,15 @@ public class GemFirePropertiesFromEnvironmentApplyToPeerCacheApplicationIntegrat
 
 		assertThat(this.peerCache).isNotNull();
 		assertThat(this.peerCache.getName())
-			.isEqualTo(GemFirePropertiesFromEnvironmentApplyToPeerCacheApplicationIntegrationTests.class.getSimpleName());
+		.isEqualTo(GemFirePropertiesFromEnvironmentApplyToPeerCacheApplicationIntegrationTests.class.getSimpleName());
 		assertThat(this.peerCache.getDistributedSystem()).isNotNull();
 
 		Properties gemfireProperties = this.peerCache.getDistributedSystem().getProperties();
 
 		assertThat(gemfireProperties).isNotNull();
 		assertThat(gemfireProperties).containsKeys("conserve-sockets", "distributed-system-id",
-			"enable-network-partition-detection", "enable-time-statistics", "enforce-unique-host",
-			"groups", "member-timeout");
+		"enable-network-partition-detection", "enable-time-statistics", "enforce-unique-host",
+		"groups", "member-timeout");
 		assertThat(gemfireProperties.getProperty("conserve-sockets")).isEqualTo("false");
 		assertThat(gemfireProperties.getProperty("distributed-system-id")).isEqualTo("123");
 		assertThat(gemfireProperties.getProperty("enable-network-partition-detection")).isEqualTo("false");
@@ -100,6 +100,7 @@ public class GemFirePropertiesFromEnvironmentApplyToPeerCacheApplicationIntegrat
 	@EnableGemFireMockObjects
 	@PeerCacheApplication
 	@Profile("peer-application-gemfire-properties")
-	static class TestGeodeConfiguration { }
+	static class TestGeodeConfiguration {
+	}
 
 }

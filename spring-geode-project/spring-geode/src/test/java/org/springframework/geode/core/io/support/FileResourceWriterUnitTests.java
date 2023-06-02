@@ -58,7 +58,7 @@ public class FileResourceWriterUnitTests {
 	@Test
 	public void doWriteBytesToResourceOutputStream() throws IOException {
 
-		byte[] data = { (byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE };
+		byte[] data = {(byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE};
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream(data.length);
 
@@ -83,7 +83,7 @@ public class FileResourceWriterUnitTests {
 	@Test(expected = ResourceWriteException.class)
 	public void doWriteHandlesIOExceptionThrowsDataAccessResourceFailureException() throws IOException {
 
-		byte[] data = { (byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE };
+		byte[] data = {(byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE};
 
 		OutputStream mockOutputStream = mock(OutputStream.class);
 
@@ -99,8 +99,8 @@ public class FileResourceWriterUnitTests {
 		catch (ResourceWriteException expected) {
 
 			assertThat(expected)
-				.hasMessageStartingWith("Failed to write data (%d byte(s)) to Resource using [%s]",
-					data.length, writer.getClass().getName());
+			.hasMessageStartingWith("Failed to write data (%d byte(s)) to Resource using [%s]",
+		data.length, writer.getClass().getName());
 
 			assertThat(expected).hasCauseInstanceOf(IOException.class);
 			assertThat(expected.getCause()).hasMessage("TEST");
@@ -163,13 +163,13 @@ public class FileResourceWriterUnitTests {
 	@Test
 	public void getBufferSizeEqualsDefault() {
 		assertThat(new FileResourceWriter().getBufferSize())
-			.isEqualByComparingTo(FileResourceWriter.DEFAULT_BUFFER_SIZE);
+		.isEqualByComparingTo(FileResourceWriter.DEFAULT_BUFFER_SIZE);
 	}
 
 	@Test
 	public void getOpenOptionsContainsCreateTruncateWrite() {
 		assertThat(new FileResourceWriter().getOpenOptions())
-			.containsExactly(StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+		.containsExactly(StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
 	}
 
 	@Test

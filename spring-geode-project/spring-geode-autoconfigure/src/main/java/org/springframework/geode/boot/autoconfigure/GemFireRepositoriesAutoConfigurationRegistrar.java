@@ -51,6 +51,7 @@ public class GemFireRepositoriesAutoConfigurationRegistrar extends AbstractRepos
 	}
 
 	@EnableGemfireRepositories
-	private static class EnableGemFireRepositoriesConfiguration { }
+	private static class EnableGemFireRepositoriesConfiguration {
+	}
 
 }

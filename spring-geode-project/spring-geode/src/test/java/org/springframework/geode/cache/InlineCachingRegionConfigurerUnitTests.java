@@ -71,7 +71,7 @@ public class InlineCachingRegionConfigurerUnitTests {
 	public void constructInlineCachingRegionConfigurer() {
 
 		InlineCachingRegionConfigurer<?, ?> regionConfigurer =
-			new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
+		new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
 
 		assertThat(regionConfigurer).isNotNull();
 	}
@@ -122,15 +122,15 @@ public class InlineCachingRegionConfigurerUnitTests {
 		when(this.mockPredicate.test(anyString())).thenReturn(true);
 
 		InlineCachingRegionConfigurer<?, ?> regionConfigurer =
-			new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
+		new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", clientRegionFactoryBean);
 
 		verify(clientRegionFactoryBean, times(1))
-			.setCacheLoader(isA(RepositoryCacheLoader.class));
+		.setCacheLoader(isA(RepositoryCacheLoader.class));
 
 		verify(clientRegionFactoryBean, times(1))
-			.setCacheWriter(isA(RepositoryCacheWriter.class));
+		.setCacheWriter(isA(RepositoryCacheWriter.class));
 
 		verify(this.mockPredicate, times(2)).test(eq("Example"));
 	}
@@ -144,7 +144,7 @@ public class InlineCachingRegionConfigurerUnitTests {
 		when(this.mockPredicate.test(anyString())).thenReturn(false);
 
 		InlineCachingRegionConfigurer<?, ?> regionConfigurer =
-			new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
+		new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", clientRegionFactoryBean);
 
@@ -184,15 +184,15 @@ public class InlineCachingRegionConfigurerUnitTests {
 		when(this.mockPredicate.test(anyString())).thenReturn(true);
 
 		InlineCachingRegionConfigurer<?, ?> regionConfigurer =
-			new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
+		new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", peerRegionFactoryBean);
 
 		verify(peerRegionFactoryBean, times(1))
-			.setCacheLoader(isA(RepositoryCacheLoader.class));
+		.setCacheLoader(isA(RepositoryCacheLoader.class));
 
 		verify(peerRegionFactoryBean, times(1))
-			.setCacheWriter(isA(RepositoryCacheWriter.class));
+		.setCacheWriter(isA(RepositoryCacheWriter.class));
 
 		verify(this.mockPredicate, times(2)).test(eq("Example"));
 	}
@@ -206,7 +206,7 @@ public class InlineCachingRegionConfigurerUnitTests {
 		when(this.mockPredicate.test(anyString())).thenReturn(false);
 
 		InlineCachingRegionConfigurer<?, ?> regionConfigurer =
-			new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
+		new InlineCachingRegionConfigurer<>(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", peerRegionFactoryBean);
 

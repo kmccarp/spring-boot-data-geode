@@ -39,20 +39,20 @@ public class ObjectToStringWithOptionalUnitTests {
 	public void objectToStringWithOptionalOfNull() {
 
 		assertThat(Optional.ofNullable(null).map(Object::toString).orElse("test"))
-			.isEqualTo("test");
+		.isEqualTo("test");
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void objectToStringWithStreamOfElementsContainingNullThrowsNullPointerException() {
 
 		assertThat(Stream.of(1, null, 3).map(Object::toString).collect(Collectors.toList()))
-			.containsExactly("1", "null", "3");
+		.containsExactly("1", "null", "3");
 	}
 
 	@Test
 	public void stringValueOfWithStreamOfElementsContainingNullIsNullSafe() {
 
 		assertThat(Stream.of(1, null, 3).map(String::valueOf).collect(Collectors.toList()))
-			.containsExactly("1", "null", "3");
+		.containsExactly("1", "null", "3");
 	}
 }

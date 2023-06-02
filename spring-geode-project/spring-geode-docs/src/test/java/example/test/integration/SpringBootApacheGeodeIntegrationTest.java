@@ -66,12 +66,12 @@ import lombok.ToString;
  * @see org.springframework.test.context.junit4.SpringRunner
  * @since 1.5.0
  */
-@ActiveProfiles({ "spring-geode-docs-integration-test-client", "no-ssl" })
+@ActiveProfiles({"spring-geode-docs-integration-test-client", "no-ssl"})
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = "spring.data.gemfire.management.use-http=false",
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = "spring.data.gemfire.management.use-http=false",
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class SpringBootApacheGeodeIntegrationTest extends ForkingClientServerIntegrationTestsSupport {
@@ -81,7 +81,8 @@ public class SpringBootApacheGeodeIntegrationTest extends ForkingClientServerInt
 		startGemFireServer(TestGeodeServerConfiguration.class);
 	}
 
-	@BeforeClass @AfterClass
+	@BeforeClass
+	@AfterClass
 	public static void resetClusterAwareCondition() {
 		ClusterAwareConfiguration.ClusterAwareCondition.reset();
 	}
@@ -118,7 +119,8 @@ public class SpringBootApacheGeodeIntegrationTest extends ForkingClientServerInt
 	@EnableClusterAware
 	@EnableEntityDefinedRegions(basePackageClasses = User.class)
 	@Profile("spring-geode-docs-integration-test-client")
-	static class TestGeodeClientConfiguration { }
+	static class TestGeodeClientConfiguration {
+	}
 
 	@CacheServerApplication
 	@Profile("spring-geode-docs-integration-test-server")
@@ -127,10 +129,10 @@ public class SpringBootApacheGeodeIntegrationTest extends ForkingClientServerInt
 		public static void main(String[] args) {
 
 			new SpringApplicationBuilder(TestGeodeServerConfiguration.class)
-				.profiles("spring-geode-docs-integration-test-server")
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.profiles("spring-geode-docs-integration-test-server")
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 	}
 }
@@ -148,4 +150,5 @@ class User {
 
 }
 
-interface UserRepository extends CrudRepository<User, String> { }
+interface UserRepository extends CrudRepository<User, String> {
+}

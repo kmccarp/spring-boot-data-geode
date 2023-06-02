@@ -91,8 +91,8 @@ public class GeodeDiskStoresHealthIndicator extends AbstractGeodeHealthIndicator
 		if (getApplicationContext().isPresent()) {
 
 			Map<String, DiskStore> diskStores = getApplicationContext()
-				.map(it -> it.getBeansOfType(DiskStore.class))
-				.orElseGet(Collections::emptyMap);
+			.map(it -> it.getBeansOfType(DiskStore.class))
+			.orElseGet(Collections::emptyMap);
 
 			builder.withDetail("geode.disk-store.count", diskStores.size());
 
@@ -101,17 +101,17 @@ public class GeodeDiskStoresHealthIndicator extends AbstractGeodeHealthIndicator
 				String diskStoreName = diskStore.getName();
 
 				builder.withDetail(diskStoreKey(diskStoreName, "allow-force-compaction"), toYesNoString(diskStore.getAllowForceCompaction()))
-					.withDetail(diskStoreKey(diskStoreName, "auto-compact"), toYesNoString(diskStore.getAutoCompact()))
-					.withDetail(diskStoreKey(diskStoreName, "compaction-threshold"), diskStore.getCompactionThreshold())
-					.withDetail(diskStoreKey(diskStoreName, "disk-directories"), toFileAbsolutePathStrings(diskStore.getDiskDirs()))
-					.withDetail(diskStoreKey(diskStoreName, "disk-directory-sizes"), Arrays.toString(nullSafeArray(diskStore.getDiskDirSizes())))
-					.withDetail(diskStoreKey(diskStoreName, "disk-usage-critical-percentage"), diskStore.getDiskUsageCriticalPercentage())
-					.withDetail(diskStoreKey(diskStoreName, "disk-usage-warning-percentage"), diskStore.getDiskUsageWarningPercentage())
-					.withDetail(diskStoreKey(diskStoreName, "max-oplog-size"), diskStore.getMaxOplogSize())
-					.withDetail(diskStoreKey(diskStoreName, "queue-size"), diskStore.getQueueSize())
-					.withDetail(diskStoreKey(diskStoreName, "time-interval"), diskStore.getTimeInterval())
-					.withDetail(diskStoreKey(diskStoreName, "uuid"), diskStore.getDiskStoreUUID().toString())
-					.withDetail(diskStoreKey(diskStoreName, "write-buffer-size"), diskStore.getWriteBufferSize());
+				.withDetail(diskStoreKey(diskStoreName, "auto-compact"), toYesNoString(diskStore.getAutoCompact()))
+				.withDetail(diskStoreKey(diskStoreName, "compaction-threshold"), diskStore.getCompactionThreshold())
+				.withDetail(diskStoreKey(diskStoreName, "disk-directories"), toFileAbsolutePathStrings(diskStore.getDiskDirs()))
+				.withDetail(diskStoreKey(diskStoreName, "disk-directory-sizes"), Arrays.toString(nullSafeArray(diskStore.getDiskDirSizes())))
+				.withDetail(diskStoreKey(diskStoreName, "disk-usage-critical-percentage"), diskStore.getDiskUsageCriticalPercentage())
+				.withDetail(diskStoreKey(diskStoreName, "disk-usage-warning-percentage"), diskStore.getDiskUsageWarningPercentage())
+				.withDetail(diskStoreKey(diskStoreName, "max-oplog-size"), diskStore.getMaxOplogSize())
+				.withDetail(diskStoreKey(diskStoreName, "queue-size"), diskStore.getQueueSize())
+				.withDetail(diskStoreKey(diskStoreName, "time-interval"), diskStore.getTimeInterval())
+				.withDetail(diskStoreKey(diskStoreName, "uuid"), diskStore.getDiskStoreUUID().toString())
+				.withDetail(diskStoreKey(diskStoreName, "write-buffer-size"), diskStore.getWriteBufferSize());
 			});
 
 			builder.up();
@@ -133,9 +133,9 @@ public class GeodeDiskStoresHealthIndicator extends AbstractGeodeHealthIndicator
 	private String toFileAbsolutePathStrings(File... files) {
 
 		return Arrays.toString(Arrays.stream(ArrayUtils.nullSafeArray(files, File.class))
-			.filter(Objects::nonNull)
-			.map(File::getAbsolutePath)
-			.distinct()
-			.toArray());
+		.filter(Objects::nonNull)
+		.map(File::getAbsolutePath)
+		.distinct()
+		.toArray());
 	}
 }

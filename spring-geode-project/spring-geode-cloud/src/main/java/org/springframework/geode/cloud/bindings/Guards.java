@@ -28,10 +28,10 @@ import org.springframework.core.env.Environment;
 public abstract class Guards {
 
 	public static final String SPRING_CLOUD_BOOT_BINDINGS_ENABLED_PROPERTY =
-		"org.springframework.cloud.bindings.boot.enable";
+	"org.springframework.cloud.bindings.boot.enable";
 
 	public static final String SPRING_CLOUD_BOOT_BINDINGS_TYPE_ENABLED_PROPERTY =
-		"org.springframework.cloud.bindings.boot.%s.enable";
+	"org.springframework.cloud.bindings.boot.%s.enable";
 
 	public static boolean isGlobalEnabled(Environment environment) {
 		return environment.getProperty(SPRING_CLOUD_BOOT_BINDINGS_ENABLED_PROPERTY, Boolean.class, false);

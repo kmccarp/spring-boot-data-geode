@@ -89,7 +89,9 @@ public class PeerCacheHealthIndicatorConfiguration {
 
 		return new BeanPostProcessor() {
 
-			@Nullable @Override @SuppressWarnings("all")
+			@Nullable
+			@Override
+			@SuppressWarnings("all")
 			public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 
 				if (bean instanceof CacheServerFactoryBean) {
@@ -97,7 +99,7 @@ public class PeerCacheHealthIndicatorConfiguration {
 					CacheServerFactoryBean cacheServerFactoryBean = (CacheServerFactoryBean) bean;
 
 					ServerLoadProbe serverLoadProbe =
-						ObjectUtils.<ServerLoadProbe>get(bean, "serverLoadProbe");
+					ObjectUtils.<ServerLoadProbe>get(bean, "serverLoadProbe");
 
 					if (serverLoadProbe != null) {
 						cacheServerFactoryBean.setServerLoadProbe(wrap(serverLoadProbe));
@@ -107,7 +109,8 @@ public class PeerCacheHealthIndicatorConfiguration {
 				return bean;
 			}
 
-			@Nullable @Override
+			@Nullable
+			@Override
 			public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 
 				if (bean instanceof CacheServer) {
@@ -115,11 +118,11 @@ public class PeerCacheHealthIndicatorConfiguration {
 					CacheServer cacheServer = (CacheServer) bean;
 
 					Optional.ofNullable(cacheServer.getLoadProbe())
-						.filter(it -> !(it instanceof ActuatorServerLoadProbeWrapper))
-						.filter(it -> cacheServer.getLoadPollInterval() > 0)
-						.filter(it -> !cacheServer.isRunning())
-						.ifPresent(serverLoadProbe ->
-							cacheServer.setLoadProbe(new ActuatorServerLoadProbeWrapper(serverLoadProbe)));
+					.filter(it -> !(it instanceof ActuatorServerLoadProbeWrapper))
+					.filter(it -> cacheServer.getLoadPollInterval() > 0)
+					.filter(it -> !cacheServer.isRunning())
+					.ifPresent(serverLoadProbe ->
+				cacheServer.setLoadProbe(new ActuatorServerLoadProbeWrapper(serverLoadProbe)));
 				}
 
 				return bean;

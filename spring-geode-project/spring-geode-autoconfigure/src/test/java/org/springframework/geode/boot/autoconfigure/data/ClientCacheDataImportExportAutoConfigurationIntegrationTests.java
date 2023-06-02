@@ -79,24 +79,21 @@ import example.app.books.model.ISBN;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = ClientCacheDataImportExportAutoConfigurationIntegrationTests.TestGeodeClientConfiguration.class,
-	properties = {
-		"spring.application.name=ClientCacheDataImportExportAutoConfigurationIntegrationTestsClient",
-		"spring.data.gemfire.management.use-http=false",
-		"spring.boot.data.gemfire.cache.data.import.active-profiles=IMPORT-CLIENT",
-		"spring.boot.data.gemfire.cache.region.advice.enabled=true"
-	}
+classes = ClientCacheDataImportExportAutoConfigurationIntegrationTests.TestGeodeClientConfiguration.class,
+properties = {"spring.application.name=ClientCacheDataImportExportAutoConfigurationIntegrationTestsClient","spring.data.gemfire.management.use-http=false","spring.boot.data.gemfire.cache.data.import.active-profiles=IMPORT-CLIENT","spring.boot.data.gemfire.cache.region.advice.enabled=true"
+}
 )
 @SuppressWarnings("unused")
 public class ClientCacheDataImportExportAutoConfigurationIntegrationTests
-		extends ForkingClientServerIntegrationTestsSupport {
+extends ForkingClientServerIntegrationTestsSupport {
 
 	@BeforeClass
 	public static void startGeodeServer() throws IOException {
-		startGemFireServer(TestGeodeServerConfiguration.class,"-Dspring.profiles.active=IMPORT-SERVER");
+		startGemFireServer(TestGeodeServerConfiguration.class, "-Dspring.profiles.active=IMPORT-SERVER");
 	}
 
-	@BeforeClass @AfterClass
+	@BeforeClass
+	@AfterClass
 	public static void resetClusterAwareCondition() {
 		ClusterAwareConfiguration.ClusterAwareCondition.reset();
 	}
@@ -126,18 +123,18 @@ public class ClientCacheDataImportExportAutoConfigurationIntegrationTests
 	private Book findBy(Iterable<Book> books, String title) {
 
 		return StreamSupport.stream(books.spliterator(), false)
-			.filter(book -> book.getTitle().equals(title))
-			.findFirst()
-			.orElse(null);
+		.filter(book -> book.getTitle().equals(title))
+		.findFirst()
+		.orElse(null);
 	}
 
 	private Collection<Object> getRegionValues(GemfireTemplate template) {
 
 		return Optional.ofNullable(template)
-			.map(GemfireTemplate::getRegion)
-			.filter(region -> DataPolicy.EMPTY.equals(region.getAttributes().getDataPolicy()))
-			.map(CacheUtils::collectValues)
-			.orElseGet(() -> template.getRegion().values());
+		.map(GemfireTemplate::getRegion)
+		.filter(region -> DataPolicy.EMPTY.equals(region.getAttributes().getDataPolicy()))
+		.map(CacheUtils::collectValues)
+		.orElseGet(() -> template.getRegion().values());
 	}
 
 	private Object log(Object value) {
@@ -157,26 +154,27 @@ public class ClientCacheDataImportExportAutoConfigurationIntegrationTests
 		assertThat(bookValues).hasSize(2);
 
 		Set<Book> books = bookValues.stream()
-			//.peek(this::log)
-			.map(value -> ObjectUtils.asType(value, Book.class))
-			.collect(Collectors.toSet());
+		//.peek(this::log)
+		.map(value -> ObjectUtils.asType(value, Book.class))
+		.collect(Collectors.toSet());
 
 		Book cloudNativeJava = findBy(books, "Cloud Native Java");
 
 		assertBook(cloudNativeJava, "Cloud Native Java", LocalDate.of(2017, Month.AUGUST, 1),
-			ISBN.of("978-1-449-374640-8"), Author.newAuthor("Josh Long").identifiedBy(1L));
+		ISBN.of("978-1-449-374640-8"), Author.newAuthor("Josh Long").identifiedBy(1L));
 
 		Book databaseInternals = findBy(books, "Database Internals");
 
 		assertBook(databaseInternals, "Database Internals", LocalDate.of(2019, Month.OCTOBER, 1),
-			ISBN.of("978-1-492-04034-7"), Author.newAuthor("Alex Petrov").identifiedBy(2L));
+		ISBN.of("978-1-492-04034-7"), Author.newAuthor("Alex Petrov").identifiedBy(2L));
 	}
 
 	@Profile("IMPORT-CLIENT")
 	@SpringBootApplication
 	@EnableClusterAware
 	@EnableEntityDefinedRegions(basePackageClasses = Book.class)
-	static class TestGeodeClientConfiguration { }
+	static class TestGeodeClientConfiguration {
+	}
 
 	@Profile("IMPORT-SERVER")
 	@CacheServerApplication(name = "ClientCacheDataImportExportAutoConfigurationIntegrationTestsServer")
@@ -185,7 +183,7 @@ public class ClientCacheDataImportExportAutoConfigurationIntegrationTests
 		public static void main(String[] args) {
 
 			AnnotationConfigApplicationContext applicationContext =
-				new AnnotationConfigApplicationContext(TestGeodeServerConfiguration.class);
+			new AnnotationConfigApplicationContext(TestGeodeServerConfiguration.class);
 
 			applicationContext.registerShutdownHook();
 		}

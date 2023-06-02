@@ -82,7 +82,7 @@ public class ManuallyConfiguredSessionCachingIntegrationTests extends Integratio
 		assertThat(this.applicationContext.containsBean("gemfireCache")).isTrue();
 		assertThat(this.applicationContext.containsBean("sessionRepository")).isTrue();
 		assertThat(this.applicationContext.containsBean(GemFireHttpSessionConfiguration.DEFAULT_SESSION_REGION_NAME))
-			.isFalse();
+		.isFalse();
 
 		GemFireCache gemfireCache = this.applicationContext.getBean(GemFireCache.class);
 

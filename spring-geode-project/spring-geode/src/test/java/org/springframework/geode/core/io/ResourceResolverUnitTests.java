@@ -54,9 +54,9 @@ public class ResourceResolverUnitTests {
 		doCallRealMethod().when(resourceResolver).getClassLoader();
 
 		Set<ClassLoader> classLoaders = CollectionUtils.asSet(
-			Thread.currentThread().getContextClassLoader(),
-			getClass().getClassLoader(),
-			ClassLoader.getSystemClassLoader()
+		Thread.currentThread().getContextClassLoader(),
+		getClass().getClassLoader(),
+		ClassLoader.getSystemClassLoader()
 		);
 
 		assertThat(classLoaders).contains(resourceResolver.getClassLoader().orElse(null));

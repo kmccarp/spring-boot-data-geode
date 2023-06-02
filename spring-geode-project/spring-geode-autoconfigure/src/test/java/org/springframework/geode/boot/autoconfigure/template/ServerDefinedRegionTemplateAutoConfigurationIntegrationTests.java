@@ -70,12 +70,12 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = ServerDefinedRegionTemplateAutoConfigurationIntegrationTests.GemFireClientConfiguration.class,
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = ServerDefinedRegionTemplateAutoConfigurationIntegrationTests.GemFireClientConfiguration.class,
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class ServerDefinedRegionTemplateAutoConfigurationIntegrationTests
-		extends ForkingClientServerIntegrationTestsSupport {
+extends ForkingClientServerIntegrationTestsSupport {
 
 	@BeforeClass
 	public static void startGemFireServer() throws IOException {
@@ -97,8 +97,8 @@ public class ServerDefinedRegionTemplateAutoConfigurationIntegrationTests
 		assertThat(this.clientCache).isNotNull();
 
 		assertThat(CollectionUtils.nullSafeSet(this.clientCache.rootRegions()).stream()
-			.map(Region::getName)
-			.collect(Collectors.toSet())).containsExactly("ExampleServerRegion");
+		.map(Region::getName)
+		.collect(Collectors.toSet())).containsExactly("ExampleServerRegion");
 	}
 
 	@Test
@@ -136,7 +136,7 @@ public class ServerDefinedRegionTemplateAutoConfigurationIntegrationTests
 		public static void main(String[] args) {
 
 			AnnotationConfigApplicationContext applicationContext =
-				new AnnotationConfigApplicationContext(GemFireServerConfiguration.class);
+			new AnnotationConfigApplicationContext(GemFireServerConfiguration.class);
 
 			applicationContext.registerShutdownHook();
 		}

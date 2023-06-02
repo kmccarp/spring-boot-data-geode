@@ -74,8 +74,8 @@ public class MappingPdxSerializerIncludedTypesRegistrar implements BeanPostProce
 	public MappingPdxSerializerIncludedTypesRegistrar(@NonNull Class<?>[] types) {
 
 		this.types = Arrays.stream(ArrayUtils.nullSafeArray(types, Class.class))
-			.filter(Objects::nonNull)
-			.toArray(Class[]::new);
+		.filter(Objects::nonNull)
+		.toArray(Class[]::new);
 	}
 
 	/**
@@ -107,8 +107,8 @@ public class MappingPdxSerializerIncludedTypesRegistrar implements BeanPostProce
 		for (Class<?> type : getTypes()) {
 			if (type != null) {
 				compositeIncludeTypeFilter = compositeIncludeTypeFilter != null
-					? compositeIncludeTypeFilter.or(newIncludeTypeFilter(type))
-					: newIncludeTypeFilter(type);
+				? compositeIncludeTypeFilter.or(newIncludeTypeFilter(type))
+				: newIncludeTypeFilter(type);
 			}
 		}
 
@@ -131,8 +131,8 @@ public class MappingPdxSerializerIncludedTypesRegistrar implements BeanPostProce
 	protected @Nullable Predicate<Class<?>> newIncludeTypeFilter(@Nullable Class<?> type) {
 
 		return type != null
-			? testType -> Objects.nonNull(testType) && type.isAssignableFrom(testType)
-			: null;
+		? testType -> Objects.nonNull(testType) && type.isAssignableFrom(testType)
+		: null;
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class MappingPdxSerializerIncludedTypesRegistrar implements BeanPostProce
 	 */
 	@Override
 	public @Nullable Object postProcessAfterInitialization(@Nullable Object bean, @Nullable String beanName)
-			throws BeansException {
+	throws BeansException {
 
 		if (bean instanceof GemFireCache) {
 

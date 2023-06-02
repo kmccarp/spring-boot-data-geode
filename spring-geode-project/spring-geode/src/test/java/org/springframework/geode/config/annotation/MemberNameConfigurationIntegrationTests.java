@@ -56,12 +56,13 @@ public class MemberNameConfigurationIntegrationTests extends IntegrationTestsSup
 		assertThat(this.gemfireCache.getDistributedSystem()).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getProperties()).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getProperties().getProperty("name"))
-			.isEqualTo("TestClient");
+		.isEqualTo("TestClient");
 	}
 
 	@ClientCacheApplication
 	@EnableGemFireMockObjects
 	@UseMemberName("TestClient")
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

@@ -57,7 +57,7 @@ public class SmartEnvironmentAccessorUnitTests {
 	@Test
 	public void specificTargetClassesIncludeEnvironmentAndEnvironmentCapableOnly() {
 		assertThat(new SmartEnvironmentAccessor().getSpecificTargetClasses())
-			.containsExactly(Environment.class, EnvironmentCapable.class);
+		.containsExactly(Environment.class, EnvironmentCapable.class);
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		doReturn(true).when(mockEnvironment).containsProperty(anyString());
 
 		assertThat(new SmartEnvironmentAccessor()
-			.canRead(mockEvaluationContext, mockEnvironment, "testKey")).isTrue();
+		.canRead(mockEvaluationContext, mockEnvironment, "testKey")).isTrue();
 
 		verify(mockEnvironment, times(1)).containsProperty(eq("testKey"));
 		verifyNoMoreInteractions(mockEnvironment);
@@ -90,7 +90,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		doReturn(true).when(mockEnvironment).containsProperty(anyString());
 
 		assertThat(new SmartEnvironmentAccessor()
-			.canRead(mockEvaluationContext, mockEnvironmentCapable, "testKey")).isTrue();
+		.canRead(mockEvaluationContext, mockEnvironmentCapable, "testKey")).isTrue();
 
 		verify(mockEnvironmentCapable, times(1)).getEnvironment();
 		verify(mockEnvironment, times(1)).containsProperty(eq("testKey"));
@@ -108,7 +108,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		doReturn(false).when(mockEnvironment).containsProperty(any());
 
 		assertThat(new SmartEnvironmentAccessor()
-			.canRead(mockEvaluationContext, mockEnvironment, "testKey")).isFalse();
+		.canRead(mockEvaluationContext, mockEnvironment, "testKey")).isFalse();
 
 		verify(mockEnvironment, times(1)).containsProperty(eq("testKey"));
 		verifyNoMoreInteractions(mockEnvironment);
@@ -121,7 +121,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		EvaluationContext mockEvaluationContext = mock(EvaluationContext.class);
 
 		assertThat(new SmartEnvironmentAccessor()
-			.canRead(mockEvaluationContext, new Object(), "testKey")).isFalse();
+		.canRead(mockEvaluationContext, new Object(), "testKey")).isFalse();
 
 		verifyNoInteractions(mockEvaluationContext);
 	}
@@ -132,7 +132,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		EvaluationContext mockEvaluationContext = mock(EvaluationContext.class);
 
 		assertThat(new SmartEnvironmentAccessor()
-			.canRead(mockEvaluationContext, null, "testKey")).isFalse();
+		.canRead(mockEvaluationContext, null, "testKey")).isFalse();
 
 		verifyNoInteractions(mockEvaluationContext);
 	}
@@ -147,7 +147,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		doReturn("test").when(mockEnvironment).getProperty(eq("key"));
 
 		TypedValue typedValue = new SmartEnvironmentAccessor()
-			.read(mockEvaluationContext, mockEnvironment, "key");
+		.read(mockEvaluationContext, mockEnvironment, "key");
 
 		assertThat(typedValue).isNotNull();
 		assertThat(typedValue.getValue()).isEqualTo("test");
@@ -170,7 +170,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		doReturn("test").when(mockEnvironment).getProperty(eq("key"));
 
 		TypedValue typedValue = new SmartEnvironmentAccessor()
-			.read(mockEvaluationContext, mockEnvironmentCapable, "key");
+		.read(mockEvaluationContext, mockEnvironmentCapable, "key");
 
 		assertThat(typedValue).isNotNull();
 		assertThat(typedValue.getValue()).isEqualTo("test");
@@ -191,7 +191,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		doReturn(null).when(mockEnvironment).getProperty(any());
 
 		TypedValue typedValue = new SmartEnvironmentAccessor()
-			.read(mockEvaluationContext, mockEnvironment, "key");
+		.read(mockEvaluationContext, mockEnvironment, "key");
 
 		assertThat(typedValue).isNotNull();
 		assertThat(typedValue.getValue()).isNull();
@@ -235,7 +235,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		EvaluationContext mockEvaluationContext = mock(EvaluationContext.class);
 
 		assertThat(new SmartEnvironmentAccessor()
-			.canWrite(mockEvaluationContext, mockEnvironment, "testKey")).isFalse();
+		.canWrite(mockEvaluationContext, mockEnvironment, "testKey")).isFalse();
 
 		verifyNoInteractions(mockEnvironment, mockEvaluationContext);
 	}
@@ -248,7 +248,7 @@ public class SmartEnvironmentAccessorUnitTests {
 		EvaluationContext mockEvaluationContext = mock(EvaluationContext.class);
 
 		new SmartEnvironmentAccessor()
-			.write(mockEvaluationContext, mockEnvironment, "testKey", "testValue");
+		.write(mockEvaluationContext, mockEnvironment, "testKey", "testValue");
 
 		verifyNoInteractions(mockEnvironment, mockEvaluationContext);
 	}

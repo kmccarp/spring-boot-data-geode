@@ -58,7 +58,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterCreate(eq(this.mockEntryEvent));
 
 		verify(this.cacheListener, times(1)).processEntryEvent(eq(this.mockEntryEvent),
-			eq(AbstractCommonEventProcessingCacheListener.EntryEventType.CREATE));
+		eq(AbstractCommonEventProcessingCacheListener.EntryEventType.CREATE));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}
@@ -71,7 +71,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterDestroy(eq(this.mockEntryEvent));
 
 		verify(this.cacheListener, times(1)).processEntryEvent(eq(this.mockEntryEvent),
-			eq(AbstractCommonEventProcessingCacheListener.EntryEventType.DESTROY));
+		eq(AbstractCommonEventProcessingCacheListener.EntryEventType.DESTROY));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}
@@ -84,7 +84,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterInvalidate(eq(this.mockEntryEvent));
 
 		verify(this.cacheListener, times(1)).processEntryEvent(eq(this.mockEntryEvent),
-			eq(AbstractCommonEventProcessingCacheListener.EntryEventType.INVALIDATE));
+		eq(AbstractCommonEventProcessingCacheListener.EntryEventType.INVALIDATE));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}
@@ -97,7 +97,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterUpdate(eq(this.mockEntryEvent));
 
 		verify(this.cacheListener, times(1)).processEntryEvent(eq(this.mockEntryEvent),
-			eq(AbstractCommonEventProcessingCacheListener.EntryEventType.UPDATE));
+		eq(AbstractCommonEventProcessingCacheListener.EntryEventType.UPDATE));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}
@@ -110,7 +110,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterRegionClear(eq(this.mockRegionEvent));
 
 		verify(this.cacheListener, times(1)).processRegionEvent(eq(this.mockRegionEvent),
-			eq(AbstractCommonEventProcessingCacheListener.RegionEventType.CLEAR));
+		eq(AbstractCommonEventProcessingCacheListener.RegionEventType.CLEAR));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}
@@ -123,7 +123,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterRegionCreate(eq(this.mockRegionEvent));
 
 		verify(this.cacheListener, times(1)).processRegionEvent(eq(this.mockRegionEvent),
-			eq(AbstractCommonEventProcessingCacheListener.RegionEventType.CREATE));
+		eq(AbstractCommonEventProcessingCacheListener.RegionEventType.CREATE));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}
@@ -136,7 +136,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterRegionDestroy(eq(this.mockRegionEvent));
 
 		verify(this.cacheListener, times(1)).processRegionEvent(eq(this.mockRegionEvent),
-			eq(AbstractCommonEventProcessingCacheListener.RegionEventType.DESTROY));
+		eq(AbstractCommonEventProcessingCacheListener.RegionEventType.DESTROY));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}
@@ -149,7 +149,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterRegionInvalidate(eq(this.mockRegionEvent));
 
 		verify(this.cacheListener, times(1)).processRegionEvent(eq(this.mockRegionEvent),
-			eq(AbstractCommonEventProcessingCacheListener.RegionEventType.INVALIDATE));
+		eq(AbstractCommonEventProcessingCacheListener.RegionEventType.INVALIDATE));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}
@@ -162,7 +162,7 @@ public class AbstractCommonEventProcessingCacheListenerUnitTests {
 		verify(this.cacheListener, times(1)).afterRegionLive(eq(this.mockRegionEvent));
 
 		verify(this.cacheListener, times(1)).processRegionEvent(eq(this.mockRegionEvent),
-			eq(AbstractCommonEventProcessingCacheListener.RegionEventType.LIVE));
+		eq(AbstractCommonEventProcessingCacheListener.RegionEventType.LIVE));
 
 		verifyNoMoreInteractions(this.cacheListener);
 	}

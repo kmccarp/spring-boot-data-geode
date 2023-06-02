@@ -30,19 +30,24 @@ import org.apache.geode.cache.RegionEvent;
 @SuppressWarnings("unused")
 public interface CacheWriterSupport<K, V> extends CacheWriter<K, V> {
 
-  @Override
-  default void beforeCreate(EntryEvent<K, V> event) throws CacheWriterException { }
+	@Override
+	default void beforeCreate(EntryEvent<K, V> event) throws CacheWriterException {
+	}
 
-  @Override
-  default void beforeUpdate(EntryEvent<K, V> event) throws CacheWriterException { }
+	@Override
+	default void beforeUpdate(EntryEvent<K, V> event) throws CacheWriterException {
+	}
 
-  @Override
-  default void beforeDestroy(EntryEvent<K, V> event) throws CacheWriterException { }
+	@Override
+	default void beforeDestroy(EntryEvent<K, V> event) throws CacheWriterException {
+	}
 
-  @Override
-  default void beforeRegionClear(RegionEvent<K, V> event) throws CacheWriterException { }
+	@Override
+	default void beforeRegionClear(RegionEvent<K, V> event) throws CacheWriterException {
+	}
 
-  @Override
-  default void beforeRegionDestroy(RegionEvent<K, V> event) throws CacheWriterException { }
+	@Override
+	default void beforeRegionDestroy(RegionEvent<K, V> event) throws CacheWriterException {
+	}
 
 }

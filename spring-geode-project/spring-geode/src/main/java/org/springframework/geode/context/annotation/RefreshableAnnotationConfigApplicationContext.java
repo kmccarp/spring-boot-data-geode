@@ -75,7 +75,7 @@ import org.slf4j.LoggerFactory;
  */
 @SuppressWarnings("unused")
 public class RefreshableAnnotationConfigApplicationContext extends AbstractRefreshableConfigApplicationContext
-		implements AnnotationConfigRegistry {
+implements AnnotationConfigRegistry {
 
 	protected static final boolean DEFAULT_COPY_CONFIGURATION = false;
 	protected static final boolean USE_DEFAULT_FILTERS = true;
@@ -236,7 +236,7 @@ public class RefreshableAnnotationConfigApplicationContext extends AbstractRefre
 			catch (ClassNotFoundException cause) {
 
 				getLogger().trace(String.format("Could not load class for config location [%s] - trying package scan.",
-					configLocation), cause);
+				configLocation), cause);
 
 				if (scanner.scan(configLocation) == 0) {
 					getLogger().debug("No component classes found for specified class/package [{}]", configLocation);
@@ -296,9 +296,9 @@ public class RefreshableAnnotationConfigApplicationContext extends AbstractRefre
 		if (this.beanFactory != null) {
 
 			Arrays.stream(ArrayUtils.nullSafeArray(this.beanFactory.getSingletonNames(), String.class))
-				.filter(singletonBeanName -> !currentBeanFactory.containsSingleton(singletonBeanName))
-				.forEach(singletonBeanName -> currentBeanFactory
-					.registerSingleton(singletonBeanName, this.beanFactory.getSingleton(singletonBeanName)));
+			.filter(singletonBeanName -> !currentBeanFactory.containsSingleton(singletonBeanName))
+			.forEach(singletonBeanName -> currentBeanFactory
+		.registerSingleton(singletonBeanName, this.beanFactory.getSingleton(singletonBeanName)));
 
 			if (isCopyConfigurationEnabled()) {
 				currentBeanFactory.copyConfigurationFrom(this.beanFactory);
@@ -325,8 +325,8 @@ public class RefreshableAnnotationConfigApplicationContext extends AbstractRefre
 	public void register(Class<?>... componentClasses) {
 
 		Arrays.stream(ArrayUtils.nullSafeArray(componentClasses, Class.class))
-			.filter(Objects::nonNull)
-			.forEach(this.componentClasses::add);
+		.filter(Objects::nonNull)
+		.forEach(this.componentClasses::add);
 	}
 
 	/**
@@ -336,7 +336,7 @@ public class RefreshableAnnotationConfigApplicationContext extends AbstractRefre
 	public void scan(String... basePackages) {
 
 		Arrays.stream(ArrayUtils.nullSafeArray(basePackages, String.class))
-			.filter(StringUtils::hasText)
-			.forEach(this.basePackages::add);
+		.filter(StringUtils::hasText)
+		.forEach(this.basePackages::add);
 	}
 }

@@ -44,14 +44,14 @@ public class BigIntegerSerializer extends NumberSerializers.Base<BigInteger> {
 
 	@Override
 	public void serialize(BigInteger value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
-			throws IOException {
+	throws IOException {
 
 		jsonGenerator.writeNumber(value);
 	}
 
 	@Override
 	public void serializeWithType(BigInteger value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider,
-			TypeSerializer typeSerializer) throws IOException {
+	TypeSerializer typeSerializer) throws IOException {
 
 		serialize(value, jsonGenerator, serializerProvider);
 	}

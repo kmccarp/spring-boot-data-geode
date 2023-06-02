@@ -47,7 +47,7 @@ public class ResourceWriterUnitTests {
 	@Test
 	public void writeWithByteBufferCallsWriteWithByteArray() {
 
-		byte[] data = { (byte) 0x1 };
+		byte[] data = {(byte) 0x1};
 
 		Resource mockResource = mock(Resource.class);
 
@@ -88,7 +88,7 @@ public class ResourceWriterUnitTests {
 	@Test
 	public void thenWriteToResourceWriterWritesToThis() {
 
-		byte[] array = { (byte) 0xCA, (byte) 0xFE };
+		byte[] array = {(byte) 0xCA, (byte) 0xFE};
 
 		Resource mockResource = mock(Resource.class);
 
@@ -111,7 +111,7 @@ public class ResourceWriterUnitTests {
 	@Test
 	public void thenWriteToResourceWriterWritesToThat() {
 
-		byte[] array = { (byte) 0xBA, (byte) 0xBE };
+		byte[] array = {(byte) 0xBA, (byte) 0xBE};
 
 		Resource mockResource = mock(Resource.class);
 

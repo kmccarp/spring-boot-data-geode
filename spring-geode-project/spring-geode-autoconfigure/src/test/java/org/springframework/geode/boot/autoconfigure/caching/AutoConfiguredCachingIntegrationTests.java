@@ -125,6 +125,7 @@ public class AutoConfiguredCachingIntegrationTests extends IntegrationTestsSuppo
 	@SpringBootApplication(scanBasePackageClasses = NonBeanType.class)
 	@EnableCachingDefinedRegions(clientRegionShortcut = ClientRegionShortcut.LOCAL)
 	@EnableGemFireMockObjects
-	static class TestConfiguration {  }
+	static class TestConfiguration {
+	}
 
 }

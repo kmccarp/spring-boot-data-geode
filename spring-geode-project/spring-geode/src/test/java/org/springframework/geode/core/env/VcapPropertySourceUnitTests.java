@@ -92,9 +92,9 @@ public class VcapPropertySourceUnitTests {
 		verify(mockEnvironment, times(1)).getPropertySources();
 		verify(propertySources, times(1)).get(eq("vcap"));
 		verify(mockVcapPropertySource, times(1))
-			.containsProperty(eq("vcap.application.name"));
+		.containsProperty(eq("vcap.application.name"));
 		verify(mockVcapPropertySource, times(1))
-			.containsProperty(eq("vcap.application.uris"));
+		.containsProperty(eq("vcap.application.uris"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -108,7 +108,7 @@ public class VcapPropertySourceUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected)
-				.hasMessage("Environment was not configurable or does not contain an enumerable [vcap] PropertySource");
+			.hasMessage("Environment was not configurable or does not contain an enumerable [vcap] PropertySource");
 
 			assertThat(expected).hasNoCause();
 
@@ -135,7 +135,7 @@ public class VcapPropertySourceUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected)
-				.hasMessage("Environment was not configurable or does not contain an enumerable [vcap] PropertySource");
+			.hasMessage("Environment was not configurable or does not contain an enumerable [vcap] PropertySource");
 
 			assertThat(expected).hasNoCause();
 
@@ -167,8 +167,8 @@ public class VcapPropertySourceUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected)
-				.hasMessage("An EnumerablePropertySource named [vcap] containing VCAP properties is required",
-					mockEnvironment);
+			.hasMessage("An EnumerablePropertySource named [vcap] containing VCAP properties is required",
+		mockEnvironment);
 
 			assertThat(expected).hasNoCause();
 
@@ -180,7 +180,7 @@ public class VcapPropertySourceUnitTests {
 			verify(propertySources, times(1)).get(eq("vcap"));
 			verify(mockPropertySource, times(1)).getName();
 			verify(mockPropertySource, times(1))
-				.containsProperty(eq("vcap.application.name"));
+			.containsProperty(eq("vcap.application.name"));
 			verifyNoMoreInteractions(mockPropertySource);
 		}
 	}
@@ -206,8 +206,8 @@ public class VcapPropertySourceUnitTests {
 		catch (IllegalArgumentException expected) {
 
 			assertThat(expected).hasMessage(
-				"An EnumerablePropertySource named [vcap] containing VCAP properties is required",
-					mockEnvironment);
+			"An EnumerablePropertySource named [vcap] containing VCAP properties is required",
+			mockEnvironment);
 
 			assertThat(expected).hasNoCause();
 
@@ -219,9 +219,9 @@ public class VcapPropertySourceUnitTests {
 			verify(propertySources, times(1)).get(eq("vcap"));
 			verify(mockPropertySource, times(1)).getName();
 			verify(mockPropertySource, times(1))
-				.containsProperty(eq("vcap.application.name"));
+			.containsProperty(eq("vcap.application.name"));
 			verify(mockPropertySource, times(1))
-				.containsProperty(eq("vcap.application.uris"));
+			.containsProperty(eq("vcap.application.uris"));
 		}
 	}
 
@@ -277,20 +277,20 @@ public class VcapPropertySourceUnitTests {
 		EnumerablePropertySource mockPropertySource = mock(EnumerablePropertySource.class);
 
 		String[] propertyNames = {
-			"vcap.services.jblum-pcc.credentials.locators",
-			"vcap.services.jblum-pcc.credentials.users",
-			"vcap.application.host",
-			"vcap.application.name",
-			"vcap.services.jblum-pcc.name",
-			"vcap.application.port",
-			"vcap.application.space_name",
-			"vcap.services.jblum-pcc.plan",
-			"vcap.application.uris",
-			"vcap.services.jblum-pcc.tags"
+		"vcap.services.jblum-pcc.credentials.locators",
+		"vcap.services.jblum-pcc.credentials.users",
+		"vcap.application.host",
+		"vcap.application.name",
+		"vcap.services.jblum-pcc.name",
+		"vcap.application.port",
+		"vcap.application.space_name",
+		"vcap.services.jblum-pcc.plan",
+		"vcap.application.uris",
+		"vcap.services.jblum-pcc.tags"
 		};
 
 		when(mockPropertySource.containsProperty(anyString())).thenAnswer(invocation ->
-			Arrays.asList(propertyNames).contains(invocation.<String>getArgument(0)));
+		Arrays.asList(propertyNames).contains(invocation.<String>getArgument(0)));
 
 		when(mockPropertySource.getName()).thenReturn("vcap");
 		when(mockPropertySource.getPropertyNames()).thenReturn(propertyNames);
@@ -305,14 +305,14 @@ public class VcapPropertySourceUnitTests {
 		assertThat(vcapApplicationProperties).isNotNull();
 		assertThat(vcapApplicationProperties).hasSize(5);
 		assertThat(vcapApplicationProperties)
-			.containsExactlyInAnyOrder("vcap.application.host", "vcap.application.name", "vcap.application.port",
-				"vcap.application.space_name", "vcap.application.uris");
+		.containsExactlyInAnyOrder("vcap.application.host", "vcap.application.name", "vcap.application.port",
+	"vcap.application.space_name", "vcap.application.uris");
 
 		verify(mockPropertySource, times(1)).getName();
 		verify(mockPropertySource, times(1))
-			.containsProperty(eq("vcap.application.name"));
+		.containsProperty(eq("vcap.application.name"));
 		verify(mockPropertySource, times(1))
-			.containsProperty(eq("vcap.application.uris"));
+		.containsProperty(eq("vcap.application.uris"));
 		verify(mockPropertySource, times(1)).getPropertyNames();
 	}
 
@@ -322,20 +322,20 @@ public class VcapPropertySourceUnitTests {
 		EnumerablePropertySource mockPropertySource = mock(EnumerablePropertySource.class);
 
 		String[] propertyNames = {
-			"vcap.services.jblum-pcc.credentials.locators",
-			"vcap.services.jblum-pcc.credentials.users",
-			"vcap.application.host",
-			"vcap.application.name",
-			"vcap.services.jblum-pcc.name",
-			"vcap.application.port",
-			"vcap.application.space_name",
-			"vcap.services.jblum-pcc.plan",
-			"vcap.application.uris",
-			"vcap.services.jblum-pcc.tags"
+		"vcap.services.jblum-pcc.credentials.locators",
+		"vcap.services.jblum-pcc.credentials.users",
+		"vcap.application.host",
+		"vcap.application.name",
+		"vcap.services.jblum-pcc.name",
+		"vcap.application.port",
+		"vcap.application.space_name",
+		"vcap.services.jblum-pcc.plan",
+		"vcap.application.uris",
+		"vcap.services.jblum-pcc.tags"
 		};
 
 		when(mockPropertySource.containsProperty(anyString())).thenAnswer(invocation ->
-			Arrays.asList(propertyNames).contains(invocation.<String>getArgument(0)));
+		Arrays.asList(propertyNames).contains(invocation.<String>getArgument(0)));
 
 		when(mockPropertySource.getName()).thenReturn("vcap");
 		when(mockPropertySource.getPropertyNames()).thenReturn(propertyNames);
@@ -350,15 +350,15 @@ public class VcapPropertySourceUnitTests {
 		assertThat(vcapServicesProperties).isNotNull();
 		assertThat(vcapServicesProperties).hasSize(5);
 		assertThat(vcapServicesProperties)
-			.containsExactlyInAnyOrder("vcap.services.jblum-pcc.credentials.locators",
-				"vcap.services.jblum-pcc.credentials.users", "vcap.services.jblum-pcc.name",
-					"vcap.services.jblum-pcc.plan", "vcap.services.jblum-pcc.tags");
+		.containsExactlyInAnyOrder("vcap.services.jblum-pcc.credentials.locators",
+	"vcap.services.jblum-pcc.credentials.users", "vcap.services.jblum-pcc.name",
+	"vcap.services.jblum-pcc.plan", "vcap.services.jblum-pcc.tags");
 
 		verify(mockPropertySource, times(1)).getName();
 		verify(mockPropertySource, times(1))
-			.containsProperty(eq("vcap.application.name"));
+		.containsProperty(eq("vcap.application.name"));
 		verify(mockPropertySource, times(1))
-			.containsProperty(eq("vcap.application.uris"));
+		.containsProperty(eq("vcap.application.uris"));
 		verify(mockPropertySource, times(1)).getPropertyNames();
 	}
 
@@ -368,25 +368,25 @@ public class VcapPropertySourceUnitTests {
 		EnumerablePropertySource mockPropertySource = mock(EnumerablePropertySource.class);
 
 		String[] propertyNames = {
-			"vcap.services.jblum-pcc.credentials.locators",
-			"vcap.services.jblum-pcc.credentials.users",
-			"vcap.application.host",
-			"vcap.services.test-pcc.credentials.locators",
-			"vcap.services.test-pcc.credentials.users",
-			"vcap.application.name",
-			"vcap.services.jblum-pcc.name",
-			"vcap.services.test-pcc.name",
-			"vcap.application.port",
-			"vcap.services.jblum-pcc.plan",
-			"vcap.application.space_name",
-			"vcap.services.test-pcc.plan",
-			"vcap.application.uris",
-			"vcap.services.jblum-pcc.tags",
-			"vcap.services.test-pcc.tags"
+		"vcap.services.jblum-pcc.credentials.locators",
+		"vcap.services.jblum-pcc.credentials.users",
+		"vcap.application.host",
+		"vcap.services.test-pcc.credentials.locators",
+		"vcap.services.test-pcc.credentials.users",
+		"vcap.application.name",
+		"vcap.services.jblum-pcc.name",
+		"vcap.services.test-pcc.name",
+		"vcap.application.port",
+		"vcap.services.jblum-pcc.plan",
+		"vcap.application.space_name",
+		"vcap.services.test-pcc.plan",
+		"vcap.application.uris",
+		"vcap.services.jblum-pcc.tags",
+		"vcap.services.test-pcc.tags"
 		};
 
 		when(mockPropertySource.containsProperty(anyString())).thenAnswer(invocation ->
-			Arrays.asList(propertyNames).contains(invocation.getArgument(0, String.class)));
+		Arrays.asList(propertyNames).contains(invocation.getArgument(0, String.class)));
 
 		when(mockPropertySource.getName()).thenReturn("vcap");
 		when(mockPropertySource.getPropertyNames()).thenReturn(propertyNames);
@@ -399,18 +399,18 @@ public class VcapPropertySourceUnitTests {
 		Predicate<String> testPccServicePredicate = propertyName -> propertyName.contains("test-pcc");
 
 		Set<String> testPccServicePropertyNames =
-			propertySource.findTargetVcapServiceProperties(testPccServicePredicate);
+		propertySource.findTargetVcapServiceProperties(testPccServicePredicate);
 
 		assertThat(testPccServicePropertyNames).isNotNull();
 
 		assertThat(testPccServicePropertyNames)
-			.describedAs("PCC Service Properties [%s]", testPccServicePropertyNames)
-			.hasSize(5);
+		.describedAs("PCC Service Properties [%s]", testPccServicePropertyNames)
+		.hasSize(5);
 
 		assertThat(testPccServicePropertyNames)
-			.containsExactlyInAnyOrder("vcap.services.test-pcc.credentials.locators",
-				"vcap.services.test-pcc.credentials.users", "vcap.services.test-pcc.name",
-					"vcap.services.test-pcc.plan", "vcap.services.test-pcc.tags");
+		.containsExactlyInAnyOrder("vcap.services.test-pcc.credentials.locators",
+	"vcap.services.test-pcc.credentials.users", "vcap.services.test-pcc.name",
+	"vcap.services.test-pcc.plan", "vcap.services.test-pcc.tags");
 
 		verify(mockPropertySource, times(1)).getName();
 		verify(mockPropertySource, times(1)).containsProperty(eq("vcap.application.name"));
@@ -486,9 +486,9 @@ public class VcapPropertySourceUnitTests {
 		assertThat(cloudCacheService.getGfshUrl().orElse(null)).isEqualTo(gfshUrl);
 		assertThat(cloudCacheService.isTlsEnabled()).isFalse();
 		assertThat(cloudCacheService.getLocatorList()).containsExactly(
-			CloudCacheService.Locator.newLocator("sandbox", 1234),
-			CloudCacheService.Locator.newLocator("toolbox", 10334),
-			CloudCacheService.Locator.newLocator("xbox", 6789)
+		CloudCacheService.Locator.newLocator("sandbox", 1234),
+		CloudCacheService.Locator.newLocator("toolbox", 10334),
+		CloudCacheService.Locator.newLocator("xbox", 6789)
 		);
 	}
 
@@ -759,7 +759,7 @@ public class VcapPropertySourceUnitTests {
 		assertThat(propertySource).isNotNull();
 		assertThat(propertySource.findFirstUserByRoleClusterOperator(Service.with("test-pcc")).isPresent()).isFalse();
 		assertThat(propertySource.findFirstUserByRoleClusterOperator(Service.with("non-existing-service")).isPresent())
-			.isFalse();
+		.isFalse();
 
 		User root = propertySource.findFirstUserByRoleClusterOperator(Service.with("a-pcc")).orElse(null);
 

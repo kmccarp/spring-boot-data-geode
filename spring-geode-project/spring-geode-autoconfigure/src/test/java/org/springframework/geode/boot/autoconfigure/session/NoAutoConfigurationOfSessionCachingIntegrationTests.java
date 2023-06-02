@@ -66,6 +66,7 @@ public class NoAutoConfigurationOfSessionCachingIntegrationTests extends Integra
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

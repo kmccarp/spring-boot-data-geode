@@ -52,11 +52,9 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = {
-		"spring.data.gemfire.logging.level=warn",
-		"spring.main.allow-bean-definition-overriding=false"
-	},
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = {"spring.data.gemfire.logging.level=warn","spring.main.allow-bean-definition-overriding=false"
+},
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class LoggingManualConfigurationIntegrationTests extends IntegrationTestsSupport {
@@ -70,7 +68,7 @@ public class LoggingManualConfigurationIntegrationTests extends IntegrationTests
 	@Before
 	public void setup() {
 		assertThat(this.environment.getProperty("spring.main.allow-bean-definition-overriding",
-			Boolean.class, true)).isFalse();
+		Boolean.class, true)).isFalse();
 	}
 
 	@Test
@@ -89,7 +87,8 @@ public class LoggingManualConfigurationIntegrationTests extends IntegrationTests
 	@EnableGemFireMockObjects
 	@EnableLogging
 	@UseMemberName("LoggingManualConfigurationIntegrationTests")
-	static class TestConfigurationOne { }
+	static class TestConfigurationOne {
+	}
 
 	/*
 	@Configuration

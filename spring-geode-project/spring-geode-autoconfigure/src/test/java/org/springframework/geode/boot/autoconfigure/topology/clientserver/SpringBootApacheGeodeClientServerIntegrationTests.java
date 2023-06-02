@@ -73,8 +73,8 @@ import lombok.ToString;
 @ActiveProfiles("spring-geode-autoconfigure-topology-test-client")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = "spring.data.gemfire.management.use-http=false",
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = "spring.data.gemfire.management.use-http=false",
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class SpringBootApacheGeodeClientServerIntegrationTests extends ForkingClientServerIntegrationTestsSupport {
@@ -82,10 +82,11 @@ public class SpringBootApacheGeodeClientServerIntegrationTests extends ForkingCl
 	@BeforeClass
 	public static void startGeodeServer() throws IOException {
 		startGemFireServer(TestGeodeServerConfiguration.class,
-			"-Dspring.profiles.active=spring-geode-autoconfigure-topology-test-server");
+		"-Dspring.profiles.active=spring-geode-autoconfigure-topology-test-server");
 	}
 
-	@BeforeClass @AfterClass
+	@BeforeClass
+	@AfterClass
 	public static void resetClusterAwareCondition() {
 		ClusterAwareConfiguration.ClusterAwareCondition.reset();
 	}
@@ -138,10 +139,10 @@ public class SpringBootApacheGeodeClientServerIntegrationTests extends ForkingCl
 		public static void main(String[] args) {
 
 			new SpringApplicationBuilder(TestGeodeServerConfiguration.class)
-				.profiles("spring-geode-autoconfigure-topology-test-server")
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.profiles("spring-geode-autoconfigure-topology-test-server")
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 	}
 
@@ -160,4 +161,5 @@ class User {
 
 }
 
-interface UserRepository extends CrudRepository<User, String> { }
+interface UserRepository extends CrudRepository<User, String> {
+}

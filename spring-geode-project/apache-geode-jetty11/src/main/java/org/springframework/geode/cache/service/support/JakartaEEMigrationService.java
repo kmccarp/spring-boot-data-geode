@@ -57,7 +57,7 @@ public class JakartaEEMigrationService {
 	public Path migrate(Path warFile) {
 
 		Path resolvedWarFile = requireObject(warFile, (Path path) -> Objects.nonNull(path) && Files.exists(path),
-			"The Path to the WAR file [%s] must not be null and exist", warFile);
+		"The Path to the WAR file [%s] must not be null and exist", warFile);
 
 		String warFileName = resolvedWarFile.getFileName().toString();
 		String migratedWarFileName = String.format(MIGRATED_FILENAME_PATTERN, warFileName);
@@ -77,7 +77,7 @@ public class JakartaEEMigrationService {
 			}
 			catch (IOException cause) {
 				throw new JavaEEJakartaEEMigrationException(
-					String.format("Failed to migrate Java EE WAR file [%s] to Jakarta EE", warFile), cause);
+				String.format("Failed to migrate Java EE WAR file [%s] to Jakarta EE", warFile), cause);
 			}
 		}
 
@@ -86,7 +86,8 @@ public class JakartaEEMigrationService {
 
 	protected static class JavaEEJakartaEEMigrationException extends RuntimeException {
 
-		public JavaEEJakartaEEMigrationException() { }
+		public JavaEEJakartaEEMigrationException() {
+		}
 
 		public JavaEEJakartaEEMigrationException(String message) {
 			super(message);

@@ -73,6 +73,7 @@ public abstract class AbstractSessionExpirationTimeoutInTimeUnitIntegrationTests
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

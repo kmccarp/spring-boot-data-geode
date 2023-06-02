@@ -34,21 +34,23 @@ public class SpringBootApacheGeodeCacheServerApplication {
 	public static void main(String[] args) {
 
 		new SpringApplicationBuilder(SpringBootApacheGeodeCacheServerApplication.class)
-			.web(WebApplicationType.NONE)
-			.build()
-			.run(args);
+		.web(WebApplicationType.NONE)
+		.build()
+		.run(args);
 	}
 
 	@Configuration
 	@UseLocators
 	@Profile("clustered")
-	static class ClusteredConfiguration { }
+	static class ClusteredConfiguration {
+	}
 
 	@Configuration
 	@EnableLocator
 	@EnableManager(start = true)
 	@Profile("!clustered")
-	static class LonerConfiguration { }
+	static class LonerConfiguration {
+	}
 
 }
 // end::class[]

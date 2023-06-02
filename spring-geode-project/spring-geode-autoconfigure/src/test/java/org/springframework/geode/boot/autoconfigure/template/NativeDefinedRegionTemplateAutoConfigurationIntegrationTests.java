@@ -75,8 +75,8 @@ public class NativeDefinedRegionTemplateAutoConfigurationIntegrationTests extend
 		assertThat(this.cache).isNotNull();
 
 		assertThat(CollectionUtils.nullSafeSet(this.cache.rootRegions()).stream()
-			.map(Region::getName)
-			.collect(Collectors.toSet())).containsExactly("Example");
+		.map(Region::getName)
+		.collect(Collectors.toSet())).containsExactly("Example");
 	}
 
 	@Test(expected = NoSuchBeanDefinitionException.class)

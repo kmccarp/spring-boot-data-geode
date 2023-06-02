@@ -78,15 +78,15 @@ public class GeodeCacheHealthIndicatorUnitTests {
 	private Set<DistributedMember> mockDistributedMembers(int size) {
 
 		return IntStream.range(0, size)
-			.mapToObj(it -> mock(DistributedMember.class))
-			.collect(Collectors.toSet());
+		.mapToObj(it -> mock(DistributedMember.class))
+		.collect(Collectors.toSet());
 	}
 
 	@Test
 	public void healthCheckCapturesDetails() throws Exception {
 
 		DistributedMember mockDistributedMember =
-			CacheMockObjects.mockDistributedMember("TestMember", "TestGroup", "MockGroup");
+		CacheMockObjects.mockDistributedMember("TestMember", "TestGroup", "MockGroup");
 
 		when(mockDistributedMember.getHost()).thenReturn("Skullbox");
 		when(mockDistributedMember.getProcessId()).thenReturn(12345);
@@ -98,10 +98,10 @@ public class GeodeCacheHealthIndicatorUnitTests {
 		when(mockDistributedSystem.isReconnecting()).thenReturn(false);
 
 		ResourceManager mockResourceManager = CacheMockObjects.mockResourceManager(0.9f,
-			0.95f, 0.85f, 0.9f);
+		0.95f, 0.85f, 0.9f);
 
 		GemFireCache mockGemFireCache = CacheMockObjects.mockGemFireCache(this.mockGemFireCache,
-			"MockGemFireCache", mockDistributedSystem, mockResourceManager);
+		"MockGemFireCache", mockDistributedSystem, mockResourceManager);
 
 		CancelCriterion mockCancelCriterion = mock(CancelCriterion.class);
 

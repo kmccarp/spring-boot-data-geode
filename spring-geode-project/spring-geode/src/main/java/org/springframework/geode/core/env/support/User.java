@@ -161,9 +161,9 @@ public class User implements Comparable<User> {
 		public static Role of(String name) {
 
 			return Arrays.stream(values())
-				.filter(role -> role.name().equalsIgnoreCase(String.valueOf(name).trim()))
-				.findFirst()
-				.orElse(null);
+			.filter(role -> role.name().equalsIgnoreCase(String.valueOf(name).trim()))
+			.findFirst()
+			.orElse(null);
 		}
 
 		public boolean isClusterOperator() {

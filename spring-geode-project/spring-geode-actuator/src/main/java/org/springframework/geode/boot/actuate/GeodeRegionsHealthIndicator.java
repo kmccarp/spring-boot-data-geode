@@ -53,10 +53,10 @@ import org.springframework.util.StringUtils;
 public class GeodeRegionsHealthIndicator extends AbstractGeodeHealthIndicator {
 
 	private final BiConsumer<Region<?, ?>, Health.Builder> gemfireRegionHealthIndicatorConsumers = withRegionDetails()
-		.andThen(withPartitionRegionDetails())
-		.andThen(withRegionEvictionPolicyDetails())
-		.andThen(withRegionExpirationPolicyDetails())
-		.andThen(withRegionStatisticsDetails());
+	.andThen(withPartitionRegionDetails())
+	.andThen(withRegionEvictionPolicyDetails())
+	.andThen(withRegionExpirationPolicyDetails())
+	.andThen(withRegionStatisticsDetails());
 
 	/**
 	 * Default constructor to construct an uninitialized instance of {@link GeodeRegionsHealthIndicator},
@@ -98,20 +98,20 @@ public class GeodeRegionsHealthIndicator extends AbstractGeodeHealthIndicator {
 		if (getGemFireCache().isPresent()) {
 
 			Set<Region<?, ?>> rootRegions = getGemFireCache()
-				.map(GemFireCache::rootRegions)
-				.orElseGet(Collections::emptySet);
+			.map(GemFireCache::rootRegions)
+			.orElseGet(Collections::emptySet);
 
 			builder.withDetail("geode.cache.regions", rootRegions.stream()
-				.filter(Objects::nonNull)
-				.map(Region::getFullPath)
-				.sorted()
-				.collect(Collectors.toList()));
+			.filter(Objects::nonNull)
+			.map(Region::getFullPath)
+			.sorted()
+			.collect(Collectors.toList()));
 
 			builder.withDetail("geode.cache.regions.count", rootRegions.stream().filter(Objects::nonNull).count());
 
 			rootRegions.stream()
-				.filter(Objects::nonNull)
-				.forEach(region -> getGemfireRegionHealthIndicatorConsumers().accept(region, builder));
+			.filter(Objects::nonNull)
+			.forEach(region -> getGemfireRegionHealthIndicatorConsumers().accept(region, builder));
 
 			builder.up();
 
@@ -134,15 +134,16 @@ public class GeodeRegionsHealthIndicator extends AbstractGeodeHealthIndicator {
 				RegionAttributes<?, ?> regionAttributes = region.getAttributes();
 
 				builder.withDetail(cacheRegionKey(regionName, "cloning-enabled"), toYesNoString(regionAttributes.getCloningEnabled()))
-					.withDetail(cacheRegionKey(regionName, "data-policy"), String.valueOf(regionAttributes.getDataPolicy()))
-					.withDetail(cacheRegionKey(regionName, "initial-capacity"), regionAttributes.getInitialCapacity())
-					.withDetail(cacheRegionKey(regionName, "load-factor"), regionAttributes.getLoadFactor())
-					.withDetail(cacheRegionKey(regionName, "key-constraint"), nullSafeClassName(regionAttributes.getKeyConstraint()))
-					.withDetail(cacheRegionKey(regionName, "off-heap"), toYesNoString(regionAttributes.getOffHeap()))
-					.withDetail(cacheRegionKey(regionName, "pool-name"), emptyIfUnset(regionAttributes.getPoolName()))
-					.withDetail(cacheRegionKey(regionName, "scope"), String.valueOf(regionAttributes.getScope()))
-					.withDetail(cacheRegionKey(regionName, "statistics-enabled"), toYesNoString(regionAttributes.getStatisticsEnabled()))
-					.withDetail(cacheRegionKey(regionName, "value-constraint"), nullSafeClassName(regionAttributes.getValueConstraint()));			}
+				.withDetail(cacheRegionKey(regionName, "data-policy"), String.valueOf(regionAttributes.getDataPolicy()))
+				.withDetail(cacheRegionKey(regionName, "initial-capacity"), regionAttributes.getInitialCapacity())
+				.withDetail(cacheRegionKey(regionName, "load-factor"), regionAttributes.getLoadFactor())
+				.withDetail(cacheRegionKey(regionName, "key-constraint"), nullSafeClassName(regionAttributes.getKeyConstraint()))
+				.withDetail(cacheRegionKey(regionName, "off-heap"), toYesNoString(regionAttributes.getOffHeap()))
+				.withDetail(cacheRegionKey(regionName, "pool-name"), emptyIfUnset(regionAttributes.getPoolName()))
+				.withDetail(cacheRegionKey(regionName, "scope"), String.valueOf(regionAttributes.getScope()))
+				.withDetail(cacheRegionKey(regionName, "statistics-enabled"), toYesNoString(regionAttributes.getStatisticsEnabled()))
+				.withDetail(cacheRegionKey(regionName, "value-constraint"), nullSafeClassName(regionAttributes.getValueConstraint()));
+			}
 		};
 	}
 
@@ -159,10 +160,10 @@ public class GeodeRegionsHealthIndicator extends AbstractGeodeHealthIndicator {
 					String regionName = region.getName();
 
 					builder.withDetail(cachePartitionRegionKey(regionName, "collocated-with"), emptyIfUnset(partitionAttributes.getColocatedWith()))
-						.withDetail(cachePartitionRegionKey(regionName, "local-max-memory"), partitionAttributes.getLocalMaxMemory())
-						.withDetail(cachePartitionRegionKey(regionName, "redundant-copies"), partitionAttributes.getRedundantCopies())
-						//.withDetail(cachePartitionRegionKey(regionName, "total-max-memory"), partitionAttributes.getTotalMaxMemory())
-						.withDetail(cachePartitionRegionKey(regionName, "total-number-of-buckets"), partitionAttributes.getTotalNumBuckets());
+					.withDetail(cachePartitionRegionKey(regionName, "local-max-memory"), partitionAttributes.getLocalMaxMemory())
+					.withDetail(cachePartitionRegionKey(regionName, "redundant-copies"), partitionAttributes.getRedundantCopies())
+					//.withDetail(cachePartitionRegionKey(regionName, "total-max-memory"), partitionAttributes.getTotalMaxMemory())
+					.withDetail(cachePartitionRegionKey(regionName, "total-number-of-buckets"), partitionAttributes.getTotalNumBuckets());
 				}
 			}
 		};
@@ -181,14 +182,14 @@ public class GeodeRegionsHealthIndicator extends AbstractGeodeHealthIndicator {
 					String regionName = region.getName();
 
 					builder.withDetail(cacheRegionEvictionKey(regionName, "action"), String.valueOf(evictionAttributes.getAction()))
-						.withDetail(cacheRegionEvictionKey(regionName, "algorithm"), String.valueOf(evictionAttributes.getAlgorithm()));
+					.withDetail(cacheRegionEvictionKey(regionName, "algorithm"), String.valueOf(evictionAttributes.getAlgorithm()));
 
 					EvictionAlgorithm evictionAlgorithm = evictionAttributes.getAlgorithm();
 
 					// NOTE: Eviction Maximum does not apply when Eviction Algorithm is Heap LRU.
 					if (evictionAlgorithm != null && !evictionAlgorithm.isLRUHeap()) {
-						builder.withDetail(cacheRegionEvictionKey(regionName,"maximum"),
-							evictionAttributes.getMaximum());
+						builder.withDetail(cacheRegionEvictionKey(regionName, "maximum"),
+						evictionAttributes.getMaximum());
 					}
 				}
 			}
@@ -209,14 +210,14 @@ public class GeodeRegionsHealthIndicator extends AbstractGeodeHealthIndicator {
 
 				if (entryTimeToLive != null) {
 					builder.withDetail(cacheRegionExpirationKey(regionName, "entry.ttl.action"), String.valueOf(entryTimeToLive.getAction()))
-						.withDetail(cacheRegionExpirationKey(regionName, "entry.ttl.timeout"), entryTimeToLive.getTimeout());
+					.withDetail(cacheRegionExpirationKey(regionName, "entry.ttl.timeout"), entryTimeToLive.getTimeout());
 				}
 
 				ExpirationAttributes entryIdleTimeout = regionAttributes.getEntryIdleTimeout();
 
 				if (entryIdleTimeout != null) {
 					builder.withDetail(cacheRegionExpirationKey(regionName, "entry.tti.action"), String.valueOf(entryIdleTimeout.getAction()))
-						.withDetail(cacheRegionExpirationKey(regionName, "entry.tti.timeout"), entryIdleTimeout.getTimeout());
+					.withDetail(cacheRegionExpirationKey(regionName, "entry.tti.timeout"), entryIdleTimeout.getTimeout());
 				}
 			}
 		};
@@ -229,16 +230,16 @@ public class GeodeRegionsHealthIndicator extends AbstractGeodeHealthIndicator {
 			String regionName = region.getName();
 
 			Optional.of(region)
-				.filter(this::isNotLocalDataSet)
-				.filter(this::isStatisticsEnabled)
-				.map(RegionStatisticsResolver::resolve)
-				.ifPresent(cacheStatistics -> builder
-					.withDetail(cacheRegionStatisticsKey(regionName, "cache-statistics-type"), nullSafeClassName(cacheStatistics.getClass()))
-					.withDetail(cacheRegionStatisticsKey(regionName, "hit-count"), cacheStatistics.getHitCount())
-					.withDetail(cacheRegionStatisticsKey(regionName, "hit-ratio"), cacheStatistics.getHitRatio())
-					.withDetail(cacheRegionStatisticsKey(regionName, "last-accessed-time"), cacheStatistics.getLastAccessedTime())
-					.withDetail(cacheRegionStatisticsKey(regionName, "last-modified-time"), cacheStatistics.getLastModifiedTime())
-					.withDetail(cacheRegionStatisticsKey(regionName, "miss-count"), cacheStatistics.getMissCount()));
+			.filter(this::isNotLocalDataSet)
+			.filter(this::isStatisticsEnabled)
+			.map(RegionStatisticsResolver::resolve)
+			.ifPresent(cacheStatistics -> builder
+		.withDetail(cacheRegionStatisticsKey(regionName, "cache-statistics-type"), nullSafeClassName(cacheStatistics.getClass()))
+		.withDetail(cacheRegionStatisticsKey(regionName, "hit-count"), cacheStatistics.getHitCount())
+		.withDetail(cacheRegionStatisticsKey(regionName, "hit-ratio"), cacheStatistics.getHitRatio())
+		.withDetail(cacheRegionStatisticsKey(regionName, "last-accessed-time"), cacheStatistics.getLastAccessedTime())
+		.withDetail(cacheRegionStatisticsKey(regionName, "last-modified-time"), cacheStatistics.getLastModifiedTime())
+		.withDetail(cacheRegionStatisticsKey(regionName, "miss-count"), cacheStatistics.getMissCount()));
 		};
 	}
 

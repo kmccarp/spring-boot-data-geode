@@ -90,7 +90,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see java.util.function.Predicate
 	 */
 	public static <T, ID> AsyncInlineCachingRegionConfigurer<T, ID> create(@NonNull CrudRepository<T, ID> repository,
-			@Nullable Predicate<String> regionBeanName) {
+	@Nullable Predicate<String> regionBeanName) {
 
 		return new AsyncInlineCachingRegionConfigurer<>(repository, regionBeanName);
 	}
@@ -113,7 +113,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see java.lang.String
 	 */
 	public static <T, ID> AsyncInlineCachingRegionConfigurer<T, ID> create(@NonNull CrudRepository<T, ID> repository,
-			@Nullable String regionBeanName) {
+	@Nullable String regionBeanName) {
 
 		return create(repository, Predicate.isEqual(regionBeanName));
 	}
@@ -165,7 +165,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see java.util.function.Predicate
 	 */
 	public AsyncInlineCachingRegionConfigurer(@NonNull CrudRepository<T, ID> repository,
-			@Nullable Predicate<String> regionBeanName) {
+	@Nullable Predicate<String> regionBeanName) {
 
 		Assert.notNull(repository, "CrudRepository must not be null");
 
@@ -271,8 +271,8 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 		Optional.ofNullable(this.persistent).ifPresent(asyncEventQueueFactory::setPersistent);
 
 		CollectionUtils.nullSafeList(this.gatewayEventFilters).stream()
-			.filter(Objects::nonNull)
-			.forEach(asyncEventQueueFactory::addGatewayEventFilter);
+		.filter(Objects::nonNull)
+		.forEach(asyncEventQueueFactory::addGatewayEventFilter);
 
 		if (Boolean.TRUE.equals(this.pauseEventDispatching)) {
 			asyncEventQueueFactory.pauseEventDispatching();
@@ -286,7 +286,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 		asyncEventQueueFactory = postProcess(asyncEventQueueFactory);
 
 		AsyncEventQueue asyncEventQueue =
-			newAsyncEventQueue(asyncEventQueueFactory, asyncEventQueueId, asyncEventListener);
+		newAsyncEventQueue(asyncEventQueueFactory, asyncEventQueueId, asyncEventListener);
 
 		asyncEventQueue = postProcess(asyncEventQueue);
 
@@ -309,7 +309,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see org.apache.geode.cache.asyncqueue.AsyncEventListener
 	 */
 	protected @NonNull AsyncEventQueue newAsyncEventQueue(@NonNull AsyncEventQueueFactory factory,
-			@NonNull String asyncEventQueueId, @NonNull AsyncEventListener listener) {
+	@NonNull String asyncEventQueueId, @NonNull AsyncEventListener listener) {
 
 		return factory.create(asyncEventQueueId, listener);
 	}
@@ -386,11 +386,11 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	protected @NonNull AsyncEventQueue postProcess(@NonNull AsyncEventQueue asyncEventQueue) {
 
 		Function<AsyncEventQueue, AsyncEventQueue> asyncEventQueuePostProcessor =
-			this.asyncEventQueuePostProcessor;
+		this.asyncEventQueuePostProcessor;
 
 		return asyncEventQueuePostProcessor != null
-			? asyncEventQueuePostProcessor.apply(asyncEventQueue)
-			: asyncEventQueue;
+		? asyncEventQueuePostProcessor.apply(asyncEventQueue)
+		: asyncEventQueue;
 	}
 
 	/**
@@ -406,11 +406,11 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	protected @NonNull AsyncEventQueueFactory postProcess(@NonNull AsyncEventQueueFactory asyncEventQueueFactory) {
 
 		Function<AsyncEventQueueFactory, AsyncEventQueueFactory> asyncEventQueueFactoryPostProcessor =
-			this.asyncEventQueueFactoryPostProcessor;
+		this.asyncEventQueueFactoryPostProcessor;
 
 		return asyncEventQueueFactoryPostProcessor != null
-			? asyncEventQueueFactoryPostProcessor.apply(asyncEventQueueFactory)
-			: asyncEventQueueFactory;
+		? asyncEventQueueFactoryPostProcessor.apply(asyncEventQueueFactory)
+		: asyncEventQueueFactory;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -419,18 +419,18 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 		AsyncEventErrorHandler asyncEventErrorHandler = this.asyncEventErrorHandler;
 
 		Function<AsyncEventListener, AsyncEventListener> resolvedListenerPostProcessor = asyncEventErrorHandler != null
-			? listener -> {
+		? listener -> {
 
-				if (listener instanceof RepositoryAsyncEventListener) {
-					((RepositoryAsyncEventListener<T, ID>) listener).setAsyncEventErrorHandler(asyncEventErrorHandler);
-				}
-
-				return listener;
+			if (listener instanceof RepositoryAsyncEventListener) {
+				((RepositoryAsyncEventListener<T, ID>) listener).setAsyncEventErrorHandler(asyncEventErrorHandler);
 			}
-			: Function.identity();
+
+			return listener;
+		}
+		: Function.identity();
 
 		Function<AsyncEventListener, AsyncEventListener> asyncEventListenerPostProcessor =
-			this.asyncEventListenerPostProcessor;
+		this.asyncEventListenerPostProcessor;
 
 		if (asyncEventListenerPostProcessor != null) {
 			resolvedListenerPostProcessor = resolvedListenerPostProcessor.andThen(asyncEventListenerPostProcessor);
@@ -450,7 +450,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see java.util.function.Function
 	 */
 	public AsyncInlineCachingRegionConfigurer<T, ID> applyToListener(
-			@Nullable Function<AsyncEventListener, AsyncEventListener> asyncEventListenerPostProcessor) {
+	@Nullable Function<AsyncEventListener, AsyncEventListener> asyncEventListenerPostProcessor) {
 
 		this.asyncEventListenerPostProcessor = asyncEventListenerPostProcessor;
 
@@ -468,7 +468,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see java.util.function.Function
 	 */
 	public AsyncInlineCachingRegionConfigurer<T, ID> applyToQueue(
-			@Nullable Function<AsyncEventQueue, AsyncEventQueue> asyncEventQueuePostProcessor) {
+	@Nullable Function<AsyncEventQueue, AsyncEventQueue> asyncEventQueuePostProcessor) {
 
 		this.asyncEventQueuePostProcessor = asyncEventQueuePostProcessor;
 
@@ -486,7 +486,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see java.util.function.Function
 	 */
 	public AsyncInlineCachingRegionConfigurer<T, ID> applyToQueueFactory(
-			@Nullable Function<AsyncEventQueueFactory, AsyncEventQueueFactory> asyncEventQueueFactoryPostProcessor) {
+	@Nullable Function<AsyncEventQueueFactory, AsyncEventQueueFactory> asyncEventQueueFactoryPostProcessor) {
 
 		this.asyncEventQueueFactoryPostProcessor = asyncEventQueueFactoryPostProcessor;
 
@@ -503,7 +503,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see org.springframework.geode.cache.RepositoryAsyncEventListener.AsyncEventErrorHandler
 	 */
 	public AsyncInlineCachingRegionConfigurer<T, ID> withAsyncEventErrorHandler(
-			@Nullable AsyncEventErrorHandler errorHandler) {
+	@Nullable AsyncEventErrorHandler errorHandler) {
 
 		this.asyncEventErrorHandler = errorHandler;
 
@@ -594,8 +594,8 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	public AsyncInlineCachingRegionConfigurer<T, ID> withQueueBatchTimeInterval(Duration batchTimeInterval) {
 
 		this.batchTimeInterval = batchTimeInterval != null
-			? Long.valueOf(batchTimeInterval.toMillis()).intValue()
-			: null;
+		? Long.valueOf(batchTimeInterval.toMillis()).intValue()
+		: null;
 
 		return this;
 	}
@@ -689,7 +689,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see org.apache.geode.cache.wan.GatewayEventSubstitutionFilter
 	 */
 	public AsyncInlineCachingRegionConfigurer<T, ID> withQueueEventSubstitutionFilter(
-			@Nullable GatewayEventSubstitutionFilter<ID, T> eventSubstitutionFilter) {
+	@Nullable GatewayEventSubstitutionFilter<ID, T> eventSubstitutionFilter) {
 
 		this.gatewayEventSubstitutionFilter = eventSubstitutionFilter;
 
@@ -733,7 +733,7 @@ public class AsyncInlineCachingRegionConfigurer<T, ID> implements RegionConfigur
 	 * @see org.apache.geode.cache.wan.GatewaySender.OrderPolicy
 	 */
 	public AsyncInlineCachingRegionConfigurer<T, ID> withQueueOrderPolicy(
-			@Nullable GatewaySender.OrderPolicy orderPolicy) {
+	@Nullable GatewaySender.OrderPolicy orderPolicy) {
 
 		this.orderPolicy = orderPolicy;
 

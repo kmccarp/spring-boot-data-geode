@@ -114,7 +114,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void cacheCompressionConfigurationIsCorrect() {
 
 		CacheProperties.CompressionProperties compressionProperties =
-			this.gemfireProperties.getCache().getCompression();
+		this.gemfireProperties.getCache().getCompression();
 
 		assertThat(compressionProperties).isNotNull();
 		assertThat(compressionProperties.getCompressorBeanName()).isEqualTo("TestCompressor");
@@ -203,7 +203,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void diskStoreDirectoryConfigurationIsCorrect() {
 
 		DiskStoreProperties.DirectoryProperties[] directoryProperties =
-			this.gemfireProperties.getDisk().getStore().getDirectory();
+		this.gemfireProperties.getDisk().getStore().getDirectory();
 
 		assertThat(directoryProperties).isNotEmpty();
 		assertThat(directoryProperties).hasSize(2);
@@ -351,7 +351,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void securityManagerConfigurationIsCorrect() {
 
 		SecurityProperties.SecurityManagerProperties securityManagerProperties =
-			this.gemfireProperties.getSecurity().getManager();
+		this.gemfireProperties.getSecurity().getManager();
 
 		assertThat(securityManagerProperties).isNotNull();
 		assertThat(securityManagerProperties.getClassName()).isEqualTo("example.app.security.manager.TestSecurityManager");
@@ -371,11 +371,11 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void securityPostProcessorConfigurationIsCorrect() {
 
 		SecurityProperties.SecurityPostProcessorProperties securityPostProcessorProperties =
-			this.gemfireProperties.getSecurity().getPostProcessor();
+		this.gemfireProperties.getSecurity().getPostProcessor();
 
 		assertThat(securityPostProcessorProperties).isNotNull();
 		assertThat(securityPostProcessorProperties.getClassName())
-			.isEqualTo("example.app.security.processor.TestSecurityPostProcessor");
+		.isEqualTo("example.app.security.processor.TestSecurityPostProcessor");
 	}
 
 	@Test
@@ -395,7 +395,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 		assertThat(sslProperties).isNotNull();
 		assertThat(sslProperties.getCiphers()).containsExactly("AES", "DES");
 		assertThat(sslProperties.getComponents())
-			.containsExactly(EnableSsl.Component.GATEWAY, EnableSsl.Component.LOCATOR, EnableSsl.Component.SERVER);
+		.containsExactly(EnableSsl.Component.GATEWAY, EnableSsl.Component.LOCATOR, EnableSsl.Component.SERVER);
 		assertThat(sslProperties.getKeystore()).isEqualTo("/path/to/keystore.jks");
 		assertThat(sslProperties.getProtocols()).containsExactly("any");
 		assertThat(sslProperties.getTruststore()).isEqualTo("/path/to/truststore.jks");
@@ -405,7 +405,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void securitySslCertificateConfigurationIsCorrect() {
 
 		SslProperties.SslCertificateProperties certificateProperties =
-			this.gemfireProperties.getSecurity().getSsl().getCertificate();
+		this.gemfireProperties.getSecurity().getSsl().getCertificate();
 
 		assertThat(certificateProperties).isNotNull();
 		assertThat(certificateProperties.getAlias()).isNotNull();
@@ -423,7 +423,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void securitySslKeystoreConfigurationIsCorrect() {
 
 		SslProperties.KeyStoreProperties keystoreProperties =
-			this.gemfireProperties.getSecurity().getSsl().getKeystoreConfig();
+		this.gemfireProperties.getSecurity().getSsl().getKeystoreConfig();
 
 		assertThat(keystoreProperties).isNotNull();
 		assertThat(keystoreProperties.getPassword()).isEqualTo("keypass");
@@ -434,7 +434,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void securitySslTruststoreConfigurationIsCorrect() {
 
 		SslProperties.KeyStoreProperties truststoreProperties =
-			this.gemfireProperties.getSecurity().getSsl().getTruststoreConfig();
+		this.gemfireProperties.getSecurity().getSsl().getTruststoreConfig();
 
 		assertThat(truststoreProperties).isNotNull();
 		assertThat(truststoreProperties.getPassword()).isEqualTo("storepass");
@@ -461,7 +461,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void serviceHttpDeveloperRestApiConfigurationIsCorrect() {
 
 		ServiceProperties.DeveloperRestApiProperties developerRestApiProperties =
-			this.gemfireProperties.getService().getHttp().getDevRestApi();
+		this.gemfireProperties.getService().getHttp().getDevRestApi();
 
 		assertThat(developerRestApiProperties).isNotNull();
 		assertThat(developerRestApiProperties.isStart()).isTrue();
@@ -471,7 +471,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 	public void serviceMemcachedConfigurationIsCorrect() {
 
 		ServiceProperties.MemcachedServerProperties memcachedProperties =
-			this.gemfireProperties.getService().getMemcached();
+		this.gemfireProperties.getService().getMemcached();
 
 		assertThat(memcachedProperties).isNotNull();
 		assertThat(memcachedProperties.getPort()).isEqualTo(22422);
@@ -490,6 +490,7 @@ public class GemFirePropertiesIntegrationTests extends IntegrationTestsSupport {
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

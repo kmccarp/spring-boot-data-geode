@@ -28,7 +28,8 @@ import org.apache.geode.pdx.PdxInstance;
 @SuppressWarnings("unused")
 public class PdxFieldNotWritableException extends RuntimeException {
 
-	public PdxFieldNotWritableException() { }
+	public PdxFieldNotWritableException() {
+	}
 
 	public PdxFieldNotWritableException(String message) {
 		super(message);

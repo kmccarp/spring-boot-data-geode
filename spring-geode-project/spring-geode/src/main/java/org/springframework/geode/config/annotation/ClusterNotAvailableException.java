@@ -30,7 +30,8 @@ public class ClusterNotAvailableException extends RuntimeException {
 	/**
 	 * Constructs a new uninitialized instance of {@link ClusterNotAvailableException}.
 	 */
-	public ClusterNotAvailableException() { }
+	public ClusterNotAvailableException() {
+	}
 
 	/**
 	 * Constructs a new instance of {@link ClusterNotAvailableException} initialized with

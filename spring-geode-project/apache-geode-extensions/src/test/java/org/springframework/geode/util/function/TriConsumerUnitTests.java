@@ -38,7 +38,7 @@ import org.mockito.InOrder;
 public class TriConsumerUnitTests {
 
 	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void andThenComposesTriConsumers() {
 
 		TriConsumer consumerOne = mock(TriConsumer.class);
@@ -57,13 +57,13 @@ public class TriConsumerUnitTests {
 		InOrder order = inOrder(consumerOne, consumerTwo);
 
 		order.verify(consumerOne, times(1))
-			.accept(eq("one"), eq("two"), eq("three"));
+		.accept(eq("one"), eq("two"), eq("three"));
 		order.verify(consumerTwo, times(1))
-			.accept(eq("one"), eq("two"), eq("three"));
+		.accept(eq("one"), eq("two"), eq("three"));
 	}
 
 	@Test(expected = NullPointerException.class)
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void andThenWithNull() {
 
 		TriConsumer consumer = mock(TriConsumer.class);

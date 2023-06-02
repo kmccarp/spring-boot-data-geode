@@ -97,13 +97,13 @@ import org.slf4j.LoggerFactory;
  */
 @SuppressWarnings("unused")
 public abstract class ResourceCapableCacheDataImporterExporter extends AbstractCacheDataImporterExporter
-		implements InitializingBean, ResourceLoaderAware {
+implements InitializingBean, ResourceLoaderAware {
 
 	protected static final String CACHE_DATA_EXPORT_RESOURCE_LOCATION_PROPERTY_NAME =
-		"spring.boot.data.gemfire.cache.data.export.resource.location";
+	"spring.boot.data.gemfire.cache.data.export.resource.location";
 
 	protected static final String CACHE_DATA_IMPORT_RESOURCE_LOCATION_PROPERTY_NAME =
-		"spring.boot.data.gemfire.cache.data.import.resource.location";
+	"spring.boot.data.gemfire.cache.data.import.resource.location";
 
 	protected static final String RESOURCE_NAME_PATTERN = "data-%s.json";
 
@@ -131,14 +131,14 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 		setResourceWriter(initialize(getResourceWriter(), FileResourceWriter::new));
 
 		Stream.of(getExportResourceResolver(), getImportResourceResolver())
-			.forEach(this.newCompositeObjectAwareInitializer());
+		.forEach(this.newCompositeObjectAwareInitializer());
 	}
 
 	Consumer<Object> newCompositeObjectAwareInitializer() {
 
 		return ObjectAwareUtils.applicationContextAwareObjectInitializer(getApplicationContext().orElse(null))
-			.andThen(ObjectAwareUtils.environmentAwareObjectInitializer(getEnvironment().orElse(null)))
-			.andThen(ObjectAwareUtils.resourceLoaderAwareObjectInitializer(getResourceLoader().orElse(null)));
+		.andThen(ObjectAwareUtils.environmentAwareObjectInitializer(getEnvironment().orElse(null)))
+		.andThen(ObjectAwareUtils.resourceLoaderAwareObjectInitializer(getResourceLoader().orElse(null)));
 	}
 
 	/**
@@ -312,7 +312,7 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 	 * @see CacheResourceResolver
 	 */
 	protected static abstract class AbstractCacheResourceResolver extends ResourceLoaderResourceResolver
-			implements ApplicationContextAware, CacheResourceResolver, EnvironmentAware {
+	implements ApplicationContextAware, CacheResourceResolver, EnvironmentAware {
 
 		private ApplicationContext applicationContext;
 
@@ -346,8 +346,8 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 		private ExpressionParser newExpressionParser() {
 
 			ClassLoader classLoader = getApplicationContext()
-				.map(ApplicationContext::getClassLoader)
-				.orElseGet(ClassUtils::getDefaultClassLoader);
+			.map(ApplicationContext::getClassLoader)
+			.orElseGet(ClassUtils::getDefaultClassLoader);
 
 			return new SpelExpressionParser(new SpelParserConfiguration(SpelCompilerMode.MIXED, classLoader));
 		}
@@ -355,21 +355,21 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 		private SimpleEvaluationContext.Builder newEvaluationContextBuilder() {
 
 			PropertyAccessor[] propertyAccessors = {
-				new BeanFactoryAccessor(),
-				DataBindingPropertyAccessor.forReadOnlyAccess(),
-				SmartEnvironmentAccessor.create()
+			new BeanFactoryAccessor(),
+			DataBindingPropertyAccessor.forReadOnlyAccess(),
+			SmartEnvironmentAccessor.create()
 			};
 
 			SimpleEvaluationContext.Builder builder = SimpleEvaluationContext.forPropertyAccessors(propertyAccessors)
-				.withInstanceMethods();
+			.withInstanceMethods();
 
 			String conversionServiceBeanName = ConfigurableApplicationContext.CONVERSION_SERVICE_BEAN_NAME;
 
 			return getApplicationContext()
-				.filter(applicationContext -> applicationContext.containsBean(conversionServiceBeanName))
-				.map(applicationContext -> applicationContext.getBean(conversionServiceBeanName, ConversionService.class))
-				.map(builder::withConversionService)
-				.orElse(builder);
+			.filter(applicationContext -> applicationContext.containsBean(conversionServiceBeanName))
+			.map(applicationContext -> applicationContext.getBean(conversionServiceBeanName, ConversionService.class))
+			.map(builder::withConversionService)
+			.orElse(builder);
 		}
 
 		/**
@@ -491,11 +491,11 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 			Assert.hasText(propertyName, () -> String.format("Property name [%s] must be specified", propertyName));
 
 			return getEnvironment()
-				.filter(environment -> environment.containsProperty(propertyName))
-				.map(environment -> environment.getProperty(propertyName))
-				.filter(StringUtils::hasText)
-				.map(resourceLocation -> evaluate(resourceLocation, region))
-				.orElseGet(() -> getFullyQualifiedResourceLocation(region));
+			.filter(environment -> environment.containsProperty(propertyName))
+			.map(environment -> environment.getProperty(propertyName))
+			.filter(StringUtils::hasText)
+			.map(resourceLocation -> evaluate(resourceLocation, region))
+			.orElseGet(() -> getFullyQualifiedResourceLocation(region));
 		}
 
 		/**
@@ -516,13 +516,13 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 			evaluationContext.setVariable("regionName", region.getName().toLowerCase());
 
 			getEnvironment().ifPresent(environment ->
-				evaluationContext.setVariable("env", EnvironmentMapAdapter.from(environment)));
+			evaluationContext.setVariable("env", EnvironmentMapAdapter.from(environment)));
 
 			Expression expression = parse(expressionString);
 
 			Object value = getApplicationContext()
-				.map(applicationContext -> expression.getValue(evaluationContext, applicationContext))
-				.orElseGet(() -> expression.getValue(evaluationContext));
+			.map(applicationContext -> expression.getValue(evaluationContext, applicationContext))
+			.orElseGet(() -> expression.getValue(evaluationContext));
 
 			return value != null ? value.toString() : null;
 		}
@@ -541,7 +541,7 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 		 */
 		protected Expression parse(String expressionString) {
 			return this.compiledExpressions.computeIfAbsent(expressionString,
-				it -> getExpressionParser().parseExpression(it, getParserContext()));
+			it -> getExpressionParser().parseExpression(it, getParserContext()));
 		}
 
 		/**
@@ -585,7 +585,8 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 	 * @see CacheResourceResolver
 	 */
 	@FunctionalInterface
-	public interface ExportResourceResolver extends CacheResourceResolver { }
+	public interface ExportResourceResolver extends CacheResourceResolver {
+	}
 
 	/**
 	 * Abstract base class extended by export {@link CacheResourceResolver} implementations, providing a template
@@ -595,7 +596,7 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 	 * @see ExportResourceResolver
 	 */
 	public static abstract class AbstractExportResourceResolver extends AbstractCacheResourceResolver
-			implements ExportResourceResolver {
+	implements ExportResourceResolver {
 
 		/**
 		 * @inheritDoc
@@ -613,7 +614,7 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 
 			if (!writable) {
 				getLogger().warn("Resource [{}] for Region [{}] is not writable",
-					resourceLocation, region.getFullPath());
+				resourceLocation, region.getFullPath());
 			}
 
 			return resource;
@@ -626,7 +627,7 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 		protected @Nullable Resource onMissingResource(@Nullable Resource resource, @NonNull String location) {
 
 			getLogger().warn("Resource [{}] at location [{}] does not exist; will try to create it on export",
-				ResourceUtils.nullSafeGetDescription(resource), location);
+			ResourceUtils.nullSafeGetDescription(resource), location);
 
 			return resource;
 		}
@@ -640,7 +641,7 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 		@Override
 		protected @NonNull String getResourcePath() {
 			return String.format("%1$s%2$s%3$s", ResourcePrefix.FILESYSTEM_URL_PREFIX.toUrlPrefix(),
-				System.getProperty("user.dir"), File.separator);
+			System.getProperty("user.dir"), File.separator);
 		}
 	}
 
@@ -651,7 +652,8 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 	 * @see CacheResourceResolver
 	 */
 	@FunctionalInterface
-	public interface ImportResourceResolver extends CacheResourceResolver { }
+	public interface ImportResourceResolver extends CacheResourceResolver {
+	}
 
 	/**
 	 * Abstract base class extended by import {@link ResourceResolver} implementations, providing a template
@@ -661,7 +663,7 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 	 * @see ImportResourceResolver
 	 */
 	public static abstract class AbstractImportResourceResolver extends AbstractCacheResourceResolver
-			implements ImportResourceResolver {
+	implements ImportResourceResolver {
 
 		/**
 		 * @inheritDoc
@@ -680,21 +682,22 @@ public abstract class ResourceCapableCacheDataImporterExporter extends AbstractC
 
 			if (!exists) {
 				getLogger().warn("Resource [{}] for Region [{}] could not be found; skipping import for Region",
-					resourceLocation, region.getFullPath());
+				resourceLocation, region.getFullPath());
 			}
 			else {
 				Assert.state(readable, () -> String.format("Resource [%1$s] for Region [%2$s] is not readable",
-					resourceLocation, region.getFullPath()));
+				resourceLocation, region.getFullPath()));
 			}
 
 			return resource;
 		}
 
-		@Nullable @Override
+		@Nullable
+		@Override
 		protected Resource onMissingResource(@Nullable Resource resource, @NonNull String location) {
 
 			getLogger().warn("Resource [{}] at location [{}] does not exist; skipping import",
-				ResourceUtils.nullSafeGetDescription(resource), location);
+			ResourceUtils.nullSafeGetDescription(resource), location);
 
 			return null;
 		}

@@ -43,20 +43,20 @@ public abstract class AbstractResourceWriter implements ResourceWriter {
 	public void write(@NonNull Resource resource, byte[] data) {
 
 		ResourceUtils.asWritableResource(resource)
-			.filter(this::isAbleToHandle)
-			.map(this::preProcess)
-			.map(it -> {
-				try (OutputStream out = it.getOutputStream()) {
-					doWrite(out, data);
-					return true;
-				}
-				catch (IOException cause) {
-					throw new ResourceWriteException(String.format("Failed to write to Resource [%s]",
-						it.getDescription()), cause);
-				}
-			})
-			.orElseThrow(() -> new UnhandledResourceException(String.format("Unable to handle Resource [%s]",
-				ResourceUtils.nullSafeGetDescription(resource))));
+		.filter(this::isAbleToHandle)
+		.map(this::preProcess)
+		.map(it -> {
+			try (OutputStream out = it.getOutputStream()) {
+				doWrite(out, data);
+				return true;
+			}
+			catch (IOException cause) {
+				throw new ResourceWriteException(String.format("Failed to write to Resource [%s]",
+			it.getDescription()), cause);
+			}
+		})
+		.orElseThrow(() -> new UnhandledResourceException(String.format("Unable to handle Resource [%s]",
+	ResourceUtils.nullSafeGetDescription(resource))));
 	}
 
 	/**

@@ -46,7 +46,7 @@ public class CustomerService {
 	public CustomerRepository getCustomerRepository() {
 
 		Assert.state(this.customerRepository != null,
-			"CustomerRepository was not properly configured");
+		"CustomerRepository was not properly configured");
 
 		return this.customerRepository;
 	}

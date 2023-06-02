@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
  * @since 1.0.0
  */
 @Data
-@EqualsAndHashCode(of = { "temperature", "temperatureUnit" })
+@EqualsAndHashCode(of = {"temperature", "temperatureUnit"})
 @RequiredArgsConstructor(staticName = "of")
 public class TemperatureReading {
 

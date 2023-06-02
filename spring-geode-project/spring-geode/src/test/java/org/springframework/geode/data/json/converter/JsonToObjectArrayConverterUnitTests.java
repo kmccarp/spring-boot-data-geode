@@ -45,8 +45,8 @@ public class JsonToObjectArrayConverterUnitTests {
 		String json = "[{\"name\":\"Jon Doe\"},{\"name\":\"Jane Doe\"}]";
 
 		Object[] array = {
-			Customer.newCustomer(1L, "Jon Doe"),
-			Customer.newCustomer(2L, "Jane Doe")
+		Customer.newCustomer(1L, "Jon Doe"),
+		Customer.newCustomer(2L, "Jane Doe")
 		};
 
 		JsonToObjectArrayConverter converter = mock(JsonToObjectArrayConverter.class);

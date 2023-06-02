@@ -76,8 +76,8 @@ public class RepositoryAsyncEventListener<T, ID> implements AsyncEventListener {
 		this.repository = repository;
 
 		this.repositoryFunctions.addAll(Arrays.asList(
-			new CreateUpdateAsyncEventRepositoryFunction<>(this),
-			new RemoveAsyncEventRepositoryFunction<>(this)
+		new CreateUpdateAsyncEventRepositoryFunction<>(this),
+		new RemoveAsyncEventRepositoryFunction<>(this)
 		));
 	}
 
@@ -201,26 +201,26 @@ public class RepositoryAsyncEventListener<T, ID> implements AsyncEventListener {
 	/**
 	 * @see #processEvents(List)
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	protected boolean doProcessEvents(List<AsyncEvent> events) {
 
 		AtomicBoolean result = new AtomicBoolean(true);
 
 		CollectionUtils.nullSafeList(events).stream()
-			.filter(Objects::nonNull)
-			.forEach(event -> {
+		.filter(Objects::nonNull)
+		.forEach(event -> {
 
-				Optional<AsyncEventOperationRepositoryFunction<T, ID>> repositoryFunction =
-					getRepositoryFunctions().stream()
-						.filter(function -> function.canProcess(event))
-						.findFirst();
+			Optional<AsyncEventOperationRepositoryFunction<T, ID>> repositoryFunction =
+		getRepositoryFunctions().stream()
+		.filter(function -> function.canProcess(event))
+		.findFirst();
 
-				boolean processed = Boolean.TRUE.equals(repositoryFunction
-					.map(function -> function.apply(event))
-					.orElse(false));
+			boolean processed = Boolean.TRUE.equals(repositoryFunction
+		.map(function -> function.apply(event))
+		.orElse(false));
 
-				result.compareAndSet(true, processed);
-			});
+			result.compareAndSet(true, processed);
+		});
 
 		return result.get();
 	}
@@ -324,7 +324,7 @@ public class RepositoryAsyncEventListener<T, ID> implements AsyncEventListener {
 		@Override
 		public String toString() {
 			return String.format("Error [%s] thrown when processing AsyncEvent [%s]",
-				getCause().getMessage(), getEvent());
+			getCause().getMessage(), getEvent());
 		}
 	}
 
@@ -337,7 +337,8 @@ public class RepositoryAsyncEventListener<T, ID> implements AsyncEventListener {
 	 * @see AsyncEventError
 	 */
 	@FunctionalInterface
-	public interface AsyncEventErrorHandler extends Function<AsyncEventError, Boolean> { }
+	public interface AsyncEventErrorHandler extends Function<AsyncEventError, Boolean> {
+	}
 
 	/**
 	 * The {@link AsyncEventOperationRepositoryFunction} interface is a {@link Function} and {@link FunctionalInterface}
@@ -379,7 +380,7 @@ public class RepositoryAsyncEventListener<T, ID> implements AsyncEventListener {
 	 * @see AsyncEventOperationRepositoryFunction
 	 */
 	public static abstract class AbstractAsyncEventOperationRepositoryFunction<T, ID>
-			implements AsyncEventOperationRepositoryFunction<T, ID> {
+	implements AsyncEventOperationRepositoryFunction<T, ID> {
 
 		private final RepositoryAsyncEventListener<T, ID> listener;
 
@@ -523,7 +524,7 @@ public class RepositoryAsyncEventListener<T, ID> implements AsyncEventListener {
 	 * @param <ID> {@link Class type} of the identifier of the entity.
 	 */
 	public static class CreateUpdateAsyncEventRepositoryFunction<T, ID>
-			extends AbstractAsyncEventOperationRepositoryFunction<T, ID> {
+	extends AbstractAsyncEventOperationRepositoryFunction<T, ID> {
 
 		/**
 		 * Constructs a new instance of {@link CreateUpdateAsyncEventRepositoryFunction} initialized with the given,
@@ -567,7 +568,7 @@ public class RepositoryAsyncEventListener<T, ID> implements AsyncEventListener {
 	 * @param <ID> {@link Class type} of the identifier of the entity.
 	 */
 	public static class RemoveAsyncEventRepositoryFunction<T, ID>
-			extends AbstractAsyncEventOperationRepositoryFunction<T, ID> {
+	extends AbstractAsyncEventOperationRepositoryFunction<T, ID> {
 
 		/**
 		 * Constructs a new instance of {@link RemoveAsyncEventRepositoryFunction} initialized with the given, required

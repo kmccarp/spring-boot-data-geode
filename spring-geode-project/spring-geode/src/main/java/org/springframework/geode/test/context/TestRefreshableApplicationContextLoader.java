@@ -67,7 +67,7 @@ public class TestRefreshableApplicationContextLoader extends AbstractContextLoad
 	public ApplicationContext loadContext(MergedContextConfiguration mergedConfig) {
 
 		ConfigurableApplicationContext applicationContext =
-			configure(newApplicationContext(mergedConfig), mergedConfig);
+		configure(newApplicationContext(mergedConfig), mergedConfig);
 
 		applicationContext.registerShutdownHook();
 		applicationContext.refresh();
@@ -90,7 +90,7 @@ public class TestRefreshableApplicationContextLoader extends AbstractContextLoad
 	protected ConfigurableApplicationContext newApplicationContext(MergedContextConfiguration contextConfiguration) {
 
 		RefreshableAnnotationConfigApplicationContext applicationContext =
-			new RefreshableAnnotationConfigApplicationContext(contextConfiguration.getParentApplicationContext());
+		new RefreshableAnnotationConfigApplicationContext(contextConfiguration.getParentApplicationContext());
 
 		prepareContext(applicationContext, contextConfiguration);
 
@@ -98,7 +98,7 @@ public class TestRefreshableApplicationContextLoader extends AbstractContextLoad
 	}
 
 	private ConfigurableApplicationContext configure(ConfigurableApplicationContext applicationContext,
-			MergedContextConfiguration contextConfiguration) {
+	MergedContextConfiguration contextConfiguration) {
 
 		applicationContext = configureComponentClasses(applicationContext, contextConfiguration);
 		applicationContext = configureScan(applicationContext, contextConfiguration);
@@ -109,25 +109,25 @@ public class TestRefreshableApplicationContextLoader extends AbstractContextLoad
 	}
 
 	private ConfigurableApplicationContext configureComponentClasses(
-			ConfigurableApplicationContext applicationContext, MergedContextConfiguration contextConfiguration) {
+	ConfigurableApplicationContext applicationContext, MergedContextConfiguration contextConfiguration) {
 
 		Optional.ofNullable(applicationContext)
-			.filter(it -> ArrayUtils.isNotEmpty(contextConfiguration.getClasses()))
-			.filter(AnnotationConfigRegistry.class::isInstance)
-			.map(AnnotationConfigRegistry.class::cast)
-			.ifPresent(registry -> registry.register(contextConfiguration.getClasses()));
+		.filter(it -> ArrayUtils.isNotEmpty(contextConfiguration.getClasses()))
+		.filter(AnnotationConfigRegistry.class::isInstance)
+		.map(AnnotationConfigRegistry.class::cast)
+		.ifPresent(registry -> registry.register(contextConfiguration.getClasses()));
 
 		return applicationContext;
 	}
 
 	private ConfigurableApplicationContext configureScan(ConfigurableApplicationContext applicationContext,
-			MergedContextConfiguration contextConfiguration) {
+	MergedContextConfiguration contextConfiguration) {
 
 		Optional.ofNullable(applicationContext)
-			.filter(it -> ArrayUtils.isNotEmpty(contextConfiguration.getLocations()))
-			.filter(AnnotationConfigRegistry.class::isInstance)
-			.map(AnnotationConfigRegistry.class::cast)
-			.ifPresent(registry -> registry.scan(contextConfiguration.getLocations()));
+		.filter(it -> ArrayUtils.isNotEmpty(contextConfiguration.getLocations()))
+		.filter(AnnotationConfigRegistry.class::isInstance)
+		.map(AnnotationConfigRegistry.class::cast)
+		.ifPresent(registry -> registry.scan(contextConfiguration.getLocations()));
 
 		return applicationContext;
 	}
@@ -138,7 +138,7 @@ public class TestRefreshableApplicationContextLoader extends AbstractContextLoad
 	@Override
 	public ApplicationContext loadContext(String... locations) {
 		return loadContext(new MergedContextConfiguration(this.testClass, locations, new Class[0], new String[0],
-			this));
+		this));
 	}
 
 	/**

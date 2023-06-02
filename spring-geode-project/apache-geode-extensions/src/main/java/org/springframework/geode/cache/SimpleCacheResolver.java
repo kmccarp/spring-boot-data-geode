@@ -54,13 +54,14 @@ public abstract class SimpleCacheResolver {
 	public static SimpleCacheResolver getInstance() {
 
 		return instance.updateAndGet(cacheResolver -> cacheResolver != null
-			? cacheResolver
-			: newSimpleCacheResolver());
+		? cacheResolver
+		: newSimpleCacheResolver());
 	}
 
 	// TODO Consider resolving the SimpleCacheResolver instance using Java's ServiceProvider API.
 	private static SimpleCacheResolver newSimpleCacheResolver() {
-		return new SimpleCacheResolver() { };
+		return new SimpleCacheResolver() {
+		};
 	}
 
 	/**
@@ -110,7 +111,7 @@ public abstract class SimpleCacheResolver {
 
 		try {
 			return Optional.ofNullable(ClientCacheFactory.getAnyInstance())
-				.filter(CacheUtils::isClientCache);
+			.filter(CacheUtils::isClientCache);
 		}
 		catch (Throwable ignore) {
 			return Optional.empty();
@@ -130,7 +131,7 @@ public abstract class SimpleCacheResolver {
 
 		try {
 			return Optional.ofNullable(CacheFactory.getAnyInstance())
-				.filter(CacheUtils::isPeerCache);
+			.filter(CacheUtils::isPeerCache);
 		}
 		catch (Throwable ignore) {
 			return Optional.empty();
@@ -150,6 +151,6 @@ public abstract class SimpleCacheResolver {
 	 */
 	public <T extends GemFireCache> T require() {
 		return this.<T>resolve()
-			.orElseThrow(() -> new IllegalStateException("GemFireCache not found"));
+		.orElseThrow(() -> new IllegalStateException("GemFireCache not found"));
 	}
 }

@@ -53,7 +53,7 @@ import org.springframework.util.StringUtils;
  * @since 1.0.0
  */
 @SpringBootConfiguration
-@ConditionalOnClass({ CacheFactoryBean.class, GemFireCache.class })
+@ConditionalOnClass({CacheFactoryBean.class, GemFireCache.class})
 @SuppressWarnings("unused")
 public class CacheNameAutoConfiguration {
 
@@ -67,10 +67,10 @@ public class CacheNameAutoConfiguration {
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE + 1) // apply next (e.g. after @UseMemberName)
 	@ConditionalOnMissingProperty({
-		SPRING_DATA_GEMFIRE_CACHE_NAME_PROPERTY,
-		SPRING_DATA_GEMFIRE_NAME_PROPERTY,
-		SPRING_DATA_GEODE_CACHE_NAME_PROPERTY,
-		SPRING_DATA_GEODE_NAME_PROPERTY,
+	SPRING_DATA_GEMFIRE_CACHE_NAME_PROPERTY,
+	SPRING_DATA_GEMFIRE_NAME_PROPERTY,
+	SPRING_DATA_GEODE_CACHE_NAME_PROPERTY,
+	SPRING_DATA_GEODE_NAME_PROPERTY,
 	})
 	ClientCacheConfigurer clientCacheNameConfigurer(Environment environment) {
 		return (beanName, clientCacheFactoryBean) -> configureCacheName(environment, clientCacheFactoryBean);
@@ -79,10 +79,10 @@ public class CacheNameAutoConfiguration {
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE + 1) // apply next (e.g. after @UseMemberName)
 	@ConditionalOnMissingProperty({
-		SPRING_DATA_GEMFIRE_CACHE_NAME_PROPERTY,
-		SPRING_DATA_GEMFIRE_NAME_PROPERTY,
-		SPRING_DATA_GEODE_CACHE_NAME_PROPERTY,
-		SPRING_DATA_GEODE_NAME_PROPERTY,
+	SPRING_DATA_GEMFIRE_CACHE_NAME_PROPERTY,
+	SPRING_DATA_GEMFIRE_NAME_PROPERTY,
+	SPRING_DATA_GEODE_CACHE_NAME_PROPERTY,
+	SPRING_DATA_GEODE_NAME_PROPERTY,
 	})
 	PeerCacheConfigurer peerCacheNameConfigurer(Environment environment) {
 		return (beanName, peerCacheFactoryBean) -> configureCacheName(environment, peerCacheFactoryBean);
@@ -100,10 +100,10 @@ public class CacheNameAutoConfiguration {
 	private String resolveSpringApplicationName(Environment environment) {
 
 		return Optional.ofNullable(environment)
-			.filter(it -> it.containsProperty(SPRING_APPLICATION_NAME_PROPERTY))
-			.map(it -> it.getProperty(SPRING_APPLICATION_NAME_PROPERTY))
-			.filter(StringUtils::hasText)
-			.orElse(null);
+		.filter(it -> it.containsProperty(SPRING_APPLICATION_NAME_PROPERTY))
+		.map(it -> it.getProperty(SPRING_APPLICATION_NAME_PROPERTY))
+		.filter(StringUtils::hasText)
+		.orElse(null);
 	}
 
 	private void setGemFireName(CacheFactoryBean cacheFactoryBean, String gemfireName) {

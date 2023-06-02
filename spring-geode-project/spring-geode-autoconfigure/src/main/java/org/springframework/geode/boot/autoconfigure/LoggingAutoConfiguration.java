@@ -42,9 +42,9 @@ import org.springframework.data.gemfire.config.annotation.EnableLogging;
 @ConditionalOnBean(GemFireCache.class)
 @ConditionalOnClass(CacheFactoryBean.class)
 @ConditionalOnMissingBean(name = {
-	"org.springframework.data.gemfire.config.annotation.LoggingConfiguration.ClientGemFirePropertiesConfigurer",
-	"org.springframework.data.gemfire.config.annotation.LoggingConfiguration.LocatorGemFirePropertiesConfigurer",
-	"org.springframework.data.gemfire.config.annotation.LoggingConfiguration.PeerGemFirePropertiesConfigurer",
+"org.springframework.data.gemfire.config.annotation.LoggingConfiguration.ClientGemFirePropertiesConfigurer",
+"org.springframework.data.gemfire.config.annotation.LoggingConfiguration.LocatorGemFirePropertiesConfigurer",
+"org.springframework.data.gemfire.config.annotation.LoggingConfiguration.PeerGemFirePropertiesConfigurer",
 })
 @EnableLogging
 @SuppressWarnings("unused")

@@ -47,7 +47,7 @@ public class GeodeBindingsPropertiesProcessor implements BindingsPropertiesProce
 	 */
 	@Override
 	public void process(@NonNull Environment environment, @NonNull Bindings bindings,
-			@NonNull Map<String, Object> properties) {
+	@NonNull Map<String, Object> properties) {
 
 		if (Guards.isTypeEnabled(environment, TYPE)) {
 

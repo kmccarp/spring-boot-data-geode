@@ -220,12 +220,14 @@ public class SpringCachingWithMockObjectsUnitTests extends IntegrationTestsSuppo
 			return value != null ? () -> value : null;
 		}
 
-		@Nullable @Override
+		@Nullable
+		@Override
 		public CacheManager getObject() {
 			return this.cacheManager;
 		}
 
-		@Nullable @Override
+		@Nullable
+		@Override
 		public Class<?> getObjectType() {
 			return this.cacheManager != null ? this.cacheManager.getClass() : CacheManager.class;
 		}

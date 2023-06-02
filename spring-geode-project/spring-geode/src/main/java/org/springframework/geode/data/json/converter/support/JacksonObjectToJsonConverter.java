@@ -68,7 +68,7 @@ public class JacksonObjectToJsonConverter implements ObjectToJsonConverter {
 		}
 		catch (JsonProcessingException cause) {
 			throw new ConversionFailedException(TypeDescriptor.forObject(source), TypeDescriptor.valueOf(String.class),
-				source, cause);
+			source, cause);
 		}
 	}
 
@@ -101,11 +101,11 @@ public class JacksonObjectToJsonConverter implements ObjectToJsonConverter {
 		Assert.notNull(target, "Target object must not be null");
 
 		return newObjectMapper()
-			.addMixIn(target.getClass(), ObjectTypeMetadataMixin.class)
-			.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, true)
-			.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true)
-			.configure(SerializationFeature.INDENT_OUTPUT, true)
-			.findAndRegisterModules();
+		.addMixIn(target.getClass(), ObjectTypeMetadataMixin.class)
+		.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, true)
+		.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true)
+		.configure(SerializationFeature.INDENT_OUTPUT, true)
+		.findAndRegisterModules();
 	}
 
 	/**
@@ -114,16 +114,18 @@ public class JacksonObjectToJsonConverter implements ObjectToJsonConverter {
 	 * @return a new instance of Jackson's {@link ObjectMapper}; never {@literal null}.
 	 * @see com.fasterxml.jackson.databind.ObjectMapper
 	 */
-	@NonNull ObjectMapper newObjectMapper() {
+	@NonNull
+	ObjectMapper newObjectMapper() {
 		return new ObjectMapper();
 	}
 
 	@JsonTypeInfo(
-		use = JsonTypeInfo.Id.CLASS,
-		include = JsonTypeInfo.As.PROPERTY,
-		property = AT_TYPE_METADATA_PROPERTY_NAME
+	use = JsonTypeInfo.Id.CLASS,
+	include = JsonTypeInfo.As.PROPERTY,
+	property = AT_TYPE_METADATA_PROPERTY_NAME
 	)
 	@SuppressWarnings("all")
-	interface ObjectTypeMetadataMixin { }
+	interface ObjectTypeMetadataMixin {
+	}
 
 }

@@ -70,7 +70,7 @@ public class RepositoryCacheLoaderRegionConfigurerUnitTests {
 	public void constructRepositoryCacheLoaderRegionConfigurerIsSuccessful() {
 
 		RepositoryCacheLoaderRegionConfigurer<?, ?> regionConfigurer =
-			new RepositoryCacheLoaderRegionConfigurer<>(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheLoaderRegionConfigurer<>(this.mockRepository, this.mockPredicate);
 
 		assertThat(regionConfigurer).isNotNull();
 		assertThat(regionConfigurer.getRegionBeanName()).isEqualTo(this.mockPredicate);
@@ -112,12 +112,12 @@ public class RepositoryCacheLoaderRegionConfigurerUnitTests {
 		when(this.mockPredicate.test(anyString())).thenReturn(true);
 
 		RepositoryCacheLoaderRegionConfigurer regionConfigurer =
-			new RepositoryCacheLoaderRegionConfigurer(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheLoaderRegionConfigurer(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", clientRegionFactoryBean);
 
 		verify(clientRegionFactoryBean, times(1))
-			.setCacheLoader(isA(RepositoryCacheLoader.class));
+		.setCacheLoader(isA(RepositoryCacheLoader.class));
 
 		verify(this.mockPredicate, times(1)).test(eq("Example"));
 	}
@@ -131,7 +131,7 @@ public class RepositoryCacheLoaderRegionConfigurerUnitTests {
 		ClientRegionFactoryBean<?, ?> clientRegionFactoryBean = spy(new ClientRegionFactoryBean());
 
 		RepositoryCacheLoaderRegionConfigurer regionConfigurer =
-			new RepositoryCacheLoaderRegionConfigurer(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheLoaderRegionConfigurer(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", clientRegionFactoryBean);
 
@@ -159,12 +159,12 @@ public class RepositoryCacheLoaderRegionConfigurerUnitTests {
 		when(this.mockPredicate.test(anyString())).thenReturn(true);
 
 		RepositoryCacheLoaderRegionConfigurer regionConfigurer =
-			new RepositoryCacheLoaderRegionConfigurer(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheLoaderRegionConfigurer(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", peerRegionFactoryBean);
 
 		verify(peerRegionFactoryBean, times(1))
-			.setCacheLoader(isA(RepositoryCacheLoader.class));
+		.setCacheLoader(isA(RepositoryCacheLoader.class));
 
 		verify(this.mockPredicate, times(1)).test(eq("Example"));
 	}
@@ -178,7 +178,7 @@ public class RepositoryCacheLoaderRegionConfigurerUnitTests {
 		PeerRegionFactoryBean<?, ?> peerRegionFactoryBean = mock(PeerRegionFactoryBean.class);
 
 		RepositoryCacheLoaderRegionConfigurer regionConfigurer =
-			new RepositoryCacheLoaderRegionConfigurer(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheLoaderRegionConfigurer(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", peerRegionFactoryBean);
 

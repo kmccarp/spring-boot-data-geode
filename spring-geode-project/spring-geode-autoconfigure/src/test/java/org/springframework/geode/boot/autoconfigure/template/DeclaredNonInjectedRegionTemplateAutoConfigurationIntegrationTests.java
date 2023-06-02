@@ -93,7 +93,7 @@ public class DeclaredNonInjectedRegionTemplateAutoConfigurationIntegrationTests 
 	@Test
 	public void exampleRegionTemplateExists() {
 		assertThat(this.exampleTemplate.getRegion())
-			.isEqualTo(this.clientCache.getRegion(RegionUtils.toRegionPath("Example")));
+		.isEqualTo(this.clientCache.getRegion(RegionUtils.toRegionPath("Example")));
 	}
 
 	@SpringBootApplication

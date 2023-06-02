@@ -33,7 +33,8 @@ public class ResourceDataAccessException extends RuntimeException {
 	 * Constructs a new instance of {@link ResourceDataAccessException} with no {@link String message}
 	 * or known {@link Throwable cause}.
 	 */
-	public ResourceDataAccessException() { }
+	public ResourceDataAccessException() {
+	}
 
 	/**
 	 * Constructs a new instance of {@link ResourceDataAccessException} initialized with the given {@link String message}

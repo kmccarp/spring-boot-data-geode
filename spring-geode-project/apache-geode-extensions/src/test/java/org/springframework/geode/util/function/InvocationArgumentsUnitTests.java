@@ -34,7 +34,7 @@ public class InvocationArgumentsUnitTests {
 	@Test
 	public void constructsInvocationArgumentsWithArguments() {
 
-		Object[] arguments = { true, 'c', 1, Math.PI, "test" };
+		Object[] arguments = {true, 'c', 1, Math.PI, "test"};
 
 		InvocationArguments invocationArguments = new InvocationArguments(arguments);
 
@@ -75,7 +75,7 @@ public class InvocationArgumentsUnitTests {
 	@Test
 	public void iteratesArguments() {
 
-		Object[] arguments = { true, 1, "test" };
+		Object[] arguments = {true, 1, "test"};
 
 		InvocationArguments invocationArguments = new InvocationArguments(arguments);
 

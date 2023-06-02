@@ -90,8 +90,8 @@ public class ObjectPdxInstanceAdapter implements PdxInstance {
 	public static @Nullable Object unwrap(@Nullable PdxInstance pdxInstance) {
 
 		return pdxInstance instanceof ObjectPdxInstanceAdapter
-			? pdxInstance.getObject()
-			: pdxInstance;
+		? pdxInstance.getObject()
+		: pdxInstance;
 	}
 
 	private final AtomicReference<String> resolvedIdentityFieldName = new AtomicReference<>(null);
@@ -184,8 +184,8 @@ public class ObjectPdxInstanceAdapter implements PdxInstance {
 		BeanWrapper beanWrapper = getBeanWrapper();
 
 		return beanWrapper.isReadableProperty(fieldName)
-			? beanWrapper.getPropertyValue(fieldName)
-			: null;
+		? beanWrapper.getPropertyValue(fieldName)
+		: null;
 	}
 
 	/**
@@ -202,12 +202,12 @@ public class ObjectPdxInstanceAdapter implements PdxInstance {
 	public List<String> getFieldNames() {
 
 		PropertyDescriptor[] propertyDescriptors =
-			ArrayUtils.nullSafeArray(getBeanWrapper().getPropertyDescriptors(), PropertyDescriptor.class);
+		ArrayUtils.nullSafeArray(getBeanWrapper().getPropertyDescriptors(), PropertyDescriptor.class);
 
 		return Arrays.stream(propertyDescriptors)
-			.map(PropertyDescriptor::getName)
-			.filter(propertyName -> !CLASS_PROPERTY_NAME.equals(propertyName))
-			.collect(Collectors.toList());
+		.map(PropertyDescriptor::getName)
+		.filter(propertyName -> !CLASS_PROPERTY_NAME.equals(propertyName))
+		.collect(Collectors.toList());
 	}
 
 	/**
@@ -222,64 +222,65 @@ public class ObjectPdxInstanceAdapter implements PdxInstance {
 	public boolean isIdentityField(String fieldName) {
 
 		String resolvedIdentityFieldName = this.resolvedIdentityFieldName.updateAndGet(it ->
-			StringUtils.hasText(it) ? it : resolveIdentityFieldNameFromProperty());
+		StringUtils.hasText(it) ? it : resolveIdentityFieldNameFromProperty());
 
 		return StringUtils.hasText(resolvedIdentityFieldName) && resolvedIdentityFieldName.equals(fieldName);
 	}
 
 	// Identifier Search Algorithm: @Id Property -> @Id Field -> "id" Property
 
-	@Nullable String resolveIdentityFieldNameFromProperty() {
+	@Nullable
+	String resolveIdentityFieldNameFromProperty() {
 		return resolveIdentityFieldNameFromProperty(getBeanWrapper());
 	}
 
 	private @Nullable String resolveIdentityFieldNameFromProperty(@NonNull BeanWrapper beanWrapper) {
 
 		List<PropertyDescriptor> properties =
-			Arrays.asList(ArrayUtils.nullSafeArray(beanWrapper.getPropertyDescriptors(), PropertyDescriptor.class));
+		Arrays.asList(ArrayUtils.nullSafeArray(beanWrapper.getPropertyDescriptors(), PropertyDescriptor.class));
 
 		Optional<PropertyDescriptor> atIdAnnotatedProperty = properties.stream()
-			.filter(this::isAtIdAnnotatedProperty)
-			.findFirst();
+		.filter(this::isAtIdAnnotatedProperty)
+		.findFirst();
 
 		return atIdAnnotatedProperty
-			.map(PropertyDescriptor::getName)
-			.orElseGet(() -> resolveIdentityFieldNameFromField(beanWrapper));
+		.map(PropertyDescriptor::getName)
+		.orElseGet(() -> resolveIdentityFieldNameFromField(beanWrapper));
 	}
 
 	private boolean isAtIdAnnotatedProperty(@Nullable PropertyDescriptor propertyDescriptor) {
 
 		return Optional.ofNullable(propertyDescriptor)
-			.map(PropertyDescriptor::getReadMethod)
-			.map(method -> AnnotationUtils.findAnnotation(method, Id.class))
-			.isPresent();
+		.map(PropertyDescriptor::getReadMethod)
+		.map(method -> AnnotationUtils.findAnnotation(method, Id.class))
+		.isPresent();
 	}
 
 	private @Nullable String resolveIdentityFieldNameFromField(@NonNull BeanWrapper beanWrapper) {
 
 		List<Field> fields =
-			Arrays.asList(ArrayUtils.nullSafeArray(beanWrapper.getWrappedClass().getDeclaredFields(), Field.class));
+		Arrays.asList(ArrayUtils.nullSafeArray(beanWrapper.getWrappedClass().getDeclaredFields(), Field.class));
 
 		Optional<PropertyDescriptor> atIdAnnotatedProperty = fields.stream()
-			.map(field -> getPropertyForAtIdAnnotatedField(beanWrapper, field))
-			.filter(Objects::nonNull)
-			.findFirst();
+		.map(field -> getPropertyForAtIdAnnotatedField(beanWrapper, field))
+		.filter(Objects::nonNull)
+		.findFirst();
 
 		return atIdAnnotatedProperty
-			.map(PropertyDescriptor::getName)
-			.orElseGet(() -> beanWrapper.isReadableProperty(ID_PROPERTY_NAME)
-				? ID_PROPERTY_NAME
-				: null);
+		.map(PropertyDescriptor::getName)
+		.orElseGet(() -> beanWrapper.isReadableProperty(ID_PROPERTY_NAME)
+	? ID_PROPERTY_NAME
+	: null);
 	}
 
 	private @Nullable PropertyDescriptor getPropertyForAtIdAnnotatedField(@NonNull BeanWrapper beanWrapper,
-			@Nullable Field field) {
+	@Nullable Field field) {
 
 		return Optional.ofNullable(field)
-			.filter(it -> beanWrapper.isReadableProperty(it.getName()))
-			.filter(it -> Objects.nonNull(AnnotationUtils.findAnnotation(it, Id.class)))
-			.map(it -> beanWrapper.getPropertyDescriptor(it.getName()))
-			.orElse(null);
+		.filter(it -> beanWrapper.isReadableProperty(it.getName()))
+		.filter(it -> Objects.nonNull(AnnotationUtils.findAnnotation(it, Id.class)))
+		.map(it -> beanWrapper.getPropertyDescriptor(it.getName()))
+		.orElse(null);
 	}
 
 	/**
@@ -325,19 +326,19 @@ public class ObjectPdxInstanceAdapter implements PdxInstance {
 			private void assertFieldIsPresent(String fieldName) {
 
 				Supplier<String> pdxFieldNotFoundExceptionMessageSupplier = () ->
-					String.format("Field [%1$s] does not exist on Object [%2$s]", fieldName, getClassName());
+				String.format("Field [%1$s] does not exist on Object [%2$s]", fieldName, getClassName());
 
 				assertCondition(hasField(fieldName),
-					() -> new PdxFieldDoesNotExistException(pdxFieldNotFoundExceptionMessageSupplier.get()));
+				() -> new PdxFieldDoesNotExistException(pdxFieldNotFoundExceptionMessageSupplier.get()));
 			}
 
 			private void assertFieldIsWritable(BeanWrapper beanWrapper, String fieldName) {
 
 				Supplier<String> pdxFieldNotWritableExceptionMessageSupplier = () ->
-					String.format("Field [%1$s] of Object [%2$s] is not writable", fieldName, getClassName());
+				String.format("Field [%1$s] of Object [%2$s] is not writable", fieldName, getClassName());
 
 				assertCondition(beanWrapper.isWritableProperty(fieldName),
-					() -> new PdxFieldNotWritableException(pdxFieldNotWritableExceptionMessageSupplier.get()));
+				() -> new PdxFieldNotWritableException(pdxFieldNotWritableExceptionMessageSupplier.get()));
 			}
 
 			private void assertValueIsTypeMatch(BeanWrapper beanWrapper, String fieldName, Object value) {
@@ -345,11 +346,11 @@ public class ObjectPdxInstanceAdapter implements PdxInstance {
 				PropertyDescriptor property = beanWrapper.getPropertyDescriptor(fieldName);
 
 				Supplier<String> typeMismatchExceptionMessageSupplier = () ->
-					String.format("Value [%1$s] of type [%2$s] does not match field [%3$s] of type [%4$s] on Object [%5$s]",
-						value, ObjectUtils.nullSafeClassName(value), fieldName, property.getPropertyType().getName(), getClassName());
+				String.format("Value [%1$s] of type [%2$s] does not match field [%3$s] of type [%4$s] on Object [%5$s]",
+			value, ObjectUtils.nullSafeClassName(value), fieldName, property.getPropertyType().getName(), getClassName());
 
 				assertCondition(isTypeMatch(property, value),
-					() -> new PdxFieldTypeMismatchException(typeMismatchExceptionMessageSupplier.get()));
+				() -> new PdxFieldTypeMismatchException(typeMismatchExceptionMessageSupplier.get()));
 			}
 
 			private boolean isTypeMatch(PropertyDescriptor property, Object value) {

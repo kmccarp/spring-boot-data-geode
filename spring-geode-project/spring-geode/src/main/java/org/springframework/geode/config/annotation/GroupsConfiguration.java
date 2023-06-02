@@ -73,24 +73,24 @@ public class GroupsConfiguration extends AbstractAnnotationConfigSupport impleme
 			AnnotationAttributes inGroupsAttributes = getAnnotationAttributes(importMetadata);
 
 			setGroups(inGroupsAttributes.containsKey("value")
-				? inGroupsAttributes.getStringArray("value") : null);
+			? inGroupsAttributes.getStringArray("value") : null);
 
 			setGroups(inGroupsAttributes.containsKey("groups")
-				? inGroupsAttributes.getStringArray("groups") : null);
+			? inGroupsAttributes.getStringArray("groups") : null);
 		}
 	}
 
 	protected void setGroups(String[] groups) {
 
 		this.groups = Optional.ofNullable(groups)
-			.filter(it -> it.length > 0)
-			.orElse(this.groups);
+		.filter(it -> it.length > 0)
+		.orElse(this.groups);
 	}
 
 	protected Optional<String[]> getGroups() {
 
 		return Optional.ofNullable(this.groups)
-			.filter(it -> it.length > 0);
+		.filter(it -> it.length > 0);
 	}
 
 	@Bean
@@ -105,6 +105,6 @@ public class GroupsConfiguration extends AbstractAnnotationConfigSupport impleme
 
 	private void configureGroups(CacheFactoryBean cacheFactoryBean) {
 		getGroups().ifPresent(groups -> cacheFactoryBean.getProperties()
-			.setProperty(GEMFIRE_GROUPS_PROPERTY, StringUtils.arrayToCommaDelimitedString(groups)));
+		.setProperty(GEMFIRE_GROUPS_PROPERTY, StringUtils.arrayToCommaDelimitedString(groups)));
 	}
 }

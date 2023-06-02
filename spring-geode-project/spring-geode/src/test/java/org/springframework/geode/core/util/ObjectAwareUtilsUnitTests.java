@@ -72,14 +72,14 @@ public class ObjectAwareUtilsUnitTests {
 		ApplicationContextAware mockApplicationContextAware = mock(ApplicationContextAware.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.applicationContextAwareObjectInitializer(mockApplicationContext);
+		ObjectAwareUtils.applicationContextAwareObjectInitializer(mockApplicationContext);
 
 		assertThat(objectAwareInitializer).isNotNull();
 
 		objectAwareInitializer.accept(mockApplicationContextAware);
 
 		verify(mockApplicationContextAware, times(1))
-			.setApplicationContext(eq(mockApplicationContext));
+		.setApplicationContext(eq(mockApplicationContext));
 		verifyNoMoreInteractions(mockApplicationContextAware);
 		verifyNoInteractions(mockApplicationContext);
 	}
@@ -104,7 +104,7 @@ public class ObjectAwareUtilsUnitTests {
 		ApplicationContext mockApplicationContext = mock(ApplicationContext.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.applicationContextAwareObjectInitializer(mockApplicationContext);
+		ObjectAwareUtils.applicationContextAwareObjectInitializer(mockApplicationContext);
 
 		assertThat(objectAwareInitializer).isNotNull();
 
@@ -124,14 +124,14 @@ public class ObjectAwareUtilsUnitTests {
 		ApplicationEventPublisherAware mockApplicationEventPublisherAware = mock(ApplicationEventPublisherAware.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.applicationEventPublisherAwareObjectInitializer(mockApplicationEventPublisher);
+		ObjectAwareUtils.applicationEventPublisherAwareObjectInitializer(mockApplicationEventPublisher);
 
 		assertThat(objectAwareInitializer).isNotNull();
 
 		objectAwareInitializer.accept(mockApplicationEventPublisherAware);
 
 		verify(mockApplicationEventPublisherAware, times(1))
-			.setApplicationEventPublisher(eq(mockApplicationEventPublisher));
+		.setApplicationEventPublisher(eq(mockApplicationEventPublisher));
 		verifyNoMoreInteractions(mockApplicationEventPublisherAware);
 		verifyNoInteractions(mockApplicationEventPublisher);
 	}
@@ -142,7 +142,7 @@ public class ObjectAwareUtilsUnitTests {
 		ApplicationEventPublisherAware mockApplicationEventPublisherAware = mock(ApplicationEventPublisherAware.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.applicationEventPublisherAwareObjectInitializer(null);
+		ObjectAwareUtils.applicationEventPublisherAwareObjectInitializer(null);
 
 		assertThat(objectAwareInitializer).isSameAs(ObjectAwareUtils.NO_OP);
 
@@ -157,7 +157,7 @@ public class ObjectAwareUtilsUnitTests {
 		ApplicationEventPublisher mockApplicationEventPublisher = mock(ApplicationEventPublisher.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.applicationEventPublisherAwareObjectInitializer(mockApplicationEventPublisher);
+		ObjectAwareUtils.applicationEventPublisherAwareObjectInitializer(mockApplicationEventPublisher);
 
 		assertThat(objectAwareInitializer).isNotNull();
 
@@ -177,7 +177,7 @@ public class ObjectAwareUtilsUnitTests {
 		BeanClassLoaderAware mockBeanClassLoaderAware = mock(BeanClassLoaderAware.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.beanClassLoaderAwareObjectInitializer(mockClassLoader);
+		ObjectAwareUtils.beanClassLoaderAwareObjectInitializer(mockClassLoader);
 
 		assertThat(objectAwareInitializer).isNotNull();
 
@@ -194,7 +194,7 @@ public class ObjectAwareUtilsUnitTests {
 		BeanClassLoaderAware mockBeanClassLoaderAware = mock(BeanClassLoaderAware.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.beanClassLoaderAwareObjectInitializer(null);
+		ObjectAwareUtils.beanClassLoaderAwareObjectInitializer(null);
 
 		assertThat(objectAwareInitializer).isSameAs(ObjectAwareUtils.NO_OP);
 
@@ -209,7 +209,7 @@ public class ObjectAwareUtilsUnitTests {
 		ClassLoader mockClassLoader = mock(ClassLoader.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.beanClassLoaderAwareObjectInitializer(mockClassLoader);
+		ObjectAwareUtils.beanClassLoaderAwareObjectInitializer(mockClassLoader);
 
 		assertThat(objectAwareInitializer).isNotNull();
 
@@ -387,7 +387,7 @@ public class ObjectAwareUtilsUnitTests {
 		ResourceLoaderAware mockResourceLoaderAware = mock(ResourceLoaderAware.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.resourceLoaderAwareObjectInitializer(mockResourceLoader);
+		ObjectAwareUtils.resourceLoaderAwareObjectInitializer(mockResourceLoader);
 
 		assertThat(objectAwareInitializer).isNotNull();
 
@@ -418,7 +418,7 @@ public class ObjectAwareUtilsUnitTests {
 		ResourceLoader mockResourceLoader = mock(ResourceLoader.class);
 
 		Consumer<Object> objectAwareInitializer =
-			ObjectAwareUtils.resourceLoaderAwareObjectInitializer(mockResourceLoader);
+		ObjectAwareUtils.resourceLoaderAwareObjectInitializer(mockResourceLoader);
 
 		assertThat(objectAwareInitializer).isNotNull();
 

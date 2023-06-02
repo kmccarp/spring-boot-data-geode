@@ -63,6 +63,6 @@ public class EchoServerConfiguration {
 	public GemfireTemplate echoTemplate(GemFireCache gemfireCache) {
 
 		return new GemfireTemplate(gemfireCache.getRegion(
-			RegionUtils.toRegionPath(EchoClientConfiguration.REGION_NAME)));
+		RegionUtils.toRegionPath(EchoClientConfiguration.REGION_NAME)));
 	}
 }

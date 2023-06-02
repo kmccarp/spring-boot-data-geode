@@ -42,14 +42,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("mock-tls")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MockedTlsEnabledAutoConfigurationIntegrationTests.TestConfiguration.class,
-	properties = {
-	    "VCAP_APPLICATION={ \"name\": \"MockedTlsEnabledAutoConfigurationIntegrationTests\", \"uris\": [] }",
-		"VCAP_SERVICES={ \"p-cloudcache\": [{ \"credentials\": { \"tls-enabled\": \"true\" }, \"name\": \"jblum-pcc\", \"tags\": [ \"gemfire\", \"cloudcache\", \"database\", \"pivotal\" ]}]}"
-	}
+properties = {"VCAP_APPLICATION={ \"name\": \"MockedTlsEnabledAutoConfigurationIntegrationTests\", \"uris\": [] }","VCAP_SERVICES={ \"p-cloudcache\": [{ \"credentials\": { \"tls-enabled\": \"true\" }, \"name\": \"jblum-pcc\", \"tags\": [ \"gemfire\", \"cloudcache\", \"database\", \"pivotal\" ]}]}"
+}
 )
 @SuppressWarnings("unused")
 public class MockedTlsEnabledAutoConfigurationIntegrationTests
-		extends AbstractTlsEnabledAutoConfigurationIntegrationTests {
+extends AbstractTlsEnabledAutoConfigurationIntegrationTests {
 
 	@Before
 	public void testWithMockGemFireObjects() {
@@ -60,6 +58,7 @@ public class MockedTlsEnabledAutoConfigurationIntegrationTests
 	@SpringBootApplication
 	@EnableGemFireMockObjects
 	@Profile("mock-tls")
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

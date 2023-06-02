@@ -130,17 +130,17 @@ public class JsonClientCacheDataImporterExporterIntegrationTests extends Forking
 	private static ApplicationContext newApplicationContext() {
 
 		Properties configuration = PropertiesBuilder.create()
-			.setProperty("spring.boot.data.gemfire.cache.data.export.enabled", Boolean.TRUE.toString())
-			.setProperty("spring.boot.data.gemfire.cache.data.import.active-profiles", "DEV")
-			.build();
+		.setProperty("spring.boot.data.gemfire.cache.data.export.enabled", Boolean.TRUE.toString())
+		.setProperty("spring.boot.data.gemfire.cache.data.import.active-profiles", "DEV")
+		.build();
 
 		ConfigurableApplicationContext applicationContext =
-			new SpringApplicationBuilder(TestGeodeClientConfiguration.class)
-				.profiles("DEV")
-				.properties(configuration)
-				.web(WebApplicationType.NONE)
-				.build()
-				.run();
+		new SpringApplicationBuilder(TestGeodeClientConfiguration.class)
+	.profiles("DEV")
+	.properties(configuration)
+	.web(WebApplicationType.NONE)
+	.build()
+	.run();
 
 		JsonClientCacheDataImporterExporterIntegrationTests.applicationContext = applicationContext;
 
@@ -167,7 +167,7 @@ public class JsonClientCacheDataImporterExporterIntegrationTests extends Forking
 
 		try {
 			Region<Byte, Customer> customers =
-				newApplicationContext().getBean("Customers", Region.class);
+			newApplicationContext().getBean("Customers", Region.class);
 
 			assertCustomersRegion(customers);
 
@@ -180,13 +180,13 @@ public class JsonClientCacheDataImporterExporterIntegrationTests extends Forking
 
 			assertThat(jonDoeValue).isInstanceOf(PdxInstance.class);
 			assertThat(((PdxInstance) jonDoeValue).getObject())
-				.isEqualTo(Customer.newCustomer(1L, "Jon Doe"));
+			.isEqualTo(Customer.newCustomer(1L, "Jon Doe"));
 
 			Object janeDoeValue = customers.get((byte) 2);
 
 			assertThat(janeDoeValue).isInstanceOf(PdxInstance.class);
 			assertThat(((PdxInstance) janeDoeValue).getObject())
-				.isEqualTo(Customer.newCustomer(2L, "Jane Doe"));
+			.isEqualTo(Customer.newCustomer(2L, "Jane Doe"));
 		}
 		finally {
 			closeApplicationContext();
@@ -236,7 +236,7 @@ public class JsonClientCacheDataImporterExporterIntegrationTests extends Forking
 		public static void main(String[] args) {
 
 			AnnotationConfigApplicationContext applicationContext =
-				new AnnotationConfigApplicationContext(TestGeodeServerConfiguration.class);
+			new AnnotationConfigApplicationContext(TestGeodeServerConfiguration.class);
 
 			applicationContext.registerShutdownHook();
 		}

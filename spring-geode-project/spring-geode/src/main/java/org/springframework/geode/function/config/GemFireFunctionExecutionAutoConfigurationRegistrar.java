@@ -33,7 +33,7 @@ import org.springframework.data.gemfire.function.config.EnableGemfireFunctionExe
  * @since 1.0.0
  */
 public class GemFireFunctionExecutionAutoConfigurationRegistrar
-		extends AbstractFunctionExecutionAutoConfigurationExtension {
+extends AbstractFunctionExecutionAutoConfigurationExtension {
 
 	@Override
 	protected Class<?> getConfiguration() {
@@ -41,6 +41,7 @@ public class GemFireFunctionExecutionAutoConfigurationRegistrar
 	}
 
 	@EnableGemfireFunctionExecutions
-	private static class EnableGemfireFunctionExecutionsConfiguration { }
+	private static class EnableGemfireFunctionExecutionsConfiguration {
+	}
 
 }

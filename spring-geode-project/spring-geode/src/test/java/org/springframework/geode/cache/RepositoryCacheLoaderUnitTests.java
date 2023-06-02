@@ -68,7 +68,7 @@ public class RepositoryCacheLoaderUnitTests {
 	public void setup() {
 
 		this.cacheLoader = new RepositoryCacheLoader<>(this.mockCrudRepository)
-			.with(this.mockEnvironment);
+		.with(this.mockEnvironment);
 	}
 
 	@After
@@ -104,7 +104,7 @@ public class RepositoryCacheLoaderUnitTests {
 	public void loadThrowsException() {
 
 		when(this.mockCrudRepository.findById(eq("TestKey")))
-			.thenThrow(new IncorrectResultSizeDataAccessException(1, 0));
+		.thenThrow(new IncorrectResultSizeDataAccessException(1, 0));
 
 		when(this.mockLoaderHelper.getKey()).thenReturn("TestKey");
 
@@ -114,7 +114,7 @@ public class RepositoryCacheLoaderUnitTests {
 		catch (CacheLoaderException expected) {
 
 			assertThat(expected).hasMessage(RepositoryCacheLoader.CACHE_LOAD_EXCEPTION_MESSAGE,
-				"TestKey", this.mockCrudRepository.getClass().getName());
+			"TestKey", this.mockCrudRepository.getClass().getName());
 
 			assertThat(expected).hasCauseInstanceOf(IncorrectResultSizeDataAccessException.class);
 			assertThat(expected.getCause()).hasNoCause();

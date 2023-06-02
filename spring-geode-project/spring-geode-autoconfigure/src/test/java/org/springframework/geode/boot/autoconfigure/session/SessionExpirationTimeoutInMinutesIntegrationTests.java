@@ -36,12 +36,12 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = AbstractSessionExpirationTimeoutInTimeUnitIntegrationTests.TestConfiguration.class,
-	properties = "spring.session.timeout=5m",
-	webEnvironment = SpringBootTest.WebEnvironment.MOCK
+classes = AbstractSessionExpirationTimeoutInTimeUnitIntegrationTests.TestConfiguration.class,
+properties = "spring.session.timeout=5m",
+webEnvironment = SpringBootTest.WebEnvironment.MOCK
 )
 public class SessionExpirationTimeoutInMinutesIntegrationTests
-		extends AbstractSessionExpirationTimeoutInTimeUnitIntegrationTests {
+extends AbstractSessionExpirationTimeoutInTimeUnitIntegrationTests {
 
 	@Override
 	protected int getExpectedMaxInactiveIntervalInSeconds() {

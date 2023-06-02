@@ -92,8 +92,8 @@ public class JsonCacheDataImporterExporter extends ResourceCapableCacheDataImpor
 		super.afterPropertiesSet();
 
 		this.jsonToPdxArrayConverter = this.jsonToPdxArrayConverter != null
-			? this.jsonToPdxArrayConverter
-			: newJsonToPdxArrayConverter();
+		? this.jsonToPdxArrayConverter
+		: newJsonToPdxArrayConverter();
 	}
 
 	private @NonNull JsonToPdxArrayConverter newJsonToPdxArrayConverter() {
@@ -113,21 +113,22 @@ public class JsonCacheDataImporterExporter extends ResourceCapableCacheDataImpor
 	/**
 	 * @inheritDoc
 	 */
-	@NonNull @Override
+	@NonNull
+	@Override
 	public Region doExportFrom(@NonNull Region region) {
 
 		Assert.notNull(region, "Region must not be null");
 
 		getExportResourceResolver()
-			.resolve(region)
-			.ifPresent(resource -> {
+		.resolve(region)
+		.ifPresent(resource -> {
 
-				String json = toJson(region);
+			String json = toJson(region);
 
-				getLogger().debug("Saving JSON [{}] from Region [{}]", json, region.getName());
+			getLogger().debug("Saving JSON [{}] from Region [{}]", json, region.getName());
 
-				getResourceWriter().write(resource, json.getBytes());
-			});
+			getResourceWriter().write(resource, json.getBytes());
+		});
 
 		return region;
 	}
@@ -135,16 +136,17 @@ public class JsonCacheDataImporterExporter extends ResourceCapableCacheDataImpor
 	/**
 	 * @inheritDoc
 	 */
-	@NonNull @Override
+	@NonNull
+	@Override
 	public Region doImportInto(@NonNull Region region) {
 
 		Assert.notNull(region, "Region must not be null");
 
 		getImportResourceResolver()
-			.resolve(region)
-			.map(this.getResourceReader()::read)
-			.map(this::toPdx)
-			.ifPresent(pdxInstances -> regionPutPdx(region, pdxInstances));
+		.resolve(region)
+		.map(this.getResourceReader()::read)
+		.map(this::toPdx)
+		.ifPresent(pdxInstances -> regionPutPdx(region, pdxInstances));
 
 		return region;
 	}
@@ -163,7 +165,7 @@ public class JsonCacheDataImporterExporter extends ResourceCapableCacheDataImpor
 	void regionPutPdx(@NonNull Region region, @Nullable PdxInstance[] pdx) {
 
 		Arrays.stream(ArrayUtils.nullSafeArray(pdx, PdxInstance.class)).forEach(pdxInstance ->
-			region.put(resolveKey(pdxInstance), resolveValue(pdxInstance)));
+		region.put(resolveKey(pdxInstance), resolveValue(pdxInstance)));
 	}
 
 	/**
@@ -236,8 +238,8 @@ public class JsonCacheDataImporterExporter extends ResourceCapableCacheDataImpor
 	protected @NonNull PdxInstance[] toPdx(@NonNull byte[] json) {
 
 		return isNotEmpty(json)
-			? getJsonToPdxArrayConverter().convert(json)
-			: EMPTY_PDX_INSTANCE_ARRAY;
+		? getJsonToPdxArrayConverter().convert(json)
+		: EMPTY_PDX_INSTANCE_ARRAY;
 	}
 
 	/**
@@ -249,7 +251,8 @@ public class JsonCacheDataImporterExporter extends ResourceCapableCacheDataImpor
 	 */
 	static class RegionValuesToJsonConverter extends AbstractObjectArrayToJsonConverter {
 
-		@NonNull <K, V> String convert(@NonNull Region<K, V> region) {
+		@NonNull
+ <K, V> String convert(@NonNull Region<K, V> region) {
 
 			Assert.notNull(region, "Region must not be null");
 

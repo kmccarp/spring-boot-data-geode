@@ -32,7 +32,8 @@ public class UnhandledResourceException extends RuntimeException {
 	 * Constructs a new instance of {@link UnhandledResourceException} with no {@link String message}
 	 * or no known {@link Throwable cause}.
 	 */
-	public UnhandledResourceException() { }
+	public UnhandledResourceException() {
+	}
 
 	/**
 	 * Constructs a new instance of {@link UnhandledResourceException} initialized with the given {@link String message}

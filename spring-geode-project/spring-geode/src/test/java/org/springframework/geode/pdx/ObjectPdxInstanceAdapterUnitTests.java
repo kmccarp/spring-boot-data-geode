@@ -121,7 +121,7 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	@Test
 	public void getClassNameReturnsObjectClassName() {
 		assertThat(ObjectPdxInstanceAdapter.from(Customer.newCustomer(2L, "Jane Doe")).getClassName())
-			.isEqualTo(Customer.class.getName());
+		.isEqualTo(Customer.class.getName());
 	}
 
 	@Test
@@ -214,73 +214,73 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	@Test
 	public void resolvesIdentityFieldNameFromAtIdAnnotatedFieldBean() {
 		assertThat(ObjectPdxInstanceAdapter.from(new AtIdAnnotatedFieldBean()).resolveIdentityFieldNameFromProperty())
-			.isEqualTo("ssn");
+		.isEqualTo("ssn");
 	}
 
 	@Test
 	public void resolvesIdentifyFieldNameFromAtIdAnnotatedPropertyBean() {
 		assertThat(ObjectPdxInstanceAdapter.from(new AtIdAnnotatedPropertyBean())
-			.resolveIdentityFieldNameFromProperty()).isEqualTo("accountNumber");
+		.resolveIdentityFieldNameFromProperty()).isEqualTo("accountNumber");
 	}
 
 	@Test
 	public void resolvesIdentifyFieldNameFromAtIdAnnotatedPropertyBeanSubclass() {
 		assertThat(ObjectPdxInstanceAdapter.from(new AtIdAnnotatedPropertyBeanSubclass())
-			.resolveIdentityFieldNameFromProperty()).isEqualTo("accountNumber");
+		.resolveIdentityFieldNameFromProperty()).isEqualTo("accountNumber");
 	}
 
 	@Test
 	public void resolvesIdentityFieldNameFromIdNamedPropertyBean() {
 		assertThat(ObjectPdxInstanceAdapter.from(new IdNamedPropertyBean()).resolveIdentityFieldNameFromProperty())
-			.isEqualTo("id");
+		.isEqualTo("id");
 	}
 
 	@Test
 	public void resolvesIdentityFieldNameFromIdNamedPropertyBeanSubclass() {
 		assertThat(ObjectPdxInstanceAdapter.from(new IdNamedPropertyBeanSubclass()).resolveIdentityFieldNameFromProperty())
-			.isEqualTo("id");
+		.isEqualTo("id");
 	}
 
 	@Test
 	public void resolvesIdentityFieldNameFromOverridenAtIdAnnotatedFieldBean() {
 		assertThat(ObjectPdxInstanceAdapter.from(new AtIdAnnotatedFieldOverridesNonPublicAtIdAnnotatedPropertyBean())
-			.resolveIdentityFieldNameFromProperty()).isEqualTo("ssn");
+		.resolveIdentityFieldNameFromProperty()).isEqualTo("ssn");
 	}
 
 	@Test
 	public void resolvesIdentityFieldNameFromOverriddenIdNamedPropertyBean() {
 		assertThat(ObjectPdxInstanceAdapter.from(new IdNamedPropertyOverridesNonPublicAtIdAnnotatedFieldBean())
-			.resolveIdentityFieldNameFromProperty()).isEqualTo("id");
+		.resolveIdentityFieldNameFromProperty()).isEqualTo("id");
 	}
 
 	@Test
 	public void resolveIdentityFieldNameFromAtIdAnnotatedFieldBeanSubclassReturnsNull() {
 		assertThat(ObjectPdxInstanceAdapter.from(new AtIdAnnotatedFieldBeanSubclass())
-			.resolveIdentityFieldNameFromProperty()).isNull();
+		.resolveIdentityFieldNameFromProperty()).isNull();
 	}
 
 	@Test
 	public void resolveIdentityFieldNameFromNonPublicAtIdAnnotatedPropertyBeanReturnsNull() {
 		assertThat(ObjectPdxInstanceAdapter.from(new NonPublicAtIdAnnotatedPropertyBean())
-			.resolveIdentityFieldNameFromProperty()).isNull();
+		.resolveIdentityFieldNameFromProperty()).isNull();
 	}
 
 	@Test
 	public void resolveIdentityFieldNameFromNonPublicIdNamedPropertyBeanReturnsNull() {
 		assertThat(ObjectPdxInstanceAdapter.from(new NonPublicIdNamedPropertyBean())
-			.resolveIdentityFieldNameFromProperty()).isNull();
+		.resolveIdentityFieldNameFromProperty()).isNull();
 	}
 
 	@Test
 	public void resolveIdentityFieldNameFromWriteOnlyAtIdAnnotatedFieldBeanReturnsNull() {
 		assertThat(ObjectPdxInstanceAdapter.from(new WriteOnlyAtIdAnnotatedFieldBean())
-			.resolveIdentityFieldNameFromProperty()).isNull();
+		.resolveIdentityFieldNameFromProperty()).isNull();
 	}
 
 	@Test
 	public void resolveIdentityFieldNameFromWriteOnlyAtIdAnnotatedPropertyBeanReturnsNull() {
 		assertThat(ObjectPdxInstanceAdapter.from(new WriteOnlyAtIdAnnotatedPropertyBean())
-			.resolveIdentityFieldNameFromProperty()).isNull();
+		.resolveIdentityFieldNameFromProperty()).isNull();
 	}
 
 	@Test
@@ -316,13 +316,13 @@ public class ObjectPdxInstanceAdapterUnitTests {
 
 		try {
 			ObjectPdxInstanceAdapter.from(new NoPropertyNoFieldBean())
-				.createWriter()
-				.setField("nonExistingField", "TEST");
+			.createWriter()
+			.setField("nonExistingField", "TEST");
 		}
 		catch (PdxFieldDoesNotExistException expected) {
 
 			assertThat(expected).hasMessage("Field [nonExistingField] does not exist on Object [%s]",
-				NoPropertyNoFieldBean.class.getName());
+			NoPropertyNoFieldBean.class.getName());
 
 			assertThat(expected).hasNoCause();
 
@@ -343,7 +343,7 @@ public class ObjectPdxInstanceAdapterUnitTests {
 		catch (PdxFieldNotWritableException expected) {
 
 			assertThat(expected).hasMessage("Field [value] of Object [%s] is not writable",
-				ReadOnlyBean.class.getName());
+			ReadOnlyBean.class.getName());
 
 			assertThat(expected).hasNoCause();
 
@@ -367,8 +367,8 @@ public class ObjectPdxInstanceAdapterUnitTests {
 		catch (PdxFieldTypeMismatchException expected) {
 
 			String expectedExceptionMessage =
-				String.format("Value [Y] of type [java.lang.String] does not match field [value] of type [java.lang.Character] on Object [%s]",
-					CharacterValueBean.class.getName());
+			String.format("Value [Y] of type [java.lang.String] does not match field [value] of type [java.lang.Character] on Object [%s]",
+		CharacterValueBean.class.getName());
 
 			assertThat(expected).hasMessage(expectedExceptionMessage);
 			assertThat(expected).hasNoCause();
@@ -497,13 +497,15 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	// PASS
 	static class AtIdAnnotatedFieldBean {
 
-		@Id @Getter
+		@Id
+		@Getter
 		private String ssn = "123-45-6789";
 
 	}
 
 	// FAIL
-	static class AtIdAnnotatedFieldBeanSubclass extends AtIdAnnotatedFieldBean { }
+	static class AtIdAnnotatedFieldBeanSubclass extends AtIdAnnotatedFieldBean {
+	}
 
 	// PASS
 	static class AtIdAnnotatedPropertyBean {
@@ -518,7 +520,8 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	}
 
 	// PASS
-	static class AtIdAnnotatedPropertyBeanSubclass extends AtIdAnnotatedPropertyBean { }
+	static class AtIdAnnotatedPropertyBeanSubclass extends AtIdAnnotatedPropertyBean {
+	}
 
 	// PASS
 	static class IdNamedPropertyBean {
@@ -529,7 +532,8 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	}
 
 	// PASS
-	static class IdNamedPropertyBeanSubclass extends IdNamedPropertyBean { }
+	static class IdNamedPropertyBeanSubclass extends IdNamedPropertyBean {
+	}
 
 	// FAIL
 	static class NonPublicAtIdAnnotatedPropertyBean {
@@ -551,7 +555,8 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	// PASS
 	static class AtIdAnnotatedFieldOverridesNonPublicAtIdAnnotatedPropertyBean {
 
-		@Id @Getter
+		@Id
+		@Getter
 		private Object ssn;
 
 		@Id
@@ -563,7 +568,9 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	// PASS
 	static class IdNamedPropertyOverridesNonPublicAtIdAnnotatedFieldBean {
 
-		@Id @Getter(AccessLevel.PROTECTED) @Setter
+		@Id
+		@Getter(AccessLevel.PROTECTED)
+		@Setter
 		private Object accountNumber;
 
 		public Object getId() {
@@ -574,7 +581,8 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	// FAIL
 	static class WriteOnlyAtIdAnnotatedFieldBean {
 
-		@Id @Setter
+		@Id
+		@Setter
 		private Object identifier;
 
 	}
@@ -583,18 +591,21 @@ public class ObjectPdxInstanceAdapterUnitTests {
 	static class WriteOnlyAtIdAnnotatedPropertyBean {
 
 		@Id
-		public void setIdentifier(Object id) { }
+		public void setIdentifier(Object id) {
+		}
 
 	}
 
 	static class CharacterValueBean {
 
-		@Getter @Setter
+		@Getter
+		@Setter
 		private Character value = 'X';
 
 	}
 
-	static class NoPropertyNoFieldBean { }
+	static class NoPropertyNoFieldBean {
+	}
 
 	static class ReadOnlyBean {
 

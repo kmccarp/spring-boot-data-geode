@@ -66,7 +66,7 @@ import org.springframework.lang.NonNull;
  * @see org.springframework.geode.cache.RepositoryAsyncEventListener
  * @since 1.4.0
  */
-@SuppressWarnings({ "rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class RepositoryAsyncEventListenerUnitTests {
 
 	@Test
@@ -107,7 +107,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 		RepositoryAsyncEventListener listener = new RepositoryAsyncEventListener<>(mockRepository);
 
 		assertThat(listener.getAsyncEventErrorHandler())
-			.isEqualTo(RepositoryAsyncEventListener.DEFAULT_ASYNC_EVENT_ERROR_HANDLER);
+		.isEqualTo(RepositoryAsyncEventListener.DEFAULT_ASYNC_EVENT_ERROR_HANDLER);
 
 		listener.setAsyncEventErrorHandler(mockAsyncEventErrorHandler);
 
@@ -116,7 +116,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 		listener.setAsyncEventErrorHandler(null);
 
 		assertThat(listener.getAsyncEventErrorHandler())
-			.isEqualTo(RepositoryAsyncEventListener.DEFAULT_ASYNC_EVENT_ERROR_HANDLER);
+		.isEqualTo(RepositoryAsyncEventListener.DEFAULT_ASYNC_EVENT_ERROR_HANDLER);
 
 		verifyNoInteractions(mockAsyncEventErrorHandler, mockRepository);
 	}
@@ -129,17 +129,17 @@ public class RepositoryAsyncEventListenerUnitTests {
 		RepositoryAsyncEventListener listener = new RepositoryAsyncEventListener<>(mockRepository);
 
 		List<AsyncEventOperationRepositoryFunction<Object, Object>> repositoryFunctions =
-			listener.getRepositoryFunctions();
+		listener.getRepositoryFunctions();
 
 		assertThat(repositoryFunctions).isNotNull();
 
 		List<Class<?>> repositoryFunctionTypes = repositoryFunctions.stream()
-			.map(Object::getClass)
-			.collect(Collectors.toList());
+		.map(Object::getClass)
+		.collect(Collectors.toList());
 
 		assertThat(repositoryFunctionTypes).containsExactly(
-			CreateUpdateAsyncEventRepositoryFunction.class,
-			RemoveAsyncEventRepositoryFunction.class
+		CreateUpdateAsyncEventRepositoryFunction.class,
+		RemoveAsyncEventRepositoryFunction.class
 		);
 
 		verifyNoInteractions(mockRepository);
@@ -156,25 +156,25 @@ public class RepositoryAsyncEventListenerUnitTests {
 
 		assertThat(listener.getRepositoryFunctions()).hasSize(2);
 		assertThat(listener.getRepositoryFunctions().get(0).getClass())
-			.isEqualTo(CreateUpdateAsyncEventRepositoryFunction.class);
+		.isEqualTo(CreateUpdateAsyncEventRepositoryFunction.class);
 		assertThat(listener.getRepositoryFunctions().get(1).getClass())
-			.isEqualTo(RemoveAsyncEventRepositoryFunction.class);
+		.isEqualTo(RemoveAsyncEventRepositoryFunction.class);
 		assertThat(listener.register(mockFunction)).isTrue();
 		assertThat(listener.register(null)).isFalse();
 		assertThat(listener.getRepositoryFunctions()).hasSize(3);
 		assertThat(listener.getRepositoryFunctions()).contains(mockFunction);
 		assertThat(listener.getRepositoryFunctions().get(0)).isEqualTo(mockFunction);
 		assertThat(listener.getRepositoryFunctions().get(1).getClass())
-			.isEqualTo(CreateUpdateAsyncEventRepositoryFunction.class);
+		.isEqualTo(CreateUpdateAsyncEventRepositoryFunction.class);
 		assertThat(listener.getRepositoryFunctions().get(2).getClass())
-			.isEqualTo(RemoveAsyncEventRepositoryFunction.class);
+		.isEqualTo(RemoveAsyncEventRepositoryFunction.class);
 		assertThat(listener.unregister(null)).isFalse();
 		assertThat(listener.unregister(mockFunction)).isTrue();
 		assertThat(listener.getRepositoryFunctions()).hasSize(2);
 		assertThat(listener.getRepositoryFunctions().get(0).getClass())
-			.isEqualTo(CreateUpdateAsyncEventRepositoryFunction.class);
+		.isEqualTo(CreateUpdateAsyncEventRepositoryFunction.class);
 		assertThat(listener.getRepositoryFunctions().get(1).getClass())
-			.isEqualTo(RemoveAsyncEventRepositoryFunction.class);
+		.isEqualTo(RemoveAsyncEventRepositoryFunction.class);
 
 		verifyNoInteractions(mockFunction, mockRepository);
 	}
@@ -201,13 +201,13 @@ public class RepositoryAsyncEventListenerUnitTests {
 		AsyncEvent mockEventThree = mock(AsyncEvent.class, "AsyncEventThree");
 
 		AsyncEventOperationRepositoryFunction mockRepositoryFunctionA =
-			mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionA");
+		mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionA");
 
 		AsyncEventOperationRepositoryFunction mockRepositoryFunctionB =
-			mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionB");
+		mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionB");
 
 		AsyncEventOperationRepositoryFunction mockRepositoryFunctionC =
-			mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionC");
+		mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionC");
 
 		CrudRepository mockRepository = mock(CrudRepository.class);
 
@@ -247,12 +247,12 @@ public class RepositoryAsyncEventListenerUnitTests {
 		assertThat(listener.getRepository()).isEqualTo(mockRepository);
 
 		doReturn(Arrays.asList(mockRepositoryFunctionC, mockRepositoryFunctionA, mockRepositoryFunctionB))
-			.when(listener).getRepositoryFunctions();
+		.when(listener).getRepositoryFunctions();
 
 		assertThat(listener.processEvents(mockEvents)).isTrue();
 
 		InOrder order =
-			inOrder(mockRepository, mockRepositoryFunctionA, mockRepositoryFunctionB, mockRepositoryFunctionC);
+		inOrder(mockRepository, mockRepositoryFunctionA, mockRepositoryFunctionB, mockRepositoryFunctionC);
 
 		order.verify(mockRepositoryFunctionC, times(1)).canProcess(eq(mockEventOne));
 		order.verify(mockRepositoryFunctionA, times(1)).canProcess(eq(mockEventOne));
@@ -289,13 +289,13 @@ public class RepositoryAsyncEventListenerUnitTests {
 		AsyncEvent mockEventThree = mock(AsyncEvent.class, "AsyncEventThree");
 
 		AsyncEventOperationRepositoryFunction mockRepositoryFunctionOne =
-			mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionOne");
+		mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionOne");
 
 		AsyncEventOperationRepositoryFunction mockRepositoryFunctionTwo =
-			mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionTwo");
+		mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionTwo");
 
 		AsyncEventOperationRepositoryFunction mockRepositoryFunctionThree =
-			mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionThree");
+		mock(AsyncEventOperationRepositoryFunction.class, "RepositoryFunctionThree");
 
 		doReturn(true).when(mockRepositoryFunctionOne).canProcess(eq(mockEventOne));
 		doReturn(true).when(mockRepositoryFunctionOne).apply(eq(mockEventOne));
@@ -314,12 +314,12 @@ public class RepositoryAsyncEventListenerUnitTests {
 		assertThat(listener.getRepository()).isEqualTo(mockRepository);
 
 		doReturn(Arrays.asList(mockRepositoryFunctionOne, mockRepositoryFunctionTwo, mockRepositoryFunctionThree))
-			.when(listener).getRepositoryFunctions();
+		.when(listener).getRepositoryFunctions();
 
 		assertThat(listener.processEvents(mockEvents)).isFalse();
 
 		InOrder order =
-			inOrder(mockRepository, mockRepositoryFunctionOne, mockRepositoryFunctionTwo, mockRepositoryFunctionThree);
+		inOrder(mockRepository, mockRepositoryFunctionOne, mockRepositoryFunctionTwo, mockRepositoryFunctionThree);
 
 		order.verify(mockRepositoryFunctionOne, times(1)).canProcess(eq(mockEventOne));
 		order.verify(mockRepositoryFunctionTwo, never()).canProcess(eq(mockEventOne));
@@ -350,7 +350,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
 		AsyncEventOperationRepositoryFunction mockRepositoryFunction =
-			mock(AsyncEventOperationRepositoryFunction.class);
+		mock(AsyncEventOperationRepositoryFunction.class);
 
 		doReturn(false).when(mockRepositoryFunction).canProcess(any());
 
@@ -469,7 +469,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 		assertThat(eventError.getEvent()).isEqualTo(mockEvent);
 
 		assertThat(eventError.toString())
-			.isEqualTo("Error [test] thrown when processing AsyncEvent [%s]", mockEvent);
+		.isEqualTo("Error [test] thrown when processing AsyncEvent [%s]", mockEvent);
 
 		verifyNoInteractions(mockEvent);
 	}
@@ -508,7 +508,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void abstractAsyncEventOperationRepositoryFunctionApplyWhenFunctionCanProcessEvent() {
 
 		AbstractAsyncEventOperationRepositoryFunction repositoryFunction =
-			mock(AbstractAsyncEventOperationRepositoryFunction.class);
+		mock(AbstractAsyncEventOperationRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -535,7 +535,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void abstractAsyncEventOperationRepositoryFunctionApplyWhenFunctionCannotProcessEvent() {
 
 		AbstractAsyncEventOperationRepositoryFunction repositoryFunction =
-			mock(AbstractAsyncEventOperationRepositoryFunction.class);
+		mock(AbstractAsyncEventOperationRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -555,7 +555,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void abstractAsyncEventOperationRepositoryFunctionApplyWhenRepositoryOperationThrowsException() {
 
 		AbstractAsyncEventOperationRepositoryFunction repositoryFunction =
-			mock(AbstractAsyncEventOperationRepositoryFunction.class);
+		mock(AbstractAsyncEventOperationRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -612,7 +612,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 		listener = spy(listener);
 
 		AbstractAsyncEventOperationRepositoryFunction repositoryFunction =
-			new TestAsyncEventOperationRepositoryFunction(listener);
+		new TestAsyncEventOperationRepositoryFunction(listener);
 
 		assertThat(repositoryFunction.getListener()).isSameAs(listener);
 		assertThat(repositoryFunction.getErrorHandler()).isEqualTo(mockErrorHandler);
@@ -630,7 +630,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 		RepositoryAsyncEventListener listener = spy(new RepositoryAsyncEventListener(mockRepository));
 
 		AbstractAsyncEventOperationRepositoryFunction repositoryFunction =
-			new TestAsyncEventOperationRepositoryFunction(listener);
+		new TestAsyncEventOperationRepositoryFunction(listener);
 
 		assertThat(repositoryFunction.getListener()).isSameAs(listener);
 		assertThat(repositoryFunction.getRepository()).isEqualTo(mockRepository);
@@ -659,7 +659,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void resolveEntityIsSuccessful() {
 
 		AbstractAsyncEventOperationRepositoryFunction repositoryFunction =
-			mock(AbstractAsyncEventOperationRepositoryFunction.class);
+		mock(AbstractAsyncEventOperationRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -676,7 +676,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void resolveEntityFromNullEventThrowsIllegalArgumentException() {
 
 		AbstractAsyncEventOperationRepositoryFunction repositoryFunction =
-			mock(AbstractAsyncEventOperationRepositoryFunction.class);
+		mock(AbstractAsyncEventOperationRepositoryFunction.class);
 
 		doCallRealMethod().when(repositoryFunction).resolveEntity(any());
 
@@ -696,7 +696,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void resolveNulEntityThrowsIllegalStateException() {
 
 		AbstractAsyncEventOperationRepositoryFunction repositoryFunction =
-			mock(AbstractAsyncEventOperationRepositoryFunction.class);
+		mock(AbstractAsyncEventOperationRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -722,7 +722,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void createUpdateAsyncEventRepositoryFunctionCanProcessCreateEventReturnsTrue() {
 
 		CreateUpdateAsyncEventRepositoryFunction repositoryFunction =
-			mock(CreateUpdateAsyncEventRepositoryFunction.class);
+		mock(CreateUpdateAsyncEventRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -739,7 +739,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void createUpdateAsyncEventRepositoryFunctionCanProcessUpdateEventReturnsTrue() {
 
 		CreateUpdateAsyncEventRepositoryFunction repositoryFunction =
-			mock(CreateUpdateAsyncEventRepositoryFunction.class);
+		mock(CreateUpdateAsyncEventRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -756,7 +756,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void createUpdateAsyncEventRepositoryFunctionCanProcessEventWithNullOperationReturnsFalse() {
 
 		CreateUpdateAsyncEventRepositoryFunction repositoryFunction =
-			mock(CreateUpdateAsyncEventRepositoryFunction.class);
+		mock(CreateUpdateAsyncEventRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -773,7 +773,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void createUpdateAsyncEventRepositoryFunctionCanProcessNullEventReturnsFalse() {
 
 		CreateUpdateAsyncEventRepositoryFunction repositoryFunction =
-			mock(CreateUpdateAsyncEventRepositoryFunction.class);
+		mock(CreateUpdateAsyncEventRepositoryFunction.class);
 
 		doCallRealMethod().when(repositoryFunction).canProcess(any());
 		assertThat(repositoryFunction.canProcess(null)).isFalse();
@@ -783,7 +783,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	public void createUpdateAsyncEventRepositoryFunctionCanProcessRemoveEventReturnsFalse() {
 
 		CreateUpdateAsyncEventRepositoryFunction repositoryFunction =
-			mock(CreateUpdateAsyncEventRepositoryFunction.class);
+		mock(CreateUpdateAsyncEventRepositoryFunction.class);
 
 		AsyncEvent mockEvent = mock(AsyncEvent.class);
 
@@ -804,7 +804,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 		RepositoryAsyncEventListener listener = new RepositoryAsyncEventListener(mockRepository);
 
 		CreateUpdateAsyncEventRepositoryFunction repositoryFunction =
-			new CreateUpdateAsyncEventRepositoryFunction(listener);
+		new CreateUpdateAsyncEventRepositoryFunction(listener);
 
 		doReturn("TEST").when(mockRepository).save(any());
 
@@ -889,7 +889,7 @@ public class RepositoryAsyncEventListenerUnitTests {
 	}
 
 	private static final class TestAsyncEventOperationRepositoryFunction<T, ID>
-			extends AbstractAsyncEventOperationRepositoryFunction<T, ID> {
+	extends AbstractAsyncEventOperationRepositoryFunction<T, ID> {
 
 
 		private TestAsyncEventOperationRepositoryFunction(RepositoryAsyncEventListener<T, ID> listener) {

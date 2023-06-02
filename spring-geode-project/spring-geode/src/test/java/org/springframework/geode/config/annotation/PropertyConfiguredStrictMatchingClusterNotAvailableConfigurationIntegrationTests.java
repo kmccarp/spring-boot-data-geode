@@ -50,7 +50,7 @@ import org.springframework.data.gemfire.tests.mock.annotation.EnableGemFireMockO
  * @since 1.4.1
  */
 public class PropertyConfiguredStrictMatchingClusterNotAvailableConfigurationIntegrationTests
-		extends SpringBootApplicationIntegrationTestsSupport {
+extends SpringBootApplicationIntegrationTestsSupport {
 
 	@AfterClass
 	public static void tearDown() {
@@ -63,8 +63,8 @@ public class PropertyConfiguredStrictMatchingClusterNotAvailableConfigurationInt
 		Properties testProperties = new Properties();
 
 		testProperties
-			.setProperty(ClusterAwareConfiguration.SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_STRICT_PROPERTY,
-				Boolean.TRUE.toString());
+		.setProperty(ClusterAwareConfiguration.SPRING_BOOT_DATA_GEMFIRE_CLUSTER_CONDITION_MATCH_STRICT_PROPERTY,
+	Boolean.TRUE.toString());
 
 		return springApplicationBuilder.properties(testProperties);
 	}
@@ -82,7 +82,7 @@ public class PropertyConfiguredStrictMatchingClusterNotAvailableConfigurationInt
 			assertThat(expected).isInstanceOf(ClusterNotAvailableException.class);
 
 			assertThat(expected).hasMessage("Failed to find available cluster in [%s] when strictMatch was [true]",
-				ClusterAwareConfiguration.ClusterAwareCondition.RUNTIME_ENVIRONMENT_NAME);
+			ClusterAwareConfiguration.ClusterAwareCondition.RUNTIME_ENVIRONMENT_NAME);
 
 			assertThat(expected).hasNoCause();
 
@@ -90,7 +90,7 @@ public class PropertyConfiguredStrictMatchingClusterNotAvailableConfigurationInt
 		}
 		finally {
 			assertThat(System.getProperties())
-				.doesNotContainKeys(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
+			.doesNotContainKeys(ClusterAwareConfiguration.SPRING_DATA_GEMFIRE_CACHE_CLIENT_REGION_SHORTCUT_PROPERTY);
 		}
 	}
 
@@ -98,6 +98,7 @@ public class PropertyConfiguredStrictMatchingClusterNotAvailableConfigurationInt
 	@EnableClusterAware(strictMatch = false)
 	@EnableGemFireMockObjects
 	@SuppressWarnings("all")
-	static class TestGeodeClientConfiguration { }
+	static class TestGeodeClientConfiguration {
+	}
 
 }

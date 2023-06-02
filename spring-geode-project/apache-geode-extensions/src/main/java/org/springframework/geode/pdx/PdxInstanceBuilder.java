@@ -157,11 +157,11 @@ public class PdxInstanceBuilder {
 		RegionService regionService = getRegionService();
 
 		Optional.of(regionService)
-			.filter(GemFireCache.class::isInstance)
-			.map(GemFireCache.class::cast)
-			.map(GemFireCache::getPdxReadSerialized)
-			.filter(Boolean.TRUE::equals)
-			.orElseThrow(() -> new IllegalStateException("PDX read-serialized must be set to true"));
+		.filter(GemFireCache.class::isInstance)
+		.map(GemFireCache.class::cast)
+		.map(GemFireCache::getPdxReadSerialized)
+		.filter(Boolean.TRUE::equals)
+		.orElseThrow(() -> new IllegalStateException("PDX read-serialized must be set to true"));
 
 		PdxInstanceFactory factory = regionService.createPdxInstanceFactory(source.getClass().getName());
 
@@ -170,17 +170,17 @@ public class PdxInstanceBuilder {
 		AtomicReference<Object> resolvedSource = new AtomicReference<>(null);
 
 		return () -> Optional.of(factory)
-			.map(PdxInstanceFactory::create)
-			.map(pdxInstance -> resolvedSource.updateAndGet(it -> pdxInstance.getField("source")))
-			.filter(PdxInstance.class::isInstance)
-			.map(PdxInstance.class::cast)
-			.orElseThrow(() -> {
+		.map(PdxInstanceFactory::create)
+		.map(pdxInstance -> resolvedSource.updateAndGet(it -> pdxInstance.getField("source")))
+		.filter(PdxInstance.class::isInstance)
+		.map(PdxInstance.class::cast)
+		.orElseThrow(() -> {
 
-				String message = String.format("Expected an instance of PDX but was an instance of type [%s];"
-						+ " Was PDX read-serialized set to true", nullSafeClassName(resolvedSource.get()));
+			String message = String.format("Expected an instance of PDX but was an instance of type [%s];"
+		+ " Was PDX read-serialized set to true", nullSafeClassName(resolvedSource.get()));
 
-				return new IllegalArgumentException(message);
-			});
+			return new IllegalArgumentException(message);
+		});
 	}
 
 	private String nullSafeClassName(Object target) {

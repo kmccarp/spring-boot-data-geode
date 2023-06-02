@@ -54,21 +54,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = AutoConfiguredLocalSecurityContextIntegrationTests.GemFireClientConfiguration.class,
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = AutoConfiguredLocalSecurityContextIntegrationTests.GemFireClientConfiguration.class,
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class AutoConfiguredLocalSecurityContextIntegrationTests
-		extends AbstractAutoConfiguredSecurityContextIntegrationTests {
+extends AbstractAutoConfiguredSecurityContextIntegrationTests {
 
 	@BeforeClass
 	public static void startGemFireServer() throws IOException {
 		startGemFireServer(GemFireServerConfiguration.class,
-			"-Dspring.profiles.active=security-local-server");
+		"-Dspring.profiles.active=security-local-server");
 	}
 
 	@SpringBootApplication
-	static class GemFireClientConfiguration extends BaseGemFireClientConfiguration { }
+	static class GemFireClientConfiguration extends BaseGemFireClientConfiguration {
+	}
 
 	@SpringBootApplication
 	@CacheServerApplication(name = "AutoConfiguredLocalSecurityContextIntegrationTestsServer")
@@ -77,9 +78,9 @@ public class AutoConfiguredLocalSecurityContextIntegrationTests
 		public static void main(String[] args) {
 
 			new SpringApplicationBuilder(GemFireServerConfiguration.class)
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 	}
 }

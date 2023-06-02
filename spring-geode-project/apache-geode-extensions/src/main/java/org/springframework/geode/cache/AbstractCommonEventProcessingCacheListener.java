@@ -54,7 +54,8 @@ public abstract class AbstractCommonEventProcessingCacheListener<K, V> extends C
 		processEntryEvent(event, EntryEventType.UPDATE);
 	}
 
-	protected void processEntryEvent(EntryEvent<K, V> event, EntryEventType eventType) { }
+	protected void processEntryEvent(EntryEvent<K, V> event, EntryEventType eventType) {
+	}
 
 	@Override
 	public void afterRegionClear(RegionEvent<K, V> event) {
@@ -81,7 +82,8 @@ public abstract class AbstractCommonEventProcessingCacheListener<K, V> extends C
 		processRegionEvent(event, RegionEventType.LIVE);
 	}
 
-	protected void processRegionEvent(RegionEvent<K, V> event, RegionEventType eventType) { }
+	protected void processRegionEvent(RegionEvent<K, V> event, RegionEventType eventType) {
+	}
 
 	public enum EntryEventType {
 

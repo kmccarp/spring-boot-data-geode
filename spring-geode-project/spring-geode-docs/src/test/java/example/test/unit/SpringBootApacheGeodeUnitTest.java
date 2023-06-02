@@ -79,7 +79,8 @@ public class SpringBootApacheGeodeUnitTest extends IntegrationTestsSupport {
 	@EnableGemFireMockObjects
 	@EnableEntityDefinedRegions(basePackageClasses = User.class)
 	@Profile("spring-geode-docs-unit-test")
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }
 
@@ -96,4 +97,5 @@ class User {
 
 }
 
-interface UserRepository extends CrudRepository<User, String> { }
+interface UserRepository extends CrudRepository<User, String> {
+}

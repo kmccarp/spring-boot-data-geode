@@ -53,7 +53,7 @@ public class AbstractResourceReaderUnitTests {
 	@Test
 	public void readFromResourceCallsDoRead() throws IOException {
 
-		byte[] array = { (byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE };
+		byte[] array = {(byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE};
 
 		AbstractResourceReader mockResourceReader = mock(AbstractResourceReader.class);
 

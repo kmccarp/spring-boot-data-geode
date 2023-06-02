@@ -55,11 +55,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("spring-gemfire-property-precedence")
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {
-	"spring.data.gemfire.cache.client.durable-client-id=987",
-	"spring.data.gemfire.name=MockName",
-	"spring.application.name=TestName",
-	"gemfire.durable-client-id=123",
-	"gemfire.name=NoName"
+"spring.data.gemfire.cache.client.durable-client-id=987",
+"spring.data.gemfire.name=MockName",
+"spring.application.name=TestName",
+"gemfire.durable-client-id=123",
+"gemfire.name=NoName"
 })
 @SuppressWarnings("unused")
 public class GeodePropertiesVsSpringDataGeodePropertiesPrecedenceIntegrationTests extends IntegrationTestsSupport {
@@ -85,6 +85,7 @@ public class GeodePropertiesVsSpringDataGeodePropertiesPrecedenceIntegrationTest
 	@SpringBootApplication
 	@EnableGemFireMockObjects
 	@Profile("spring-gemfire-property-precedence")
-	static class TestGeodeConfiguration { }
+	static class TestGeodeConfiguration {
+	}
 
 }

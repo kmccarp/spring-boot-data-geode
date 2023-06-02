@@ -94,7 +94,7 @@ public class TestSecurityManagerUnitTests {
 	public void userIsAlwaysAuthorized() {
 
 		ResourcePermission clusterManage =
-			new ResourcePermission(ResourcePermission.Resource.CLUSTER, ResourcePermission.Operation.MANAGE);
+		new ResourcePermission(ResourcePermission.Resource.CLUSTER, ResourcePermission.Operation.MANAGE);
 
 		assertThat(this.securityManager.authorize(null, clusterManage)).isTrue();
 		assertThat(this.securityManager.authorize(new TestSecurityManager.User("test"), clusterManage)).isTrue();

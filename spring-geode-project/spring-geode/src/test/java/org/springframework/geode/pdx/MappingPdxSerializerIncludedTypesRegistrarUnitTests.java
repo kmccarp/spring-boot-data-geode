@@ -52,7 +52,7 @@ public class MappingPdxSerializerIncludedTypesRegistrarUnitTests {
 	@Test
 	public void withClassTypesIsCorrect() {
 
-		Class<?>[] types = { TypeOne.class, TypeTwo.class };
+		Class<?>[] types = {TypeOne.class, TypeTwo.class};
 
 		MappingPdxSerializerIncludedTypesRegistrar registrar = MappingPdxSerializerIncludedTypesRegistrar.with(types);
 
@@ -64,7 +64,7 @@ public class MappingPdxSerializerIncludedTypesRegistrarUnitTests {
 	@Test
 	public void withClassTypesContainingNullTypesIsCorrect() {
 
-		Class<?>[] types = { null, TypeOne.class, null, null, TypeTwo.class, null, null };
+		Class<?>[] types = {null, TypeOne.class, null, null, TypeTwo.class, null, null};
 
 		MappingPdxSerializerIncludedTypesRegistrar registrar = MappingPdxSerializerIncludedTypesRegistrar.with(types);
 
@@ -76,7 +76,7 @@ public class MappingPdxSerializerIncludedTypesRegistrarUnitTests {
 	public void withNullClassTypesIsNullSafe() {
 
 		MappingPdxSerializerIncludedTypesRegistrar registrar =
-			MappingPdxSerializerIncludedTypesRegistrar.with((Class<?>[]) null);
+		MappingPdxSerializerIncludedTypesRegistrar.with((Class<?>[]) null);
 
 		assertThat(registrar).isNotNull();
 		assertThat(registrar.getTypes()).isNotNull();
@@ -87,7 +87,7 @@ public class MappingPdxSerializerIncludedTypesRegistrarUnitTests {
 	public void getCompositeIncludeTypeFilterIsCorrect() {
 
 		MappingPdxSerializerIncludedTypesRegistrar registrar =
-			MappingPdxSerializerIncludedTypesRegistrar.with(TypeOne.class, TypeTwo.class);
+		MappingPdxSerializerIncludedTypesRegistrar.with(TypeOne.class, TypeTwo.class);
 
 		assertThat(registrar).isNotNull();
 		assertThat(registrar.getTypes()).containsExactly(TypeOne.class, TypeTwo.class);
@@ -122,7 +122,7 @@ public class MappingPdxSerializerIncludedTypesRegistrarUnitTests {
 	public void newIncludeTypeFilterWithNonNullType() {
 
 		Predicate<Class<?>> predicate =
-			MappingPdxSerializerIncludedTypesRegistrar.with().newIncludeTypeFilter(SubtypeOne.class);
+		MappingPdxSerializerIncludedTypesRegistrar.with().newIncludeTypeFilter(SubtypeOne.class);
 
 		assertThat(predicate).isNotNull();
 		assertThat(predicate.test(SubtypeOne.class)).isTrue();
@@ -147,7 +147,7 @@ public class MappingPdxSerializerIncludedTypesRegistrarUnitTests {
 		doReturn(mockPdxSerializer).when(mockCache).getPdxSerializer();
 
 		MappingPdxSerializerIncludedTypesRegistrar registrar =
-			MappingPdxSerializerIncludedTypesRegistrar.with(TypeOne.class);
+		MappingPdxSerializerIncludedTypesRegistrar.with(TypeOne.class);
 
 		assertThat(registrar).isNotNull();
 
@@ -221,7 +221,7 @@ public class MappingPdxSerializerIncludedTypesRegistrarUnitTests {
 		Object bean = new Object();
 
 		MappingPdxSerializerIncludedTypesRegistrar registrar =
-			spy(MappingPdxSerializerIncludedTypesRegistrar.with(TypeOne.class));
+		spy(MappingPdxSerializerIncludedTypesRegistrar.with(TypeOne.class));
 
 		assertThat(registrar).isNotNull();
 		assertThat(registrar.postProcessAfterInitialization(bean, "TestBean")).isEqualTo(bean);
@@ -233,15 +233,19 @@ public class MappingPdxSerializerIncludedTypesRegistrarUnitTests {
 	public void postProcessAfterInitializationIsNullSafe() {
 
 		assertThat(MappingPdxSerializerIncludedTypesRegistrar.with()
-			.postProcessAfterInitialization(null, "NullBean")).isNull();
+		.postProcessAfterInitialization(null, "NullBean")).isNull();
 	}
 
-	static class TypeOne { }
+	static class TypeOne {
+	}
 
-	static class TypeTwo { }
+	static class TypeTwo {
+	}
 
-	static class TypeThree { }
+	static class TypeThree {
+	}
 
-	static class SubtypeOne extends TypeOne { }
+	static class SubtypeOne extends TypeOne {
+	}
 
 }

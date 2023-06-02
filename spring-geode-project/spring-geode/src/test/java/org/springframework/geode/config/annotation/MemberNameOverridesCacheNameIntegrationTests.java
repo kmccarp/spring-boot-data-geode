@@ -61,12 +61,13 @@ public class MemberNameOverridesCacheNameIntegrationTests extends IntegrationTes
 		assertThat(this.gemfireCache.getDistributedSystem()).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getProperties()).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getProperties().getProperty("name"))
-			.isEqualTo("TestMemberName");
+		.isEqualTo("TestMemberName");
 	}
 
 	@ClientCacheApplication(name = "TestCacheName")
 	@UseMemberName("TestMemberName")
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

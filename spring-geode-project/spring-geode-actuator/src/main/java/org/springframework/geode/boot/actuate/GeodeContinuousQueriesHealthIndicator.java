@@ -92,61 +92,61 @@ public class GeodeContinuousQueriesHealthIndicator extends AbstractGeodeHealthIn
 		if (getContinuousQueryListenerContainer().isPresent()) {
 
 			Optional<QueryService> queryService = getContinuousQueryListenerContainer()
-				.map(ContinuousQueryListenerContainer::getQueryService);
+			.map(ContinuousQueryListenerContainer::getQueryService);
 
 			List<CqQuery> continuousQueries = queryService
-				.map(QueryService::getCqs)
-				.map(Arrays::asList)
-				.orElseGet(Collections::emptyList);
+			.map(QueryService::getCqs)
+			.map(Arrays::asList)
+			.orElseGet(Collections::emptyList);
 
 			builder.withDetail("geode.continuous-query.count", continuousQueries.size());
 
 			queryService
-				.map(QueryService::getCqStatistics)
-				.ifPresent(cqServiceStatistics ->
+			.map(QueryService::getCqStatistics)
+			.ifPresent(cqServiceStatistics ->
 
-					builder.withDetail("geode.continuous-query.number-of-active", cqServiceStatistics.numCqsActive())
-						.withDetail("geode.continuous-query.number-of-closed", cqServiceStatistics.numCqsClosed())
-						.withDetail("geode.continuous-query.number-of-created", cqServiceStatistics.numCqsCreated())
-						.withDetail("geode.continuous-query.number-of-stopped", cqServiceStatistics.numCqsStopped())
-						.withDetail("geode.continuous-query.number-on-client", cqServiceStatistics.numCqsOnClient())
-				);
+		builder.withDetail("geode.continuous-query.number-of-active", cqServiceStatistics.numCqsActive())
+		.withDetail("geode.continuous-query.number-of-closed", cqServiceStatistics.numCqsClosed())
+		.withDetail("geode.continuous-query.number-of-created", cqServiceStatistics.numCqsCreated())
+		.withDetail("geode.continuous-query.number-of-stopped", cqServiceStatistics.numCqsStopped())
+		.withDetail("geode.continuous-query.number-on-client", cqServiceStatistics.numCqsOnClient())
+			);
 
 			continuousQueries.stream()
-				.filter(Objects::nonNull)
-				.forEach(continuousQuery -> {
+			.filter(Objects::nonNull)
+			.forEach(continuousQuery -> {
 
-					String continuousQueryName = continuousQuery.getName();
+				String continuousQueryName = continuousQuery.getName();
 
-					builder.withDetail(continuousQueryKey(continuousQueryName,"oql-query-string"), continuousQuery.getQueryString())
-						.withDetail(continuousQueryKey(continuousQueryName, "closed"), toYesNoString(continuousQuery.isClosed()))
-						.withDetail(continuousQueryKey(continuousQueryName, "closing"), toYesNoString(continuousQuery.getState()))
-						.withDetail(continuousQueryKey(continuousQueryName, "durable"), toYesNoString(continuousQuery.isDurable()))
-						.withDetail(continuousQueryKey(continuousQueryName, "running"), toYesNoString(continuousQuery.isRunning()))
-						.withDetail(continuousQueryKey(continuousQueryName, "stopped"), toYesNoString(continuousQuery.isStopped()));
+				builder.withDetail(continuousQueryKey(continuousQueryName, "oql-query-string"), continuousQuery.getQueryString())
+			.withDetail(continuousQueryKey(continuousQueryName, "closed"), toYesNoString(continuousQuery.isClosed()))
+			.withDetail(continuousQueryKey(continuousQueryName, "closing"), toYesNoString(continuousQuery.getState()))
+			.withDetail(continuousQueryKey(continuousQueryName, "durable"), toYesNoString(continuousQuery.isDurable()))
+			.withDetail(continuousQueryKey(continuousQueryName, "running"), toYesNoString(continuousQuery.isRunning()))
+			.withDetail(continuousQueryKey(continuousQueryName, "stopped"), toYesNoString(continuousQuery.isStopped()));
 
-					Query query = continuousQuery.getQuery();
+				Query query = continuousQuery.getQuery();
 
-					if (query != null) {
+				if (query != null) {
 
-						QueryStatistics queryStatistics = query.getStatistics();
+					QueryStatistics queryStatistics = query.getStatistics();
 
-						if (queryStatistics != null) {
-							builder.withDetail(continuousQueryQueryKey(continuousQueryName, "number-of-executions"), queryStatistics.getNumExecutions())
-								.withDetail(continuousQueryQueryKey(continuousQueryName, "total-execution-time"), queryStatistics.getTotalExecutionTime());
-						}
+					if (queryStatistics != null) {
+						builder.withDetail(continuousQueryQueryKey(continuousQueryName, "number-of-executions"), queryStatistics.getNumExecutions())
+					.withDetail(continuousQueryQueryKey(continuousQueryName, "total-execution-time"), queryStatistics.getTotalExecutionTime());
 					}
+				}
 
-					CqStatistics continuousQueryStatistics = continuousQuery.getStatistics();
+				CqStatistics continuousQueryStatistics = continuousQuery.getStatistics();
 
-					if (continuousQueryStatistics != null) {
+				if (continuousQueryStatistics != null) {
 
-						builder.withDetail(continuousQueryStatisticsKey(continuousQueryName, "number-of-deletes"), continuousQueryStatistics.numDeletes())
-							.withDetail(continuousQueryStatisticsKey(continuousQueryName, "number-of-events"), continuousQueryStatistics.numEvents())
-							.withDetail(continuousQueryStatisticsKey(continuousQueryName, "number-of-inserts"), continuousQueryStatistics.numInserts())
-							.withDetail(continuousQueryStatisticsKey(continuousQueryName, "number-of-updates"), continuousQueryStatistics.numUpdates());
-					}
-				});
+					builder.withDetail(continuousQueryStatisticsKey(continuousQueryName, "number-of-deletes"), continuousQueryStatistics.numDeletes())
+				.withDetail(continuousQueryStatisticsKey(continuousQueryName, "number-of-events"), continuousQueryStatistics.numEvents())
+				.withDetail(continuousQueryStatisticsKey(continuousQueryName, "number-of-inserts"), continuousQueryStatistics.numInserts())
+				.withDetail(continuousQueryStatisticsKey(continuousQueryName, "number-of-updates"), continuousQueryStatistics.numUpdates());
+				}
+			});
 
 			builder.up();
 

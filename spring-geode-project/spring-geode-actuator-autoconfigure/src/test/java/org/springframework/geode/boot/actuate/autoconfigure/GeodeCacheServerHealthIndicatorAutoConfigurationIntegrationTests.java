@@ -122,17 +122,17 @@ public class GeodeCacheServerHealthIndicatorAutoConfigurationIntegrationTests ex
 
 		@Bean
 		ApplicationRunner runner(ServerLoadProbe mockServerLoadProbe,
-				@Qualifier("MockCacheServer") CacheServer mockCacheServer) {
+		@Qualifier("MockCacheServer") CacheServer mockCacheServer) {
 
 			return args -> {
 
 				assertThat(mockCacheServer.getLoadProbe()).isInstanceOf(ActuatorServerLoadProbeWrapper.class);
 
 				ServerMetrics mockServerMetrics = CacheServerMockObjects.mockServerMetrics(21,
-					400, 800, 200);
+				400, 800, 200);
 
 				ServerLoad mockServerLoad = CacheServerMockObjects.mockServerLoad(0.65f,
-					0.35f, 0.75f, 0.55f);
+				0.35f, 0.75f, 0.55f);
 
 				when(mockServerLoadProbe.getLoad(eq(mockServerMetrics))).thenReturn(mockServerLoad);
 

@@ -179,10 +179,10 @@ public class EnvironmentMapAdapterUnitTests {
 		EnumerablePropertySource<?> mockPropertySourceTwo = mock(EnumerablePropertySource.class, "PropertySourceTwo");
 
 		Map<String, String> map = MapBuilder.<String, String>newMapBuilder()
-			.put("propertyNameOne", "one")
-			.put("propertyNameTwo", "two")
-			.put("propertyNameThree", "three")
-			.build();
+		.put("propertyNameOne", "one")
+		.put("propertyNameTwo", "two")
+		.put("propertyNameThree", "three")
+		.build();
 
 		MutablePropertySources mutablePropertySources = new MutablePropertySources();
 
@@ -193,7 +193,7 @@ public class EnvironmentMapAdapterUnitTests {
 		doReturn(mutablePropertySources).when(mockEnvironment).getPropertySources();
 		doReturn(ArrayUtils.asArray("propertyNameOne")).when(mockPropertySourceOne).getPropertyNames();
 		doReturn(ArrayUtils.asArray("propertyNameTwo", "propertyNameThree"))
-			.when(mockPropertySourceTwo).getPropertyNames();
+		.when(mockPropertySourceTwo).getPropertyNames();
 
 		EnvironmentMapAdapter adapter = EnvironmentMapAdapter.from(mockEnvironment);
 
@@ -205,7 +205,7 @@ public class EnvironmentMapAdapterUnitTests {
 		assertThat(entrySet).isNotNull();
 		assertThat(entrySet).hasSize(3);
 		assertThat(entrySet.stream().map(Map.Entry::getKey).sorted().collect(Collectors.toList()))
-			.containsExactly("propertyNameOne", "propertyNameThree", "propertyNameTwo");
+		.containsExactly("propertyNameOne", "propertyNameThree", "propertyNameTwo");
 
 		entrySet.forEach(entry -> assertThat(entry.getValue()).isEqualTo(map.get(entry.getKey())));
 	}
@@ -221,7 +221,7 @@ public class EnvironmentMapAdapterUnitTests {
 		catch (UnsupportedOperationException expected) {
 
 			assertThat(expected).hasMessage("Unable to determine the entrySet from the Environment [%s]",
-				mockEnvironment.getClass().getName());
+			mockEnvironment.getClass().getName());
 
 			assertThat(expected).hasNoCause();
 

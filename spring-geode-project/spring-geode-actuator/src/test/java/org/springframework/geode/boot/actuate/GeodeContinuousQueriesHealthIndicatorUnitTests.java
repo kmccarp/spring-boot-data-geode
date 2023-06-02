@@ -109,7 +109,7 @@ public class GeodeContinuousQueriesHealthIndicatorUnitTests {
 		when(mockQuery.getStatistics()).thenReturn(mockQueryStatistics);
 		when(mockContinuousQuery.getQuery()).thenReturn(mockQuery);
 
-		CqQuery[] mockContinuousQueries = { mockContinuousQuery };
+		CqQuery[] mockContinuousQueries = {mockContinuousQuery};
 
 		when(this.mockQueryService.getCqs()).thenReturn(mockContinuousQueries);
 

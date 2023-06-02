@@ -53,11 +53,9 @@ import example.app.golf.model.Golfer;
 @ActiveProfiles("IMPORT-LOCAL")
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = LocalClientCacheDataImportAutoConfigurationIntegrationTests.TestGeodeClientConfiguration.class,
-	properties = {
-		"spring.application.name=LocalClientCacheDataImportAutoConfigurationIntegrationTests",
-		"spring.boot.data.gemfire.cache.data.import.active-profiles=IMPORT-LOCAL"
-	}
+classes = LocalClientCacheDataImportAutoConfigurationIntegrationTests.TestGeodeClientConfiguration.class,
+properties = {"spring.application.name=LocalClientCacheDataImportAutoConfigurationIntegrationTests","spring.boot.data.gemfire.cache.data.import.active-profiles=IMPORT-LOCAL"
+}
 )
 public class LocalClientCacheDataImportAutoConfigurationIntegrationTests extends IntegrationTestsSupport {
 
@@ -88,6 +86,7 @@ public class LocalClientCacheDataImportAutoConfigurationIntegrationTests extends
 	@Profile("IMPORT-LOCAL")
 	@SpringBootApplication
 	@EnableEntityDefinedRegions(basePackageClasses = Golfer.class, clientRegionShortcut = ClientRegionShortcut.LOCAL)
-	static class TestGeodeClientConfiguration { }
+	static class TestGeodeClientConfiguration {
+	}
 
 }

@@ -41,7 +41,8 @@ public class AbstractResultCollectorUnitTests {
 	private AbstractResultCollector<Object, Object> resultCollector;
 
 	private static <T, S> AbstractResultCollector<T, S> newResultCollector() {
-		return newResultCollector(() -> {});
+		return newResultCollector(() -> {
+		});
 	}
 
 	private static <T, S> AbstractResultCollector<T, S> newResultCollector(Runnable runnable) {

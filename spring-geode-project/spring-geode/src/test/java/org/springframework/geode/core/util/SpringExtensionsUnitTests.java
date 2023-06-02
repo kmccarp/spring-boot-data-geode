@@ -65,7 +65,7 @@ public class SpringExtensionsUnitTests {
 		ConfigurableApplicationContext mockApplicationContext = mock(ConfigurableApplicationContext.class);
 
 		ConfigurableListableBeanFactoryBeanDefinitionRegistry mockBeanDefinitionRegistry =
-			mock(ConfigurableListableBeanFactoryBeanDefinitionRegistry.class);
+		mock(ConfigurableListableBeanFactoryBeanDefinitionRegistry.class);
 
 		String beanName = "TestBeanName";
 
@@ -84,7 +84,7 @@ public class SpringExtensionsUnitTests {
 	public void getBeanDefinitionMetadataFromNullApplicationContextReturnsEmptyJsonObject() {
 
 		assertThat(SpringExtensions.getBeanDefinitionMetadata("TestBeanName", (ApplicationContext) null))
-			.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
+		.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class SpringExtensionsUnitTests {
 		ApplicationContext mockApplicationContext = mock(ApplicationContext.class);
 
 		assertThat(SpringExtensions.getBeanDefinitionMetadata("TestBeanName", mockApplicationContext))
-			.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
+		.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
 
 		verifyNoInteractions(mockApplicationContext);
 	}
@@ -106,7 +106,7 @@ public class SpringExtensionsUnitTests {
 		doReturn(null).when(mockApplicationContext).getBeanFactory();
 
 		assertThat(SpringExtensions.getBeanDefinitionMetadata("TestBeanName", mockApplicationContext))
-			.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
+		.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
 
 		verify(mockApplicationContext, times(1)).getBeanFactory();
 
@@ -117,14 +117,14 @@ public class SpringExtensionsUnitTests {
 	public void getBeanDefinitionMetadataFromNullBeanFactoryReturnsEmptyJsonObject() {
 
 		assertThat(SpringExtensions.getBeanDefinitionMetadata("TestBeanName", (BeanFactory) null))
-			.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
+		.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
 	}
 
 	@Test
 	public void getBeanDefinitionMetadataFromNullBeanDefinitionRegistryReturnsEmptyJsonObject() {
 
 		assertThat(SpringExtensions.getBeanDefinitionMetadata("TestBeanName", (BeanDefinitionRegistry) null))
-			.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
+		.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
 	}
 
 	private void testGetBeanDefinitionMetadataFromInvalidBeanNameReturnsEmptyJsonObject(String beanName) {
@@ -132,7 +132,7 @@ public class SpringExtensionsUnitTests {
 		BeanDefinitionRegistry mockBeanDefinitionRegistry = mock(BeanDefinitionRegistry.class);
 
 		assertThat(SpringExtensions.getBeanDefinitionMetadata(beanName, mockBeanDefinitionRegistry))
-			.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
+		.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
 
 		verifyNoInteractions(mockBeanDefinitionRegistry);
 	}
@@ -160,7 +160,7 @@ public class SpringExtensionsUnitTests {
 		doReturn(null).when(mockBeanDefinitionRegistry).getBeanDefinition(any());
 
 		assertThat(SpringExtensions.getBeanDefinitionMetadata("TestBeanName", mockBeanDefinitionRegistry))
-			.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
+		.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
 
 		verify(mockBeanDefinitionRegistry, times(1)).getBeanDefinition(eq("TestBeanName"));
 
@@ -183,8 +183,8 @@ public class SpringExtensionsUnitTests {
 		doReturn(testSource).when(mockBeanDefinition).getSource();
 
 		String expectedJson = String.format(SpringExtensions.BEAN_DEFINITION_METADATA_JSON,
-			"TestBeanName", "test.bean.ClassName", "TestDescription", mockOriginatingBeanDefinition, "TestParentName",
-			"TestResourceDescription", testSource);
+		"TestBeanName", "test.bean.ClassName", "TestDescription", mockOriginatingBeanDefinition, "TestParentName",
+		"TestResourceDescription", testSource);
 
 		String actualJson = SpringExtensions.getBeanDefinitionMetadata("TestBeanName", mockBeanDefinition);
 
@@ -198,10 +198,11 @@ public class SpringExtensionsUnitTests {
 	public void getBeanDefinitionMetadataForNullBeanDefinitionReturnsEmptyJsonObject() {
 
 		assertThat(SpringExtensions.getBeanDefinitionMetadata("TestBeanName", (BeanDefinition) null))
-			.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
+		.isEqualTo(SpringExtensions.EMPTY_JSON_OBJECT);
 	}
 
 	private interface ConfigurableListableBeanFactoryBeanDefinitionRegistry
-		extends BeanDefinitionRegistry, ConfigurableListableBeanFactory { }
+	extends BeanDefinitionRegistry, ConfigurableListableBeanFactory {
+	}
 
 }

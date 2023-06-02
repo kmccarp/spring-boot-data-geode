@@ -165,7 +165,7 @@ public class JsonCacheDataImporterExporterUnitTests {
 		assertThat(this.importerExporter.doImportInto(mockRegion)).isEqualTo(mockRegion);
 
 		InOrder order =
-			inOrder(this.importerExporter, mockRegion, mockResource, mockResourceReader, mockImportResourceResolver);
+		inOrder(this.importerExporter, mockRegion, mockResource, mockResourceReader, mockImportResourceResolver);
 
 		order.verify(this.importerExporter, times(1)).getImportResourceResolver();
 		order.verify(mockImportResourceResolver, times(1)).resolve(eq(mockRegion));
@@ -236,7 +236,7 @@ public class JsonCacheDataImporterExporterUnitTests {
 		verify(this.importerExporter, times(1)).getResourceReader();
 		verify(this.importerExporter, times(1)).toPdx(eq(json));
 		verify(this.importerExporter, times(1))
-			.regionPutPdx(eq(mockRegion), eq(JsonCacheDataImporterExporter.EMPTY_PDX_INSTANCE_ARRAY));
+		.regionPutPdx(eq(mockRegion), eq(JsonCacheDataImporterExporter.EMPTY_PDX_INSTANCE_ARRAY));
 		verify(mockImportResourceResolver, times(1)).resolve(eq(mockRegion));
 		verify(mockResourceReader, times(1)).read(eq(mockResource));
 		verifyNoMoreInteractions(this.importerExporter, mockImportResourceResolver, mockResourceReader);
@@ -270,7 +270,7 @@ public class JsonCacheDataImporterExporterUnitTests {
 		verify(this.importerExporter, times(1)).getResourceReader();
 		verify(this.importerExporter, times(1)).toPdx(eq(json));
 		verify(this.importerExporter, times(1)).regionPutPdx(eq(mockRegion),
-			eq(JsonCacheDataImporterExporter.EMPTY_PDX_INSTANCE_ARRAY));
+		eq(JsonCacheDataImporterExporter.EMPTY_PDX_INSTANCE_ARRAY));
 		verify(mockImportResourceResolver, times(1)).resolve(eq(mockRegion));
 		verify(mockResourceReader, times(1)).read(eq(mockResource));
 		verifyNoMoreInteractions(this.importerExporter, mockImportResourceResolver, mockResourceReader);

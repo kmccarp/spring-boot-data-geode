@@ -54,8 +54,8 @@ import org.springframework.util.StringUtils;
  */
 public class GeodeLoggingApplicationListener implements GenericApplicationListener {
 
-	private static final Class<?>[] EVENT_TYPES = { ApplicationEnvironmentPreparedEvent.class };
-	private static final Class<?>[] SOURCE_TYPES = { ApplicationContext.class, SpringApplication.class };
+	private static final Class<?>[] EVENT_TYPES = {ApplicationEnvironmentPreparedEvent.class};
+	private static final Class<?>[] SOURCE_TYPES = {ApplicationContext.class, SpringApplication.class};
 
 	public static final String SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY = "spring.boot.data.gemfire.log.level";
 	public static final String SPRING_DATA_GEMFIRE_CACHE_LOG_LEVEL = "spring.data.gemfire.cache.log-level";
@@ -65,8 +65,8 @@ public class GeodeLoggingApplicationListener implements GenericApplicationListen
 	public int getOrder() {
 
 		return LoggingApplicationListener.DEFAULT_ORDER > Ordered.HIGHEST_PRECEDENCE
-			? LoggingApplicationListener.DEFAULT_ORDER - 1
-			: Ordered.HIGHEST_PRECEDENCE;
+		? LoggingApplicationListener.DEFAULT_ORDER - 1
+		: Ordered.HIGHEST_PRECEDENCE;
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class GeodeLoggingApplicationListener implements GenericApplicationListen
 	}
 
 	protected void onApplicationEnvironmentPreparedEvent(
-			@NonNull ApplicationEnvironmentPreparedEvent environmentPreparedEvent) {
+	@NonNull ApplicationEnvironmentPreparedEvent environmentPreparedEvent) {
 
 		Assert.notNull(environmentPreparedEvent, "ApplicationEnvironmentPreparedEvent must not be null");
 
@@ -90,8 +90,8 @@ public class GeodeLoggingApplicationListener implements GenericApplicationListen
 		if (isSystemPropertyNotSet(SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY)) {
 
 			String logLevel = environment.getProperty(SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY,
-				environment.getProperty(SPRING_DATA_GEMFIRE_LOGGING_LOG_LEVEL,
-				environment.getProperty(SPRING_DATA_GEMFIRE_CACHE_LOG_LEVEL)));
+			environment.getProperty(SPRING_DATA_GEMFIRE_LOGGING_LOG_LEVEL,
+		environment.getProperty(SPRING_DATA_GEMFIRE_CACHE_LOG_LEVEL)));
 
 			setSystemProperty(SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY, logLevel);
 		}

@@ -75,8 +75,8 @@ import example.echo.config.EchoServerConfiguration;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = AutoConfiguredSslIntegrationTests.GemFireClientConfiguration.class,
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = AutoConfiguredSslIntegrationTests.GemFireClientConfiguration.class,
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class AutoConfiguredSslIntegrationTests extends ForkingClientServerIntegrationTestsSupport {
@@ -97,10 +97,10 @@ public class AutoConfiguredSslIntegrationTests extends ForkingClientServerIntegr
 	public static void clearSslSystemProperties() {
 
 		List<String> sslSystemProperties = System.getProperties().keySet().stream()
-			.map(String::valueOf)
-			.map(String::toLowerCase)
-			.filter(property -> property.contains("ssl"))
-			.collect(Collectors.toList());
+		.map(String::valueOf)
+		.map(String::toLowerCase)
+		.filter(property -> property.contains("ssl"))
+		.collect(Collectors.toList());
 
 		//System.err.printf("SSL System Properties [%s]%n", sslSystemProperties);
 
@@ -120,9 +120,9 @@ public class AutoConfiguredSslIntegrationTests extends ForkingClientServerIntegr
 		if (currentWorkingDirectory.isDirectory()) {
 
 			Arrays.stream(nullSafeArray(currentWorkingDirectory.listFiles(keystorePredicate::test), File.class))
-				.filter(Objects::nonNull)
-				.filter(File::isFile)
-				.forEach(File::delete);
+			.filter(Objects::nonNull)
+			.filter(File::isFile)
+			.forEach(File::delete);
 		}
 	}
 
@@ -136,10 +136,10 @@ public class AutoConfiguredSslIntegrationTests extends ForkingClientServerIntegr
 	public void removeGemFireSslPropertySourceFromEnvironment() {
 
 		Optional.ofNullable(this.environment)
-			.filter(ConfigurableEnvironment.class::isInstance)
-			.map(ConfigurableEnvironment.class::cast)
-			.map(ConfigurableEnvironment::getPropertySources)
-			.ifPresent(propertySources -> propertySources.remove("gemfire-ssl"));
+		.filter(ConfigurableEnvironment.class::isInstance)
+		.map(ConfigurableEnvironment.class::cast)
+		.map(ConfigurableEnvironment::getPropertySources)
+		.ifPresent(propertySources -> propertySources.remove("gemfire-ssl"));
 	}
 
 	@Test
@@ -153,7 +153,8 @@ public class AutoConfiguredSslIntegrationTests extends ForkingClientServerIntegr
 
 	@SpringBootApplication
 	@Import(EchoClientConfiguration.class)
-	static class GemFireClientConfiguration extends ClientServerIntegrationTestsConfiguration { }
+	static class GemFireClientConfiguration extends ClientServerIntegrationTestsConfiguration {
+	}
 
 	@SpringBootApplication
 	@CacheServerApplication(name = "AutoConfiguredSslIntegrationTestsServer")
@@ -162,9 +163,9 @@ public class AutoConfiguredSslIntegrationTests extends ForkingClientServerIntegr
 
 		public static void main(String[] args) {
 			new SpringApplicationBuilder(GemFireServerConfiguration.class)
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 	}
 }

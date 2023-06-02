@@ -127,7 +127,7 @@ public class JacksonJsonToPdxConverterUnitTests {
 		doReturn(mockJsonToPdxConverter).when(converter).getJsonToPdxConverter();
 		doReturn(mockObjectMapper).when(converter).getObjectMapper();
 
-		assertThat(converter.convert(json)).isEqualTo(new PdxInstance[] { mockPdxInstance });
+		assertThat(converter.convert(json)).isEqualTo(new PdxInstance[]{mockPdxInstance});
 
 		verify(converter, times(1)).getObjectMapper();
 		verify(converter, times(1)).getJsonToPdxConverter();
@@ -158,7 +158,7 @@ public class JacksonJsonToPdxConverterUnitTests {
 		catch (IllegalStateException expected) {
 
 			assertThat(expected)
-				.hasMessage("Unable to process JSON node of type [BINARY]; expected either an [OBJECT] or an [ARRAY]");
+			.hasMessage("Unable to process JSON node of type [BINARY]; expected either an [OBJECT] or an [ARRAY]");
 			assertThat(expected).hasNoCause();
 
 			throw expected;

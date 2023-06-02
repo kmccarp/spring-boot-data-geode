@@ -93,9 +93,9 @@ public class EntityDefinedRegionTemplateAutoConfigurationIntegrationTests extend
 		assertThat(this.gemfireCache).isNotNull();
 
 		assertThat(this.gemfireCache.rootRegions().stream()
-			.map(Region::getName)
-			.sorted()
-			.collect(Collectors.toList())).containsExactly("Authors", "Books");
+		.map(Region::getName)
+		.sorted()
+		.collect(Collectors.toList())).containsExactly("Authors", "Books");
 
 		assertThat(this.authors).isNotNull();
 		assertThat(this.authors.getName()).isEqualTo("Authors");

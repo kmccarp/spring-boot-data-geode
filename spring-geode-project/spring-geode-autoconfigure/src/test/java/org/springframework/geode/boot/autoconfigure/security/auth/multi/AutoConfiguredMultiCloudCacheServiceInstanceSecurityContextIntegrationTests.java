@@ -55,12 +55,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = AutoConfiguredMultiCloudCacheServiceInstanceSecurityContextIntegrationTests.GemFireClientConfiguration.class,
-	properties = { "spring.boot.data.gemfire.cloud.cloudfoundry.service.cloudcache.name=test-pcc" },
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = AutoConfiguredMultiCloudCacheServiceInstanceSecurityContextIntegrationTests.GemFireClientConfiguration.class,
+properties = {"spring.boot.data.gemfire.cloud.cloudfoundry.service.cloudcache.name=test-pcc"},
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 public class AutoConfiguredMultiCloudCacheServiceInstanceSecurityContextIntegrationTests
-		extends AbstractAutoConfiguredSecurityContextIntegrationTests {
+extends AbstractAutoConfiguredSecurityContextIntegrationTests {
 
 	private static final String LOCATOR_PORT_PLACEHOLDER_REGEX = "%LOCATOR_PORT%";
 	private static final String VCAP_APPLICATION_PROPERTIES = "application-vcap-multi.properties";
@@ -73,8 +73,8 @@ public class AutoConfiguredMultiCloudCacheServiceInstanceSecurityContextIntegrat
 		int locatorPort = findAvailablePort();
 
 		startGemFireServer(AutoConfiguredMultiCloudCacheServiceInstanceSecurityContextIntegrationTests.GemFireServerConfiguration.class,
-			String.format("-Dspring.data.gemfire.locator.port=%d", locatorPort),
-			"-Dspring.profiles.active=security-multi");
+		String.format("-Dspring.data.gemfire.locator.port=%d", locatorPort),
+		"-Dspring.profiles.active=security-multi");
 
 		loadVcapApplicationProperties(locatorPort);
 
@@ -88,7 +88,7 @@ public class AutoConfiguredMultiCloudCacheServiceInstanceSecurityContextIntegrat
 		vcapApplicationProperties.stringPropertyNames().forEach(propertyName -> {
 
 			String propertyValue = String.valueOf(vcapApplicationProperties.getProperty(propertyName))
-				.replaceAll(LOCATOR_PORT_PLACEHOLDER_REGEX, String.valueOf(locatorPort));
+			.replaceAll(LOCATOR_PORT_PLACEHOLDER_REGEX, String.valueOf(locatorPort));
 
 			System.setProperty(propertyName, propertyValue);
 		});
@@ -104,7 +104,8 @@ public class AutoConfiguredMultiCloudCacheServiceInstanceSecurityContextIntegrat
 	}
 
 	@SpringBootApplication
-	static class GemFireClientConfiguration extends BaseGemFireClientConfiguration { }
+	static class GemFireClientConfiguration extends BaseGemFireClientConfiguration {
+	}
 
 	@SpringBootApplication
 	@EnableLocator
@@ -114,9 +115,9 @@ public class AutoConfiguredMultiCloudCacheServiceInstanceSecurityContextIntegrat
 		public static void main(String[] args) {
 
 			new SpringApplicationBuilder(GemFireServerConfiguration.class)
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 	}
 }

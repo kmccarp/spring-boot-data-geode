@@ -71,11 +71,9 @@ import example.app.crm.model.Customer;
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = {
-		"logging.level.org.springframework.geode.config.annotation=INFO",
-		"spring.main.cloud-platform=KUBERNETES"
-	},
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = {"logging.level.org.springframework.geode.config.annotation=INFO","spring.main.cloud-platform=KUBERNETES"
+},
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class KubernetesClusterNotAvailableConfigurationIntegrationTests extends IntegrationTestsSupport {
@@ -129,6 +127,7 @@ public class KubernetesClusterNotAvailableConfigurationIntegrationTests extends 
 	@Profile("kubernetes-cluster-test")
 	@EnableEntityDefinedRegions(basePackageClasses = Customer.class)
 	@ClientCacheApplication(name = "KubernetesClusterNotAvailableConfigurationIntegrationTests")
-	static class TestGeodeClientConfiguration { }
+	static class TestGeodeClientConfiguration {
+	}
 
 }

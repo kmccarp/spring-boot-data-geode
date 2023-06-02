@@ -55,7 +55,7 @@ import org.slf4j.Logger;
 public class ClusterAvailableConfiguration {
 
 	private static final Set<CloudPlatform> SUPPORTED_CLOUD_PLATFORMS =
-		CollectionUtils.asSet(CloudPlatform.CLOUD_FOUNDRY, CloudPlatform.KUBERNETES);
+	CollectionUtils.asSet(CloudPlatform.CLOUD_FOUNDRY, CloudPlatform.KUBERNETES);
 
 	public static final class AnyClusterAvailableCondition extends AnyNestedCondition {
 
@@ -65,19 +65,22 @@ public class ClusterAvailableConfiguration {
 
 		//@ConditionalOnCloudPlatform(CloudPlatform.CLOUD_FOUNDRY)
 		@Conditional(CloudFoundryClusterAvailableCondition.class)
-		static class IsCloudFoundryClusterAvailableCondition { }
+		static class IsCloudFoundryClusterAvailableCondition {
+		}
 
 		//@ConditionalOnCloudPlatform(CloudPlatform.KUBERNETES)
 		@Conditional(KubernetesClusterAvailableCondition.class)
-		static class IsKubernetesClusterAvailableCondition { }
+		static class IsKubernetesClusterAvailableCondition {
+		}
 
 		@Conditional(StandaloneClusterAvailableCondition.class)
-		static class IsStandaloneClusterAvailableCondition { }
+		static class IsStandaloneClusterAvailableCondition {
+		}
 
 	}
 
 	protected static abstract class AbstractCloudPlatformAvailableCondition
-			extends ClusterAwareConfiguration.ClusterAwareCondition {
+	extends ClusterAwareConfiguration.ClusterAwareCondition {
 
 		protected abstract String getCloudPlatformName();
 
@@ -98,7 +101,7 @@ public class ClusterAvailableConfiguration {
 
 		@Override
 		public synchronized final boolean matches(@NonNull ConditionContext conditionContext,
-				@NonNull AnnotatedTypeMetadata typeMetadata) {
+		@NonNull AnnotatedTypeMetadata typeMetadata) {
 
 			boolean match = isCloudPlatformActive(conditionContext.getEnvironment());
 			boolean strictMatch = isStrictMatch(conditionContext, typeMetadata);
@@ -119,7 +122,7 @@ public class ClusterAvailableConfiguration {
 
 			if (logger.isInfoEnabled()) {
 				logger.info("Spring Boot application is running in a client/server topology,"
-					+ " inside a [{}] Cloud-managed Environment", getRuntimeEnvironmentName());
+				+ " inside a [{}] Cloud-managed Environment", getRuntimeEnvironmentName());
 			}
 		}
 
@@ -128,13 +131,13 @@ public class ClusterAvailableConfiguration {
 
 			if (logger.isInfoEnabled()) {
 				logger.info("No cluster was found; Spring Boot application is running in a [{}]"
-						+ " Cloud-managed Environment", getRuntimeEnvironmentName());
+				+ " Cloud-managed Environment", getRuntimeEnvironmentName());
 			}
 		}
 
 		@Override
 		protected void configureTopology(@NonNull Environment environment,
-				@NonNull ConnectionEndpointList connectionEndpoints, int connectionCount) {
+		@NonNull ConnectionEndpointList connectionEndpoints, int connectionCount) {
 			// do nothing!
 		}
 	}
@@ -182,14 +185,14 @@ public class ClusterAvailableConfiguration {
 	}
 
 	public static class StandaloneClusterAvailableCondition
-			extends ClusterAwareConfiguration.ClusterAwareCondition {
+	extends ClusterAwareConfiguration.ClusterAwareCondition {
 
 		@Override
 		public synchronized boolean matches(@NonNull ConditionContext conditionContext,
-				@NonNull AnnotatedTypeMetadata typeMetadata) {
+		@NonNull AnnotatedTypeMetadata typeMetadata) {
 
 			return isNotSupportedCloudPlatform(conditionContext)
-				&& super.matches(conditionContext, typeMetadata);
+			&& super.matches(conditionContext, typeMetadata);
 		}
 
 		private boolean isNotSupportedCloudPlatform(@NonNull ConditionContext conditionContext) {
@@ -199,8 +202,8 @@ public class ClusterAvailableConfiguration {
 		private boolean isNotSupportedCloudPlatform(@NonNull Environment environment) {
 
 			CloudPlatform activeCloudPlatform = environment != null
-				? CloudPlatform.getActive(environment)
-				: null;
+			? CloudPlatform.getActive(environment)
+			: null;
 
 			return !isSupportedCloudPlatform(activeCloudPlatform);
 		}

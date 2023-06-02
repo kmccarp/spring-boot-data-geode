@@ -87,7 +87,7 @@ import org.slf4j.LoggerFactory;
 @SpringBootConfiguration
 @AutoConfigureBefore(ClientCacheAutoConfiguration.class)
 @Conditional(ClientSecurityAutoConfiguration.EnableSecurityCondition.class)
-@ConditionalOnClass({ ClientCacheFactoryBean.class, ClientCache.class })
+@ConditionalOnClass({ClientCacheFactoryBean.class, ClientCache.class})
 @ConditionalOnMissingBean(GemFireCache.class)
 @EnableSecurity
 //@Import(HttpBasicAuthenticationSecurityConfiguration.class)
@@ -95,10 +95,10 @@ import org.slf4j.LoggerFactory;
 public class ClientSecurityAutoConfiguration {
 
 	public static final String CLOUD_CACHE_SERVICE_INSTANCE_NAME_PROPERTY =
-		"spring.boot.data.gemfire.cloud.cloudfoundry.service.cloudcache.name";
+	"spring.boot.data.gemfire.cloud.cloudfoundry.service.cloudcache.name";
 
 	public static final String CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY =
-		"spring.boot.data.gemfire.security.auth.environment.post-processor.enabled";
+	"spring.boot.data.gemfire.security.auth.environment.post-processor.enabled";
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientSecurityAutoConfiguration.class);
 
@@ -115,7 +115,7 @@ public class ClientSecurityAutoConfiguration {
 	private static final String SECURITY_PASSWORD_PROPERTY = "spring.data.gemfire.security.password";
 
 	private static final String SSL_USE_DEFAULT_CONTEXT_PROPERTY =
-		"spring.data.gemfire.security.ssl.use-default-context";
+	"spring.data.gemfire.security.ssl.use-default-context";
 
 	private static final String VCAP_PROPERTY_SOURCE_NAME = "vcap";
 
@@ -125,9 +125,9 @@ public class ClientSecurityAutoConfiguration {
 		public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
 
 			Optional.of(environment)
-				.filter(this::isEnabled)
-				.filter(this::isCloudFoundryEnvironment)
-				.ifPresent(this::configureSecurityContext);
+			.filter(this::isEnabled)
+			.filter(this::isCloudFoundryEnvironment)
+			.ifPresent(this::configureSecurityContext);
 		}
 
 		private boolean isCloudFoundryEnvironment(Environment environment) {
@@ -137,11 +137,11 @@ public class ClientSecurityAutoConfiguration {
 		private boolean isEnabled(Environment environment) {
 
 			boolean clientSecurityAutoConfigurationEnabled =
-				environment.getProperty(CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY,
-					Boolean.class, true);
+			environment.getProperty(CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY,
+		Boolean.class, true);
 
 			logger.debug("{} enabled? [{}]", ClientSecurityAutoConfiguration.class.getSimpleName(),
-				clientSecurityAutoConfigurationEnabled);
+			clientSecurityAutoConfigurationEnabled);
 
 			return clientSecurityAutoConfigurationEnabled;
 		}
@@ -149,7 +149,7 @@ public class ClientSecurityAutoConfiguration {
 		private boolean isSecurityPropertiesSet(Environment environment) {
 
 			boolean securityPropertiesSet = environment.containsProperty(SECURITY_USERNAME_PROPERTY)
-				&& environment.containsProperty(SECURITY_PASSWORD_PROPERTY);
+			&& environment.containsProperty(SECURITY_PASSWORD_PROPERTY);
 
 			logger.debug("Security Properties set? [{}]", securityPropertiesSet);
 
@@ -161,7 +161,7 @@ public class ClientSecurityAutoConfiguration {
 		}
 
 		private void configureAuthentication(Environment environment, VcapPropertySource vcapPropertySource,
-				CloudCacheService cloudCacheService, Properties cloudCacheProperties) {
+		CloudCacheService cloudCacheService, Properties cloudCacheProperties) {
 
 			if (isSecurityPropertiesNotSet(environment)) {
 				if (environment.containsProperty(SECURITY_USERNAME_PROPERTY)) {
@@ -169,41 +169,41 @@ public class ClientSecurityAutoConfiguration {
 					String targetUsername = environment.getProperty(SECURITY_USERNAME_PROPERTY);
 
 					vcapPropertySource.findUserByName(cloudCacheService, targetUsername)
-						.flatMap(User::getPassword)
-						.map(password -> {
+					.flatMap(User::getPassword)
+					.map(password -> {
 
-							cloudCacheProperties.setProperty(SECURITY_USERNAME_PROPERTY, targetUsername);
-							cloudCacheProperties.setProperty(SECURITY_PASSWORD_PROPERTY, password);
+						cloudCacheProperties.setProperty(SECURITY_USERNAME_PROPERTY, targetUsername);
+						cloudCacheProperties.setProperty(SECURITY_PASSWORD_PROPERTY, password);
 
-							return password;
+						return password;
 
-						})
-						.orElseThrow(() -> newIllegalStateException(
-							"No User with name [%s] was configured for Cloud Cache service [%s]",
-								targetUsername, cloudCacheService.getName()));
+					})
+					.orElseThrow(() -> newIllegalStateException(
+				"No User with name [%s] was configured for Cloud Cache service [%s]",
+				targetUsername, cloudCacheService.getName()));
 				}
 				else {
 					vcapPropertySource.findFirstUserByRoleClusterOperator(cloudCacheService)
-						.ifPresent(user -> {
+					.ifPresent(user -> {
 
-							cloudCacheProperties.setProperty(SECURITY_USERNAME_PROPERTY, user.getName());
+						cloudCacheProperties.setProperty(SECURITY_USERNAME_PROPERTY, user.getName());
 
-							user.getPassword().ifPresent(password ->
-								cloudCacheProperties.setProperty(SECURITY_PASSWORD_PROPERTY, password));
-						});
+						user.getPassword().ifPresent(password ->
+					cloudCacheProperties.setProperty(SECURITY_PASSWORD_PROPERTY, password));
+					});
 				}
 			}
 		}
 
 		private void configureLocators(Environment environment, VcapPropertySource vcapPropertySource,
-				CloudCacheService cloudCacheService, Properties cloudCacheProperties) {
+		CloudCacheService cloudCacheService, Properties cloudCacheProperties) {
 
 			cloudCacheService.getLocators().ifPresent(locators ->
-				cloudCacheProperties.setProperty(POOL_LOCATORS_PROPERTY, locators));
+			cloudCacheProperties.setProperty(POOL_LOCATORS_PROPERTY, locators));
 		}
 
 		private void configureManagementRestApiAccess(Environment environment, VcapPropertySource vcapPropertySource,
-				CloudCacheService cloudCacheService, Properties cloudCacheProperties) {
+		CloudCacheService cloudCacheService, Properties cloudCacheProperties) {
 
 			cloudCacheService.getGfshUrl().ifPresent(url -> {
 				cloudCacheProperties.setProperty(MANAGEMENT_HTTP_HOST_PROPERTY, url.getHost());
@@ -214,7 +214,7 @@ public class ClientSecurityAutoConfiguration {
 		}
 
 		private void configureSsl(Environment environment, VcapPropertySource vcapPropertySource,
-				CloudCacheService cloudCacheService, Properties cloudCacheProperties) {
+		CloudCacheService cloudCacheService, Properties cloudCacheProperties) {
 
 			if (cloudCacheService.isTlsEnabled()) {
 				cloudCacheProperties.setProperty(SSL_USE_DEFAULT_CONTEXT_PROPERTY, Boolean.TRUE.toString());
@@ -226,36 +226,36 @@ public class ClientSecurityAutoConfiguration {
 			String cloudcacheServiceInstanceName = environment.getProperty(CLOUD_CACHE_SERVICE_INSTANCE_NAME_PROPERTY);
 
 			VcapPropertySource vcapPropertySource = StringUtils.hasText(cloudcacheServiceInstanceName)
-				? toVcapPropertySource(environment).withVcapServiceName(cloudcacheServiceInstanceName)
-				: toVcapPropertySource(environment);
+			? toVcapPropertySource(environment).withVcapServiceName(cloudcacheServiceInstanceName)
+			: toVcapPropertySource(environment);
 
 			vcapPropertySource.findFirstCloudCacheService()
-				.map(cloudCacheService -> {
+			.map(cloudCacheService -> {
 
-					Properties cloudCacheProperties = new Properties();
+				Properties cloudCacheProperties = new Properties();
 
-					configureAuthentication(environment, vcapPropertySource, cloudCacheService, cloudCacheProperties);
-					configureLocators(environment, vcapPropertySource, cloudCacheService, cloudCacheProperties);
-					configureManagementRestApiAccess(environment, vcapPropertySource, cloudCacheService, cloudCacheProperties);
-					configureSsl(environment, vcapPropertySource, cloudCacheService, cloudCacheProperties);
+				configureAuthentication(environment, vcapPropertySource, cloudCacheService, cloudCacheProperties);
+				configureLocators(environment, vcapPropertySource, cloudCacheService, cloudCacheProperties);
+				configureManagementRestApiAccess(environment, vcapPropertySource, cloudCacheService, cloudCacheProperties);
+				configureSsl(environment, vcapPropertySource, cloudCacheService, cloudCacheProperties);
 
-					environment.getPropertySources()
-						.addLast(newPropertySource(CLOUD_CACHE_PROPERTY_SOURCE_NAME, cloudCacheProperties));
+				environment.getPropertySources()
+			.addLast(newPropertySource(CLOUD_CACHE_PROPERTY_SOURCE_NAME, cloudCacheProperties));
 
-					return cloudCacheService;
-				})
-				.orElseGet(() -> {
+				return cloudCacheService;
+			})
+			.orElseGet(() -> {
 
-					if (StringUtils.hasText(cloudcacheServiceInstanceName)) {
-						throw newIllegalStateException("No Cloud Cache service instance with name [%s] was found",
-							cloudcacheServiceInstanceName);
-					}
-					else {
-						logger.warn("No Cloud Cache service instance was found");
-					}
+				if (StringUtils.hasText(cloudcacheServiceInstanceName)) {
+					throw newIllegalStateException("No Cloud Cache service instance with name [%s] was found",
+				cloudcacheServiceInstanceName);
+				}
+				else {
+					logger.warn("No Cloud Cache service instance was found");
+				}
 
-					return null;
-				});
+				return null;
+			});
 		}
 
 		private PropertySource<?> newPropertySource(String name, Properties properties) {
@@ -274,11 +274,13 @@ public class ClientSecurityAutoConfiguration {
 		}
 
 		@ConditionalOnProperty(name = CLOUD_SECURITY_ENVIRONMENT_POST_PROCESSOR_ENABLED_PROPERTY,
-			havingValue = "true", matchIfMissing = true)
-		static class SpringBootDataGemFireSecurityAuthEnvironmentPostProcessorEnabled { }
+		havingValue = "true", matchIfMissing = true)
+		static class SpringBootDataGemFireSecurityAuthEnvironmentPostProcessorEnabled {
+		}
 
 		@Conditional(SecurityTriggersCondition.class)
-		static class AnySecurityTriggerCondition { }
+		static class AnySecurityTriggerCondition {
+		}
 
 	}
 
@@ -289,19 +291,22 @@ public class ClientSecurityAutoConfiguration {
 		}
 
 		@ConditionalOnCloudPlatform(CloudPlatform.CLOUD_FOUNDRY)
-		static class CloudPlatformSecurityContextCondition { }
+		static class CloudPlatformSecurityContextCondition {
+		}
 
 		@ConditionalOnProperty({
-			"spring.data.gemfire.security.username",
-			"spring.data.gemfire.security.password",
+		"spring.data.gemfire.security.username",
+		"spring.data.gemfire.security.password",
 		})
-		static class SpringDataGeodeSecurityContextCondition { }
+		static class SpringDataGeodeSecurityContextCondition {
+		}
 
 		@ConditionalOnProperty({
-			"gemfire.security-username",
-			"gemfire.security-password",
+		"gemfire.security-username",
+		"gemfire.security-password",
 		})
-		static class UsingApacheGeodeSecurityContextCondition { }
+		static class UsingApacheGeodeSecurityContextCondition {
+		}
 
 	}
 
@@ -311,7 +316,7 @@ public class ClientSecurityAutoConfiguration {
 	static class SpringDataGemFirePropertiesPropertySource extends PropertySource<Properties> {
 
 		private static final String SPRING_DATA_GEMFIRE_PROPERTIES_PROPERTY_SOURCE_NAME =
-			"spring.data.gemfire.properties";
+		"spring.data.gemfire.properties";
 
 		SpringDataGemFirePropertiesPropertySource(Properties springDataGemFireProperties) {
 			this(SPRING_DATA_GEMFIRE_PROPERTIES_PROPERTY_SOURCE_NAME, springDataGemFireProperties);
@@ -321,7 +326,8 @@ public class ClientSecurityAutoConfiguration {
 			super(name, springDataGemFireProperties);
 		}
 
-		@Nullable @Override
+		@Nullable
+		@Override
 		public Object getProperty(String name) {
 			return getSource().getProperty(name);
 		}

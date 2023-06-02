@@ -34,7 +34,7 @@ public class UrlRevealed {
 		URL url = new URL("jar:file:///www.foo.com/bar/jar.jar!/baz/entry.txt");
 
 		System.out.printf("URL [%s] {%n \tfile [%s],%n \tpath [%s],%n \tport [%s],%n \tprotocol [%s],%n \tquery [%s]%n}%n%n",
-			url, url.getFile(), url.getPath(), url.getPort(), url.getProtocol(), url.getQuery());
+		url, url.getFile(), url.getPath(), url.getPort(), url.getProtocol(), url.getQuery());
 
 		System.out.printf("URI [%s]%n", new ClassPathResource("trusted.keystore").getURL().toURI());
 	}

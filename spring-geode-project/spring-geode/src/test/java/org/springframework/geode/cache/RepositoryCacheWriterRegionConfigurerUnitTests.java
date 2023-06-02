@@ -70,7 +70,7 @@ public class RepositoryCacheWriterRegionConfigurerUnitTests {
 	public void constructRepositoryCacheWriterRegionConfigurerIsSuccessful() {
 
 		RepositoryCacheWriterRegionConfigurer<?, ?> regionConfigurer =
-			new RepositoryCacheWriterRegionConfigurer<>(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheWriterRegionConfigurer<>(this.mockRepository, this.mockPredicate);
 
 		assertThat(regionConfigurer).isNotNull();
 		assertThat(regionConfigurer.getRegionBeanName()).isEqualTo(this.mockPredicate);
@@ -112,12 +112,12 @@ public class RepositoryCacheWriterRegionConfigurerUnitTests {
 		when(this.mockPredicate.test(anyString())).thenReturn(true);
 
 		RepositoryCacheWriterRegionConfigurer regionConfigurer =
-			new RepositoryCacheWriterRegionConfigurer(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheWriterRegionConfigurer(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", clientRegionFactoryBean);
 
 		verify(clientRegionFactoryBean, times(1))
-			.setCacheWriter(isA(RepositoryCacheWriter.class));
+		.setCacheWriter(isA(RepositoryCacheWriter.class));
 
 		verify(this.mockPredicate, times(1)).test(eq("Example"));
 	}
@@ -131,7 +131,7 @@ public class RepositoryCacheWriterRegionConfigurerUnitTests {
 		ClientRegionFactoryBean<?, ?> clientRegionFactoryBean = spy(new ClientRegionFactoryBean());
 
 		RepositoryCacheWriterRegionConfigurer regionConfigurer =
-			new RepositoryCacheWriterRegionConfigurer(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheWriterRegionConfigurer(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", clientRegionFactoryBean);
 
@@ -159,12 +159,12 @@ public class RepositoryCacheWriterRegionConfigurerUnitTests {
 		when(this.mockPredicate.test(anyString())).thenReturn(true);
 
 		RepositoryCacheWriterRegionConfigurer regionConfigurer =
-			new RepositoryCacheWriterRegionConfigurer(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheWriterRegionConfigurer(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", peerRegionFactoryBean);
 
 		verify(peerRegionFactoryBean, times(1))
-			.setCacheWriter(isA(RepositoryCacheWriter.class));
+		.setCacheWriter(isA(RepositoryCacheWriter.class));
 
 		verify(this.mockPredicate, times(1)).test(eq("Example"));
 	}
@@ -178,7 +178,7 @@ public class RepositoryCacheWriterRegionConfigurerUnitTests {
 		PeerRegionFactoryBean<?, ?> peerRegionFactoryBean = mock(PeerRegionFactoryBean.class);
 
 		RepositoryCacheWriterRegionConfigurer regionConfigurer =
-			new RepositoryCacheWriterRegionConfigurer(this.mockRepository, this.mockPredicate);
+		new RepositoryCacheWriterRegionConfigurer(this.mockRepository, this.mockPredicate);
 
 		regionConfigurer.configure("Example", peerRegionFactoryBean);
 

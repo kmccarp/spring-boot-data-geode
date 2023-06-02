@@ -49,8 +49,8 @@ public final class TemperatureReadingsContinuousQueriesHandler {
 	public List<Integer> getBoilingTemperatures() {
 
 		return getBoilingTemperatureReadings().stream()
-			.map(TemperatureReading::getTemperature)
-			.collect(Collectors.toList());
+		.map(TemperatureReading::getTemperature)
+		.collect(Collectors.toList());
 	}
 
 	public List<TemperatureReading> getFreezingTemperatureReadings() {
@@ -60,8 +60,8 @@ public final class TemperatureReadingsContinuousQueriesHandler {
 	public List<Integer> getFreezingTemperatures() {
 
 		return getFreezingTemperatureReadings().stream()
-			.map(TemperatureReading::getTemperature)
-			.collect(Collectors.toList());
+		.map(TemperatureReading::getTemperature)
+		.collect(Collectors.toList());
 	}
 
 	public int getTemperatureReadingCount() {
@@ -69,7 +69,7 @@ public final class TemperatureReadingsContinuousQueriesHandler {
 	}
 
 	@ContinuousQuery(name = "BoilingTemperatures",
-		query = "SELECT * FROM /TemperatureReadings r WHERE r.temperature >= 212")
+	query = "SELECT * FROM /TemperatureReadings r WHERE r.temperature >= 212")
 	public void boilingTemperatures(CqEvent event) {
 
 		TemperatureReading temperatureReading = (TemperatureReading) event.getNewValue();
@@ -79,7 +79,7 @@ public final class TemperatureReadingsContinuousQueriesHandler {
 	}
 
 	@ContinuousQuery(name = "FreezingTemperatures",
-		query = "SELECT * FROM /TemperatureReadings r WHERE r.temperature <= 32")
+	query = "SELECT * FROM /TemperatureReadings r WHERE r.temperature <= 32")
 	public void freezingTemperatures(CqEvent event) {
 
 		TemperatureReading temperatureReading = (TemperatureReading) event.getNewValue();

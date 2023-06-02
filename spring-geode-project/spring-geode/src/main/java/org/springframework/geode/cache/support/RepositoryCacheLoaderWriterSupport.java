@@ -48,12 +48,12 @@ import org.springframework.util.Assert;
  * @since 1.1.0
  */
 public abstract class RepositoryCacheLoaderWriterSupport<T, ID>
-		implements CacheLoaderSupport<ID, T>, CacheWriterSupport<ID, T>, EnvironmentAware {
+implements CacheLoaderSupport<ID, T>, CacheWriterSupport<ID, T>, EnvironmentAware {
 
 	public static final String NUKE_AND_PAVE_PROPERTY = "spring.boot.data.gemfire.data.source.nuke-and-pave";
 
 	protected static final String DATA_ACCESS_ERROR =
-		"Exception occurred while accessing entity [%s] in external data source";
+	"Exception occurred while accessing entity [%s] in external data source";
 
 	private final CrudRepository<T, ID> repository;
 
@@ -69,8 +69,8 @@ public abstract class RepositoryCacheLoaderWriterSupport<T, ID>
 	protected boolean isNukeAndPaveEnabled() {
 
 		return getEnvironment()
-			.map(env -> env.getProperty(NUKE_AND_PAVE_PROPERTY, Boolean.class))
-			.orElse(Boolean.getBoolean(NUKE_AND_PAVE_PROPERTY));
+		.map(env -> env.getProperty(NUKE_AND_PAVE_PROPERTY, Boolean.class))
+		.orElse(Boolean.getBoolean(NUKE_AND_PAVE_PROPERTY));
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public abstract class RepositoryCacheLoaderWriterSupport<T, ID>
 	}
 
 	protected abstract CacheRuntimeException newCacheRuntimeException(
-		Supplier<String> messageSupplier, Throwable cause);
+	Supplier<String> messageSupplier, Throwable cause);
 
 	@SuppressWarnings("unchecked")
 	public <U extends RepositoryCacheLoaderWriterSupport<T, ID>> U with(Environment environment) {

@@ -79,14 +79,14 @@ public class GeodeCacheServersHealthIndicatorUnitTests {
 		ServerLoadProbe mockServerLoadProbe = mock(ServerLoadProbe.class);
 
 		mockCacheServers.add(CacheServerMockObjects.mockCacheServer("10.11.111.1", null,
-			"Mailbox", 15000L, mockServerLoadProbe, 100, 500,
-			8, 20000, 30000, 41414, true, 16384,
-			true));
+		"Mailbox", 15000L, mockServerLoadProbe, 100, 500,
+		8, 20000, 30000, 41414, true, 16384,
+		true));
 
 		mockCacheServers.add(CacheServerMockObjects.mockCacheServer("10.12.120.2", null,
-			"Skullbox", 10000L, mockServerLoadProbe, 250, 50,
-			16, 5000, 15000, 42424, false, 8192,
-			false));
+		"Skullbox", 10000L, mockServerLoadProbe, 250, 50,
+		16, 5000, 15000, 42424, false, 8192,
+		false));
 
 		when(this.mockCache.getCacheServers()).thenReturn(mockCacheServers);
 
@@ -117,7 +117,7 @@ public class GeodeCacheServersHealthIndicatorUnitTests {
 		assertThat(healthDetails).containsEntry("geode.cache.server.0.socket-buffer-size", 16384);
 		assertThat(healthDetails).containsEntry("geode.cache.server.0.tcp-no-delay", "Yes");
 		assertThat(healthDetails).doesNotContainKeys("geode.cache.server.0.client-subscription-config",
-			"geode.cache.server.0.metrics.client-count", "geode.cache.server.0.load.connection-load");
+		"geode.cache.server.0.metrics.client-count", "geode.cache.server.0.load.connection-load");
 		assertThat(healthDetails).containsEntry("geode.cache.server.1.bind-address", "10.12.120.2");
 		assertThat(healthDetails).containsEntry("geode.cache.server.1.hostname-for-clients", "Skullbox");
 		assertThat(healthDetails).containsEntry("geode.cache.server.1.load-poll-interval", 10000L);
@@ -131,7 +131,7 @@ public class GeodeCacheServersHealthIndicatorUnitTests {
 		assertThat(healthDetails).containsEntry("geode.cache.server.1.socket-buffer-size", 8192);
 		assertThat(healthDetails).containsEntry("geode.cache.server.1.tcp-no-delay", "No");
 		assertThat(healthDetails).doesNotContainKeys("geode.cache.server.1.client-subscription-config",
-			"geode.cache.server.1.metrics.client-count", "geode.cache.server.1.load.connection-load");
+		"geode.cache.server.1.metrics.client-count", "geode.cache.server.1.load.connection-load");
 
 		verify(this.mockCache, times(1)).getCacheServers();
 	}
@@ -139,8 +139,8 @@ public class GeodeCacheServersHealthIndicatorUnitTests {
 	private void testHealthCheckFailsWhenGemFireCacheIsInvalid(GemFireCache gemfireCache) throws Exception {
 
 		GeodeCacheServersHealthIndicator healthIndicator = gemfireCache != null
-			? new GeodeCacheServersHealthIndicator(gemfireCache)
-			: new GeodeCacheServersHealthIndicator();
+		? new GeodeCacheServersHealthIndicator(gemfireCache)
+		: new GeodeCacheServersHealthIndicator();
 
 		Health.Builder builder = new Health.Builder();
 

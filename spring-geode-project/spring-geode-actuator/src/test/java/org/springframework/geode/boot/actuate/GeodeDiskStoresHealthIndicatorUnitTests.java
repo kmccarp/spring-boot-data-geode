@@ -77,19 +77,19 @@ public class GeodeDiskStoresHealthIndicatorUnitTests {
 		when(mockDirectoryOne.getAbsolutePath()).thenReturn("/ext/gemfire/disk/stores/one");
 		when(mockDirectoryTwo.getAbsolutePath()).thenReturn("/ext/gemfire/disk/stores/two");
 
-		int[] diskDirectorySizes = { 1024, 8192 };
+		int[] diskDirectorySizes = {1024, 8192};
 
 		Map<String, DiskStore> mockDiskStores = new HashMap<>();
 
 		mockDiskStores.put("MockDiskStoreOne", DiskStoreMockObjects.mockDiskStore("MockDiskStoreOne",
-			true, true, 90,
-			ArrayUtils.asArray(mockDirectoryOne, mockDirectoryTwo), diskDirectorySizes, 0.95f,
-			0.90f, 1024000L, 16384, 5000L, 32768));
+		true, true, 90,
+		ArrayUtils.asArray(mockDirectoryOne, mockDirectoryTwo), diskDirectorySizes, 0.95f,
+		0.90f, 1024000L, 16384, 5000L, 32768));
 
 		mockDiskStores.put("MockDiskStoreTwo", DiskStoreMockObjects.mockDiskStore("MockDiskStoreTwo",
-			false, true, 50,null, null,
-			0.90f,0.80f, 2048000L, 4096,
-			15000L, 8192));
+		false, true, 50, null, null,
+		0.90f, 0.80f, 2048000L, 4096,
+		15000L, 8192));
 
 		when(this.mockApplicationContext.getBeansOfType(DiskStore.class)).thenReturn(mockDiskStores);
 

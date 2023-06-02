@@ -64,7 +64,7 @@ import org.springframework.util.StringUtils;
 @AutoConfigureAfter(ClientCacheAutoConfiguration.class)
 @Conditional(CachingProviderAutoConfiguration.SpringCacheTypeCondition.class)
 @ConditionalOnBean(GemFireCache.class)
-@ConditionalOnClass({ GemfireCacheManager.class, GemFireCache.class })
+@ConditionalOnClass({GemfireCacheManager.class, GemFireCache.class})
 @ConditionalOnMissingBean(CacheManager.class)
 @EnableGemfireCaching
 @SuppressWarnings("unused")
@@ -82,8 +82,8 @@ public class CachingProviderAutoConfiguration {
 	private GemfireCacheManager cacheManager;
 
 	CachingProviderAutoConfiguration(
-			@Autowired(required = false) CacheProperties cacheProperties,
-			@Autowired(required = false) CacheManagerCustomizers cacheManagerCustomizers) {
+	@Autowired(required = false) CacheProperties cacheProperties,
+	@Autowired(required = false) CacheManagerCustomizers cacheManagerCustomizers) {
 
 		this.cacheProperties = cacheProperties;
 		this.cacheManagerCustomizers = cacheManagerCustomizers;
@@ -107,7 +107,7 @@ public class CachingProviderAutoConfiguration {
 	@PostConstruct
 	public void onGeodeCachingInitialization() {
 		getCacheManagerCustomizers()
-			.ifPresent(cacheManagerCustomizers -> cacheManagerCustomizers.customize(getCacheManager()));
+		.ifPresent(cacheManagerCustomizers -> cacheManagerCustomizers.customize(getCacheManager()));
 	}
 
 	public static class SpringCacheTypeCondition implements Condition {

@@ -51,19 +51,19 @@ import org.springframework.geode.config.annotation.UseMemberName;
 public class CacheNameAutoConfigurationIntegrationTests extends SpringBootApplicationIntegrationTestsSupport {
 
 	private Function<SpringApplicationBuilder, SpringApplicationBuilder> springApplicationBuilderFunction =
-		Function.identity();
+	Function.identity();
 
 	private final Function<SpringApplicationBuilder, SpringApplicationBuilder> springApplicationNamePropertyFunction =
-		builder -> {
-			builder.properties(Collections.singletonMap("spring.application.name", "SpringApplicationNameTest"));
-			return builder;
-		};
+	builder -> {
+		builder.properties(Collections.singletonMap("spring.application.name", "SpringApplicationNameTest"));
+		return builder;
+	};
 
 	private final Function<SpringApplicationBuilder, SpringApplicationBuilder> springDataGemFireNamePropertyFunction =
-		builder -> {
-			builder.properties(Collections.singletonMap("spring.data.gemfire.name", "SpringDataGemFireNameTest"));
-			return builder;
-		};
+	builder -> {
+		builder.properties(Collections.singletonMap("spring.data.gemfire.name", "SpringDataGemFireNameTest"));
+		return builder;
+	};
 
 	@Override
 	protected SpringApplicationBuilder processBeforeBuild(SpringApplicationBuilder springApplicationBuilder) {
@@ -81,13 +81,13 @@ public class CacheNameAutoConfigurationIntegrationTests extends SpringBootApplic
 	@Test
 	public void cacheNameUsesAnnotationNameAttribute() {
 		assertGemFireCache(newApplicationContext(AnnotationNameAttributeTestConfiguration.class)
-				.getBean(GemFireCache.class), "AnnotationNameTest");
+		.getBean(GemFireCache.class), "AnnotationNameTest");
 	}
 
 	@Test
 	public void cacheNameUsesMemberNameAttribute() {
 		assertGemFireCache(newApplicationContext(MemberNameAttributeTestConfiguration.class)
-			.getBean(GemFireCache.class), "MemberNameTest");
+		.getBean(GemFireCache.class), "MemberNameTest");
 	}
 
 	@Test
@@ -96,24 +96,25 @@ public class CacheNameAutoConfigurationIntegrationTests extends SpringBootApplic
 		this.springApplicationBuilderFunction = this.springApplicationNamePropertyFunction;
 
 		assertGemFireCache(newApplicationContext(AnnotationNameAttributeTestConfiguration.class)
-			.getBean(GemFireCache.class), "SpringApplicationNameTest");
+		.getBean(GemFireCache.class), "SpringApplicationNameTest");
 	}
 
 	@Test
 	public void cacheNameUsesSpringDataGemFireNameProperty() {
 
 		this.springApplicationBuilderFunction = this.springApplicationNamePropertyFunction
-			.andThen(this.springDataGemFireNamePropertyFunction);
+		.andThen(this.springDataGemFireNamePropertyFunction);
 
 		assertGemFireCache(newApplicationContext(MemberNameAttributeTestConfiguration.class)
-			.getBean(GemFireCache.class), "SpringDataGemFireNameTest");
+		.getBean(GemFireCache.class), "SpringDataGemFireNameTest");
 	}
 
 	@Configuration
 	@EnableAutoConfiguration
 	@EnableGemFireMockObjects
 	@PeerCacheApplication(name = "AnnotationNameTest")
-	static class AnnotationNameAttributeTestConfiguration { }
+	static class AnnotationNameAttributeTestConfiguration {
+	}
 
 	@Configuration
 	@EnableAutoConfiguration

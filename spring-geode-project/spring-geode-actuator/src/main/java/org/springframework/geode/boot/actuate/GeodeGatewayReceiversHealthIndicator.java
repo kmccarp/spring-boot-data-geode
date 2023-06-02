@@ -73,27 +73,27 @@ public class GeodeGatewayReceiversHealthIndicator extends AbstractGeodeHealthInd
 			AtomicInteger globalIndex = new AtomicInteger(0);
 
 			Set<GatewayReceiver> gatewayReceivers = getGemFireCache()
-				.map(Cache.class::cast)
-				.map(Cache::getGatewayReceivers)
-				.orElseGet(Collections::emptySet);
+			.map(Cache.class::cast)
+			.map(Cache::getGatewayReceivers)
+			.orElseGet(Collections::emptySet);
 
 			builder.withDetail("geode.gateway-receiver.count", gatewayReceivers.size());
 
 			gatewayReceivers.stream()
-				.filter(Objects::nonNull)
-				.forEach(gatewayReceiver -> {
+			.filter(Objects::nonNull)
+			.forEach(gatewayReceiver -> {
 
-					int index = globalIndex.getAndIncrement();
+				int index = globalIndex.getAndIncrement();
 
-					builder.withDetail(gatewayReceiverKey(index, "bind-address"), gatewayReceiver.getBindAddress())
-						.withDetail(gatewayReceiverKey(index, "end-port"), gatewayReceiver.getEndPort())
-						.withDetail(gatewayReceiverKey(index, "host"), gatewayReceiver.getHost())
-						.withDetail(gatewayReceiverKey(index, "max-time-between-pings"), gatewayReceiver.getMaximumTimeBetweenPings())
-						.withDetail(gatewayReceiverKey(index, "port"), gatewayReceiver.getPort())
-						.withDetail(gatewayReceiverKey(index, "running"), toYesNoString(gatewayReceiver.isRunning()))
-						.withDetail(gatewayReceiverKey(index, "socket-buffer-size"), gatewayReceiver.getSocketBufferSize())
-						.withDetail(gatewayReceiverKey(index, "start-port"), gatewayReceiver.getStartPort());
-				});
+				builder.withDetail(gatewayReceiverKey(index, "bind-address"), gatewayReceiver.getBindAddress())
+			.withDetail(gatewayReceiverKey(index, "end-port"), gatewayReceiver.getEndPort())
+			.withDetail(gatewayReceiverKey(index, "host"), gatewayReceiver.getHost())
+			.withDetail(gatewayReceiverKey(index, "max-time-between-pings"), gatewayReceiver.getMaximumTimeBetweenPings())
+			.withDetail(gatewayReceiverKey(index, "port"), gatewayReceiver.getPort())
+			.withDetail(gatewayReceiverKey(index, "running"), toYesNoString(gatewayReceiver.isRunning()))
+			.withDetail(gatewayReceiverKey(index, "socket-buffer-size"), gatewayReceiver.getSocketBufferSize())
+			.withDetail(gatewayReceiverKey(index, "start-port"), gatewayReceiver.getStartPort());
+			});
 
 			builder.up();
 

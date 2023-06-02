@@ -53,29 +53,29 @@ public class VmwHarborProxyImageNameSubstitutor extends ImageNameSubstitutor {
 	private static final String TESTCONTAINERS_NAMESPACE = "library/";
 
 	private static final String TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX =
-		TESTCONTAINERS_REGISTRY.concat(TESTCONTAINERS_REPOSITORY);
+	TESTCONTAINERS_REGISTRY.concat(TESTCONTAINERS_REPOSITORY);
 
 	protected static final String TESTCONTAINERS_HUB_IMAGE_NAME_TEMPLATE =
-		TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX.concat("%s");
+	TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX.concat("%s");
 
 	private static final String TESTCONTAINERS_OFFICIAL_HUB_IMAGE_NAME_PREFIX =
-		TESTCONTAINERS_REGISTRY.concat(TESTCONTAINERS_REPOSITORY).concat(TESTCONTAINERS_NAMESPACE);
+	TESTCONTAINERS_REGISTRY.concat(TESTCONTAINERS_REPOSITORY).concat(TESTCONTAINERS_NAMESPACE);
 
 	protected static final String TESTCONTAINERS_OFFICIAL_HUB_IMAGE_NAME_TEMPLATE =
-		TESTCONTAINERS_OFFICIAL_HUB_IMAGE_NAME_PREFIX.concat("%s");
+	TESTCONTAINERS_OFFICIAL_HUB_IMAGE_NAME_PREFIX.concat("%s");
 
 	private static final String TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_PREFIX =
-		TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX.concat("springci/");
+	TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX.concat("springci/");
 
 	protected static final String TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_TEMPLATE =
-		TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_PREFIX.concat("%s");
+	TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_PREFIX.concat("%s");
 
 	// Spring Configuration
 	protected static final String SPRING_JAVA_VERSION =
-		System.getProperty("spring.java.version", "17.0.6_10-jdk-focal");
+	System.getProperty("spring.java.version", "17.0.6_10-jdk-focal");
 
 	protected static final String SPRING_DATA_CASSANDRA_DOCKER_IMAGE_NAME =
-		String.format("spring-data-with-cassandra-3.11:%s", SPRING_JAVA_VERSION);
+	String.format("spring-data-with-cassandra-3.11:%s", SPRING_JAVA_VERSION);
 
 	// Docker Configuration
 	protected static final String DOCKER_IMAGE_NAME_WITH_VERSION_TEMPLATE = "%1$s:%2$s";
@@ -92,7 +92,7 @@ public class VmwHarborProxyImageNameSubstitutor extends ImageNameSubstitutor {
 	private static final boolean IS_JENKINS_ENVIRONMENT = Boolean.getBoolean(JENKINS_KEYWORD);
 
 	private static final boolean USE_SPRING_MANAGED_DOCKER_IMAGES =
-		Boolean.getBoolean("use-spring-managed-docker-images");
+	Boolean.getBoolean("use-spring-managed-docker-images");
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -114,7 +114,7 @@ public class VmwHarborProxyImageNameSubstitutor extends ImageNameSubstitutor {
 	protected boolean isSpringManagedDockerImage(DockerImageName dockerImageName) {
 
 		return isUseSpringManagedDockerImages()
-			&& (isJenkinsEnvironment() && springManagedDockerImages.containsKey(dockerImageName.getUnversionedPart()));
+		&& (isJenkinsEnvironment() && springManagedDockerImages.containsKey(dockerImageName.getUnversionedPart()));
 	}
 
 	protected boolean isUseSpringManagedDockerImages() {
@@ -132,14 +132,14 @@ public class VmwHarborProxyImageNameSubstitutor extends ImageNameSubstitutor {
 	protected boolean isVmwareHarborProxyOfficialDockerImage(DockerImageName dockerImageName) {
 
 		return isVMwareHarborProxyAvailable() && vmwHarborProxyOfficialDockerImages
-			.containsKey(toUnqualifiedDockerImageName(dockerImageName).getUnversionedPart());
+		.containsKey(toUnqualifiedDockerImageName(dockerImageName).getUnversionedPart());
 	}
 
 	protected DockerImageName resolveCompatibleSubstituteFor(DockerImageName dockerImageName) {
 
 		return isSpringManagedDockerImage(dockerImageName)
-			? dockerImageName.asCompatibleSubstituteFor(CASSANDRA_KEYWORD)
-			: dockerImageName;
+		? dockerImageName.asCompatibleSubstituteFor(CASSANDRA_KEYWORD)
+		: dockerImageName;
 	}
 
 	protected DockerImageName resolveDockerImageName(DockerImageName originalDockerImageName) {
@@ -160,19 +160,19 @@ public class VmwHarborProxyImageNameSubstitutor extends ImageNameSubstitutor {
 	DockerImageName doResolveDockerImageName(DockerImageName originalDockerImageName) {
 
 		return Optional.ofNullable(originalDockerImageName)
-			.filter(dockerImageName -> isUseSpringManagedDockerImages())
-			.filter(dockerImageName -> springManagedDockerImages.containsKey(dockerImageName.getUnversionedPart()))
-			.map(dockerImageName -> springManagedDockerImages.get(dockerImageName.getUnversionedPart()))
-			.map(springManagedDockerImageName -> String.format(TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_TEMPLATE, springManagedDockerImageName))
-			.map(DockerImageName::parse)
-			.orElseGet(() -> {
+		.filter(dockerImageName -> isUseSpringManagedDockerImages())
+		.filter(dockerImageName -> springManagedDockerImages.containsKey(dockerImageName.getUnversionedPart()))
+		.map(dockerImageName -> springManagedDockerImages.get(dockerImageName.getUnversionedPart()))
+		.map(springManagedDockerImageName -> String.format(TESTCONTAINERS_SPRINGCI_HUB_IMAGE_NAME_TEMPLATE, springManagedDockerImageName))
+		.map(DockerImageName::parse)
+		.orElseGet(() -> {
 
-				DockerImageName unqualifiedDockerImageName = toUnqualifiedDockerImageName(originalDockerImageName);
+			DockerImageName unqualifiedDockerImageName = toUnqualifiedDockerImageName(originalDockerImageName);
 
-				return isVmwareHarborProxyOfficialDockerImage(unqualifiedDockerImageName)
-					? DockerImageName.parse(String.format(TESTCONTAINERS_OFFICIAL_HUB_IMAGE_NAME_TEMPLATE, originalDockerImageName))
-					: DockerImageName.parse(String.format(TESTCONTAINERS_HUB_IMAGE_NAME_TEMPLATE, originalDockerImageName));
-			});
+			return isVmwareHarborProxyOfficialDockerImage(unqualifiedDockerImageName)
+		? DockerImageName.parse(String.format(TESTCONTAINERS_OFFICIAL_HUB_IMAGE_NAME_TEMPLATE, originalDockerImageName))
+		: DockerImageName.parse(String.format(TESTCONTAINERS_HUB_IMAGE_NAME_TEMPLATE, originalDockerImageName));
+		});
 	}
 
 	DockerImageName toUnqualifiedDockerImageName(DockerImageName dockerImageName) {
@@ -188,8 +188,8 @@ public class VmwHarborProxyImageNameSubstitutor extends ImageNameSubstitutor {
 		*/
 
 		return DockerImageName.parse(String.format(DOCKER_IMAGE_NAME_WITH_VERSION_TEMPLATE,
-			name.replace(TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX, ""),
-			version));
+		name.replace(TESTCONTAINERS_HUB_IMAGE_NAME_PREFIX, ""),
+		version));
 	}
 
 	@Override

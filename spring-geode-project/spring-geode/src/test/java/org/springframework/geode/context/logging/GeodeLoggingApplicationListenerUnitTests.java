@@ -82,8 +82,8 @@ public class GeodeLoggingApplicationListenerUnitTests extends IntegrationTestsSu
 	public void tearDown() {
 
 		System.getProperties().stringPropertyNames().stream()
-			.filter(propertyName -> propertyName.startsWith("spring"))
-			.forEach(System::clearProperty);
+		.filter(propertyName -> propertyName.startsWith("spring"))
+		.forEach(System::clearProperty);
 	}
 
 	@Test
@@ -103,12 +103,12 @@ public class GeodeLoggingApplicationListenerUnitTests extends IntegrationTestsSu
 	public void onApplicationEventWithApplicationEnvironmentPreparedEventProcessesEvent() {
 
 		doNothing().when(this.listener)
-			.onApplicationEnvironmentPreparedEvent(any(ApplicationEnvironmentPreparedEvent.class));
+		.onApplicationEnvironmentPreparedEvent(any(ApplicationEnvironmentPreparedEvent.class));
 
 		this.listener.onApplicationEvent(this.mockEvent);
 
 		verify(this.listener, times(1))
-			.onApplicationEnvironmentPreparedEvent(eq(this.mockEvent));
+		.onApplicationEnvironmentPreparedEvent(eq(this.mockEvent));
 	}
 
 	@Test
@@ -125,67 +125,67 @@ public class GeodeLoggingApplicationListenerUnitTests extends IntegrationTestsSu
 	public void onApplicationEnvironmentPreparedEventConfiguresApacheGeodeLoggingFromSpringBootDataGemFireLogLevelProperty() {
 
 		assertThat(System.getProperty(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY))
-			.isNullOrEmpty();
+		.isNullOrEmpty();
 
 		doReturn("DEBUG").when(this.mockEnvironment)
-			.getProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY),
-				ArgumentMatchers.<String>any());
+		.getProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY),
+	ArgumentMatchers.<String>any());
 
 		this.listener.onApplicationEnvironmentPreparedEvent(this.mockEvent);
 
 		assertThat(System.getProperty(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY))
-			.isEqualTo("DEBUG");
+		.isEqualTo("DEBUG");
 
 		verify(this.mockEnvironment, times(1))
-			.getProperty(eq(GeodeLoggingApplicationListener.SPRING_DATA_GEMFIRE_LOGGING_LOG_LEVEL),
-				ArgumentMatchers.<String>eq(null));
+		.getProperty(eq(GeodeLoggingApplicationListener.SPRING_DATA_GEMFIRE_LOGGING_LOG_LEVEL),
+	ArgumentMatchers.<String>eq(null));
 	}
 
 	@Test
 	public void onApplicationEnvironmentPreparedEventConfiguresApacheGeodeLoggingFromSpringDataGemFireCacheLogLevelProperty() {
 
 		assertThat(System.getProperty(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY))
-			.isNullOrEmpty();
+		.isNullOrEmpty();
 
 		doReturn("DEBUG").when(this.mockEnvironment)
-			.getProperty(eq(GeodeLoggingApplicationListener.SPRING_DATA_GEMFIRE_CACHE_LOG_LEVEL));
+		.getProperty(eq(GeodeLoggingApplicationListener.SPRING_DATA_GEMFIRE_CACHE_LOG_LEVEL));
 
 		Arrays.asList(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY,
-			GeodeLoggingApplicationListener.SPRING_DATA_GEMFIRE_LOGGING_LOG_LEVEL).forEach(propertyName ->
-				doAnswer(invocation -> invocation.getArgument(1, String.class))
-					.when(this.mockEnvironment).getProperty(eq(propertyName), anyString()));
+		GeodeLoggingApplicationListener.SPRING_DATA_GEMFIRE_LOGGING_LOG_LEVEL).forEach(propertyName ->
+		doAnswer(invocation -> invocation.getArgument(1, String.class))
+	.when(this.mockEnvironment).getProperty(eq(propertyName), anyString()));
 
 		this.listener.onApplicationEnvironmentPreparedEvent(this.mockEvent);
 
 		assertThat(System.getProperty(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY))
-			.isEqualTo("DEBUG");
+		.isEqualTo("DEBUG");
 
 		verify(this.mockEnvironment, times(1))
-			.getProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY),
-				eq("DEBUG"));
+		.getProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY),
+	eq("DEBUG"));
 	}
 
 	@Test
 	public void onApplicationEnvironmentPreparedEventConfiguresApacheGeodeLoggingFromSpringDataGemFireLoggingLevelProperty() {
 
 		assertThat(System.getProperty(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY))
-			.isNullOrEmpty();
+		.isNullOrEmpty();
 
 		doReturn("DEBUG").when(this.mockEnvironment)
-			.getProperty(eq(GeodeLoggingApplicationListener.SPRING_DATA_GEMFIRE_LOGGING_LOG_LEVEL),
-				ArgumentMatchers.<String>any());
+		.getProperty(eq(GeodeLoggingApplicationListener.SPRING_DATA_GEMFIRE_LOGGING_LOG_LEVEL),
+	ArgumentMatchers.<String>any());
 
 		doAnswer(invocation -> invocation.getArgument(1, String.class)).when(this.mockEnvironment)
-			.getProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY), anyString());
+		.getProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY), anyString());
 
 		this.listener.onApplicationEnvironmentPreparedEvent(this.mockEvent);
 
 		assertThat(System.getProperty(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY))
-			.isEqualTo("DEBUG");
+		.isEqualTo("DEBUG");
 
 		verify(this.mockEnvironment, times(1))
-			.getProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY),
-				eq("DEBUG"));
+		.getProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY),
+	eq("DEBUG"));
 	}
 
 	@Test
@@ -196,7 +196,7 @@ public class GeodeLoggingApplicationListenerUnitTests extends IntegrationTestsSu
 		this.listener.onApplicationEnvironmentPreparedEvent(this.mockEvent);
 
 		verify(this.listener, never())
-			.setSystemProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY), any());
+		.setSystemProperty(eq(GeodeLoggingApplicationListener.SPRING_BOOT_DATA_GEMFIRE_LOG_LEVEL_PROPERTY), any());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -314,7 +314,7 @@ public class GeodeLoggingApplicationListenerUnitTests extends IntegrationTestsSu
 	@Test
 	public void supportsEventTypeReturnsTrue() {
 		assertThat(this.listener.supportsEventType(ResolvableType.forClass(ApplicationEnvironmentPreparedEvent.class)))
-			.isTrue();
+		.isTrue();
 	}
 
 	@Test

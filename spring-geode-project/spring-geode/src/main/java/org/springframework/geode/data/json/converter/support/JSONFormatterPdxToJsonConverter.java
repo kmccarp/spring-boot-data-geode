@@ -55,14 +55,15 @@ public class JSONFormatterPdxToJsonConverter extends JacksonObjectToJsonConverte
 	/**
 	 * @inheritDoc
 	 */
-	@Nullable @Override
+	@Nullable
+	@Override
 	public final String convert(@Nullable Object source) {
 
 		return Optional.ofNullable(source)
-			.filter(PdxInstance.class::isInstance)
-			.map(PdxInstance.class::cast)
-			.map(this::convertPdxToJson)
-			.orElseGet(() -> convertPojoToJson(source));
+		.filter(PdxInstance.class::isInstance)
+		.map(PdxInstance.class::cast)
+		.map(this::convertPdxToJson)
+		.orElseGet(() -> convertPojoToJson(source));
 	}
 
 	/**
@@ -97,7 +98,8 @@ public class JSONFormatterPdxToJsonConverter extends JacksonObjectToJsonConverte
 	 * @see org.apache.geode.pdx.JSONFormatter#toJSON(PdxInstance)
 	 * @see org.apache.geode.pdx.PdxInstance
 	 */
-	@NonNull String jsonFormatterToJson(@NonNull PdxInstance pdxInstance) {
+	@NonNull
+	String jsonFormatterToJson(@NonNull PdxInstance pdxInstance) {
 		return JSONFormatter.toJSON(pdxInstance);
 	}
 
@@ -128,13 +130,13 @@ public class JSONFormatterPdxToJsonConverter extends JacksonObjectToJsonConverte
 			String pdxInstanceClassName = pdxInstance.getClassName();
 
 			Assert.isTrue(hasValidClassName(pdxInstance), () ->
-				String.format("Class name [%s] is required and cannot be equal to [%s]",
-					pdxInstanceClassName, JSONFormatter.JSON_CLASSNAME));
+			String.format("Class name [%s] is required and cannot be equal to [%s]",
+		pdxInstanceClassName, JSONFormatter.JSON_CLASSNAME));
 
 			pdxInstance = newPdxInstanceBuilder()
-				.copy(pdxInstance)
-				.writeString(AT_TYPE_METADATA_PROPERTY_NAME, pdxInstanceClassName)
-				.create();
+			.copy(pdxInstance)
+			.writeString(AT_TYPE_METADATA_PROPERTY_NAME, pdxInstanceClassName)
+			.create();
 		}
 
 		return pdxInstance;
@@ -146,7 +148,8 @@ public class JSONFormatterPdxToJsonConverter extends JacksonObjectToJsonConverte
 	 * @return a new instance of {@link PdxInstanceBuilder}; never {@literal null}.
 	 * @see org.springframework.geode.pdx.PdxInstanceBuilder
 	 */
-	@NonNull PdxInstanceBuilder newPdxInstanceBuilder() {
+	@NonNull
+	PdxInstanceBuilder newPdxInstanceBuilder() {
 		return PdxInstanceBuilder.create();
 	}
 
@@ -214,10 +217,10 @@ public class JSONFormatterPdxToJsonConverter extends JacksonObjectToJsonConverte
 	boolean hasValidClassName(@Nullable PdxInstance pdxInstance) {
 
 		return Optional.ofNullable(pdxInstance)
-			.map(PdxInstance::getClassName)
-			.filter(StringUtils::hasText)
-			.filter(className -> !JSONFormatter.JSON_CLASSNAME.equals(className))
-			.isPresent();
+		.map(PdxInstance::getClassName)
+		.filter(StringUtils::hasText)
+		.filter(className -> !JSONFormatter.JSON_CLASSNAME.equals(className))
+		.isPresent();
 	}
 
 	private boolean isDecorationRequired(@Nullable PdxInstance pdxInstance, @Nullable String json) {

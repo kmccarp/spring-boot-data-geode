@@ -40,10 +40,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("tls")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TlsEnabledAutoConfigurationIntegrationTests.TestConfiguration.class,
-	properties = {
-		"VCAP_APPLICATION={ \"name\": \"TlsEnabledAutoConfigurationIntegrationTests\", \"uris\": [] }",
-		"VCAP_SERVICES={ \"p-cloudcache\": [{ \"credentials\": { \"tls-enabled\": \"true\" }, \"name\": \"jblum-pcc\", \"tags\": [ \"gemfire\", \"cloudcache\", \"database\", \"pivotal\" ]}]}"
-	}
+properties = {"VCAP_APPLICATION={ \"name\": \"TlsEnabledAutoConfigurationIntegrationTests\", \"uris\": [] }","VCAP_SERVICES={ \"p-cloudcache\": [{ \"credentials\": { \"tls-enabled\": \"true\" }, \"name\": \"jblum-pcc\", \"tags\": [ \"gemfire\", \"cloudcache\", \"database\", \"pivotal\" ]}]}"
+}
 )
 @SuppressWarnings("unused")
 public class TlsEnabledAutoConfigurationIntegrationTests extends AbstractTlsEnabledAutoConfigurationIntegrationTests {
@@ -56,6 +54,7 @@ public class TlsEnabledAutoConfigurationIntegrationTests extends AbstractTlsEnab
 
 	@SpringBootApplication
 	@Profile("tls")
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

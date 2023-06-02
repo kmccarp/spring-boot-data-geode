@@ -69,10 +69,10 @@ import org.springframework.web.client.RestTemplate;
 public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 
 	private final TestHttpBasicAuthenticationSecurityConfiguration httpSecurityConfiguration =
-		spy(new TestHttpBasicAuthenticationSecurityConfiguration());
+	spy(new TestHttpBasicAuthenticationSecurityConfiguration());
 
 	private <T> T constructInstance(Class<T> type, Class<?>[] parameterTypes, Object... args)
-			throws Exception {
+	throws Exception {
 
 		Constructor<T> constructor = type.getDeclaredConstructor(parameterTypes);
 
@@ -87,28 +87,28 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 		Environment mockEnvironment = mock(Environment.class);
 
 		when(mockEnvironment.getProperty(eq("spring.data.gemfire.security.username"), anyString()))
-			.thenReturn("master");
+		.thenReturn("master");
 
 		when(mockEnvironment.getProperty(eq("spring.data.gemfire.security.password"), anyString()))
-			.thenReturn("s3cr3t");
+		.thenReturn("s3cr3t");
 
 		Authenticator authenticator = this.httpSecurityConfiguration.authenticator(mockEnvironment);
 
 		assertThat(authenticator).isNotNull();
 
 		PasswordAuthentication authentication =
-			Authenticator.requestPasswordAuthentication(InetAddress.getLocalHost(),	80, "HTTP",
-				"?", "BASIC");
+		Authenticator.requestPasswordAuthentication(InetAddress.getLocalHost(), 80, "HTTP",
+	"?", "BASIC");
 
 		assertThat(authentication).isNotNull();
 		assertThat(authentication.getUserName()).isEqualTo("master");
 		assertThat(authentication.getPassword()).isEqualTo("s3cr3t".toCharArray());
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq("spring.data.gemfire.security.username"), eq("test"));
+		.getProperty(eq("spring.data.gemfire.security.username"), eq("test"));
 
 		verify(mockEnvironment, times(1))
-			.getProperty(eq("spring.data.gemfire.security.password"), eq("test"));
+		.getProperty(eq("spring.data.gemfire.security.password"), eq("test"));
 	}
 
 	@Test
@@ -119,7 +119,7 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 		Environment mockEnvironment = mock(Environment.class);
 
 		BeanPostProcessor beanPostProcessor =
-			this.httpSecurityConfiguration.schemaObjectInitializerPostProcessor(mockEnvironment);
+		this.httpSecurityConfiguration.schemaObjectInitializerPostProcessor(mockEnvironment);
 
 		assertThat(beanPostProcessor).isNotNull();
 		assertThat(beanPostProcessor.postProcessBeforeInitialization(bean, "testBean")).isEqualTo(bean);
@@ -136,31 +136,31 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 		ClientCache mockClientCache = mock(ClientCache.class);
 
 		ClusterConfigurationConfiguration.SchemaObjectContext schemaObjectContextSpy =
-			spy(constructInstance(ClusterConfigurationConfiguration.SchemaObjectContext.class,
-				new Class[] { GemFireCache.class }, mockClientCache));
+		spy(constructInstance(ClusterConfigurationConfiguration.SchemaObjectContext.class,
+	new Class[]{GemFireCache.class}, mockClientCache));
 
 		assertThat(schemaObjectContextSpy).isNotNull();
 		assertThat(schemaObjectContextSpy.<ClientCache>getGemfireCache()).isEqualTo(mockClientCache);
 
 		doReturn(new RestHttpGemfireAdminTemplate(mockClientCache))
-			.when(schemaObjectContextSpy).getGemfireAdminOperations();
+		.when(schemaObjectContextSpy).getGemfireAdminOperations();
 
 		ClusterConfigurationConfiguration.ClusterSchemaObjectInitializer clusterSchemaObjectInitializer =
-			constructInstance(ClusterConfigurationConfiguration.ClusterSchemaObjectInitializer.class,
-				new Class[] { ClusterConfigurationConfiguration.SchemaObjectContext.class }, schemaObjectContextSpy);
+		constructInstance(ClusterConfigurationConfiguration.ClusterSchemaObjectInitializer.class,
+	new Class[]{ClusterConfigurationConfiguration.SchemaObjectContext.class}, schemaObjectContextSpy);
 
 		BeanPostProcessor beanPostProcessor =
-			this.httpSecurityConfiguration.schemaObjectInitializerPostProcessor(mockEnvironment);
+		this.httpSecurityConfiguration.schemaObjectInitializerPostProcessor(mockEnvironment);
 
 		assertThat(beanPostProcessor).isNotNull();
 		assertThat(beanPostProcessor.postProcessBeforeInitialization(clusterSchemaObjectInitializer,
-			"mockClusterSchemaObjectInitializer")).isEqualTo(clusterSchemaObjectInitializer);
+		"mockClusterSchemaObjectInitializer")).isEqualTo(clusterSchemaObjectInitializer);
 		assertThat(beanPostProcessor.postProcessAfterInitialization(clusterSchemaObjectInitializer,
-			"mockClusterSchemaObjectInitializer")).isEqualTo(clusterSchemaObjectInitializer);
+		"mockClusterSchemaObjectInitializer")).isEqualTo(clusterSchemaObjectInitializer);
 		assertThat(this.httpSecurityConfiguration.restTemplateReference.get()).isNotNull();
 		assertThat(this.httpSecurityConfiguration.restTemplateReference.get().getInterceptors()).isNotEmpty();
 		assertThat(this.httpSecurityConfiguration.restTemplateReference.get().getInterceptors().stream()
-			.anyMatch(ClientHttpRequestInterceptor.class::isInstance)).isTrue();
+		.anyMatch(ClientHttpRequestInterceptor.class::isInstance)).isTrue();
 	}
 
 	@Test
@@ -169,7 +169,7 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 		TestObject testObjectSpy = spy(TestObject.INSTANCE);
 
 		assertThat(this.httpSecurityConfiguration.<Object>invokeMethod(testObjectSpy,
-			"exceptionThrowingMethod")).isNull();
+		"exceptionThrowingMethod")).isNull();
 
 		verify(testObjectSpy, times(1)).exceptionThrowingMethod();
 	}
@@ -178,21 +178,21 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 	public void invokeNonExistingObjectMethod() {
 
 		assertThat(this.httpSecurityConfiguration.<Object>invokeMethod(TestObject.INSTANCE,
-			"nonExistingMethod")) .isNull();
+		"nonExistingMethod")) .isNull();
 	}
 
 	@Test
 	public void invokeValueReturningClassMethod() {
 
 		assertThat(this.httpSecurityConfiguration.<Object>invokeMethod(TestObject.INSTANCE,
-			"valueReturningClassMethod")).isEqualTo("STATIC");
+		"valueReturningClassMethod")).isEqualTo("STATIC");
 	}
 
 	@Test
 	public void invokeValueReturningObjectMethod() {
 
 		assertThat(this.httpSecurityConfiguration.<Object>invokeMethod(TestObject.INSTANCE,
-			"valueReturningObjectMethod")).isEqualTo("test");
+		"valueReturningObjectMethod")).isEqualTo("test");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -227,7 +227,7 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 		when(mockHttpRequest.getHeaders()).thenReturn(httpHeaders);
 
 		ClientHttpRequestInterceptor interceptor =
-			new HttpBasicAuthenticationSecurityConfiguration.SecurityAwareClientHttpRequestInterceptor(mockEnvironment);
+		new HttpBasicAuthenticationSecurityConfiguration.SecurityAwareClientHttpRequestInterceptor(mockEnvironment);
 
 		byte[] body = new byte[0];
 
@@ -242,7 +242,7 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 
 	@Test
 	public void securityAwareClientHttpRequestInterceptorWillNotSetHttpRequestHeadersWhenCredentialsAreIncomplete()
-			throws IOException {
+	throws IOException {
 
 		ClientHttpRequestExecution mockExecution = mock(ClientHttpRequestExecution.class);
 
@@ -257,7 +257,7 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 		when(mockHttpRequest.getHeaders()).thenReturn(httpHeaders);
 
 		ClientHttpRequestInterceptor interceptor =
-			new HttpBasicAuthenticationSecurityConfiguration.SecurityAwareClientHttpRequestInterceptor(mockEnvironment);
+		new HttpBasicAuthenticationSecurityConfiguration.SecurityAwareClientHttpRequestInterceptor(mockEnvironment);
 
 		byte[] body = new byte[0];
 
@@ -292,14 +292,15 @@ public class HttpBasicAuthenticationSecurityConfigurationUnitTests {
 
 		final AtomicReference<RestTemplate> restTemplateReference = new AtomicReference<>();
 
-		@Nullable @Override
+		@Nullable
+		@Override
 		protected <T> T invokeMethod(@NonNull Object target, @NonNull String methodName, Object... args) {
 			return super.invokeMethod(target, methodName, args);
 		}
 
 		@Override
 		protected RestTemplate registerInterceptor(RestTemplate restTemplate,
-				ClientHttpRequestInterceptor clientHttpRequestInterceptor) {
+		ClientHttpRequestInterceptor clientHttpRequestInterceptor) {
 
 			this.restTemplateReference.set(super.registerInterceptor(restTemplate, clientHttpRequestInterceptor));
 

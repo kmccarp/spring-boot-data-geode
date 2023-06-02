@@ -50,10 +50,10 @@ public class RegionStatisticsResolver {
 	public static CacheStatistics resolve(Region<?, ?> region) {
 
 		return region != null
-			? PartitionRegionHelper.isPartitionedRegion(region)
-				? new PartitionRegionCacheStatistics(region)
-				: region.getStatistics()
-			: null;
+		? PartitionRegionHelper.isPartitionedRegion(region)
+		? new PartitionRegionCacheStatistics(region)
+		: region.getStatistics()
+		: null;
 	}
 
 	protected static class PartitionRegionCacheStatistics implements CacheStatistics {
@@ -70,8 +70,8 @@ public class RegionStatisticsResolver {
 		protected PartitionRegionCacheStatistics(Region<?, ?> region) {
 
 			Assert.isInstanceOf(PartitionedRegion.class, region, () ->
-				String.format("Region [%1$s] must be of type [%2$s]", RegionUtils.toRegionPath(region),
-					PartitionedRegion.class.getName()));
+			String.format("Region [%1$s] must be of type [%2$s]", RegionUtils.toRegionPath(region),
+		PartitionedRegion.class.getName()));
 
 			this.partitionRegion = computeStatistics((PartitionedRegion) region);
 		}
@@ -88,9 +88,9 @@ public class RegionStatisticsResolver {
 			long totalMissCount = 0L;
 
 			Set<BucketRegion> bucketRegions = Optional.of(region)
-				.map(PartitionedRegion::getDataStore)
-				.map(PartitionedRegionDataStore::getAllLocalBucketRegions)
-				.orElseGet(Collections::emptySet);
+			.map(PartitionedRegion::getDataStore)
+			.map(PartitionedRegionDataStore::getAllLocalBucketRegions)
+			.orElseGet(Collections::emptySet);
 
 			for (BucketRegion bucket : bucketRegions) {
 

@@ -57,13 +57,14 @@ public class GroupsConfigurationIntegrationTests extends IntegrationTestsSupport
 		assertThat(this.gemfireCache.getDistributedSystem()).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getProperties()).isNotNull();
 		assertThat(this.gemfireCache.getDistributedSystem().getProperties().getProperty("groups"))
-			.isEqualTo("MockGroup,TestGroup");
+		.isEqualTo("MockGroup,TestGroup");
 
 	}
 
 	@ClientCacheApplication
 	@EnableGemFireMockObjects
-	@UseGroups({ "MockGroup", "TestGroup" })
-	static class TestConfiguration { }
+	@UseGroups({"MockGroup", "TestGroup"})
+	static class TestConfiguration {
+	}
 
 }

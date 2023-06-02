@@ -47,8 +47,8 @@ public class UserUnitTests {
 	public void withNamePasswordAndRoleReturnsNewUser() {
 
 		User jdoe = User.with("jdoe")
-			.withPassword("p@55w0rd!")
-			.withRole(User.Role.CLUSTER_OPERATOR);
+		.withPassword("p@55w0rd!")
+		.withRole(User.Role.CLUSTER_OPERATOR);
 
 		assertThat(jdoe).isNotNull();
 		assertThat(jdoe.getName()).isEqualTo("jdoe");
@@ -201,6 +201,6 @@ public class UserUnitTests {
 	@Test
 	public void toStringReturnsLowercaseName() {
 		Arrays.stream(User.Role.values())
-			.forEach(role -> assertThat(role.toString()).isEqualTo(role.name().toLowerCase()));
+		.forEach(role -> assertThat(role.toString()).isEqualTo(role.name().toLowerCase()));
 	}
 }

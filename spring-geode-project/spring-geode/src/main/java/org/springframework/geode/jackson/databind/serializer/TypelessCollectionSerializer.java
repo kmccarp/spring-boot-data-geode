@@ -56,18 +56,18 @@ public class TypelessCollectionSerializer extends AsArraySerializerBase<Collecti
 
 	public TypelessCollectionSerializer(ObjectMapper mapper) {
 		super(Collection.class, mapper.getTypeFactory().constructType(Object.class), DEFAULT_STATIC_TYPING,
-			null, null);
+		null, null);
 	}
 
 	public TypelessCollectionSerializer(TypelessCollectionSerializer serializer, BeanProperty property,
-		TypeSerializer typeSerializer, JsonSerializer<?> elementSerializer) {
+	TypeSerializer typeSerializer, JsonSerializer<?> elementSerializer) {
 
 		super(serializer, property, typeSerializer, elementSerializer, DEFAULT_UNWRAP_SINGLE);
 	}
 
 	@Override
 	public void serializeWithType(Collection<?> value, JsonGenerator jsonGenerator,
-			SerializerProvider serializerProvider, TypeSerializer typeSerializer) throws IOException {
+	SerializerProvider serializerProvider, TypeSerializer typeSerializer) throws IOException {
 
 		serialize(value, jsonGenerator, serializerProvider);
 	}
@@ -79,7 +79,7 @@ public class TypelessCollectionSerializer extends AsArraySerializerBase<Collecti
 
 	@Override
 	protected void serializeContents(Collection<?> value, JsonGenerator jsonGenerator,
-			SerializerProvider serializerProvider) throws IOException {
+	SerializerProvider serializerProvider) throws IOException {
 
 		jsonGenerator.setCurrentValue(value);
 
@@ -111,7 +111,7 @@ public class TypelessCollectionSerializer extends AsArraySerializerBase<Collecti
 				}
 			}
 		}
-		catch(Exception cause) {
+		catch (Exception cause) {
 			wrapAndThrow(serializerProvider, cause, value, index);
 		}
 	}
@@ -121,7 +121,7 @@ public class TypelessCollectionSerializer extends AsArraySerializerBase<Collecti
 	}
 
 	private JsonSerializer<Object> resolveSerializer(SerializerProvider serializerProvider, Class<?> type)
-			throws JsonMappingException {
+	throws JsonMappingException {
 
 		JsonSerializer<Object> resolvedSerializer = this._elementSerializer;
 
@@ -133,9 +133,9 @@ public class TypelessCollectionSerializer extends AsArraySerializerBase<Collecti
 
 			if (Objects.isNull(resolvedSerializer)) {
 				resolvedSerializer = Objects.nonNull(this._elementType) && this._elementType.hasGenericTypes()
-					? this._findAndAddDynamic(dynamicSerializers,
-						constructSpecializedType(serializerProvider, this._elementType, type), serializerProvider)
-					: this._findAndAddDynamic(dynamicSerializers, type, serializerProvider);
+				? this._findAndAddDynamic(dynamicSerializers,
+				constructSpecializedType(serializerProvider, this._elementType, type), serializerProvider)
+				: this._findAndAddDynamic(dynamicSerializers, type, serializerProvider);
 
 			}
 		}
@@ -145,7 +145,7 @@ public class TypelessCollectionSerializer extends AsArraySerializerBase<Collecti
 
 	@Override
 	public TypelessCollectionSerializer withResolved(BeanProperty property, TypeSerializer typeSerializer,
-			JsonSerializer<?> elementSerializer, Boolean unwrapSingle) {
+	JsonSerializer<?> elementSerializer, Boolean unwrapSingle) {
 
 		return new TypelessCollectionSerializer(this, property, typeSerializer, elementSerializer);
 	}

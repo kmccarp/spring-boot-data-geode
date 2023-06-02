@@ -62,7 +62,7 @@ public class RepositoryCacheWriterRegionConfigurer<T, ID> implements RegionConfi
 	 * @see #RepositoryCacheWriterRegionConfigurer(CrudRepository, Predicate)
 	 */
 	public static <T, ID> RepositoryCacheWriterRegionConfigurer<T, ID> create(@NonNull CrudRepository<T, ID> repository,
-			@Nullable Predicate<String> regionBeanName) {
+	@Nullable Predicate<String> regionBeanName) {
 
 		return new RepositoryCacheWriterRegionConfigurer<>(repository, regionBeanName);
 	}
@@ -83,7 +83,7 @@ public class RepositoryCacheWriterRegionConfigurer<T, ID> implements RegionConfi
 	 * @see #create(CrudRepository, Predicate)
 	 */
 	public static <T, ID> RepositoryCacheWriterRegionConfigurer<T, ID> create(@NonNull CrudRepository<T, ID> repository,
-			@Nullable String regionBeanName) {
+	@Nullable String regionBeanName) {
 
 		return create(repository, Predicate.isEqual(regionBeanName));
 	}
@@ -106,7 +106,7 @@ public class RepositoryCacheWriterRegionConfigurer<T, ID> implements RegionConfi
 	 * @see java.util.function.Predicate
 	 */
 	public RepositoryCacheWriterRegionConfigurer(@NonNull CrudRepository<T, ID> repository,
-			@Nullable Predicate<String> regionBeanName) {
+	@Nullable Predicate<String> regionBeanName) {
 
 		Assert.notNull(repository, "CrudRepository is required");
 

@@ -76,16 +76,16 @@ public class PurchaseOrder implements Iterable<LineItem> {
 	public Optional<LineItem> findBy(String productName) {
 
 		return StreamSupport.stream(this.spliterator(), false)
-			.filter(item -> item.getProduct().getName().equals(productName))
-			.findFirst();
+		.filter(item -> item.getProduct().getName().equals(productName))
+		.findFirst();
 	}
 
 	public BigDecimal getTotal() {
 
 		return StreamSupport.stream(this.spliterator(), false)
-			.map(LineItem::getTotal)
-			.reduce(BigDecimal::add)
-			.orElse(BigDecimal.ZERO);
+		.map(LineItem::getTotal)
+		.reduce(BigDecimal::add)
+		.orElse(BigDecimal.ZERO);
 	}
 
 	public PurchaseOrder add(@NonNull LineItem lineItem) {
@@ -102,7 +102,8 @@ public class PurchaseOrder implements Iterable<LineItem> {
 		return this;
 	}
 
-	@NonNull @Override
+	@NonNull
+	@Override
 	public Iterator<LineItem> iterator() {
 		return Collections.unmodifiableList(this.lineItems).iterator();
 	}

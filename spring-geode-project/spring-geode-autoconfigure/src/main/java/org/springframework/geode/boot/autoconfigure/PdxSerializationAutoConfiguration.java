@@ -41,8 +41,8 @@ import org.springframework.data.gemfire.config.annotation.EnablePdx;
 @SpringBootConfiguration
 @ConditionalOnBean(GemFireCache.class)
 @ConditionalOnMissingBean(
-	name = { "clientCachePdxConfigurer", "peerCachePdxConfigurer" },
-	type = "org.springframework.data.gemfire.config.support.PdxDiskStoreAwareBeanFactoryPostProcessor"
+name = {"clientCachePdxConfigurer", "peerCachePdxConfigurer"},
+type = "org.springframework.data.gemfire.config.support.PdxDiskStoreAwareBeanFactoryPostProcessor"
 )
 @EnablePdx
 public class PdxSerializationAutoConfiguration {

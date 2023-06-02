@@ -50,13 +50,9 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = {
-		"spring.data.gemfire.logging.level=fine",
-		"spring.data.gemfire.logging.log-disk-space-limit=4096",
-		"spring.data.gemfire.logging.log-file=/path/to/gemfire.log",
-		"spring.data.gemfire.logging.log-file-size-limit=512"
-	},
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = {"spring.data.gemfire.logging.level=fine","spring.data.gemfire.logging.log-disk-space-limit=4096","spring.data.gemfire.logging.log-file=/path/to/gemfire.log","spring.data.gemfire.logging.log-file-size-limit=512"
+},
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class LoggingAutoConfigurationIntegrationTests extends IntegrationTestsSupport {
@@ -80,6 +76,7 @@ public class LoggingAutoConfigurationIntegrationTests extends IntegrationTestsSu
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

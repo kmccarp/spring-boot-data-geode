@@ -76,15 +76,15 @@ import org.springframework.util.Assert;
  */
 @SuppressWarnings("rawtypes")
 public class LifecycleAwareCacheDataImporterExporter implements CacheDataImporterExporter,
-		ApplicationContextAware, EnvironmentAware, InitializingBean, ResourceLoaderAware, SmartLifecycleSupport {
+ApplicationContextAware, EnvironmentAware, InitializingBean, ResourceLoaderAware, SmartLifecycleSupport {
 
 	protected static final int DEFAULT_IMPORT_PHASE = Integer.MIN_VALUE + 1000000;
 
 	protected static final String CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME =
-		"spring.boot.data.gemfire.cache.data.import.lifecycle";
+	"spring.boot.data.gemfire.cache.data.import.lifecycle";
 
 	protected static final String CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME =
-		"spring.boot.data.gemfire.cache.data.import.phase";
+	"spring.boot.data.gemfire.cache.data.import.phase";
 
 	private final AtomicReference<ImportLifecycle> resolvedImportLifecycle = new AtomicReference<>(null);
 	private final AtomicReference<Integer> resolvedImportPhase = new AtomicReference<>(null);
@@ -214,7 +214,7 @@ public class LifecycleAwareCacheDataImporterExporter implements CacheDataImporte
 
 			if (importerExporter instanceof ResourceCapableCacheDataImporterExporter) {
 				((ResourceCapableCacheDataImporterExporter) importerExporter)
-					.setExportResourceResolver(exportResourceResolver);
+				.setExportResourceResolver(exportResourceResolver);
 			}
 		}
 	}
@@ -237,7 +237,7 @@ public class LifecycleAwareCacheDataImporterExporter implements CacheDataImporte
 
 			if (importerExporter instanceof ResourceCapableCacheDataImporterExporter) {
 				((ResourceCapableCacheDataImporterExporter) importerExporter)
-					.setImportResourceResolver(importResourceResolver);
+				.setImportResourceResolver(importResourceResolver);
 			}
 		}
 	}
@@ -257,7 +257,8 @@ public class LifecycleAwareCacheDataImporterExporter implements CacheDataImporte
 	 * @see org.apache.geode.cache.Region
 	 * @see java.util.Set
 	 */
-	@NonNull Set<Region> getRegionsForImport() {
+	@NonNull
+	Set<Region> getRegionsForImport() {
 		return this.regionsForImport;
 	}
 
@@ -324,7 +325,8 @@ public class LifecycleAwareCacheDataImporterExporter implements CacheDataImporte
 	/**
 	 * @inheritDoc
 	 */
-	@NonNull @Override
+	@NonNull
+	@Override
 	public Region exportFrom(@NonNull Region region) {
 		return getCacheDataImporterExporter().exportFrom(region);
 	}
@@ -332,7 +334,8 @@ public class LifecycleAwareCacheDataImporterExporter implements CacheDataImporte
 	/**
 	 * @inheritDoc
 	 */
-	@NonNull @Override
+	@NonNull
+	@Override
 	public Region importInto(@NonNull Region region) {
 
 		if (resolveImportLifecycle().isEager()) {
@@ -357,11 +360,11 @@ public class LifecycleAwareCacheDataImporterExporter implements CacheDataImporte
 	protected ImportLifecycle resolveImportLifecycle() {
 
 		return resolvedImportLifecycle.updateAndGet(currentValue -> currentValue != null ? currentValue
-			: getEnvironment()
-				.map(env -> env.getProperty(CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME, String.class,
-					ImportLifecycle.getDefault().name()))
-				.map(ImportLifecycle::from)
-				.orElseGet(ImportLifecycle::getDefault));
+		: getEnvironment()
+		.map(env -> env.getProperty(CACHE_DATA_IMPORT_LIFECYCLE_PROPERTY_NAME, String.class,
+	ImportLifecycle.getDefault().name()))
+		.map(ImportLifecycle::from)
+		.orElseGet(ImportLifecycle::getDefault));
 	}
 
 	/**
@@ -374,9 +377,9 @@ public class LifecycleAwareCacheDataImporterExporter implements CacheDataImporte
 	protected int resolveImportPhase() {
 
 		return resolvedImportPhase.updateAndGet(currentValue -> currentValue != null ? currentValue
-			: getEnvironment()
-				.map(env -> env.getProperty(CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME, Integer.class, DEFAULT_IMPORT_PHASE))
-				.orElse(DEFAULT_IMPORT_PHASE));
+		: getEnvironment()
+		.map(env -> env.getProperty(CACHE_DATA_IMPORT_PHASE_PROPERTY_NAME, Integer.class, DEFAULT_IMPORT_PHASE))
+		.orElse(DEFAULT_IMPORT_PHASE));
 	}
 
 	/**

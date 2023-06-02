@@ -90,26 +90,26 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 	}
 
 	private volatile Function<ConfigurableApplicationContext, ConfigurableApplicationContext> applicationContextFunction =
-		Function.identity();
+	Function.identity();
 
 	private volatile Function<ConfigurableApplicationContext, ConfigurableApplicationContext> mockServletContextFunction =
-		applicationContext -> {
+	applicationContext -> {
 
-			Optional.ofNullable(applicationContext)
-				.filter(ConfigurableWebApplicationContext.class::isInstance)
-				.map(ConfigurableWebApplicationContext.class::cast)
-				.ifPresent(it -> it.setServletContext(new MockServletContext()));
+		Optional.ofNullable(applicationContext)
+	.filter(ConfigurableWebApplicationContext.class::isInstance)
+	.map(ConfigurableWebApplicationContext.class::cast)
+	.ifPresent(it -> it.setServletContext(new MockServletContext()));
 
-			return applicationContext;
-		};
+		return applicationContext;
+	};
 
 	private volatile Function<SpringApplicationBuilder, SpringApplicationBuilder> springApplicationBuilderFunction =
-		Function.identity();
+	Function.identity();
 
 	private Function<SpringApplicationBuilder, SpringApplicationBuilder> newSpringBootSessionPropertiesConfigurationFunction() {
 
 		return springApplicationBuilder ->
-			springApplicationBuilder.properties(singletonProperties("spring.session.timeout", "300s"));
+		springApplicationBuilder.properties(singletonProperties("spring.session.timeout", "300s"));
 	}
 
 	private Function<ConfigurableApplicationContext, ConfigurableApplicationContext> newSpringSessionGemFirePropertiesConfigurationFunction() {
@@ -117,13 +117,13 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 		return applicationContext -> {
 
 			PropertySource<?> springSessionGemFireProperties = new MockPropertySource("TestSpringSessionGemFireProperties")
-				.withProperty(springSessionPropertyName("cache.client.region.shortcut"), "LOCAL")
-				.withProperty(springSessionPropertyName("session.attributes.indexable"), "one, two")
-				.withProperty(springSessionPropertyName("session.expiration.max-inactive-interval-seconds"), "600")
-				.withProperty(springSessionPropertyName("cache.client.pool.name"), "MockPool")
-				.withProperty(springSessionPropertyName("session.region.name"), "MockRegion")
-				.withProperty(springSessionPropertyName("cache.server.region.shortcut"), "REPLICATE")
-				.withProperty(springSessionPropertyName("session.serializer.bean-name"), "MockSessionSerializer");
+			.withProperty(springSessionPropertyName("cache.client.region.shortcut"), "LOCAL")
+			.withProperty(springSessionPropertyName("session.attributes.indexable"), "one, two")
+			.withProperty(springSessionPropertyName("session.expiration.max-inactive-interval-seconds"), "600")
+			.withProperty(springSessionPropertyName("cache.client.pool.name"), "MockPool")
+			.withProperty(springSessionPropertyName("session.region.name"), "MockRegion")
+			.withProperty(springSessionPropertyName("cache.server.region.shortcut"), "REPLICATE")
+			.withProperty(springSessionPropertyName("session.serializer.bean-name"), "MockSessionSerializer");
 
 			applicationContext.getEnvironment().getPropertySources().addFirst(springSessionGemFireProperties);
 
@@ -134,14 +134,14 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 	private Function<SpringApplicationBuilder, SpringApplicationBuilder> newWebServerSessionPropertiesConfigurationFunction() {
 
 		return springApplicationBuilder ->
-			springApplicationBuilder.properties(singletonProperties("server.servlet.session.timeout", "3600s"));
+		springApplicationBuilder.properties(singletonProperties("server.servlet.session.timeout", "3600s"));
 	}
 
 	@Override
 	protected SpringApplicationBuilder processBeforeBuild(SpringApplicationBuilder springApplicationBuilder) {
 
 		return this.springApplicationBuilderFunction.apply(springApplicationBuilder)
-			.contextFactory(ApplicationContextFactory.ofContextClass(GenericWebApplicationContext.class));
+		.contextFactory(ApplicationContextFactory.ofContextClass(GenericWebApplicationContext.class));
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 		this.applicationContextFunction = newSpringSessionGemFirePropertiesConfigurationFunction();
 
 		this.springApplicationBuilderFunction = newSpringBootSessionPropertiesConfigurationFunction()
-			.andThen(newWebServerSessionPropertiesConfigurationFunction());
+		.andThen(newWebServerSessionPropertiesConfigurationFunction());
 
 		newApplicationContext(TestConfiguration.class, SpringSessionGemFireConfigurerTestConfiguration.class);
 
@@ -173,24 +173,24 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 		assertThat(sessionConfiguration).isNotNull();
 
 		assertThat(ObjectUtils.<ClientRegionShortcut>invoke(sessionConfiguration, "getClientRegionShortcut"))
-			.isEqualTo(ClientRegionShortcut.CACHING_PROXY);
+		.isEqualTo(ClientRegionShortcut.CACHING_PROXY);
 
 		assertThat(ObjectUtils.<String[]>invoke(sessionConfiguration, "getIndexableSessionAttributes"))
-			.contains("two", "four");
+		.contains("two", "four");
 
 		assertThat(ObjectUtils.<Integer>invoke(sessionConfiguration, "getMaxInactiveIntervalInSeconds"))
-			.isEqualTo(900);
+		.isEqualTo(900);
 
 		assertThat(ObjectUtils.<String>invoke(sessionConfiguration, "getPoolName")).isEqualTo("TestPool");
 
 		assertThat(ObjectUtils.<RegionShortcut>invoke(sessionConfiguration, "getServerRegionShortcut"))
-			.isEqualTo(RegionShortcut.PARTITION_REDUNDANT_PERSISTENT_OVERFLOW);
+		.isEqualTo(RegionShortcut.PARTITION_REDUNDANT_PERSISTENT_OVERFLOW);
 
 		assertThat(ObjectUtils.<String>invoke(sessionConfiguration, "getSessionRegionName"))
-			.isEqualTo("TestRegion");
+		.isEqualTo("TestRegion");
 
 		assertThat(ObjectUtils.<String>invoke(sessionConfiguration, "getSessionSerializerBeanName"))
-			.isEqualTo("TestSessionSerializer");
+		.isEqualTo("TestSessionSerializer");
 	}
 
 	@Test
@@ -199,7 +199,7 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 		this.applicationContextFunction = newSpringSessionGemFirePropertiesConfigurationFunction();
 
 		this.springApplicationBuilderFunction = newSpringBootSessionPropertiesConfigurationFunction()
-			.andThen(newWebServerSessionPropertiesConfigurationFunction());
+		.andThen(newWebServerSessionPropertiesConfigurationFunction());
 
 		newApplicationContext(TestConfiguration.class);
 
@@ -208,31 +208,31 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 		assertThat(sessionConfiguration).isNotNull();
 
 		assertThat(ObjectUtils.<ClientRegionShortcut>invoke(sessionConfiguration, "getClientRegionShortcut"))
-			.isEqualTo(ClientRegionShortcut.LOCAL);
+		.isEqualTo(ClientRegionShortcut.LOCAL);
 
 		assertThat(ObjectUtils.<String[]>invoke(sessionConfiguration, "getIndexableSessionAttributes"))
-			.contains("one", "two");
+		.contains("one", "two");
 
 		assertThat(ObjectUtils.<Integer>invoke(sessionConfiguration, "getMaxInactiveIntervalInSeconds"))
-			.isEqualTo(600);
+		.isEqualTo(600);
 
 		assertThat(ObjectUtils.<String>invoke(sessionConfiguration, "getPoolName")).isEqualTo("MockPool");
 
 		assertThat(ObjectUtils.<RegionShortcut>invoke(sessionConfiguration, "getServerRegionShortcut"))
-			.isEqualTo(RegionShortcut.REPLICATE);
+		.isEqualTo(RegionShortcut.REPLICATE);
 
 		assertThat(ObjectUtils.<String>invoke(sessionConfiguration, "getSessionRegionName"))
-			.isEqualTo("MockRegion");
+		.isEqualTo("MockRegion");
 
 		assertThat(ObjectUtils.<String>invoke(sessionConfiguration, "getSessionSerializerBeanName"))
-			.isEqualTo("MockSessionSerializer");
+		.isEqualTo("MockSessionSerializer");
 	}
 
 	@Test
 	public void springSessionExpirationTimeoutConfiguredWithSpringBootProperties() {
 
 		this.springApplicationBuilderFunction = newSpringBootSessionPropertiesConfigurationFunction()
-			.andThen(newWebServerSessionPropertiesConfigurationFunction());
+		.andThen(newWebServerSessionPropertiesConfigurationFunction());
 
 		newApplicationContext(TestConfiguration.class);
 
@@ -241,7 +241,7 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 		assertThat(sessionConfiguration).isNotNull();
 
 		assertThat(ObjectUtils.<Integer>invoke(sessionConfiguration, "getMaxInactiveIntervalInSeconds"))
-			.isEqualTo(300);
+		.isEqualTo(300);
 	}
 
 	@Test
@@ -256,7 +256,7 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 		assertThat(sessionConfiguration).isNotNull();
 
 		assertThat(ObjectUtils.<Integer>invoke(sessionConfiguration, "getMaxInactiveIntervalInSeconds"))
-			.isEqualTo(3600);
+		.isEqualTo(3600);
 	}
 
 	//@SpringBootApplication
@@ -302,7 +302,7 @@ public class CustomConfiguredSessionCachingIntegrationTests extends SpringBootAp
 
 				@Override
 				public String[] getIndexableSessionAttributes() {
-					return new String[] { "two", "four" };
+					return new String[]{"two", "four"};
 				}
 
 				@Override

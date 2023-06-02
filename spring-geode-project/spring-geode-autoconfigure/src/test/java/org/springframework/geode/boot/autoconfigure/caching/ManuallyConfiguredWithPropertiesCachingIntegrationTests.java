@@ -46,8 +46,8 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	properties = "spring.cache.type=none",
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+properties = "spring.cache.type=none",
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class ManuallyConfiguredWithPropertiesCachingIntegrationTests extends IntegrationTestsSupport {
@@ -65,6 +65,7 @@ public class ManuallyConfiguredWithPropertiesCachingIntegrationTests extends Int
 
 	@SpringBootApplication
 	@EnableGemFireMockObjects
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

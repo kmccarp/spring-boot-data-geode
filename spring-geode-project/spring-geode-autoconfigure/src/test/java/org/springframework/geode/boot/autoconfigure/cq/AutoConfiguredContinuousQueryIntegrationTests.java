@@ -78,8 +78,8 @@ import example.geode.query.cq.event.TemperatureReadingsContinuousQueriesHandler;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = AutoConfiguredContinuousQueryIntegrationTests.GemFireClientConfiguration.class,
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = AutoConfiguredContinuousQueryIntegrationTests.GemFireClientConfiguration.class,
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class AutoConfiguredContinuousQueryIntegrationTests extends ForkingClientServerIntegrationTestsSupport {
@@ -105,12 +105,12 @@ public class AutoConfiguredContinuousQueryIntegrationTests extends ForkingClient
 	public void setup() {
 
 		assertThat(this.temperatureReadingsTemplate.<Long, TemperatureReading>get(1L))
-			.isEqualTo(TemperatureReading.of(99));
+		.isEqualTo(TemperatureReading.of(99));
 
 		assertThat(this.temperatureReadings.sizeOnServer()).isEqualTo(8);
 
 		this.temperatureReadings.keySetOnServer().forEach(key ->
-			assertThat(this.temperatureReadings.get(key)).isNotEqualTo(0));
+		assertThat(this.temperatureReadings.get(key)).isNotEqualTo(0));
 	}
 
 	@Test
@@ -129,7 +129,7 @@ public class AutoConfiguredContinuousQueryIntegrationTests extends ForkingClient
 		public ClientRegionFactoryBean<Long, TemperatureReading> temperatureReadingsRegion(GemFireCache gemfireCache) {
 
 			ClientRegionFactoryBean<Long, TemperatureReading> temperatureReadingsRegion =
-				new ClientRegionFactoryBean<>();
+			new ClientRegionFactoryBean<>();
 
 			temperatureReadingsRegion.setCache(gemfireCache);
 			temperatureReadingsRegion.setShortcut(ClientRegionShortcut.PROXY);
@@ -157,7 +157,7 @@ public class AutoConfiguredContinuousQueryIntegrationTests extends ForkingClient
 		public static void main(String[] args) {
 
 			AnnotationConfigApplicationContext applicationContext =
-				new AnnotationConfigApplicationContext(GemFireServerConfiguration.class);
+			new AnnotationConfigApplicationContext(GemFireServerConfiguration.class);
 
 			applicationContext.registerShutdownHook();
 		}
@@ -166,7 +166,7 @@ public class AutoConfiguredContinuousQueryIntegrationTests extends ForkingClient
 		public PartitionedRegionFactoryBean<Long, TemperatureReading> temperatureReadingsRegion(GemFireCache gemfireCache) {
 
 			PartitionedRegionFactoryBean<Long, TemperatureReading> temperatureReadingsRegion =
-				new PartitionedRegionFactoryBean<>();
+			new PartitionedRegionFactoryBean<>();
 
 			temperatureReadingsRegion.setCache(gemfireCache);
 			temperatureReadingsRegion.setCacheLoader(temperatureReadingsLoader());
@@ -181,7 +181,7 @@ public class AutoConfiguredContinuousQueryIntegrationTests extends ForkingClient
 
 				@Override
 				public TemperatureReading load(LoaderHelper<Long, TemperatureReading> helper)
-						throws CacheLoaderException {
+				throws CacheLoaderException {
 
 					long key = helper.getKey();
 
@@ -199,7 +199,7 @@ public class AutoConfiguredContinuousQueryIntegrationTests extends ForkingClient
 				}
 
 				private void recordTemperature(Region<Long, TemperatureReading> temperatureReadings,
-						long key, int temperature) {
+				long key, int temperature) {
 
 					sleep(50);
 					temperatureReadings.put(key, TemperatureReading.of(temperature));
@@ -215,7 +215,8 @@ public class AutoConfiguredContinuousQueryIntegrationTests extends ForkingClient
 				}
 
 				@Override
-				public void close() { }
+				public void close() {
+				}
 
 			};
 		}

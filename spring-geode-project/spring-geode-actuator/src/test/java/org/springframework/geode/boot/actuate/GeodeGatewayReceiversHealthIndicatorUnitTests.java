@@ -76,15 +76,15 @@ public class GeodeGatewayReceiversHealthIndicatorUnitTests {
 	public void healthCheckCapturesDetails() throws Exception {
 
 		GatewayReceiver mockGatewayReceiverOne = GatewayMockObjects.mockGatewayReceiver("10.101.112.1",
-			8192, "CardboardBox", "Mailbox", false, 15000,
-			4096, true, null, 16384, 1024);
+		8192, "CardboardBox", "Mailbox", false, 15000,
+		4096, true, null, 16384, 1024);
 
 		GatewayReceiver mockGatewayReceiverTwo = GatewayMockObjects.mockGatewayReceiver("10.101.112.4",
-			8192, "Skullbox", "PostOfficeBox", true, 5000,
-			8192, false, null, 65536, 1024);
+		8192, "Skullbox", "PostOfficeBox", true, 5000,
+		8192, false, null, 65536, 1024);
 
 		Set<GatewayReceiver> mockGatewayReceivers =
-			new TreeSet<>(Comparator.comparing(GatewayReceiver::getBindAddress));
+		new TreeSet<>(Comparator.comparing(GatewayReceiver::getBindAddress));
 
 		mockGatewayReceivers.addAll(asSet(mockGatewayReceiverOne, mockGatewayReceiverTwo));
 
@@ -115,7 +115,7 @@ public class GeodeGatewayReceiversHealthIndicatorUnitTests {
 		assertThat(healthDetails).containsEntry("geode.gateway-receiver.1.bind-address", "10.101.112.4");
 		assertThat(healthDetails).containsEntry("geode.gateway-receiver.1.end-port", 8192);
 		assertThat(healthDetails).containsEntry("geode.gateway-receiver.1.host", "Skullbox");
-		assertThat(healthDetails).containsEntry("geode.gateway-receiver.1.max-time-between-pings",5000);
+		assertThat(healthDetails).containsEntry("geode.gateway-receiver.1.max-time-between-pings", 5000);
 		assertThat(healthDetails).containsEntry("geode.gateway-receiver.1.port", 8192);
 		assertThat(healthDetails).containsEntry("geode.gateway-receiver.1.running", "No");
 		assertThat(healthDetails).containsEntry("geode.gateway-receiver.1.socket-buffer-size", 65536);
@@ -127,8 +127,8 @@ public class GeodeGatewayReceiversHealthIndicatorUnitTests {
 	private void testHealthCheckFailsWhenGemFireCacheIsInvalid(GemFireCache gemfireCache) throws Exception {
 
 		GeodeGatewayReceiversHealthIndicator healthIndicator = gemfireCache != null
-			? new GeodeGatewayReceiversHealthIndicator(gemfireCache)
-			: new GeodeGatewayReceiversHealthIndicator();
+		? new GeodeGatewayReceiversHealthIndicator(gemfireCache)
+		: new GeodeGatewayReceiversHealthIndicator();
 
 		Health.Builder builder = new Health.Builder();
 

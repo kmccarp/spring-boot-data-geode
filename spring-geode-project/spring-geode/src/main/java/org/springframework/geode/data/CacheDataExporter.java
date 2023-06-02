@@ -64,6 +64,7 @@ public interface CacheDataExporter extends DestructionAwareBeanPostProcessor {
 	 * @return the given {@link Region}.
 	 * @see org.apache.geode.cache.Region
 	 */
-	@NonNull Region exportFrom(@NonNull Region region);
+	@NonNull
+	Region exportFrom(@NonNull Region region);
 
 }

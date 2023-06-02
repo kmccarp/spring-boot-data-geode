@@ -123,7 +123,7 @@ public class SingleResultReturningCollectorUnitTests {
 		assertThat(this.resultCollector.getResult()).isNull();
 
 		this.resultCollector.addResult(this.mockDistributedMember,
-			Arrays.asList(Arrays.asList(listOne, listTwo), listThree));
+		Arrays.asList(Arrays.asList(listOne, listTwo), listThree));
 
 		assertThat(this.resultCollector.getResult()).isEqualTo("one");
 	}

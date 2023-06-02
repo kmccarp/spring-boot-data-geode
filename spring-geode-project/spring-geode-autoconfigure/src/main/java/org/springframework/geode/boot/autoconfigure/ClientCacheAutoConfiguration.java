@@ -41,8 +41,8 @@ import org.springframework.data.gemfire.config.annotation.ClientCacheApplication
  * @since 1.0.0
  */
 @SpringBootConfiguration
-@ConditionalOnClass({ ClientCacheFactoryBean.class, ClientCache.class })
-@ConditionalOnMissingBean({ GemFireCache.class, Locator.class })
+@ConditionalOnClass({ClientCacheFactoryBean.class, ClientCache.class})
+@ConditionalOnMissingBean({GemFireCache.class, Locator.class})
 @ClientCacheApplication
 public class ClientCacheAutoConfiguration {
 

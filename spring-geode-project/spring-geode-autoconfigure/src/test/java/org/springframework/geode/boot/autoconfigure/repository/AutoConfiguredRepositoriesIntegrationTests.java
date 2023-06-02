@@ -98,6 +98,7 @@ public class AutoConfiguredRepositoriesIntegrationTests extends IntegrationTests
 
 	@SpringBootApplication
 	@EnableEntityDefinedRegions(basePackageClasses = Customer.class, clientRegionShortcut = ClientRegionShortcut.LOCAL)
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

@@ -74,13 +74,14 @@ import example.app.golf.model.Golfer;
 public class CacheDataExportAutoConfigurationIntegrationTests extends ClientServerIntegrationTestsSupport {
 
 	private static final File GEODE_WORKING_DIRECTORY =
-		new File(String.format("cache-data-export-%d", System.currentTimeMillis()));
+	new File(String.format("cache-data-export-%d", System.currentTimeMillis()));
 
 	private static ProcessWrapper process;
 
 	private static final String DATA_GOLFERS_JSON = "data-golfers.json";
 
-	@BeforeClass @AfterClass
+	@BeforeClass
+	@AfterClass
 	public static void resetClusterAwareCondition() {
 		ClusterAwareConfiguration.ClusterAwareCondition.reset();
 	}
@@ -91,7 +92,7 @@ public class CacheDataExportAutoConfigurationIntegrationTests extends ClientServ
 		System.setProperty(DIRECTORY_DELETE_ON_EXIT_PROPERTY, Boolean.FALSE.toString());
 
 		process = run(GEODE_WORKING_DIRECTORY, TestGeodeConfiguration.class,
-			"-Dspring.profiles.active=EXPORT", "-Dspring.boot.data.gemfire.cache.data.export.enabled=true");
+		"-Dspring.profiles.active=EXPORT", "-Dspring.boot.data.gemfire.cache.data.export.enabled=true");
 
 		assertThat(process).isNotNull();
 
@@ -134,10 +135,10 @@ public class CacheDataExportAutoConfigurationIntegrationTests extends ClientServ
 	private void assertContains(Iterable<Golfer> golfers, Golfer golfer) {
 
 		assertThat(StreamSupport.stream(golfers.spliterator(), false)
-			.anyMatch(it -> it.getId().equals(golfer.getId())
-				&& it.getName().equals(golfer.getName())
-				&& it.getHandicap().equals(golfer.getHandicap())))
-			.isTrue();
+		.anyMatch(it -> it.getId().equals(golfer.getId())
+	&& it.getName().equals(golfer.getName())
+	&& it.getHandicap().equals(golfer.getHandicap())))
+		.isTrue();
 	}
 
 	private Set<Golfer> mapFromJsonToGolfers(String json) throws Exception {
@@ -147,8 +148,8 @@ public class CacheDataExportAutoConfigurationIntegrationTests extends ClientServ
 	private ObjectMapper newObjectMapper() {
 
 		return new ObjectMapper()
-			.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
-			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
+		.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
 	@Profile("EXPORT")
@@ -161,9 +162,9 @@ public class CacheDataExportAutoConfigurationIntegrationTests extends ClientServ
 		public static void main(String[] args) {
 
 			new SpringApplicationBuilder(TestGeodeConfiguration.class)
-				.web(WebApplicationType.NONE)
-				.build()
-				.run(args);
+			.web(WebApplicationType.NONE)
+			.build()
+			.run(args);
 		}
 
 		private static void log(String message, Object... args) {

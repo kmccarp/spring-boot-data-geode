@@ -75,9 +75,9 @@ import example.app.crm.service.CustomerService;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-	classes = ClusterAvailableConfigurationIntegrationTests.GeodeClientApplication.class,
-	properties = { "spring.data.gemfire.management.use-http=false" },
-	webEnvironment = SpringBootTest.WebEnvironment.NONE
+classes = ClusterAvailableConfigurationIntegrationTests.GeodeClientApplication.class,
+properties = {"spring.data.gemfire.management.use-http=false"},
+webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @SuppressWarnings("unused")
 public class ClusterAvailableConfigurationIntegrationTests extends ForkingClientServerIntegrationTestsSupport {
@@ -118,15 +118,15 @@ public class ClusterAvailableConfigurationIntegrationTests extends ForkingClient
 	public void assertRegionConfigurationOnServers() {
 
 		GemfireAdminOperations adminOperations = new RestHttpGemfireAdminTemplate.Builder()
-			.with(this.clientCache)
-			.on("localhost")
-			.listenOn(Integer.getInteger(GEMFIRE_CACHE_SERVER_PORT_PROPERTY, CacheServer.DEFAULT_PORT))
-			.build();
+		.with(this.clientCache)
+		.on("localhost")
+		.listenOn(Integer.getInteger(GEMFIRE_CACHE_SERVER_PORT_PROPERTY, CacheServer.DEFAULT_PORT))
+		.build();
 
 		assertThat(adminOperations).isNotNull();
 
 		assertThat(adminOperations.getAvailableServerRegions())
-			.containsExactlyInAnyOrder("Customers", "CustomersByName", "Example");
+		.containsExactlyInAnyOrder("Customers", "CustomersByName", "Example");
 	}
 
 	private void assertRegion(Region<?, ?> region, String name, DataPolicy dataPolicy, String poolName) {
@@ -169,7 +169,7 @@ public class ClusterAvailableConfigurationIntegrationTests extends ForkingClient
 		public static void main(String[] args) {
 
 			AnnotationConfigApplicationContext applicationContext =
-				new AnnotationConfigApplicationContext(GeodeServerApplication.class);
+			new AnnotationConfigApplicationContext(GeodeServerApplication.class);
 
 			applicationContext.registerShutdownHook();
 		}

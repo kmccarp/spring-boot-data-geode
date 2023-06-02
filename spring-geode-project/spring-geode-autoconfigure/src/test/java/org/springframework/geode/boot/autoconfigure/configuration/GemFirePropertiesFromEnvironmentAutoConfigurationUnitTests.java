@@ -67,7 +67,7 @@ import org.slf4j.Logger;
 public class GemFirePropertiesFromEnvironmentAutoConfigurationUnitTests {
 
 	private final TestEnvironmentSourcedGemFirePropertiesAutoConfiguration configuration =
-		spy(new TestEnvironmentSourcedGemFirePropertiesAutoConfiguration());
+	spy(new TestEnvironmentSourcedGemFirePropertiesAutoConfiguration());
 
 	@Test
 	public void clientCacheGemFirePropertiesConfigurerCallsConfigureGemFireProperties() {
@@ -77,17 +77,17 @@ public class GemFirePropertiesFromEnvironmentAutoConfigurationUnitTests {
 		ConfigurableEnvironment mockEnvironment = mock(ConfigurableEnvironment.class);
 
 		doNothing().when(this.configuration)
-			.configureGemFireProperties(any(ConfigurableEnvironment.class), any(CacheFactoryBean.class));
+		.configureGemFireProperties(any(ConfigurableEnvironment.class), any(CacheFactoryBean.class));
 
 		ClientCacheConfigurer clientCacheConfigurer =
-			this.configuration.clientCacheGemFirePropertiesConfigurer(mockEnvironment);
+		this.configuration.clientCacheGemFirePropertiesConfigurer(mockEnvironment);
 
 		assertThat(clientCacheConfigurer).isNotNull();
 
 		clientCacheConfigurer.configure("MockCacheBeanName", mockClientCacheFactoryBean);
 
 		verify(this.configuration, times(1))
-			.configureGemFireProperties(eq(mockEnvironment), eq(mockClientCacheFactoryBean));
+		.configureGemFireProperties(eq(mockEnvironment), eq(mockClientCacheFactoryBean));
 	}
 
 	@Test
@@ -98,39 +98,39 @@ public class GemFirePropertiesFromEnvironmentAutoConfigurationUnitTests {
 		ConfigurableEnvironment mockEnvironment = mock(ConfigurableEnvironment.class);
 
 		doNothing().when(this.configuration)
-			.configureGemFireProperties(any(ConfigurableEnvironment.class), any(CacheFactoryBean.class));
+		.configureGemFireProperties(any(ConfigurableEnvironment.class), any(CacheFactoryBean.class));
 
 		PeerCacheConfigurer peerCacheConfigurer =
-			this.configuration.peerCacheGemFirePropertiesConfigurer(mockEnvironment);
+		this.configuration.peerCacheGemFirePropertiesConfigurer(mockEnvironment);
 
 		assertThat(peerCacheConfigurer).isNotNull();
 
 		peerCacheConfigurer.configure("MockCacheBeanName", mockPeerCacheFactoryBean);
 
 		verify(this.configuration, times(1))
-			.configureGemFireProperties(eq(mockEnvironment), eq(mockPeerCacheFactoryBean));
+		.configureGemFireProperties(eq(mockEnvironment), eq(mockPeerCacheFactoryBean));
 	}
 
 	@Test
 	public void configuresGemFirePropertiesCorrectlyAndSafely() {
 
 		Map<String, Object> gemfirePropertiesOne = MapBuilder.<String, Object>newMapBuilder()
-			.put("gemfire.cache-xml-file", "/path/to/cache.xml")
-			.put("gemfire.name", "TestName")
-			.put("gemfire.non-existing-property", "TEST")
-			.put("geode.enforce-unique-host", "true")
-			.put("enable-time-statistics", "true")
-			.put("junk.test-property", "MOCK")
-			.build();
+		.put("gemfire.cache-xml-file", "/path/to/cache.xml")
+		.put("gemfire.name", "TestName")
+		.put("gemfire.non-existing-property", "TEST")
+		.put("geode.enforce-unique-host", "true")
+		.put("enable-time-statistics", "true")
+		.put("junk.test-property", "MOCK")
+		.build();
 
 		Map<String, Object> gemfirePropertiesTwo = MapBuilder.<String, Object>newMapBuilder()
-			.put("gemfire.groups", "MockGroup,TestGroup")
-			.put("gemfire.mcast-port", " ")
-			.put("gemfire.remote-locators", "hellbox[666]")
-			.put("mock-property", "MOCK")
-			.put("  ", "BLANK")
-			.put("", "EMPTY")
-			.build();
+		.put("gemfire.groups", "MockGroup,TestGroup")
+		.put("gemfire.mcast-port", " ")
+		.put("gemfire.remote-locators", "hellbox[666]")
+		.put("mock-property", "MOCK")
+		.put("  ", "BLANK")
+		.put("", "EMPTY")
+		.build();
 
 		CacheFactoryBean mockCacheFactoryBean = mock(CacheFactoryBean.class);
 
@@ -173,7 +173,7 @@ public class GemFirePropertiesFromEnvironmentAutoConfigurationUnitTests {
 			String propertyName = invocation.getArgument(0);
 
 			return gemfirePropertiesOne.getOrDefault(propertyName,
-				gemfirePropertiesTwo.getOrDefault(propertyName, null));
+			gemfirePropertiesTwo.getOrDefault(propertyName, null));
 
 		}).when(mockEnvironment).getProperty(anyString());
 
@@ -188,9 +188,9 @@ public class GemFirePropertiesFromEnvironmentAutoConfigurationUnitTests {
 		assertThat(actualGemFireProperties.getProperty("remote-locators")).isEqualTo("skullbox[12345]");
 
 		verify(mockLogger, times(1))
-			.warn(eq("[gemfire.non-existing-property] is not a valid Apache Geode property"));
+		.warn(eq("[gemfire.non-existing-property] is not a valid Apache Geode property"));
 		verify(mockLogger, times(1))
-			.warn(eq("Apache Geode Property [{}] was not set"), eq("mcast-port"));
+		.warn(eq("Apache Geode Property [{}] was not set"), eq("mcast-port"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -227,7 +227,7 @@ public class GemFirePropertiesFromEnvironmentAutoConfigurationUnitTests {
 
 		@Override
 		protected void configureGemFireProperties(@NonNull ConfigurableEnvironment environment,
-				@NonNull CacheFactoryBean bean) {
+		@NonNull CacheFactoryBean bean) {
 
 			super.configureGemFireProperties(environment, bean);
 		}

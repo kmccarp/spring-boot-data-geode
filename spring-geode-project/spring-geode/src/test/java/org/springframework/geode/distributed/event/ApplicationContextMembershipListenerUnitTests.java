@@ -49,7 +49,7 @@ public class ApplicationContextMembershipListenerUnitTests {
 		ConfigurableApplicationContext mockApplicationContext = mock(ConfigurableApplicationContext.class);
 
 		ApplicationContextMembershipListener listener =
-			new ApplicationContextMembershipListener(mockApplicationContext);
+		new ApplicationContextMembershipListener(mockApplicationContext);
 
 		assertThat(listener).isNotNull();
 		assertThat(listener.getApplicationContext()).isEqualTo(mockApplicationContext);
@@ -80,7 +80,7 @@ public class ApplicationContextMembershipListenerUnitTests {
 		MemberDepartedEvent mockEvent = mock(MemberDepartedEvent.class);
 
 		ApplicationContextMembershipListener listener =
-			spy(new ApplicationContextMembershipListener(mockApplicationContext));
+		spy(new ApplicationContextMembershipListener(mockApplicationContext));
 
 		listener.handleMemberDeparted(mockEvent);
 
@@ -96,7 +96,7 @@ public class ApplicationContextMembershipListenerUnitTests {
 		MemberJoinedEvent mockEvent = mock(MemberJoinedEvent.class);
 
 		ApplicationContextMembershipListener listener =
-			spy(new ApplicationContextMembershipListener(mockApplicationContext));
+		spy(new ApplicationContextMembershipListener(mockApplicationContext));
 
 		listener.handleMemberJoined(mockEvent);
 

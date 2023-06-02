@@ -55,13 +55,14 @@ public class SpringBootApacheGeodeClientCacheApplication {
 	public static void main(String[] args) {
 
 		new SpringApplicationBuilder(SpringBootApacheGeodeClientCacheApplication.class)
-			.web(WebApplicationType.NONE)
-			.build()
-			.run(args);
+		.web(WebApplicationType.NONE)
+		.build()
+		.run(args);
 	}
 
 	@UseMemberName("SpringBootApacheGeodeClientCacheApplication")
-	static class GeodeConfiguration { }
+	static class GeodeConfiguration {
+	}
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -76,15 +77,15 @@ public class SpringBootApacheGeodeClientCacheApplication {
 
 			Assert.notNull(environment, "Environment is required");
 			Assert.isTrue(ArrayUtils.isEmpty(ArrayUtils.nullSafeArray(environment.getActiveProfiles(), String.class)),
-				"Expected Active Profiles to be empty");
+			"Expected Active Profiles to be empty");
 			Assert.isTrue(Arrays.asList(ArrayUtils.nullSafeArray(environment.getDefaultProfiles(), String.class))
-					.contains("default"), "Expected Default Profiles to contain 'default'");
+			.contains("default"), "Expected Default Profiles to contain 'default'");
 
 			ClientCache clientCache = applicationContext.getBean(ClientCache.class);
 
 			Assert.notNull(clientCache, "ClientCache is expected");
 			Assert.isTrue(SpringBootApacheGeodeClientCacheApplication.class.getSimpleName().equals(clientCache.getName()),
-				"ClientCache.name is not correct");
+			"ClientCache.name is not correct");
 
 			this.logger.info("Application assertions successful!");
 		};

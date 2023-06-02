@@ -72,8 +72,9 @@ public class RepositoryCacheWriterUnitTests {
 	public void setup() {
 
 		this.cacheWriter = new RepositoryCacheWriter<>(this.mockCrudRepository)
-			.with(this.mockEnvironment);
+		.with(this.mockEnvironment);
 	}
+
 	@Test
 	public void beforeCreateSavesEntityWithRepository() {
 
@@ -113,12 +114,12 @@ public class RepositoryCacheWriterUnitTests {
 		RegionEvent<Object, Object> mockRegionEvent = mock(RegionEvent.class);
 
 		when(this.mockEnvironment.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY),
-			eq(Boolean.class))).thenReturn(true);
+		eq(Boolean.class))).thenReturn(true);
 
 		this.cacheWriter.beforeRegionClear(mockRegionEvent);
 
 		verify(this.mockEnvironment, times(1))
-			.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY), eq(Boolean.class));
+		.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY), eq(Boolean.class));
 
 		verify(this.mockCrudRepository, times(1)).deleteAll();
 
@@ -131,12 +132,12 @@ public class RepositoryCacheWriterUnitTests {
 		RegionEvent<Object, Object> mockRegionEvent = mock(RegionEvent.class);
 
 		when(this.mockEnvironment.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY),
-			eq(Boolean.class))).thenReturn(false);
+		eq(Boolean.class))).thenReturn(false);
 
 		this.cacheWriter.beforeRegionClear(mockRegionEvent);
 
 		verify(this.mockEnvironment, times(1))
-			.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY), eq(Boolean.class));
+		.getProperty(eq(RepositoryCacheLoaderWriterSupport.NUKE_AND_PAVE_PROPERTY), eq(Boolean.class));
 
 		verify(this.mockCrudRepository, never()).deleteAll();
 

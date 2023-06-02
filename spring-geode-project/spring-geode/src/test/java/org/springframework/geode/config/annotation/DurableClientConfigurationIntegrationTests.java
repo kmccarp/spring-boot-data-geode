@@ -75,7 +75,7 @@ public class DurableClientConfigurationIntegrationTests extends IntegrationTests
 	public static void closeApplicationContext() {
 
 		Optional.ofNullable(applicationContext)
-			.ifPresent(ConfigurableApplicationContext::close);
+		.ifPresent(ConfigurableApplicationContext::close);
 
 		assertThat(clientCache).isNotNull();
 
@@ -109,6 +109,7 @@ public class DurableClientConfigurationIntegrationTests extends IntegrationTests
 	@ClientCacheApplication
 	@EnableGemFireMockObjects
 	@EnableDurableClient(id = "abc123", timeout = 600)
-	static class TestConfiguration { }
+	static class TestConfiguration {
+	}
 
 }

@@ -53,7 +53,7 @@ public abstract class GeodeAssertions {
 
 		if (!type.isInstance(target)) {
 			throw new AssertionError(String.format("[%1$s] is not an instance of [%2$s]",
-				nullSafeTypeName(target), nullSafeTypeName(type)));
+			nullSafeTypeName(target), nullSafeTypeName(type)));
 		}
 	}
 
@@ -61,7 +61,7 @@ public abstract class GeodeAssertions {
 
 		if (type.isInstance(target)) {
 			throw new AssertionError(String.format("[%1%s] is an instance of [%2$s]",
-				nullSafeTypeName(target), nullSafeTypeName(type)));
+			nullSafeTypeName(target), nullSafeTypeName(type)));
 		}
 	}
 

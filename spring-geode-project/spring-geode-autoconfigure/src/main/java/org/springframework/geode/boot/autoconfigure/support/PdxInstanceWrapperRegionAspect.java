@@ -62,23 +62,28 @@ public class PdxInstanceWrapperRegionAspect {
 	}
 
 	@Pointcut("target(org.apache.geode.cache.Region)")
-	private void regionPointcut() { }
+	private void regionPointcut() {
+	}
 
 	@Pointcut("execution(* org.apache.geode.cache.Region.get(..))")
-	private void regionGetPointcut() { }
+	private void regionGetPointcut() {
+	}
 
 	@Pointcut("execution(* org.apache.geode.cache.Region.getAll(..))")
-	private void regionGetAllPointcut() { }
+	private void regionGetAllPointcut() {
+	}
 
 	@Pointcut("execution(* org.apache.geode.cache.Region.getEntry(..))")
-	private void regionGetEntryPointcut() { }
+	private void regionGetEntryPointcut() {
+	}
 
 	@Pointcut("execution(* org.apache.geode.cache.Region.selectValue(..))")
 	private void regionSelectValuePointcut() {
 	}
 
 	@Pointcut("execution(* org.apache.geode.cache.Region.values())")
-	private void regionValuesPointcut() { }
+	private void regionValuesPointcut() {
+	}
 
 	@Around("regionPointcut() && regionGetPointcut()")
 	public Object regionGetAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -88,7 +93,7 @@ public class PdxInstanceWrapperRegionAspect {
 	@Around("regionPointcut() && regionGetAllPointcut()")
 	public Object regionGetAllAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
 		return asMap(joinPoint.proceed()).entrySet().stream()
-			.collect(Collectors.toMap(Map.Entry::getKey, mapEntry -> PdxInstanceWrapper.from(mapEntry.getValue())));
+		.collect(Collectors.toMap(Map.Entry::getKey, mapEntry -> PdxInstanceWrapper.from(mapEntry.getValue())));
 	}
 
 	@Around("regionPointcut() && regionGetEntryPointcut()")
@@ -105,8 +110,8 @@ public class PdxInstanceWrapperRegionAspect {
 	public Object regionValuesAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		return asCollection(joinPoint.proceed()).stream()
-			.map(PdxInstanceWrapper::from)
-			.collect(Collectors.toList());
+		.map(PdxInstanceWrapper::from)
+		.collect(Collectors.toList());
 	}
 
 	public static class RegionEntryWrapper<K, V> implements Region.Entry<K, V> {
@@ -115,8 +120,8 @@ public class PdxInstanceWrapperRegionAspect {
 		public static <T, K, V> T from(T value) {
 
 			return value instanceof Region.Entry
-				? (T) new RegionEntryWrapper<>((Region.Entry<K, V>) value)
-				: value;
+			? (T) new RegionEntryWrapper<>((Region.Entry<K, V>) value)
+			: value;
 		}
 
 		private final Region.Entry<K, V> delegate;

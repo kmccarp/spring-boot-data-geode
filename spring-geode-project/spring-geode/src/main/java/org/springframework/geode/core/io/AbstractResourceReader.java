@@ -42,19 +42,19 @@ public abstract class AbstractResourceReader implements ResourceReader {
 	public @NonNull byte[] read(@NonNull Resource resource) {
 
 		return Optional.ofNullable(resource)
-			.filter(this::isAbleToHandle)
-			.map(this::preProcess)
-			.map(it -> {
-				try (InputStream in = it.getInputStream()) {
-					return doRead(in);
-				}
-				catch (IOException cause) {
-					throw new ResourceReadException(String.format("Failed to read from Resource [%s]",
-						it.getDescription()), cause);
-				}
-			})
-			.orElseThrow(() -> new UnhandledResourceException(String.format("Unable to handle Resource [%s]",
-				ResourceUtils.nullSafeGetDescription(resource))));
+		.filter(this::isAbleToHandle)
+		.map(this::preProcess)
+		.map(it -> {
+			try (InputStream in = it.getInputStream()) {
+				return doRead(in);
+			}
+			catch (IOException cause) {
+				throw new ResourceReadException(String.format("Failed to read from Resource [%s]",
+			it.getDescription()), cause);
+			}
+		})
+		.orElseThrow(() -> new UnhandledResourceException(String.format("Unable to handle Resource [%s]",
+	ResourceUtils.nullSafeGetDescription(resource))));
 	}
 
 	/**

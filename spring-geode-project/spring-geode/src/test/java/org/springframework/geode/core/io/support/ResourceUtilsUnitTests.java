@@ -147,10 +147,10 @@ public class ResourceUtilsUnitTests {
 	public void isNotEmptyWithNonEmptyByteArrayReturnsTrue() {
 
 		byte[] array = {
-			(byte) 0xCA,
-			(byte) 0xFE,
-			(byte) 0xBA,
-			(byte) 0xBE
+		(byte) 0xCA,
+		(byte) 0xFE,
+		(byte) 0xBA,
+		(byte) 0xBE
 		};
 
 		assertThat(ResourceUtils.isNotEmpty(array)).isTrue();

@@ -130,7 +130,7 @@ public class AbstractObjectArrayToJsonConverterUnitTests {
 	}
 
 	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void convertMapIsNullSafe() {
 
 		String json = "[]";
