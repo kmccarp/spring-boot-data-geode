@@ -230,7 +230,7 @@ public class AsyncInlineCachingRegionConfigurerWithUserDefinedAsyncEventOperatio
 							(RepositoryAsyncEventListener<Process, Long>) listener;
 
 						repositoryListener.register(
-							new AbstractAsyncEventOperationRepositoryFunction<Process, Long>(repositoryListener) {
+							new AbstractAsyncEventOperationRepositoryFunction<>(repositoryListener) {
 
 								@Override
 								public boolean canProcess(@Nullable AsyncEvent<Long, Process> event) {
