@@ -433,7 +433,7 @@ public class JsonCacheDataImporterExporterIntegrationTests extends SpringApplica
 
 		exportEnabledSupplier = () -> false;
 		importEnabledSupplier = () -> true;
-		importResourceResolverSupplier = () -> (ImportResourceResolver) region -> Optional.of(mockResource);
+		importResourceResolverSupplier = ResourceCapableCacheDataImporterExporter.ImportResourceResolver.class::cast;
 
 		example = getExampleRegion(newApplicationContext(TestGeodeConfiguration.class,
 			TestImportResourceResolverGeodeConfiguration.class));
